@@ -3,8 +3,14 @@
     "browser": true,
     "node": true
   },
-  "extends": ["plugin:prettier/recommended"],
+  "extends": "next/core-web-vitals",
+  "settings": {
+    "next": {
+      "rootDir": "packages/*/"
+    }
+  },
   "rules": {
-    "prettier/prettier": ["error"]
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
   }
 }

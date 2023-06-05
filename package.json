@@ -16,9 +16,9 @@
     "@types/react-dom": "18.2.4",
     "antd": "^5.5.2",
     "autoprefixer": "^10.4.14",
+    "axios": "^1.4.0",
     "dayjs": "^1.11.8",
-    "eslint": "8.42.0",
-    "eslint-config-next": "13.4.4",
+    "eslint-config-next": "^13.4.4",
     "next": "13.4.4",
     "postcss": "^8.4.24",
     "react": "18.2.0",
@@ -32,8 +32,13 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.4.4",
     "@types/react-query": "^1.2.9",
     "@types/react-time-picker": "^6.0.0",
-    "@types/yup": "^0.32.0"
+    "@types/yup": "^0.32.0",
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0"
   }
 }

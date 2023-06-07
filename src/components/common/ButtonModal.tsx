@@ -1,21 +1,13 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import { ButtonModalProps } from '@/types/common'
+import { useEffect } from 'react'
 
-interface ButtonModalProps {
-  modalContents: {
-    content: string,
-    confirmText: string,
-    cancelText?:string,
-    confirmFn?: () => any,
-    cancelFn?:  () => any
-  }
-  isOpen:boolean;
-  setIsOpen:Dispatch<SetStateAction<boolean>>
-}
+
+
 function ButtonModal({modalContents, isOpen, setIsOpen}:ButtonModalProps) {
   const {content, confirmText, cancelText, confirmFn, cancelFn} = modalContents
-  
+
   useEffect(()=>{
     document.body.style.overflow = isOpen ? 'hidden' : 'initial'
   },[isOpen])

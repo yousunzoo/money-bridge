@@ -11,17 +11,17 @@ function FixedButton() {
 
   const status = () => {
     if (getRole() === CommonROLE.USER) {
-      router.push("/reservationPage");
+      router.push("/reservation");
     } else if (getRole() === CommonROLE.PB) {
       // 프로필 수정, 저장, 콘텐츠 작성 페이지로 이동
-      if (pathname === "/detailPage") {
-        router.push("/detailPage/edit");
+      if (pathname === "/detail") {
+        router.push("/detail/edit");
       }
-      if (pathname === "/detailPage/edit") {
-        router.push("/detailPage");
+      if (pathname === "/detail/edit") {
+        router.push("/detail");
       }
-      if (pathname === "/detailPage/content") {
-        router.push("/loungePage/write");
+      if (pathname === "/detail/content") {
+        router.push("/lounge/write");
       }
     }
   };
@@ -30,13 +30,13 @@ function FixedButton() {
   if (getRole() === CommonROLE.USER) {
     text = "상담 신청하기";
   } else if (getRole() === CommonROLE.PB) {
-    if (pathname === "/detailPage") {
+    if (pathname === "/detail") {
       text = "프로필 수정하기";
     }
-    if (pathname === "/detailPage/edit") {
+    if (pathname === "/detail/edit") {
       text = "프로필 저장하기";
     }
-    if (pathname === "/detailPage/content") {
+    if (pathname === "/detail/content") {
       text = "콘텐츠 작성하기";
     }
   }

@@ -1,9 +1,9 @@
 ---
-name: PR template
+name: pull_request_template
 about: PR template
 title: ''
 labels: ''
-assignees: ''
+assignees: kjungit
 
 ---
 

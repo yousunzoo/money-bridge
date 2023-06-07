@@ -1,11 +1,27 @@
 'use client'
 
-import { useState } from 'react'
+import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
+import ModalOverlay from './ModalOverlay';
 
-function OneButtonModal() {
-  const [mounted, setMounted] = useState(false)
+interface OneButtonModalProps {
+  children: ReactNode;
+  isOpen:boolean;
+  setIsOpen:Dispatch<SetStateAction<boolean>>
+}
+function OneButtonModal({children, isOpen, setIsOpen}:OneButtonModalProps) {
+  const portalDiv = document.getElementById('#modal-root')
+
+  useEffect(()=>{
+    document.body.style.overflow = isOpen ? 'hidden' : 'initial'
+  },[isOpen])
+  if(!isOpen) return
   return (
-    <div>OneButtonModal</div>
+    <div className='fixed top-0 left-0 w-full h-full'>
+      <ModalOverlay />
+      <div className='absolute w-80 h-60 p-4 bg-white rounded-xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+        <p>{children}</p>
+      </div>
+    </div>
   )
 }
 

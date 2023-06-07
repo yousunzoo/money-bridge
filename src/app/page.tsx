@@ -1,7 +1,8 @@
-import OneButtonModal from "@/components/common/OneButtonModal";
+import Test from "@/components/Test";
 
 export default async function Home() {
-  return <>
-  <OneButtonModal />
-  </>;
+ 
+  return (<>
+  <Test />
+  </>);
 }

@@ -12,8 +12,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={noto.className}>
-        <main>{children}</main>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          <main>{children}</main>
+        </ReactQueryProvider>
       </body>
     </html>
   );

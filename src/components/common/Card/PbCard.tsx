@@ -3,11 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-interface PbCardProps {
-  props: any[];
-}
-
-function PbCard({ props }: PbCardProps) {
+function PbCard({ props }: any) {
   const router = useRouter();
   const [isBookmark, setIsBookmark] = useState(false);
 
@@ -19,7 +15,7 @@ function PbCard({ props }: PbCardProps) {
   return (
     <>
       {props.map((item: any) => (
-        <div id={item._id} key={item._id}>
+        <div id={item.id} key={item.id}>
           <div>
             <div>
               <Image src={item.profile} alt="프로필" width={100} height={100} />
@@ -43,7 +39,7 @@ function PbCard({ props }: PbCardProps) {
               <div>{item.reservCount} 상담횟수</div>
               <div>{item.reviewCount} 후기</div>
             </div>
-            <button onClick={() => router.push(`/detailPage/${item._id}`)}>정보보기</button>
+            <button onClick={() => router.push(`/detailPage/${item.id}`)}>정보보기</button>
           </div>
         </div>
       ))}

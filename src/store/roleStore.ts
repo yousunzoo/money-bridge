@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface RoleState {
   role: string;
@@ -8,14 +8,20 @@ interface RoleState {
 }
 const RoleState = create<RoleState>(
   // @ts-ignore
-  (persist as IUsePersistStore)((set, get) => ({
-    role: localStorage.getItem("role") || "",
-    setRole: (role: string) => {
-      localStorage.setItem("role", role);
-      set({ role });
+  persist(
+    (set, get) => ({
+      role: localStorage.getItem("role") || "",
+      setRole: (role: string) => {
+        localStorage.setItem("role", JSON.stringify(role));
+        set({ role });
+      },
+      getRole: () => get().role,
+    }),
+    {
+      name: "role",
+      storage: createJSONStorage(() => localStorage),
     },
-    getRole: () => get().role,
-  })),
+  ),
 );
 
 export const useRoleStore = () => RoleState(state => state);

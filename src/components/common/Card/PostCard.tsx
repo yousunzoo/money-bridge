@@ -1,12 +1,19 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 function PostCard({ props }: any) {
+  const router = useRouter();
+  const [isBookmark, setIsBookmark] = useState(false);
+  const bookMark = () => {
+    setIsBookmark(!isBookmark);
+    // 북마크 여부에 따라 추가,삭제 api호출
+  };
   return (
     <>
       {props ? (
         props.map((item: any) => (
-          <div id={item.id} key={item.id}>
+          <div id={item.id} key={item.id} onClick={() => router.push(`/loungePage/content/${item.id}`)}>
             <div>
               <div>
                 <div>
@@ -16,7 +23,7 @@ function PostCard({ props }: any) {
                 </div>
                 <div>{item.title}제목</div>
               </div>
-              <button>북마크</button>
+              <button onClick={bookMark}>북마크</button>
             </div>
             <div>
               <div>

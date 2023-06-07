@@ -1,7 +1,8 @@
+"use client";
 import React from "react";
 import { useRoleStore } from "@/store/roleStore";
 import { CommonROLE } from "@/constants/enum";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function FixedButton() {
   const { getRole } = useRoleStore();
@@ -9,14 +10,14 @@ function FixedButton() {
 
   const status = () => {
     if (getRole() === CommonROLE.USER) {
-      router.push('/reservationPage');
+      router.push("/reservationPage");
     } else if (getRole() === CommonROLE.PB) {
       // 프로필 수정, 저장, 콘텐츠 작성 페이지로 이동
       if (router.asPath === "/detailPage") {
-        router.push('/detailPage/edit');
+        router.push("/detailPage/edit");
       }
-      if(router.asPath === "/detailPage/edit") {
-        router.push('/detailPage');
+      if (router.asPath === "/detailPage/edit") {
+        router.push("/detailPage");
       }
       if (router.asPath === "/detailPage/content") {
         router.push("/loungePage/write");
@@ -38,7 +39,7 @@ function FixedButton() {
       text = "콘텐츠 작성하기";
     }
   }
-  
+
   return (
     <>
       <button onClick={status}>{text}</button>

@@ -12,7 +12,10 @@ function PbItem({ key, router }: any) {
 
   return (
     <>
-      <div id={key.id} key={key.id}>
+      <div
+        className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md"
+        key={key.id}
+      >
         <div>
           <div>
             <Image src={key.profile} alt="프로필" width={100} height={100} />

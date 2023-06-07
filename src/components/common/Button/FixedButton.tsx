@@ -42,9 +42,11 @@ function FixedButton() {
   }
 
   return (
-    <>
-      <button onClick={status}>{text}</button>
-    </>
+    <div className="flex h-full w-full items-end">
+      <button className="flex justify-center items-center h-16 w-full rounded-t-3xl bg-black text-2xl text-white" onClick={status}>
+        {text}
+      </button>
+    </div>
   );
 }
 

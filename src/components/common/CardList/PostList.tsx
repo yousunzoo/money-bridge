@@ -5,13 +5,17 @@ import PostItem from "../CardItem/PostItem";
 
 function PostList({ props }: any) {
   const router = useRouter();
+  const prop = props?.data?.list;
+  console.log(prop);
 
   return (
     <>
-      {props ? (
-        props.map((item: any) => <PostItem key={item} router={router} />)
+      {prop ? (
+        prop.map((item: any) => <PostItem key={item} router={router} />)
       ) : (
-        <div>작성한 콘텐츠가 없습니다</div>
+        <div className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">
+          작성한 콘텐츠가 없습니다
+        </div>
       )}
     </>
   );

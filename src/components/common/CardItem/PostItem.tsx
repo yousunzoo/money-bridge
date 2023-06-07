@@ -10,27 +10,31 @@ function PostItem({ key, router }: any) {
   };
   return (
     <>
-      <div id={key.id} key={key.id} onClick={() => router.push(`/loungePage/content/${key.id}`)}>
+      <div
+        className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md"
+        key={key?.id}
+        onClick={() => router.push(`/loungePage/content/${key.id}`)}
+      >
         <div>
           <div>
             <div>
-              {key.tag1}
-              {key.tag2}
+              {key?.tag1}
+              {key?.tag2}
               태그
             </div>
-            <div>{key.title}제목</div>
+            <div>{key?.title}제목</div>
           </div>
           <button onClick={bookMark}>북마크</button>
         </div>
         <div>
           <div>
             <div>
-              {key.pbName}/{key.career}이름/경력
+              {key?.pbName}/{key?.career}이름/경력
             </div>
-            <div>{key.msg}한줄 소개</div>
+            <div>{key?.msg}한줄 소개</div>
           </div>
           <div>
-            <Image src={key.companyLogo} alt="증권사로고" />
+            <Image src={key?.companyLogo} alt="증권사로고" />
           </div>
         </div>
       </div>

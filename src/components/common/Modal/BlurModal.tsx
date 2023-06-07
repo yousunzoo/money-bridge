@@ -8,7 +8,7 @@ function BlurModal() {
   return (
     <div>
       <div>회원가입을 하시면 더 많은 정보를 볼 수 있어요!</div>
-      <button onClick={() => router.push("/joinPage")}>회원가입</button>
+      <button onClick={() => router.push("/join")}>회원가입</button>
     </div>
   );
 }

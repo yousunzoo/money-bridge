@@ -13,7 +13,7 @@ export interface ButtonModalProps {
 }
 
 export interface IBubbleSectionProps {
-  step: number;
+  step: 0 | 1 | 2 | 3 | 4 | 5;
   answers: {
     0: string[] | null;
     1: string | null;

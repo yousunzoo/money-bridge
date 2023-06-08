@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import PostCardItem from "../CardItem/PostCardItem";
+import PostCardItem from "@/components/common/Card/CardItem/PostCardItem";
 
-function PostCardList(props: any) {
+function PostCardList({props}: any) {
   
   return (
     <ul>

@@ -6,6 +6,10 @@ import { useEffect } from "react";
 function ButtonModal({ modalContents, isOpen, setIsOpen }: ButtonModalProps) {
   const { content, confirmText, cancelText, confirmFn, cancelFn } = modalContents;
 
+  // 버튼이 몇개인지,
+  // 모달 내용은 무엇인지,
+  // 각 버튼에는 어떤 내용이 들어가야하는지
+  // 각 버튼을 클릭할 때마다 어떤 함수가 실행되어야 하는지
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "initial";
   }, [isOpen]);

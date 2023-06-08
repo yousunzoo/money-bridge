@@ -6,7 +6,7 @@ function ReviewCardList(props: { reviewList: ReviewList }) {
   const { reviewList } = props;
 
   return (
-    <div>
+    <ul>
       {reviewList &&
         reviewList.map(item => (
           <ReviewCardItem
@@ -17,7 +17,7 @@ function ReviewCardList(props: { reviewList: ReviewList }) {
             createdAt={item.createdAt}
           />
         ))}
-    </div>
+    </ul>
   );
 }
 

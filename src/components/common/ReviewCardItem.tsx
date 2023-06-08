@@ -8,7 +8,7 @@ function ReviewCardItem({ profileImage, userName, content, createdAt }: ReviewCa
   const formattedDate = date.format("YYYY.MM.DD");
 
   return (
-    <div className="mx-auto flex max-w-md overflow-hidden rounded-md bg-white p-4 shadow-md">
+    <li className="mx-auto flex max-w-md overflow-hidden rounded-md bg-white p-4 shadow-md">
       <div className="pr-4">
         <Image
           src={profileImage}
@@ -23,7 +23,7 @@ function ReviewCardItem({ profileImage, userName, content, createdAt }: ReviewCa
         <p className="text-gray-700">{content}</p>
         <span className="pt-8 text-xs font-medium">{formattedDate}</span>
       </div>
-    </div>
+    </li>
   );
 }
 

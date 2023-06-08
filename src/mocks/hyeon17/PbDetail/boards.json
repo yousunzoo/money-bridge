@@ -1,0 +1,86 @@
+{
+  "status": "200",
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요"
+      },
+      {
+        "id": 2,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요"
+      },
+      {
+        "id": 3,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요"
+      },
+      {
+        "id": 4,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요"
+      },
+      {
+        "id": 5,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요"
+      },
+      {
+        "id": 6,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요"
+      },
+      {
+        "id": 7,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요"
+      },
+      {
+        "id": 8,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요"
+      }
+    ],
+    "totalElements": 8,
+    "totalPages": 1,
+    "curPage": 1,
+    "first": false,
+    "last": false,
+    "empty": false
+  }
+}

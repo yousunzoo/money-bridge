@@ -2,8 +2,9 @@ import { IQuestions } from "@/types/reservation";
 import reservationQuestions from "@/constants/reservationQuestions.json";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import { IBubbleSectionProps } from "@/types/common";
+import LocationCard from "../common/LocationCard";
 
-function BubbleSection({ step, answers, setAnswers, moveToNextStep }: IBubbleSectionProps) {
+function BubbleSection({ step, pbStation, consultTime, answers, setAnswers, moveToNextStep }: IBubbleSectionProps) {
   const questions: IQuestions = reservationQuestions;
   const { question, intro1, intro2, intro3, sub, options } = questions[step];
   const [isMovable, setIsMovable] = useState(false);
@@ -11,6 +12,7 @@ function BubbleSection({ step, answers, setAnswers, moveToNextStep }: IBubbleSec
   const [tempAns, setTempAns] = useState<string[]>([]);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const questionRef = useRef<HTMLDivElement | null>(null);
+
   const introMent = intro1?.includes("ans")
     ? step === 1
       ? intro1.replace("ans", (answers[0] as string[]).join(", "))
@@ -80,7 +82,6 @@ function BubbleSection({ step, answers, setAnswers, moveToNextStep }: IBubbleSec
           <p className="text-lg font-semibold">{question}</p>
           {sub && <p className="mt-4">{sub}</p>}
         </div>
-
         <div className="flex flex-col gap-3">
           {isChoosable &&
             options.map((option, idx) => (
@@ -98,6 +99,14 @@ function BubbleSection({ step, answers, setAnswers, moveToNextStep }: IBubbleSec
             </button>
           )}
         </div>
+        {pbStation && (
+          <div>
+            <p>PB 소속 지점 위치</p>
+            <p>{pbStation.branchName}</p>
+            <p>{pbStation.branchAddress}</p>
+            <LocationCard lat={pbStation.branchLatitude} lng={pbStation.branchLongitude} closeButton={false} />
+          </div>
+        )}
       </div>
       <div ref={questionRef}></div>
       {!answers[step] && <div className="grow"></div>}

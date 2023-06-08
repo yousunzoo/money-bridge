@@ -1,0 +1,35 @@
+{
+  "status": "200",
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "title": "제목입니다1",
+        "content": "본문입니다~~",
+        "createdAt": "2023-05-05",
+        "updatedAt": "2023-05-05"
+      },
+      {
+        "id": 2,
+        "title": "제목입니다2",
+        "content": "본문입니다~~",
+        "createdAt": "2023-05-05",
+        "updatedAt": null
+      },
+      {
+        "id": 3,
+        "title": "제목입니다3",
+        "content": "본문입니다~~",
+        "createdAt": "2023-05-05",
+        "updatedAt": "2023-05-05"
+      }
+    ],
+    "totalElements": 3,
+    "totalPages": 1,
+    "curPage": 0,
+    "first": false,
+    "last": false,
+    "empty": false
+  }
+}

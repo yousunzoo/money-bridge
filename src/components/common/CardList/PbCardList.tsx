@@ -1,17 +1,15 @@
 "use client";
 import React from "react";
-import { useRouter } from "next/navigation";
-
 import PbCardItem from "@/components/common/CardItem/PbCardItem";
-function PbCardList({ props }: any) {
-  const router = useRouter();
 
+function PbCardList(props: any) {
+  
   return (
-    <>
+    <ul>
       {props.map((item: any) => (
-        <PbCardItem key={item} router={router} />
+        <PbCardItem key={item.id} item={item}/>
       ))}
-    </>
+    </ul>
   );
 }
 

@@ -1,48 +1,50 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-function PbCardItem({ key, router }: any) {
-  const [isBookmark, setIsBookmark] = useState(false);
+function PbCardItem(item: any) {
+  const router = useRouter();
+  const [isBookmark, setIsBookmark] = useState(item.isBookmark);
 
   const bookMark = () => {
     setIsBookmark(!isBookmark);
     // 북마크 여부에 따라 추가, 삭제 api호출
   };
 
+  const goToDetail = () => {
+    router.push(`/detailPage/${item.id}`);
+  };
+
   return (
-    <>
-      <div className="mx-auto my-4 flex flex-col h-48 w-4/5 rounded-xl shadow-md" key={key?.id}>
+      <li className="mx-auto my-4 flex h-48 w-4/5 flex-col rounded-xl shadow-md">
         <div className="flex">
           <div>
-            <Image src={key?.profile} alt="프로필" width={100} height={100} />
-            프로필
+            {/* <Image src={item.profile} alt="프로필" width={50} height={50} /> */}
           </div>
           <div className="flex flex-col">
-            <div>{key?.name}이름</div>
-            <div>{key?.companyName} 소속</div>
+            <div>이름{item.name}</div>
+            <div>소속{item.companyName}</div>
             <div>
-              {key?.career}
-              경력
-              {key?.speciality1}
-              전문분야1
-              {key?.speciality2? key?.speciality2 : null}
-              전문분야2
+              전문분야/경력
+              {item.speciality1}
+              {item.speciality2 ? item.speciality2 : null}
+              {item.career}
             </div>
-            <div>{key?.roadAddress? key?.roadAddress : key?.streetAddress}사무실 위치</div>
-          </div>
-          <button onClick={bookMark}>{key?.isBookmark ? "북마크 해제" : "북마크"}</button>
+            <div>사무실 위치{item.roadAddress ? item.roadAddress : item.streetAddress}</div>
         </div>
-        <div>{key?.intro} 한줄 소개</div>
+        {/* 비로그인시 안보여야함 나중에 수정 */}
+          <button onClick={bookMark}>{item.isBookmark ? "북마크 해제" : "북마크"}</button>
+        </div>
+        <div>{item.intro}</div>
         <div className="flex">
           <div className="flex">
-            <div>{key?.reservCount} 상담횟수</div>
-            <div>{key?.reviewCount} 후기</div>
+            <div>총 상담횟수 {item.reservCount}회</div>
+            <div>후기 {item.reviewCount}건</div>
           </div>
-          <button onClick={() => router.push(`/detailPage/${key?.id}`)}>정보보기</button>
+          <button onClick={goToDetail}>정보보기</button>
         </div>
-      </div>
-    </>
+      </li>
   );
 }
 

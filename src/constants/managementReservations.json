@@ -1,0 +1,22 @@
+{
+  "data": {
+    "reservationList": [
+      {
+        "pbId": 1,
+        "isBookmarked": false,
+        "profileImage": "URL",
+        "name": "김민환",
+        "phoneNumber": "010-1234-5678",
+        "email": "kkk123@gmail.com",
+        "reservationId": 1,
+        "candidateTime1": "2023-05-15T09:00:00",
+        "candidateTime2": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "location": "미래에셋증권 용산 WM점",
+        "goal1": "자산관리",
+        "goal2": "투자 상품 추천",
+        "question": "잘 부탁드립니다."
+      }
+    ]
+  }
+}

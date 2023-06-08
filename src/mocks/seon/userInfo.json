@@ -1,0 +1,9 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "name": "김투자",
+    "phoneNumber": "01012345678",
+    "email": "investor@naver.com"
+  }
+}

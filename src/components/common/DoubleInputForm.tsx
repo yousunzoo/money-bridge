@@ -16,7 +16,9 @@ function DoubleInputForm({ type }: { type: string }) {
   });
   const noticeFirst = useRef<HTMLSpanElement>(null);
   const noticeSecond = useRef<HTMLSpanElement>(null);
+  const submitButton = useRef<HTMLButtonElement>(null);
   const { first, second } = inputs;
+  const inputType = type === "login" ? "password" : type === "findEmail" ? "number" : "text";
 
   const schema = yup.object().shape({
     first: type === "login" ? yup_email : yup_name,
@@ -45,8 +47,15 @@ function DoubleInputForm({ type }: { type: string }) {
     noticeSecond.current?.classList.remove("text-red-600");
   }
 
+  if (!errors.first && !errors.second) {
+    submitButton.current?.classList.remove("bg-gray-300");
+    submitButton.current?.classList.add("bg-black");
+  } else {
+    submitButton.current?.classList.add("bg-gray-300");
+    submitButton.current?.classList.remove("bg-black");
+  }
+
   const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
-    console.log(e.target.name);
     const { value, name } = e.target;
     setInputs({
       ...inputs,
@@ -77,13 +86,13 @@ function DoubleInputForm({ type }: { type: string }) {
         </div>
         <div className="mb-[10px]">
           <h2 className="mb-[20px] font-bold">{getNotice(type)?.data.header2}</h2>
-          <input type="password" className="formInput" {...register("second")} value={second} />
+          <input type={inputType} className="formInput" {...register("second")} value={second} />
           <span className="text-xs text-slate-300" ref={noticeSecond}>
             {getNotice(type)?.data.notice2}
           </span>
         </div>
         {/* <button type="submit" className="h-[40px] w-full bg-gray-300 "> */}
-        <button type="button" className="h-[40px] w-full bg-gray-300" onClick={onSubmit}>
+        <button type="button" className="h-[40px] w-full bg-gray-300" onClick={onSubmit} ref={submitButton}>
           <span className="text-xs font-semibold text-slate-400">{getNotice(type)?.data.submit}</span>
         </button>
       </form>
@@ -103,6 +112,7 @@ const getNotice = (type: string) => {
           notice1: "* @포함하여 작성해 주세요.",
           notice2: "* 8자 이상입니다.",
           submit: "로그인",
+          func: "",
         },
       };
     case "findEmail":
@@ -110,9 +120,10 @@ const getNotice = (type: string) => {
         data: {
           header1: "이름",
           header2: "휴대폰 번호",
-          notice1: "정확한 이름을 입력해주세요",
-          notice2: "-자 없이 숫자로만 적어주세요",
+          notice1: "* 정확한 이름을 입력해주세요",
+          notice2: "* -자 없이 숫자로만 적어주세요",
           submit: "확인",
+          func: "",
         },
       };
     case "findPassword":
@@ -120,9 +131,10 @@ const getNotice = (type: string) => {
         data: {
           header1: "이름",
           header2: "이메일",
-          notice1: "정확한 이름을 입력해주세요",
+          notice1: "* 정확한 이름을 입력해주세요",
           notice2: "* @포함하여 작성해 주세요.",
           submit: "인증코드 받기",
+          func: "",
         },
       };
   }

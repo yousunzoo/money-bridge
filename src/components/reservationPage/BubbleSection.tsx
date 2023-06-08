@@ -9,8 +9,13 @@ function BubbleSection({ step, answers, setAnswers, moveToNextStep }: IBubbleSec
   const [isMovable, setIsMovable] = useState(false);
   const [isChoosable, setChoosable] = useState(true);
   const [tempAns, setTempAns] = useState<string[]>([]);
-  const sectionRef = useRef(null);
-  // const;
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const questionRef = useRef<HTMLDivElement | null>(null);
+  const introMent = intro1?.includes("ans")
+    ? step === 1
+      ? intro1.replace("ans", (answers[0] as string[]).join(", "))
+      : intro1.replace("ans", answers[(step - 1) as 0 | 1 | 2 | 3 | 4 | 5] as string)
+    : intro1;
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>, option: string) => {
     if (step !== 0) {
@@ -36,14 +41,16 @@ function BubbleSection({ step, answers, setAnswers, moveToNextStep }: IBubbleSec
     }
   };
   useEffect(() => {
-    if (!sectionRef.current) return;
-    if (step === 0) return;
-    // section 로드될 때마다 해당 위치로 스크롤
-    sectionRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }, [sectionRef]);
+    if (!sectionRef.current || !questionRef.current) return;
+
+    if (!isChoosable) {
+      sectionRef.current.classList.remove("h-screen");
+      questionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [sectionRef, questionRef, isChoosable]);
 
   const handleNextButton = () => {
     setAnswers({ ...answers, 0: tempAns });
@@ -52,10 +59,10 @@ function BubbleSection({ step, answers, setAnswers, moveToNextStep }: IBubbleSec
   };
 
   return (
-    <section ref={sectionRef} className="mb-4 flex flex-col gap-y-4">
+    <section ref={sectionRef} className="mb-4 flex h-screen flex-col gap-y-4">
       {intro1 && (
         <div className="chatBubble">
-          <p>{intro1}</p>
+          <p>{introMent}</p>
         </div>
       )}
       {intro2 && (
@@ -73,6 +80,7 @@ function BubbleSection({ step, answers, setAnswers, moveToNextStep }: IBubbleSec
           <p className="text-lg font-semibold">{question}</p>
           {sub && <p className="mt-4">{sub}</p>}
         </div>
+
         <div className="flex flex-col gap-3">
           {isChoosable &&
             options.map((option, idx) => (
@@ -91,6 +99,7 @@ function BubbleSection({ step, answers, setAnswers, moveToNextStep }: IBubbleSec
           )}
         </div>
       </div>
+      <div ref={questionRef}></div>
       {!answers[step] && <div className="grow"></div>}
       {step === 0 && answers[0] && <div className="userBubble">{answers[0].join(", ")}</div>}
       {step > 0 && answers[step] && <div className="userBubble">{answers[step]}</div>}

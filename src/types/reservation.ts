@@ -9,5 +9,4 @@ export interface IQuestion {
   intro2?: string;
   intro3?: string;
   options: string[];
-  multi: boolean;
 }

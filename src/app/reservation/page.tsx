@@ -18,7 +18,7 @@ function ReservationPage() {
   };
 
   return (
-    <div className="w-full p-6 pb-[500px]">
+    <div className="w-full p-6">
       <section className="mb-4 flex flex-col gap-y-4">
         <div className="chatBubble">
           <p>

@@ -1,0 +1,36 @@
+{
+"status": "200", 
+"msg": "ok",
+"data": 
+	{ 
+		"id": 1, 
+		"thumbnail" : "thumbnail.png",
+		"tag1" : "시장정보",
+		"tag2" : "쉽게읽혀요",
+		"title" : "컨텐츠제목",
+		"createdAt" : "2023-05-05",
+		"pbId" : 1,
+		"name" : "김피비",
+		"profile" : "person.png",
+		"speciality1": "US_STOCK", 
+		"speciality2": null,
+		"career" : 3,
+		"content" : "본문~~~",
+		"reply" : [
+				{ "id" : 1,
+					"name" : "투자자1",
+					"profile" : "person.png",
+					"replyContent" : "댓글내용1",
+					"createdAt" : 20230505,
+					"parentId" : null
+				},
+				{ "id" : 2,
+					"name" : "투자자2",
+					"profile" : "person.png",
+					"replyContent" : "댓글내용2",
+					"createdAt" : 20230505,
+					"parentId" : 1
+				}
+		]
+	}
+}

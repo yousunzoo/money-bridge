@@ -1,0 +1,9 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "style1": "KIND",
+    "style2": "METICULOUS",
+    "style3": "FAST"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "data": {
+    "applyCount": 2,
+    "isNewApply": true,
+    "confirmCount": 3,
+    "isNewConfirm": false,
+    "completeCount": 0,
+    "isNewComplete": false
+  }
+}

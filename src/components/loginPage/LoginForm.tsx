@@ -1,17 +1,22 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, HtmlHTMLAttributes, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 function LoginForm() {
   const [autoLogin, setAutoLogin] = useState(false);
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
   const noticeEmail = useRef<HTMLSpanElement>(null);
   const noticePassword = useRef<HTMLSpanElement>(null);
+  const { email, password } = inputs;
 
   const schema = yup.object().shape({
-    email: yup.string().email().required("email is required"),
-    password: yup.string().min(8).max(15).required("password is required"),
+    email: yup.string().email().required(),
+    password: yup.string().min(8).max(15).required(),
   });
 
   const {
@@ -36,7 +41,18 @@ function LoginForm() {
     noticePassword.current?.classList.remove("text-red-600");
   }
 
+  const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
+    const { value, name } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
   const onSubmit = () => {
+    if (!email || !password) {
+      alert("values are null");
+    }
     if (noticeEmail.current?.classList.contains("text-red-600")) {
       alert("ㅡemailㅡ");
     } else if (noticePassword.current?.classList.contains("text-red-600")) {
@@ -46,18 +62,18 @@ function LoginForm() {
 
   return (
     <div className="pt-[100px]">
-      <form onSubmit={() => handleSubmit(onSubmit)}>
+      <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-[10px]">
           <h2 className="mb-[20px] font-bold">이메일</h2>
-          <input type="text" className="formInput" {...register("email")} />
-          <span className="text-xs" ref={noticeEmail}>
+          <input type="text" className="formInput" {...register("email")} value={email} />
+          <span className="text-xs text-slate-300" ref={noticeEmail}>
             * @포함하여 작성해 주세요.
           </span>
         </div>
         <div className="mb-[10px]">
           <h2 className="mb-[20px] font-bold">비밀번호</h2>
-          <input type="password" className="formInput" {...register("password")} />
-          <span className="text-xs" ref={noticePassword}>
+          <input type="password" className="formInput" {...register("password")} value={password} />
+          <span className="text-xs text-slate-300" ref={noticePassword}>
             * 8자 이상입니다.
           </span>
         </div>

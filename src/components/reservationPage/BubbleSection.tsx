@@ -1,10 +1,9 @@
-import { IQuestions } from "@/types/reservation";
+import { IBubbleSectionProps, IQuestions } from "@/types/reservation";
 import reservationQuestions from "@/constants/reservationQuestions.json";
 import { MouseEvent, useEffect, useRef, useState } from "react";
-import { IBubbleSectionProps } from "@/types/common";
 import LocationCard from "../common/LocationCard";
 
-function BubbleSection({ step, pbStation, consultTime, answers, setAnswers, moveToNextStep }: IBubbleSectionProps) {
+function BubbleSection({ step, pbStation, handleOpenModal, answers, setAnswers, moveToNextStep }: IBubbleSectionProps) {
   const questions: IQuestions = reservationQuestions;
   const { question, intro1, intro2, intro3, sub, options } = questions[step];
   const [isMovable, setIsMovable] = useState(false);
@@ -20,6 +19,11 @@ function BubbleSection({ step, pbStation, consultTime, answers, setAnswers, move
     : intro1;
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>, option: string) => {
+    if (step === 3) {
+      if (!handleOpenModal) return;
+      handleOpenModal();
+      return;
+    }
     if (step !== 0) {
       setAnswers({ ...answers, [step]: option });
       setChoosable(false);

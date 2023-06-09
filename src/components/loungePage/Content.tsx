@@ -1,12 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PostCardList from "@/components/common/Card/CardList/PostCardList";
 import { useRouter } from "next/navigation";
 
 function Content({ newHot, all }: any) {
   const [newAll, setNewAll] = useState([]);
   const router = useRouter();
-  setNewAll(all.slice(0, 2));
+    useEffect(() => {
+      setNewAll(all.slice(0, 2));
+    }, [all]);
   const newData = newHot.slice(0, 2);
   const hotData = newHot.slice(-2);
 

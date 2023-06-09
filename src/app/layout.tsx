@@ -15,7 +15,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <body className={noto.className}>
         <ReactQueryProvider>
-          <main className="overflow-auto pb-[56px]">
+          <main className="overflow-auto pb-[56px] pt-[40px]">
             {children}
             <Navbar />
           </main>

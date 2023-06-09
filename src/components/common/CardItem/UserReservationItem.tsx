@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ReactNode } from "react";
 import DefaultProfile from "../../../../public/assets/images/default_profile.png";
 import Image from "next/image";
@@ -5,10 +7,12 @@ import Image from "next/image";
 interface UserReservationItemProps {
   children: ReactNode;
   buttonName: string;
-  onClickhandler: () => void;
 }
 
-function UserReservationItem({ children, buttonName, onClickhandler }: UserReservationItemProps) {
+function UserReservationItem({ children, buttonName }: UserReservationItemProps) {
+  const onClickhandler = () => {
+    console.log("click");
+  };
   return (
     <li className="mx-auto flex h-[100px] max-w-md overflow-hidden rounded-2xl bg-white p-4 shadow-md">
       <div className="flex items-center ">

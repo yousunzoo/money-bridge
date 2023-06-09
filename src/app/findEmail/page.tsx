@@ -1,14 +1,25 @@
+"use client";
 import TopNav from "@/components/common/TopNav";
 import DoubleInputForm from "@/components/common/DoubleInputForm";
-import React from "react";
+import React, { useState } from "react";
+import InformationCheck from "@/components/findEmailPage/InformationCheck";
 
-function page() {
+function FindEmail() {
+  const [nextStep, setNextStep] = useState<boolean>(false);
+  const [inputs, setInputs] = useState({
+    first: "",
+    second: "",
+  });
   return (
     <>
       <TopNav title="이메일 찾기" />
-      <DoubleInputForm type="findEmail" />
+      {nextStep ? (
+        <InformationCheck inputs={inputs} />
+      ) : (
+        <DoubleInputForm type="findEmail" inputs={inputs} setInputs={setInputs} setNextStep={setNextStep} />
+      )}
     </>
   );
 }
 
-export default page;
+export default FindEmail;

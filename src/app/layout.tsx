@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={noto.className}>
         <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
         <ReactQueryProvider>
-          <main className="overflow-auto pb-[56px]">
+          <main className="overflow-auto pb-[56px] pt-[40px]">
             {children}
             <Navbar />
           </main>

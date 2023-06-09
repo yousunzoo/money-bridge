@@ -1,0 +1,132 @@
+{
+  "data": {
+    "reservationList": [
+      {
+        "reservationId": 1,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "김길동",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "APPLY"
+      },
+      {
+        "reservationId": 2,
+        "isNewReservation": true,
+        "userId": 2,
+        "profileImage": "URL",
+        "name": "김민환",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "CONFIRM"
+      },
+      {
+        "reservationId": 3,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "김길동",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "CONFIRM"
+      },
+      {
+        "reservationId": 4,
+        "isNewReservation": true,
+        "userId": 2,
+        "profileImage": "URL",
+        "name": "김민환",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "APPLY"
+      },
+      {
+        "reservationId": 5,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "김길동",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "COMPLETE"
+      },
+      {
+        "reservationId": 6,
+        "isNewReservation": true,
+        "userId": 2,
+        "profileImage": "URL",
+        "name": "김민환",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "COMPLETE"
+      },
+      {
+        "reservationId": 7,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "김길동",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "WITHDRAW"
+      },
+      {
+        "reservationId": 8,
+        "isNewReservation": true,
+        "userId": 2,
+        "profileImage": "URL",
+        "name": "김민환",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "WITHDRAW"
+      },
+      {
+        "reservationId": 9,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "김길동",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "APPLY"
+      },
+      {
+        "reservationId": 10,
+        "isNewReservation": true,
+        "userId": 2,
+        "profileImage": "URL",
+        "name": "김민환",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "CONFIRM"
+      },
+      {
+        "reservationId": 11,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "김길동",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "COMPLETE"
+      },
+      {
+        "reservationId": 12,
+        "isNewReservation": true,
+        "userId": 2,
+        "profileImage": "URL",
+        "name": "김민환",
+        "createdAt": "2023-05-15T09:00:00",
+        "time": "2023-05-15T09:00:00",
+        "type": "CONFIRM"
+      }
+    ],
+    "totalElements": 25,
+    "totalPages": 3,
+    "curPage": 1,
+    "first": false,
+    "last": false,
+    "empty": false
+  }
+}

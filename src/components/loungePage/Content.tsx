@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import PostCardList from "@/components/common/Card/CardList/ContentCardList";
+import ContentCardList from "@/components/common/CardList/ContentCardList";
 import Link from "next/link";
 
 function Content({ newHot, all }: any) {
@@ -24,7 +24,7 @@ function Content({ newHot, all }: any) {
           <Link href="/new">더보기</Link>
         </div>
         <div>
-          <PostCardList props={newData} />
+          <ContentCardList props={newData} />
         </div>
       </div>
       <div>
@@ -33,7 +33,7 @@ function Content({ newHot, all }: any) {
           <Link href="/hot">더보기</Link>
         </div>
         <div>
-          <PostCardList props={hotData} />
+          <ContentCardList props={hotData} />
         </div>
       </div>
       <div>
@@ -42,7 +42,7 @@ function Content({ newHot, all }: any) {
           <button onClick={getAllContent}>더보기</button>
         </div>
         <div>
-          <PostCardList props={newAll} />
+          <ContentCardList props={newAll} />
         </div>
       </div>
     </div>

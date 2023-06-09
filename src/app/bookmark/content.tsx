@@ -1,11 +1,11 @@
 import React from "react";
-import PostCardList from "@/components/common/Card/CardList/ContentCardList";
+import ContentCardList from "@/components/common/CardList/ContentCardList";
 
 function ContentBookMark({ data }: any) {
   return (
     data && (
       <div>
-        <PostCardList props={data} />
+        <ContentCardList props={data} />
       </div>
     )
   );

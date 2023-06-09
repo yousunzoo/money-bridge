@@ -37,7 +37,7 @@ function PbCardList({ props }: any) {
     const startIndex = items.length;
     const endIndex = startIndex + 10;
     const newItems = props.slice(startIndex, endIndex);
-    setItems((prevItems:any) => [...prevItems, ...newItems]);
+    setItems((prevItems: any) => [...prevItems, ...newItems]);
 
     // 현재 페이지가 마지막 페이지인지 확인
     if (props.data.curPage === props.data.totalPages - 1) {

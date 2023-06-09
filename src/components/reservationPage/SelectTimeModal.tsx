@@ -5,6 +5,7 @@ import dayjs, { Dayjs } from "dayjs";
 import TimeSelect from "./TimeSelect";
 import ConsultTime from "./ConsultTime";
 import ModalBackground from "../common/Modal/ModalBackground";
+import { useReservationStore } from "@/store/reservationStore";
 
 const BUTTON_STYLE = "w-1/2 py-2 rounded-lg";
 function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProps) {
@@ -81,7 +82,13 @@ function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProp
             />
           )}
         </section>
-        <div className="flex w-full justify-between gap-4">
+        <div className="relative flex w-full justify-between gap-4">
+          {step === 3 && (
+            <div className="bubble">
+              <p>1순위</p>
+              <p>{dayjs(select.candidateTime1).format("M월 DD일 HH:mm")}</p>
+            </div>
+          )}
           <button className={`${BUTTON_STYLE} bg-gray-300`} onClick={handleCancelButton}>
             {step === 1 ? "취소" : step === 3 ? "1순위 다시 선택하기" : "날짜 다시 선택하기"}
           </button>

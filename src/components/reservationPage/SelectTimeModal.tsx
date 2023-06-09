@@ -38,9 +38,17 @@ function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProp
     }
     setStep(step - 1);
   };
+  const handleNextButton = () => {
+    if (step === 4) {
+      handleCloseModal();
+      return;
+    }
+    setStep(step + 1);
+  };
   const handleTimeSelect = (time: string) => {
     const hour = Number(time.split(":")[0]);
-    const candidate = dayjs(select.candidateTime1, "YYYY-MM-DD").set("hour", hour).format("YYYY-MM-DDTHH:mm:ss");
+    const selectedCand = step === 2 ? select.candidateTime1 : select.candidateTime2;
+    const candidate = dayjs(selectedCand, "YYYY-MM-DD").set("hour", hour).format("YYYY-MM-DDTHH:mm:ss");
     if (step === 2) {
       setSelect({ ...select, candidateTime1: candidate });
     }
@@ -57,7 +65,7 @@ function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProp
           희망 {step === 1 || step === 2 ? 1 : 2}순위 {step === 1 || step === 3 ? "날짜를" : "시간을"} 선택해주세요.
         </h2>
         <section className="mb-6 grow">
-          {step === 1 && <SelectCalendar handleSelect={handleCalendarSelect} />}
+          {(step === 1 || step === 3) && <SelectCalendar handleSelect={handleCalendarSelect} />}
           {step === 2 && select.candidateTime1 && (
             <TimeSelect
               handleTimeSelect={handleTimeSelect}
@@ -65,12 +73,19 @@ function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProp
               selectedDate={select.candidateTime1}
             />
           )}
+          {step === 4 && select.candidateTime2 && (
+            <TimeSelect
+              handleTimeSelect={handleTimeSelect}
+              selectOptions={selectOptions}
+              selectedDate={select.candidateTime2}
+            />
+          )}
         </section>
         <div className="flex w-full justify-between gap-4">
           <button className={`${BUTTON_STYLE} bg-gray-300`} onClick={handleCancelButton}>
             {step === 1 ? "취소" : step === 3 ? "1순위 다시 선택하기" : "날짜 다시 선택하기"}
           </button>
-          <button className={`${BUTTON_STYLE} bg-black text-white`} onClick={() => setStep(step + 1)}>
+          <button className={`${BUTTON_STYLE} bg-black text-white`} onClick={handleNextButton}>
             선택
           </button>
         </div>

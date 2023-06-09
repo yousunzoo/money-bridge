@@ -17,7 +17,7 @@ export interface IAnswers {
   0: string[] | null;
   1: string | null;
   2: string | null;
-  3: string | null;
+  3: { candidateTime1: string; candidateTime2: string } | null;
   4: string | null;
   5: string | null;
 }
@@ -47,6 +47,7 @@ export interface ICandidateTimes {
 export interface ISelectTimeModalProps {
   handleCloseModal: () => void;
   consultTime: IConsultTime;
+  moveToNextStep: () => void;
 }
 export interface ISelectCalendarProps {
   handleSelect: (e: Dayjs) => void;

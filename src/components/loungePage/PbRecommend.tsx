@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
-import Card from "@/components/common/Card/CardItem/Card";
 import Link from "next/link";
 
 function PbRecommend() {
   
   return (
-    <Card>
+    <li className="card">
       <div>
         <div>맞춤 PB 추천</div>
         <div>
@@ -16,7 +15,7 @@ function PbRecommend() {
         </div>
         <Link href="/lounge/recommend">PB 매칭 결과 확인하기</Link>
       </div>
-    </Card>
+    </li>
   );
 }
 

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Card from "@/components/common/Card/CardItem/Card";
+
 
 function ContentCardItem({ item }: any) {
   const router = useRouter();
@@ -16,7 +16,7 @@ function ContentCardItem({ item }: any) {
   };
 
   return (
-    <Card click={goTOLounge}>
+    <li className="card cursor-pointer" onClick={goTOLounge}>
       <div className="flex">
         <div>
           <div>
@@ -36,7 +36,7 @@ function ContentCardItem({ item }: any) {
         </div>
         <div className="flex">{/* <Image src={item.companyLogo} alt="증권사로고" width={50} height={50} /> */}</div>
       </div>
-    </Card>
+    </li>
   );
 }
 

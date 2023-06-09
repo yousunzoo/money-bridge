@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import PostCardItem from "@/components/common/Card/CardItem/PostCardItem";
+import PostCardItem from "../CardItem/PostCardItem";
 
-function PostCardList({props}: any) {
-  // 10개 이상이면 무한 스크롤 동작 시작
+function PostCardList(props: any) {
+  
   return (
     <ul>
       {props ? (

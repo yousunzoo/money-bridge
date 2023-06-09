@@ -4,11 +4,11 @@ import { Calendar } from "antd";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import locale from "antd/es/calendar/locale/ko_KR";
-import { SelectCalendarProps } from "@/types/reservation";
+import { ISelectCalendarProps } from "@/types/reservation";
 
 dayjs.locale("ko");
 
-function SelectCalendar({ handleSelect }: SelectCalendarProps) {
+function SelectCalendar({ handleSelect }: ISelectCalendarProps) {
   const isWeekday = (date: dayjs.Dayjs) => {
     return date.day() !== 0 && date.day() !== 6;
   };

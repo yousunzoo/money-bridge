@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -9,14 +9,17 @@ const yup_password = yup.string().min(8).max(15).required();
 const yup_name = yup.string().min(2).max(10).required();
 const yup_phone = yup.string().min(10).max(11).required();
 
-function DoubleInputForm({ type }: { type: string }) {
+function DoubleInputForm({
+  type,
+  setNextStep,
+}: {
+  type: string;
+  setNextStep?: (value: React.SetStateAction<boolean>) => void;
+}) {
   const [inputs, setInputs] = useState({
     first: "",
     second: "",
   });
-  const noticeFirst = useRef<HTMLSpanElement>(null);
-  const noticeSecond = useRef<HTMLSpanElement>(null);
-  const submitButton = useRef<HTMLButtonElement>(null);
   const { first, second } = inputs;
   const inputType = type === "login" ? "password" : type === "findEmail" ? "number" : "text";
 
@@ -28,32 +31,8 @@ function DoubleInputForm({ type }: { type: string }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
-
-  if (errors.first) {
-    noticeFirst.current?.classList.remove("text-slate-300");
-    noticeFirst.current?.classList.add("text-red-600");
-  } else {
-    noticeFirst.current?.classList.add("text-slate-300");
-    noticeFirst.current?.classList.remove("text-red-600");
-  }
-
-  if (errors.second) {
-    noticeSecond.current?.classList.remove("text-slate-300");
-    noticeSecond.current?.classList.add("text-red-600");
-  } else {
-    noticeSecond.current?.classList.add("text-slate-300");
-    noticeSecond.current?.classList.remove("text-red-600");
-  }
-
-  if (!errors.first && !errors.second) {
-    submitButton.current?.classList.remove("bg-gray-300");
-    submitButton.current?.classList.add("bg-black");
-  } else {
-    submitButton.current?.classList.add("bg-gray-300");
-    submitButton.current?.classList.remove("bg-black");
-  }
 
   const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
     const { value, name } = e.target;
@@ -64,13 +43,12 @@ function DoubleInputForm({ type }: { type: string }) {
   };
 
   const onSubmit = () => {
-    if (!first || !second) {
-      alert("values are null");
+    if (!isValid) {
+      alert("양식을 확인해");
+      return;
     }
-    if (noticeFirst.current?.classList.contains("text-red-600")) {
-      alert("ㅡfirstㅡ");
-    } else if (noticeSecond.current?.classList.contains("text-red-600")) {
-      alert("ㅡsecondㅡ");
+    if (setNextStep) {
+      setNextStep(true);
     }
   };
 
@@ -80,19 +58,19 @@ function DoubleInputForm({ type }: { type: string }) {
         <div className="mb-[10px]">
           <h2 className="mb-[20px] font-bold">{getNotice(type)?.data.header1}</h2>
           <input type="text" className="formInput" {...register("first")} value={first} />
-          <span className="text-xs text-slate-300" ref={noticeFirst}>
+          <span className={`text-xs ${errors.first ? "text-red-600" : "text-slate-300"}`}>
             {getNotice(type)?.data.notice1}
           </span>
         </div>
         <div className="mb-[10px]">
           <h2 className="mb-[20px] font-bold">{getNotice(type)?.data.header2}</h2>
           <input type={inputType} className="formInput" {...register("second")} value={second} />
-          <span className="text-xs text-slate-300" ref={noticeSecond}>
+          <span className={`text-xs ${errors.second ? "text-red-600" : "text-slate-300"}`}>
             {getNotice(type)?.data.notice2}
           </span>
         </div>
         {/* <button type="submit" className="h-[40px] w-full bg-gray-300 "> */}
-        <button type="button" className="h-[40px] w-full bg-gray-300" onClick={onSubmit} ref={submitButton}>
+        <button type="button" className={`h-[40px] w-full ${isValid ? "bg-black" : "bg-gray-300"}`} onClick={onSubmit}>
           <span className="text-xs font-semibold text-slate-400">{getNotice(type)?.data.submit}</span>
         </button>
       </form>

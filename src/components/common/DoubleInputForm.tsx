@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -20,8 +20,6 @@ function DoubleInputForm({
     first: "",
     second: "",
   });
-  const noticeFirst = useRef<HTMLSpanElement>(null);
-  const noticeSecond = useRef<HTMLSpanElement>(null);
   const { first, second } = inputs;
   const inputType = type === "login" ? "password" : type === "findEmail" ? "number" : "text";
 
@@ -60,14 +58,14 @@ function DoubleInputForm({
         <div className="mb-[10px]">
           <h2 className="mb-[20px] font-bold">{getNotice(type)?.data.header1}</h2>
           <input type="text" className="formInput" {...register("first")} value={first} />
-          <span className={`text-xs ${errors.first ? "text-red-600" : "text-slate-300"}`} ref={noticeFirst}>
+          <span className={`text-xs ${errors.first ? "text-red-600" : "text-slate-300"}`}>
             {getNotice(type)?.data.notice1}
           </span>
         </div>
         <div className="mb-[10px]">
           <h2 className="mb-[20px] font-bold">{getNotice(type)?.data.header2}</h2>
           <input type={inputType} className="formInput" {...register("second")} value={second} />
-          <span className={`text-xs ${errors.second ? "text-red-600" : "text-slate-300"}`} ref={noticeSecond}>
+          <span className={`text-xs ${errors.second ? "text-red-600" : "text-slate-300"}`}>
             {getNotice(type)?.data.notice2}
           </span>
         </div>

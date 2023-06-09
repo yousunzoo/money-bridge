@@ -3,7 +3,7 @@ import React from "react";
 import PostCardItem from "@/components/common/Card/CardItem/PostCardItem";
 
 function PostCardList({props}: any) {
-  
+  // 10개 이상이면 무한 스크롤 동작 시작
   return (
     <ul>
       {props ? (

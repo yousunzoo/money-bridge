@@ -1,26 +1,19 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import PostCardList from "@/components/common/Card/CardList/PostCardList";
-import { useRouter } from "next/navigation";
+import PostCardList from "@/components/common/Card/CardList/ContentCardList";
+import Link from "next/link";
 
 function Content({ newHot, all }: any) {
   const [newAll, setNewAll] = useState([]);
-  const router = useRouter();
-    useEffect(() => {
-      setNewAll(all.slice(0, 2));
-    }, [all]);
+  useEffect(() => {
+    setNewAll(all.slice(0, 2));
+  }, [all]);
   const newData = newHot.slice(0, 2);
   const hotData = newHot.slice(-2);
 
-  const goToNewContent = () => {
-    router.push("/new");
-  };
-  const goToHotContent = () => {
-    router.push("/hot");
-  };
   const getAllContent = () => {
     setNewAll(all);
-    //todo: api를 호출하여 데이터 더 불러오기 
+    //todo: api를 호출하여 데이터 더 불러오기
   };
 
   return (
@@ -28,7 +21,7 @@ function Content({ newHot, all }: any) {
       <div>
         <div className="flex">
           <div>따끈따끈한 최신 콘텐츠 부터 읽어보세요</div>
-          <button onClick={goToNewContent}>더보기</button>
+          <Link href="/new">더보기</Link>
         </div>
         <div>
           <PostCardList props={newData} />
@@ -37,7 +30,7 @@ function Content({ newHot, all }: any) {
       <div>
         <div className="flex">
           <div>지금 가장 핫한 인기 콘텐츠</div>
-          <button onClick={goToHotContent}>더보기</button>
+          <Link href="/hot">더보기</Link>
         </div>
         <div>
           <PostCardList props={hotData} />

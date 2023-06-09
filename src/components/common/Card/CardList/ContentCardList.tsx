@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import PostCardItem from "@/components/common/Card/CardItem/PostCardItem";
+import PostCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 
-function PostCardList({props}: any) {
+function ContentCardList({props}: any) {
   const [items, setItems] = useState(props.slice(0, 10));
   const [isLastPage, setIsLastPage] = useState(false);
   const observerRef = useRef<HTMLDivElement | null>(null);
@@ -59,4 +59,4 @@ function PostCardList({props}: any) {
   );
 }
 
-export default PostCardList;
+export default ContentCardList;

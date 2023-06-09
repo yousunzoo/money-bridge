@@ -10,10 +10,6 @@ const BUTTON_STYLE = "w-1/2 py-2 rounded-lg";
 function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProps) {
   const [step, setStep] = useState(1);
   const [select, setSelect] = useState<ICandidateTimes>({ candidateTime1: null, candidateTime2: null });
-  const [visualSelect, setVisualSelect] = useState<ICandidateTimes>({
-    candidateTime1: null,
-    candidateTime2: null,
-  });
 
   const selectOptions = (() => {
     const { consultStart, consultEnd } = consultTime;
@@ -32,10 +28,8 @@ function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProp
   })();
   const handleCalendarSelect = (e: Dayjs) => {
     const date = e.format();
-    const userDate = e.format("YYYY년 MM월 DD일 dddd");
     const candidate = step === 1 ? "candidateTime1" : "candidateTime2";
     setSelect({ ...select, [candidate]: date });
-    setVisualSelect({ ...visualSelect, [candidate]: userDate });
   };
   const handleCancelButton = () => {
     if (step === 1) {
@@ -43,6 +37,16 @@ function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProp
       return;
     }
     setStep(step - 1);
+  };
+  const handleTimeSelect = (time: string) => {
+    const hour = Number(time.split(":")[0]);
+    const candidate = dayjs(select.candidateTime1, "YYYY-MM-DD").set("hour", hour).format("YYYY-MM-DDTHH:mm:ss");
+    if (step === 2) {
+      setSelect({ ...select, candidateTime1: candidate });
+    }
+    if (step === 4) {
+      setSelect({ ...select, candidateTime2: candidate });
+    }
   };
   return (
     <div className="fixed left-0 top-0 h-full w-full">
@@ -54,8 +58,12 @@ function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProp
         </h2>
         <section className="mb-6 grow">
           {step === 1 && <SelectCalendar handleSelect={handleCalendarSelect} />}
-          {step === 2 && visualSelect.candidateTime1 && (
-            <TimeSelect selectOptions={selectOptions} selectedDate={visualSelect.candidateTime1} />
+          {step === 2 && select.candidateTime1 && (
+            <TimeSelect
+              handleTimeSelect={handleTimeSelect}
+              selectOptions={selectOptions}
+              selectedDate={select.candidateTime1}
+            />
           )}
         </section>
         <div className="flex w-full justify-between gap-4">

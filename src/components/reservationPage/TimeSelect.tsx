@@ -1,25 +1,29 @@
 import { ITimeSelectProps } from "@/types/reservation";
-import React, { MouseEvent } from "react";
+import dayjs from "dayjs";
+import React, { useState } from "react";
 
-const BUTTON_STYLE = "w-[80px] py-1 bg-gray-100 text-center";
-function TimeSelect({ selectOptions, selectedDate }: ITimeSelectProps) {
+const BUTTON_STYLE = "w-[80px] py-1 bg-gray-200 text-center";
+function TimeSelect({ selectOptions, selectedDate, handleTimeSelect }: ITimeSelectProps) {
   const { am, pm } = selectOptions;
+  const userDate = dayjs(selectedDate).format("YYYY년 MM월 DD일 dddd");
+  const [selected, setSelected] = useState<string>();
 
-  const handleClick = (time: string) => {
-    console.log(time);
+  const handleButtonClick = (time: string) => {
+    setSelected(time);
+    handleTimeSelect(time);
   };
   return (
     <>
       <p>방문 날짜</p>
-      <p>{selectedDate}</p>
+      <p>{userDate}</p>
       <div className="mt-10">
         <p className="mb-4">오전</p>
         <div className="mb-10 grid w-full grid-cols-4">
           {am.map(time => (
             <button
-              className={BUTTON_STYLE}
+              className={`${BUTTON_STYLE} ${selected === time && "!bg-gray-400"}`}
               onClick={() => {
-                handleClick(time);
+                handleButtonClick(time);
               }}
               key={time}
             >
@@ -31,9 +35,9 @@ function TimeSelect({ selectOptions, selectedDate }: ITimeSelectProps) {
         <div className="grid w-full grid-cols-4 gap-y-4">
           {pm.map(time => (
             <button
-              className={BUTTON_STYLE}
+              className={`${BUTTON_STYLE} ${selected === time && "!bg-gray-400"}`}
               onClick={() => {
-                handleClick(time);
+                handleButtonClick(time);
               }}
               key={time}
             >

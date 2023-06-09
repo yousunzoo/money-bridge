@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ContentCardList from "@/components/common/CardList/ContentCardList";
+import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import Link from "next/link";
 
 function Content({ newHot, all }: any) {

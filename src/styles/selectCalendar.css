@@ -3,6 +3,9 @@
   padding: 0;
   margin-bottom: 10px;
 }
+.ant-picker-calendar .ant-picker-date-panel .ant-picker-content {
+  height: 100%;
+}
 
 .ant-picker-calendar .ant-picker-date-panel .ant-picker-content th {
   height: 36px;
@@ -16,10 +19,6 @@
   margin-left: 50%;
   transform: translateX(-50%);
   border-radius: 50%;
-}
-
-.ant-picker-calendar .ant-picker-date-panel .ant-picker-content {
-  height: 300px;
 }
 
 .ant-picker-calendar .ant-picker-cell::before {

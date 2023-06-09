@@ -12,7 +12,7 @@ function FindEmail() {
   });
   return (
     <>
-      <TopNav title="이메일 찾기" />
+      <TopNav title="이메일 찾기" path="/login" />
       {nextStep ? (
         <InformationCheck inputs={inputs} />
       ) : (

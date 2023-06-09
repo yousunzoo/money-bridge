@@ -3,6 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Iinputs } from "@/types/DoubleInputForm";
 
 const yup_email = yup.string().email().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -12,15 +13,14 @@ const yup_phone = yup.string().min(10).max(11).required();
 function DoubleInputForm({
   type,
   setNextStep,
+  inputs,
+  setInputs,
 }: {
   type: string;
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
+  inputs: Iinputs;
+  setInputs: (value: React.SetStateAction<Iinputs>) => void;
 }) {
-  const [inputs, setInputs] = useState({
-    first: "",
-    second: "",
-  });
-  const { first, second } = inputs;
   const inputType = type === "login" ? "password" : type === "findEmail" ? "number" : "text";
 
   const schema = yup.object().shape({
@@ -57,14 +57,14 @@ function DoubleInputForm({
       <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-[10px]">
           <h2 className="mb-[20px] font-bold">{getNotice(type)?.data.header1}</h2>
-          <input type="text" className="formInput" {...register("first")} value={first} />
+          <input type="text" className="formInput" {...register("first")} value={inputs.first} />
           <span className={`text-xs ${errors.first ? "text-red-600" : "text-slate-300"}`}>
             {getNotice(type)?.data.notice1}
           </span>
         </div>
         <div className="mb-[10px]">
           <h2 className="mb-[20px] font-bold">{getNotice(type)?.data.header2}</h2>
-          <input type={inputType} className="formInput" {...register("second")} value={second} />
+          <input type={inputType} className="formInput" {...register("second")} value={inputs.second} />
           <span className={`text-xs ${errors.second ? "text-red-600" : "text-slate-300"}`}>
             {getNotice(type)?.data.notice2}
           </span>

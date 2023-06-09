@@ -1,4 +1,4 @@
-import UserReservationItem from "@/components/common/CardItem/UserReservationItem";
+import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import React from "react";
 
 interface ConsultationStatusPageProps {

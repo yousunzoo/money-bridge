@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useRoleStore } from "@/store/roleStore";
 import { CommonROLE } from "@/constants/enum";
 import ButtonModal from "@/components/common/ButtonModal";
+import Link from "next/link";
 
 function Intro() {
   const router = useRouter();
@@ -29,12 +30,6 @@ function Intro() {
       router.push("/bookmark");
     }
   };
-  const goToPbWrite = () => {
-    router.push("/lounge/write");
-  };
-  const goToPbContent = () => {
-    router.push("/detail/content");
-  };
 
   return (
     <div className="flex">
@@ -51,8 +46,8 @@ function Intro() {
         <div>
           <div>투자자들을 위한 투자 정보 콘텐츠를 작성해보세요</div>
           <div>
-            <button onClick={goToPbContent}>내 글 목록</button>
-            <button onClick={goToPbWrite}>작성하기</button>
+            <Link href="/detail/content">내 글 목록</Link>
+            <Link href="/lounge/write">작성하기</Link>
           </div>
         </div>
       )}

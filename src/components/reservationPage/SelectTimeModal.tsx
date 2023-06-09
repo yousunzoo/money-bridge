@@ -8,9 +8,10 @@ import ModalBackground from "../common/Modal/ModalBackground";
 import { useReservationStore } from "@/store/reservationStore";
 
 const BUTTON_STYLE = "w-1/2 py-2 rounded-lg";
-function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProps) {
+function SelectTimeModal({ handleCloseModal, consultTime, moveToNextStep }: ISelectTimeModalProps) {
   const [step, setStep] = useState(1);
   const [select, setSelect] = useState<ICandidateTimes>({ candidateTime1: null, candidateTime2: null });
+  const { setAnswers } = useReservationStore();
 
   const selectOptions = (() => {
     const { consultStart, consultEnd } = consultTime;
@@ -41,6 +42,8 @@ function SelectTimeModal({ handleCloseModal, consultTime }: ISelectTimeModalProp
   };
   const handleNextButton = () => {
     if (step === 4) {
+      setAnswers(3, select);
+      moveToNextStep();
       handleCloseModal();
       return;
     }

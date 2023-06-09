@@ -117,7 +117,8 @@ function BubbleSection({ step, pbStation, handleOpenModal, moveToNextStep }: IBu
       <div ref={questionRef}></div>
       {!answers[step] && <div className="grow"></div>}
       {step === 0 && answers[0] && <div className="userBubble">{answers[0].join(", ")}</div>}
-      {step > 0 && answers[step] && <div className="userBubble">{answers[step]}</div>}
+      {step === 3 && answers[3] && <div className="userBubble"></div>}
+      {step > 0 && answers[step] && step !== 3 && <div className="userBubble">{answers[step]}</div>}
     </section>
   );
 }

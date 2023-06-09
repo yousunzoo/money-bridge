@@ -1,6 +1,7 @@
+import { Iinputs } from "@/types/DoubleInputForm";
 import React from "react";
 
-function InformationCheck() {
+function InformationCheck({ inputs }: { inputs: Iinputs }) {
   return (
     <div className=" pt-[50px]">
       <div className="mx-[50px] mb-[25px] mt-[50px] flex flex-col items-center gap-[15px] rounded-[20px] bg-gray-300 p-[20px]">
@@ -13,11 +14,11 @@ function InformationCheck() {
         </div>
         <div className="flex w-full flex-row justify-between text-xs">
           <p>이름</p>
-          <p>이병욱</p>
+          <p>{inputs.first}</p>
         </div>
         <div className="flex w-full flex-row justify-between text-xs">
           <p>전화번호</p>
-          <p>010-xxxx-xxxx</p>
+          <p>{inputs.second}</p>
         </div>
         <div className="flex w-full flex-row justify-between text-xs">
           <p>이메일</p>

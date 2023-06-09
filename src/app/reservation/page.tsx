@@ -7,6 +7,7 @@ import SelectTimeModal from "@/components/reservationPage/SelectTimeModal";
 
 function ReservationPage() {
   const { pbName, pbStation, consultTime, userInfo } = reservationInfo.data;
+  const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<IAnswers>({
     0: null,
@@ -17,6 +18,12 @@ function ReservationPage() {
     5: null,
   });
 
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
   const moveToNextStep = () => {
     setStep(step + 1);
   };
@@ -52,19 +59,19 @@ function ReservationPage() {
           />
         )}
         {step >= 3 && (
-          <BubbleSection step={3} answers={answers} setAnswers={setAnswers} moveToNextStep={moveToNextStep} />
-        )}
-        {step >= 4 && (
           <BubbleSection
-            consultTime={consultTime}
-            step={4}
+            step={3}
+            handleOpenModal={handleOpenModal}
             answers={answers}
             setAnswers={setAnswers}
             moveToNextStep={moveToNextStep}
           />
         )}
+        {step >= 4 && (
+          <BubbleSection step={4} answers={answers} setAnswers={setAnswers} moveToNextStep={moveToNextStep} />
+        )}
       </div>
-      <SelectTimeModal consultTime={consultTime} />
+      {isOpen && step === 3 && <SelectTimeModal handleCloseModal={handleCloseModal} consultTime={consultTime} />}
     </>
   );
 }

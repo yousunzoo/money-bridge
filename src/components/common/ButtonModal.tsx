@@ -2,6 +2,7 @@
 
 import { ButtonModalProps } from "@/types/common";
 import { useEffect } from "react";
+import ModalBackground from "./Modal/ModalBackground";
 
 function ButtonModal({ modalContents, isOpen, setIsOpen }: ButtonModalProps) {
   const { content, confirmText, cancelText, confirmFn, cancelFn } = modalContents;
@@ -26,7 +27,7 @@ function ButtonModal({ modalContents, isOpen, setIsOpen }: ButtonModalProps) {
   if (!isOpen) return <></>;
   return (
     <div className="fixed left-0 top-0 h-full w-full">
-      <div className="h-full w-full bg-black opacity-50"></div>
+      <ModalBackground />
       <div className="fixed left-1/2 top-1/2 flex h-80 w-80 -translate-x-1/2 -translate-y-1/2 flex-col justify-between rounded-xl bg-white p-7">
         <button onClick={handleClose} className="absolute right-7">
           닫기

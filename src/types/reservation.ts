@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 
 export interface IQuestions {
@@ -39,5 +40,25 @@ export interface IBubbleSectionProps {
   setAnswers: Dispatch<SetStateAction<IAnswers>>;
   moveToNextStep: () => void;
   pbStation?: IPbStation;
-  consultTime?: IConsultTime;
+  handleOpenModal?: () => void;
+}
+
+export interface ICandidateTimes {
+  candidateTime1: string | null;
+  candidateTime2: string | null;
+}
+export interface ISelectTimeModalProps {
+  handleCloseModal: () => void;
+  consultTime: IConsultTime;
+}
+export interface ISelectCalendarProps {
+  handleSelect: (e: Dayjs) => void;
+}
+
+export interface ITimeSelectProps {
+  selectedDate: string;
+  selectOptions: {
+    am: string[];
+    pm: string[];
+  };
 }

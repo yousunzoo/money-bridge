@@ -1,5 +1,5 @@
 import React from "react";
-import ContentCardList from "@/components/common/CardList/ContentCardList";
+import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 
 function ContentBookMark({ data }: any) {
   return (

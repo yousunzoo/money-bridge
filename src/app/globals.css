@@ -27,7 +27,13 @@ main {
 
 .formInput {
   width: 100%;
-  border-bottom: 1px solid #000;
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.formInput_warn {
+  border: 1px solid #eb5147;
 }
 
 .formInput:focus-visible {

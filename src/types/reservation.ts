@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Dayjs } from "dayjs";
 
 export interface IQuestions {
@@ -83,5 +84,10 @@ export interface ITimeSelectProps {
 export interface IForwardingModalProps {
   nowStep: number;
   moveToNextStep: (nowStep: number) => void;
+  handleCloseModal: () => void;
+}
+
+export interface IModalLayoutProps {
+  children: ReactNode;
   handleCloseModal: () => void;
 }

@@ -112,7 +112,7 @@ function ReservationPage() {
         )}
       </div>
       {isOpen && (
-        <ModalLayout>
+        <ModalLayout handleCloseModal={handleCloseModal}>
           {step === 3 && (
             <SelectTimeModal
               nowStep={3}

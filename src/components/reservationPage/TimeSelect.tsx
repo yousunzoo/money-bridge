@@ -1,17 +1,21 @@
 import { ITimeSelectProps } from "@/types/reservation";
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const BUTTON_STYLE = "w-[80px] py-1 bg-gray-200 text-center";
 function TimeSelect({ selectOptions, selectedDate, handleTimeSelect }: ITimeSelectProps) {
   const { am, pm } = selectOptions;
   const userDate = dayjs(selectedDate).format("YYYY년 MM월 DD일 dddd");
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<string>(am[0]);
 
   const handleButtonClick = (time: string) => {
     setSelected(time);
     handleTimeSelect(time);
   };
+
+  useEffect(() => {
+    handleTimeSelect(selected);
+  }, []);
   return (
     <>
       <p>방문 날짜</p>

@@ -3,16 +3,14 @@ import React, { useState, useEffect } from "react";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import Link from "next/link";
 
-function Content({ newHot, all }: any) {
-  const [newAll, setNewAll] = useState([]);
-  useEffect(() => {
-    setNewAll(all.slice(0, 2));
-  }, [all]);
-  const newData = newHot.slice(0, 2);
-  const hotData = newHot.slice(-2);
+function Content({ NewAndHot, All }: any) {
+  const [all, setAll] = useState(All.data.list.slice(0, 2));
+  const newData = NewAndHot.data.list.slice(0, 2);
+  const hotData = NewAndHot.data.list.slice(2, 4);
 
   const getAllContent = () => {
-    setNewAll(all);
+    // setAll(All);
+    console.log("더보기 버튼 클릭");
     //todo: api를 호출하여 데이터 더 불러오기
   };
 
@@ -42,7 +40,7 @@ function Content({ newHot, all }: any) {
           <button onClick={getAllContent}>더보기</button>
         </div>
         <div>
-          <ContentCardList props={newAll} />
+          <ContentCardList props={all} />
         </div>
       </div>
     </div>

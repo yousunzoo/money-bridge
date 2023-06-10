@@ -65,3 +65,8 @@ export interface ITimeSelectProps {
   };
   handleTimeSelect: (time: string) => void;
 }
+
+export interface IForwardingModalProps {
+  moveToNextStep: () => void;
+  handleCloseModal: () => void;
+}

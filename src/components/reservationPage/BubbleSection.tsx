@@ -13,13 +13,19 @@ function BubbleSection({ step, isOpen, pbStation, consultTime, handleOpenModal, 
   const questionRef = useRef<HTMLDivElement | null>(null);
   const { answers, setAnswers } = useReservationStore();
 
-  const handleClick = (option: string) => {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>, option: string) => {
+    const { textContent } = e.target;
     if (step === 3) {
       if (!handleOpenModal) return;
       handleOpenModal();
       return;
     }
 
+    if (step === 4 && textContent === "네(작성하기)") {
+      if (!handleOpenModal) return;
+      handleOpenModal();
+      return;
+    }
     setAnswers(step, option);
     setIsChoosable(false);
     moveToNextStep();
@@ -73,7 +79,7 @@ function BubbleSection({ step, isOpen, pbStation, consultTime, handleOpenModal, 
           {isChoosable &&
             options.map((option, idx) => (
               <button
-                onClick={() => handleClick(option)}
+                onClick={e => handleClick(e, option)}
                 className="w-fit rounded-3xl border-2 border-black bg-white px-4 py-2"
                 key={idx}
               >

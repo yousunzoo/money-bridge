@@ -6,14 +6,18 @@ import SelectTimeModal from "@/components/reservationPage/SelectTimeModal";
 import ForwardingModal from "@/components/reservationPage/ForwardingModal";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import EditProfileModal from "@/components/reservationPage/EditProfileModal";
+import { convertReservationAnswer } from "@/utils/convertAnswer";
+import { useReservationStore } from "@/store/reservationStore";
 
 function ReservationPage() {
   const { pbName, pbStation, consultTime, userInfo } = reservationInfo.data;
+  const { answers } = useReservationStore();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>({});
   const [isPhoneConsult, setIsPhoneConsult] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
+
   const handleOpenModal = (nowStep: number) => {
     setStep(nowStep);
     setIsOpen(true);
@@ -29,7 +33,10 @@ function ReservationPage() {
     setIsPhoneConsult(true);
     setStep(step + 2);
   };
-
+  const handleSubmit = () => {
+    const convertedAnswers = convertReservationAnswer(answers);
+    // 상담 예약 신청 api 호출
+  };
   useEffect(() => {
     if (!sectionRef.current) return;
     if (isChecked[5]) {
@@ -90,6 +97,11 @@ function ReservationPage() {
             moveToNextStep={moveToNextStep}
             userInfo={userInfo}
           />
+        )}
+        {isChecked[5] && (
+          <button onClick={handleSubmit} className="mt-40 w-full rounded-lg bg-black py-2 text-white">
+            등록하기
+          </button>
         )}
       </div>
       {isOpen && (

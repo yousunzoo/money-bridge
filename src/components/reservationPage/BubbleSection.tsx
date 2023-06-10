@@ -1,4 +1,4 @@
-import { IBubbleSectionProps, IQuestions, IUserInfo } from "@/types/reservation";
+import { IBubbleSectionProps, IQuestions } from "@/types/reservation";
 import reservationQuestions from "@/constants/reservationQuestions.json";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import LocationCard from "../common/LocationCard";
@@ -67,15 +67,11 @@ function BubbleSection({
     }
     if (!isChoosable) {
       sectionRef.current.classList.remove("h-screen");
-      answerRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
       return;
     }
-    if (isChoosable) {
+    if (step !== 0 && isChoosable) {
       sectionRef.current.classList.add("h-screen");
-      questionRef.current.scrollIntoView({
+      sectionRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });

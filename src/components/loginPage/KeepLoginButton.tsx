@@ -9,8 +9,8 @@ function KeepLoginButton() {
   return (
     <div className="flex h-[50px] items-center justify-center gap-1">
       <button
-        className={`h-[24px] w-[24px] cursor-default rounded-full border-[2px] border-[#dfdfdf] ${
-          autoLogin ? "border-[#153455] bg-[#153455]" : "bg-transparent"
+        className={`h-[24px] w-[24px] cursor-default rounded-full border-[2px] ${
+          autoLogin ? "border-[#153455] bg-[#153455]" : "border-[#dfdfdf] bg-transparent"
         }`}
         onClick={clickRememberLoginStatus}
       ></button>

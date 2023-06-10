@@ -1,0 +1,214 @@
+{
+  "status": "200",
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 2,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 3,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 4,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 5,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 6,
+        "title": "제목입니다6",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 7,
+        "title": "제목입니다7",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 8,
+        "title": "제목입니다8",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 9,
+        "title": "제목입니다9",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 10,
+        "title": "제목입니다10",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 11,
+        "title": "제목입니다11",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 12,
+        "title": "제목입니다12",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 13,
+        "title": "제목입니다13",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 14,
+        "title": "제목입니다14",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 15,
+        "title": "제목입니다15",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 16,
+        "title": "제목입니다16",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 17,
+        "title": "제목입니다17",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 18,
+        "title": "제목입니다18",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 19,
+        "title": "제목입니다19",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      },
+      {
+        "id": 20,
+        "title": "제목입니다20",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "자신있는 투자 전문가 이미자입니다."
+      }
+    ],
+    "totalElements": 20,
+    "totalPages": 1,
+    "curPage": 0,
+    "first": true,
+    "last": false,
+    "empty": false
+  }
+}

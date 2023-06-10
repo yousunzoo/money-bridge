@@ -1,0 +1,25 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "title": "이메일 주소가 변경되었어요",
+        "content": "마이페이지의 개인정보수정으로 가면 이메일주소를 확인할 수 있어요."
+      },
+      {
+        "id": 2,
+        "title": "개명을 하여 회원정보의 이름을 바꾸고 싶어요",
+        "content": "마이페이지의 개인정보수정페이지에서 이름을 변경할 수 있어요."
+      }
+    ],
+    "size": 10,
+    "totalElements": 25,
+    "totalPages": 3,
+    "curPage": 0,
+    "first": true,
+    "last": false,
+    "empty": false
+  }
+}

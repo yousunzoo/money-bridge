@@ -1,10 +1,10 @@
-export enum CommonROLE {
-  ROLE_USER = "ROLE_USER",
-  ROLE_PB = " ROLE_PB",
-  ROLE_ADMIN = "ROLE_ADMIN",
+enum CommonROLE {
+  USER = "USER",
+  PB = "PB",
+  ADMIN = "ADMIN",
 }
 
-export enum Propensity {
+enum Propensity {
   CONSERVATIVE = "CONSERVATIVE",
   CAUTIOUS = "CAUTIOUS",
   BALANCED = "BALANCED",
@@ -12,7 +12,7 @@ export enum Propensity {
   SPECULATIVE = "SPECULATIVE",
 }
 
-export enum PBSpecialty {
+enum PBSpecialty {
   KOREAN_STOCK = "KOREAN_STOCK",
   US_STOCK = "US_STOCK",
   DERIVATIVE = "DERIVATIVE",
@@ -23,44 +23,44 @@ export enum PBSpecialty {
   WRAP = "WRAP",
 }
 
-export enum PBStatus {
+enum PBStatus {
   PENDING = "PENDING",
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
 }
 
-export enum Admin {}
+enum Admin {}
 
-export enum ReservationProcess {
+enum ReservationProcess {
   APPLY = "APPLY",
   CONFIRM = "CONFIRM",
   COMPLETE = "COMPLETE",
 }
 
-export enum ReservationGoal {
+enum ReservationGoal {
   PROFIT = "PROFIT",
   RISK = "RISK",
   TAX = "TAX",
   PRESERVATION = "PRESERVATION",
 }
 
-export enum ReservationType {
+enum ReservationType {
   VISIT = "VISIT",
   CALL = "CALL",
 }
 
-export enum ReservationStatus {
+enum ReservationStatus {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
   CANCEL = "CANCEL",
 }
 
-export enum ReservationLocationType {
+enum ReservationLocationType {
   BRANCH = "BRANCH",
   CALL = "CALL",
 }
 
-export enum ConsultationStyle {
+enum ConsultationStyle {
   METICULOUS = "METICULOUS",
   KIND = "KIND",
   PROFESSIONAL = "PROFESSIONAL",
@@ -70,36 +70,64 @@ export enum ConsultationStyle {
   DIRECTIONAL = "DIRECTIONAL",
 }
 
-export enum BoardStatus {
+enum BoardStatus {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
   TEMP = "TEMP",
 }
 
-export enum Adherence {
+enum Adherence {
   BAD = "BAD",
   NORMAL = "NORMAL",
   EXCELLENT = "EXCELLENT",
 }
 
-export enum UserBookmark {}
-export enum PBBookmark {}
-export enum BoardBookmark {}
-export enum Notice {}
-export enum FrequentQuestion {}
+enum UserBookmark {}
+enum PBBookmark {}
+enum BoardBookmark {}
+enum Notice {}
+enum FrequentQuestion {}
 
-export enum QuestionAuthorRole {
+enum QuestionAuthorRole {
   USER = "USER",
   PB = "PB",
 }
 
-export enum Answer {}
-export enum AgreementType {
+enum Answer {}
+enum AgreementType {
   REQUIRED = "REQUIRED",
   OPTIONAL = "OPTIONAL",
 }
 
-export enum Career {}
-export enum Award {}
-export enum Branch {}
-export enum Company {}
+enum Career {}
+enum Award {}
+enum Branch {}
+enum Company {}
+
+export {
+  CommonROLE,
+  Propensity,
+  PBSpecialty,
+  PBStatus,
+  Admin,
+  ReservationProcess,
+  ReservationGoal,
+  ReservationType,
+  ReservationStatus,
+  ReservationLocationType,
+  ConsultationStyle,
+  BoardStatus,
+  Adherence,
+  UserBookmark,
+  PBBookmark,
+  BoardBookmark,
+  Notice,
+  FrequentQuestion,
+  QuestionAuthorRole,
+  Answer,
+  AgreementType,
+  Career,
+  Award,
+  Branch,
+  Company,
+};

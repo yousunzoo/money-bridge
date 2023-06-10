@@ -1,0 +1,46 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "id": 1,
+    "name": "김투자",
+    "propensity": "공격형",
+    "step": {
+      "hasPropensity": true,
+      "getFinancialInfo": true,
+      "startPBMatch": true,
+      "writeReview": false
+    },
+    "reservationCounts": {
+      "reservationApplyCount": 1,
+      "reservationConfirmCount": 0,
+      "reservationCompleteCount": 0
+    },
+    "boardBookmark": {
+      "list": [
+        {
+          "id": 1,
+          "thumbnail": "https://lupinbucket.s3.ap-northeast-2.amazonaws.com/person.png"
+        },
+        {
+          "id": 2,
+          "thumbnail": "https://lupinbucket.s3.ap-northeast-2.amazonaws.com/person.png"
+        }
+      ],
+      "count": 2
+    },
+    "PBBookmark": {
+      "list": [
+        {
+          "id": 1,
+          "thumbnail": "https://lupinbucket.s3.ap-northeast-2.amazonaws.com/person.png"
+        },
+        {
+          "id": 2,
+          "thumbnail": "https://lupinbucket.s3.ap-northeast-2.amazonaws.com/person.png"
+        }
+      ],
+      "count": 2
+    }
+  }
+}

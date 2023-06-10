@@ -32,6 +32,10 @@ main {
   padding: 8px 12px;
 }
 
+.formInput_entering {
+  border: 1px solid #153445;
+}
+
 .formInput_warn {
   border: 1px solid #eb5147;
 }

@@ -35,6 +35,13 @@ function Content({ NewAndHot, All }: any) {
         </div>
       </div>
       <div>
+        {/* 여기는 캐러셀 사용 */}
+        <div className="flex">
+          <div>경험 많은 프라이빗 뱅커의 포트폴리오가 궁금하신가요?</div>
+          <Link href="/">PB 포트폴리오 보러가기</Link>
+        </div>
+      </div>
+      <div>
         <div className="flex">
           <div>머니 브릿지의 모든 콘텐츠를 한눈에 보세요</div>
           <button onClick={getAllContent}>더보기</button>

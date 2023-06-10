@@ -70,19 +70,35 @@ function BubbleSection({
         </div>
         <div className="flex flex-col gap-3">
           {pbStation && (
-            <div className="w-full rounded-3xl border-2 p-4">
+            <div className="w-full rounded-3xl border-2 p-6">
               <p className="font-semibold">{pbStation.branchName}</p>
               <p>{pbStation.branchAddress}</p>
               <LocationCard lat={pbStation.branchLatitude} lng={pbStation.branchLongitude} closeButton={false} />
             </div>
           )}
           {consultTime && (
-            <div className="w-full rounded-3xl border-2 p-4">
+            <div className="w-full rounded-3xl border-2 p-6">
               <p className="font-semibold">상담 가능 시간을 확인해주세요.</p>
               <p>
                 업무시간 : 월~금 {consultTime.consultStart} ~ {consultTime.consultEnd}
               </p>
               {consultTime.notice && <p>유의사항 : {consultTime.notice}</p>}
+            </div>
+          )}
+          {userInfo && (
+            <div className="w-full rounded-3xl border-2 p-6">
+              <div className="flex justify-between">
+                <p>이름</p>
+                <p>{userInfo.userName}</p>
+              </div>
+              <div className="flex justify-between">
+                <p>휴대폰 번호</p>
+                <p>{userInfo.userPhoneNumber}</p>
+              </div>
+              <div className="flex justify-between">
+                <p>이메일</p>
+                <p>{userInfo.userEmail}</p>
+              </div>
             </div>
           )}
           {isChoosable &&

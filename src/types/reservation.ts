@@ -51,7 +51,11 @@ export interface ICandidateTimes {
   candidateTime1: string | null;
   candidateTime2: string | null;
 }
-
+export interface IEditProfileModalProps {
+  handleCloseModal: () => void;
+  moveToNextStep: () => void;
+  userInfo: IUserInfo;
+}
 export interface ICandidateTimeProps {
   candidates: ICandidateTimes;
 }

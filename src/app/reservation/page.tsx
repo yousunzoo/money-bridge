@@ -1,6 +1,6 @@
 "use client";
 import BubbleSection from "@/components/reservationPage/BubbleSection";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import reservationInfo from "@/mocks/seon/reservationInfo.json";
 import SelectTimeModal from "@/components/reservationPage/SelectTimeModal";
 import ForwardingModal from "@/components/reservationPage/ForwardingModal";
@@ -13,6 +13,7 @@ function ReservationPage() {
   const [step, setStep] = useState(0);
   const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>({});
   const [isPhoneConsult, setIsPhoneConsult] = useState(false);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const handleOpenModal = (nowStep: number) => {
     setStep(nowStep);
     setIsOpen(true);
@@ -21,7 +22,7 @@ function ReservationPage() {
     setIsOpen(false);
   };
   const moveToNextStep = (nowStep: number) => {
-    setStep(step + 1);
+    setStep(nowStep + 1);
     setIsChecked({ ...isChecked, [nowStep]: true });
   };
   const skipNextStep = () => {
@@ -29,20 +30,40 @@ function ReservationPage() {
     setStep(step + 2);
   };
 
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    if (isChecked[5]) {
+      sectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [isChecked]);
   return (
     <>
-      <div className="w-full p-6">
+      <div className="w-full p-6" ref={sectionRef}>
         <section className="mb-4 flex flex-col gap-y-4">
-          <div className="chatBubble">
-            <p>
-              {pbName}의 상담예약 페이지입니다!
-              <br />
-              머니브릿지와 함께 정해보아요~
-            </p>
-          </div>
-          <div className="userBubble">
-            <p>네! 좋아요</p>
-          </div>
+          {isChecked[5] ? (
+            <div className="text-lg font-semibold">
+              <p>{userInfo.userName}님의 상담 예약 응답이에요.</p>
+              <p>PB님께 잘 전달해 드릴게요.</p>
+            </div>
+          ) : (
+            <>
+              <div className="text-lg font-semibold">
+                <p>
+                  {userInfo.userName}님,
+                  <br />
+                  {pbName} PB님과 찐하고 담백한 상담하기 위해
+                  <br />
+                  저와 함께 예약을 시작해볼까요?
+                </p>
+              </div>
+              <div className="userBubble">
+                <p>네! 좋아요</p>
+              </div>
+            </>
+          )}
         </section>
         <BubbleSection step={0} moveToNextStep={moveToNextStep} />
         {isChecked[0] && <BubbleSection step={1} moveToNextStep={moveToNextStep} skipNextStep={skipNextStep} />}

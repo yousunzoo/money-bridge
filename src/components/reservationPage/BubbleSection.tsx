@@ -44,6 +44,7 @@ function BubbleSection({
     if (textContent === "맞습니다") {
       if (!editedInfo) return;
       setAnswers(step, editedInfo);
+      moveToNextStep(step);
       return;
     }
     setAnswers(step, option);
@@ -59,13 +60,18 @@ function BubbleSection({
 
   useEffect(() => {
     if (!sectionRef.current || !questionRef.current || !answerRef.current) return;
+    if (!isChoosable && step === 5) {
+      sectionRef.current.classList.remove("h-screen");
 
+      return;
+    }
     if (!isChoosable) {
       sectionRef.current.classList.remove("h-screen");
       answerRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
+      return;
     }
     if (isChoosable) {
       sectionRef.current.classList.add("h-screen");
@@ -73,6 +79,7 @@ function BubbleSection({
         behavior: "smooth",
         block: "start",
       });
+      return;
     }
   }, [isChoosable]);
 
@@ -92,7 +99,7 @@ function BubbleSection({
         </div>
       )}
 
-      <div className="!w-full">
+      <div>
         <div className="mb-4">
           <p className="text-lg font-semibold">{question}</p>
         </div>

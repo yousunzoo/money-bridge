@@ -5,7 +5,15 @@ import LocationCard from "../common/LocationCard";
 import { useReservationStore } from "@/store/reservationStore";
 import CandidateTime from "./CandidateTime";
 
-function BubbleSection({ step, isOpen, pbStation, consultTime, handleOpenModal, moveToNextStep }: IBubbleSectionProps) {
+function BubbleSection({
+  step,
+  isOpen,
+  pbStation,
+  consultTime,
+  userInfo,
+  handleOpenModal,
+  moveToNextStep,
+}: IBubbleSectionProps) {
   const questions: IQuestions = reservationQuestions;
   const { question, intro1, intro2, options } = questions[step];
   const [isChoosable, setIsChoosable] = useState(true);
@@ -14,18 +22,19 @@ function BubbleSection({ step, isOpen, pbStation, consultTime, handleOpenModal, 
   const { answers, setAnswers } = useReservationStore();
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>, option: string) => {
-    const { textContent } = e.target;
+    const { textContent } = e.target as HTMLElement;
     if (step === 3) {
       if (!handleOpenModal) return;
       handleOpenModal();
       return;
     }
 
-    if (step === 4 && textContent === "네(작성하기)") {
+    if (textContent === "네(작성하기)" || textContent === "틀립니다(정보 수정)") {
       if (!handleOpenModal) return;
       handleOpenModal();
       return;
     }
+
     setAnswers(step, option);
     setIsChoosable(false);
     moveToNextStep();

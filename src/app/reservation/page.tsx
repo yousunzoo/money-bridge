@@ -4,6 +4,7 @@ import { useState } from "react";
 import reservationInfo from "@/mocks/seon/reservationInfo.json";
 import SelectTimeModal from "@/components/reservationPage/SelectTimeModal";
 import ForwardingModal from "@/components/reservationPage/ForwardingModal";
+import ModalLayout from "@/components/reservationPage/ModalLayout";
 
 function ReservationPage() {
   const { pbName, pbStation, consultTime, userInfo } = reservationInfo.data;
@@ -50,16 +51,20 @@ function ReservationPage() {
         {step >= 4 && (
           <BubbleSection step={4} isOpen={isOpen} handleOpenModal={handleOpenModal} moveToNextStep={moveToNextStep} />
         )}
-        {step >= 5 && <BubbleSection step={5} moveToNextStep={moveToNextStep} />}
+        {step >= 5 && <BubbleSection step={5} moveToNextStep={moveToNextStep} userInfo={userInfo} />}
       </div>
-      {isOpen && step === 3 && (
-        <SelectTimeModal
-          moveToNextStep={moveToNextStep}
-          handleCloseModal={handleCloseModal}
-          consultTime={consultTime}
-        />
+      {isOpen && (
+        <ModalLayout>
+          {step === 3 && (
+            <SelectTimeModal
+              moveToNextStep={moveToNextStep}
+              handleCloseModal={handleCloseModal}
+              consultTime={consultTime}
+            />
+          )}
+          {step === 4 && <ForwardingModal moveToNextStep={moveToNextStep} handleCloseModal={handleCloseModal} />}
+        </ModalLayout>
       )}
-      {isOpen && step === 4 && <ForwardingModal moveToNextStep={moveToNextStep} handleCloseModal={handleCloseModal} />}
     </>
   );
 }

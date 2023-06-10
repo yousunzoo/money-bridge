@@ -16,6 +16,7 @@
     },
     "userInfo": {
       "userName": "홍길동",
+      "userPhoneNumber": "01011112222",
       "userEmail": "asdf1234@gmail.com"
     }
   }

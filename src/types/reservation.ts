@@ -31,6 +31,12 @@ export interface IConsultTime {
   consultStart: string;
   notice: string;
 }
+
+export interface IUserInfo {
+  userName: string;
+  userPhoneNumber: string;
+  userEmail: string;
+}
 export interface IBubbleSectionProps {
   step: 0 | 1 | 2 | 3 | 4 | 5;
   isOpen?: Boolean;
@@ -38,6 +44,7 @@ export interface IBubbleSectionProps {
   pbStation?: IPbStation;
   consultTime?: IConsultTime;
   handleOpenModal?: () => void;
+  userInfo?: IUserInfo;
 }
 
 export interface ICandidateTimes {
@@ -50,8 +57,8 @@ export interface ICandidateTimeProps {
 }
 export interface ISelectTimeModalProps {
   handleCloseModal: () => void;
-  consultTime: IConsultTime;
   moveToNextStep: () => void;
+  consultTime: IConsultTime;
 }
 export interface ISelectCalendarProps {
   handleSelect: (e: Dayjs) => void;

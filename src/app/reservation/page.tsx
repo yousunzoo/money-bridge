@@ -106,7 +106,7 @@ function ReservationPage() {
         {isChecked[5] && (
           <button
             onClick={handleSubmit}
-            className="fixed bottom-4 left-0 right-0 mx-auto flex h-[56px] w-[360px] items-center justify-center rounded-lg bg-black text-white"
+            className="fixed bottom-20 left-0 right-0 mx-auto flex h-[56px] w-[360px] items-center justify-center rounded-lg bg-black text-white"
           >
             등록하기
           </button>

@@ -39,6 +39,7 @@ function ReservationPage() {
         {step >= 2 && <BubbleSection pbStation={pbStation} step={2} moveToNextStep={moveToNextStep} />}
         {step >= 3 && <BubbleSection step={3} handleOpenModal={handleOpenModal} moveToNextStep={moveToNextStep} />}
         {step >= 4 && <BubbleSection step={4} moveToNextStep={moveToNextStep} />}
+        {step >= 5 && <BubbleSection step={5} moveToNextStep={moveToNextStep} />}
       </div>
       {isOpen && step === 3 && (
         <SelectTimeModal

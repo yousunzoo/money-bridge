@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import SelectCalendar from "./SelectCalendar";
 import dayjs, { Dayjs } from "dayjs";
 import TimeSelect from "./TimeSelect";
-import ConsultTime from "./ConsultTime";
 import ModalBackground from "../common/Modal/ModalBackground";
 import { useReservationStore } from "@/store/reservationStore";
 
@@ -63,7 +62,6 @@ function SelectTimeModal({ handleCloseModal, consultTime, moveToNextStep }: ISel
   return (
     <div className="fixed left-0 top-0 h-full w-full">
       <ModalBackground />
-      <ConsultTime consultTime={consultTime} />
       <section className="fixed bottom-0 left-1/2 flex h-[560px] w-[425px] -translate-x-1/2 flex-col justify-between rounded-t-3xl bg-white p-6">
         <h2 className="mb-6 text-lg font-semibold">
           희망 {step === 1 || step === 2 ? 1 : 2}순위 {step === 1 || step === 3 ? "날짜를" : "시간을"} 선택해주세요.
@@ -86,12 +84,6 @@ function SelectTimeModal({ handleCloseModal, consultTime, moveToNextStep }: ISel
           )}
         </section>
         <div className="relative flex w-full justify-between gap-4">
-          {step === 3 && (
-            <div className="bubble">
-              <p>1순위</p>
-              <p>{dayjs(select.candidateTime1).format("M월 DD일 HH:mm")}</p>
-            </div>
-          )}
           <button className={`${BUTTON_STYLE} bg-gray-300`} onClick={handleCancelButton}>
             {step === 1 ? "취소" : step === 3 ? "1순위 다시 선택하기" : "날짜 다시 선택하기"}
           </button>

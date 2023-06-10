@@ -53,6 +53,7 @@ function DoubleInputForm({
   };
 
   errors.first?.type === "required" ? (errors.first = undefined) : "";
+  errors.first?.type === "min" ? (errors.first.ref?.value === "" ? (errors.first = undefined) : "") : "";
   errors.second?.type === "required" ? (errors.second = undefined) : "";
   errors.second?.type === "min" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
 

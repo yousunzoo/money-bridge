@@ -20,7 +20,7 @@ function TopNav({
       <button className="text-left" onClick={() => router.back()}>
         {hasBack && "<"}
       </button>
-      <span>{title}</span>
+      <span className="text-center">{title}</span>
       <button className="text-right" onClick={() => router.replace(path)}>
         {hasClose && "X"}
       </button>

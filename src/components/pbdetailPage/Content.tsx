@@ -1,13 +1,17 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import portfolio from "@/mocks/hyeon17/PbDetail/portfolio.json";
 import review from "@/mocks/hyeon17/PbDetail/review.json";
 import { ConsultationStyle } from "@/constants/enum";
+import same from "@/mocks/hyeon17/PbDetail/same.json";
+import PbCardList from "@/components/common/Card/CardList/PbCardList";
 
-function Content(contentData: any) {
-  const { id,name, address, intro, speciality1, speciality2, career, award } = contentData;
+function Content({contentData}: any) {
+  const { id, name, address, intro, speciality1, speciality2, career, award, branchName, companyName } = contentData;
   const portfolioData = portfolio.data;
   const reviewData = review.data;
+  const sameData = same.data.list;
 
   const download = () => {
     const link = document.createElement("a");
@@ -38,6 +42,7 @@ function Content(contentData: any) {
   };
 
   return (
+    <>
     <div id={id}>
       <div>
         <div>한 줄 소개</div>
@@ -51,7 +56,7 @@ function Content(contentData: any) {
       <div>
         <div>경력</div>
         <div>
-          {career.map((item: any) => (
+          {career?.map((item: any) => (
             <div key={item.id}>
               <div>{item.start}</div>
               <div>{item.end}</div>
@@ -75,7 +80,7 @@ function Content(contentData: any) {
         </div>
       ) : null}
       <div>
-        <div>{name}PB의 포트폴리오 확인해 보세요</div>
+        <div>{name}PB의 포트폴리오를 확인해 보세요</div>
         <div key={portfolioData.id}>
           <div>
             <div>{portfolioData.highestReturn}</div>
@@ -94,7 +99,7 @@ function Content(contentData: any) {
           </div>
           <div>
             <div>{portfolioData.dangerRate}</div>
-            <div>위험등급 </div>
+            <div>위험등급</div>
           </div>
         </div>
       </div>
@@ -102,45 +107,58 @@ function Content(contentData: any) {
         <div>포트폴리오 다운로드</div>
         <div>
           <div>portfolio.pdf</div>
-          <button onClick={download}>다운로드</button>
+          <button onClick={() => download}>다운로드</button>
         </div>
       </div>
       <div>
-        <div>투자자님들의 실제 상담 후기</div>
+        <div>투자자 님들의 실제 상담 후기</div>
         <div>
+          <div>"투자자님들이 말하는 {name} PB의 매력은?"</div>
           <div>
-            <div></div>
+            <div>이미지</div>
             <div>{styleCase(reviewData.style1)}</div>
           </div>
           <div>
-            <div></div>
+            <div>이미지</div>
             <div>{styleCase(reviewData.style2)}</div>
           </div>
           <div>
-            <div></div>
+            <div>이미지</div>
             <div>{styleCase(reviewData.style3)}</div>
           </div>
         </div>
         <div>
-          <div>후기</div>
-          <div></div>
+          <div>
+            <div>후기00건</div>
+            <Link href="/detail/review">전체보기</Link>
+          </div>
+          <div>후기카드</div>
         </div>
       </div>
       <div>
         <div>방문 상담을 원하시나요?</div>
         <div>
-          <div>{address}</div>
+          <div>
+            {companyName}
+            {branchName}점
+          </div>
+          <div>
+            <div>{address}</div>
+            <button>주소 복사</button>
+          </div>
           <div>지도</div>
         </div>
       </div>
       <div>
         <div>핏에 맞는 다른 PB도 함께 만나보세요</div>
-        <div></div>
+        <PbCardList props={sameData} />
       </div>
-      <Link className="fixedButton" href="/reservation">
+      
+    </div>
+    <Link className="fixedButton" href="/reservation">
         상담 신청하기
       </Link>
-    </div>
+      </>
   );
 }
 

@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
 
-function Intro() {
+function Intro(introData: any) {
+  const { id, name, branchName, intro, msg, companyName, reserveCount, reviewCount } = introData;
   return (
     <div>
       <div>

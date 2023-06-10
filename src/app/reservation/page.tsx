@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 function ReservationPage() {
   const { pbName, pbStation, consultTime, userInfo } = reservationInfo.data;
-  const { answers } = useReservationStore();
+  const { answers, resetAnswers } = useReservationStore();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>({});
@@ -38,6 +38,7 @@ function ReservationPage() {
   const handleSubmit = () => {
     const convertedAnswers = convertReservationAnswer(answers);
     // 상담 예약 신청 api 호출
+    resetAnswers();
     router.replace("/reservation/complete");
   };
 

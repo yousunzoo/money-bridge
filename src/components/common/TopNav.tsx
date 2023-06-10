@@ -16,7 +16,7 @@ function TopNav({
   const router = useRouter();
 
   return (
-    <div className="fixed top-0 grid h-[40px] min-w-[425px] grid-cols-3 items-center bg-[#d9d9d9] px-[10px]">
+    <div className="fixed top-0 grid h-[40px] min-w-[425px] grid-cols-3 items-center px-[10px]">
       <button className="text-left" onClick={() => router.back()}>
         {hasBack && "<"}
       </button>

@@ -6,12 +6,12 @@ function TopNav({
   title,
   hasBack,
   hasClose,
-  closePath = "",
+  path = "",
 }: {
   title: string;
   hasBack?: boolean;
   hasClose?: boolean;
-  closePath?: string;
+  path?: string;
 }) {
   const router = useRouter();
 
@@ -21,7 +21,7 @@ function TopNav({
         {hasBack && "<"}
       </button>
       <span>{title}</span>
-      <button className="text-right" onClick={() => router.replace(closePath)}>
+      <button className="text-right" onClick={() => router.replace(path)}>
         {hasClose && "X"}
       </button>
     </div>

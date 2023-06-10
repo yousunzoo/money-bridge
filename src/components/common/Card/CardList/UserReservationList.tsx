@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import UserReservationItem from "../CardItem/UserReservationItem";
+import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 
 function UserReservationList() {
   return (

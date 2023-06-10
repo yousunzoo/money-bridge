@@ -1,46 +1,48 @@
 {
   "status": "200",
   "msg": "ok",
-  "data": [
-    {
-      "id": 1,
-      "title": "제목입니다1",
-      "pbName": "김피비",
-      "companyLogo": "logo.png",
-      "career": 10,
-      "tag1": "시장정보",
-      "tag2": "쉽게읽혀요",
-      "msg": "2천억을 움직인 부자 전문가 이재관입니다."
-    },
-    {
-      "id": 2,
-      "title": "제목입니다2",
-      "pbName": "김피비",
-      "companyLogo": "logo.png",
-      "career": 10,
-      "tag1": "시장정보",
-      "tag2": "쉽게읽혀요",
-      "msg": "2천억을 움직인 부자 전문가 이재관입니다."
-    },
-    {
-      "id": 3,
-      "title": "제목입니다3",
-      "pbName": "박피비",
-      "companyLogo": "logo.png",
-      "career": 10,
-      "tag1": "시장정보",
-      "tag2": "쉽게읽혀요",
-      "msg": "2천억을 움직인 부자 전문가 이재관입니다."
-    },
-    {
-      "id": 4,
-      "title": "제목입니다4",
-      "pbName": "박피비",
-      "companyLogo": "logo.png",
-      "career": 10,
-      "tag1": "시장정보",
-      "tag2": "쉽게읽혀요",
-      "msg": "2천억을 움직인 부자 전문가 이재관입니다."
-    }
-  ]
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "2천억을 움직인 부자 전문가 이재관입니다."
+      },
+      {
+        "id": 2,
+        "title": "제목입니다2",
+        "pbName": "김피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "2천억을 움직인 부자 전문가 이재관입니다."
+      },
+      {
+        "id": 3,
+        "title": "제목입니다3",
+        "pbName": "박피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "2천억을 움직인 부자 전문가 이재관입니다."
+      },
+      {
+        "id": 4,
+        "title": "제목입니다4",
+        "pbName": "박피비",
+        "companyLogo": "logo.png",
+        "career": 10,
+        "tag1": "시장정보",
+        "tag2": "쉽게읽혀요",
+        "msg": "2천억을 움직인 부자 전문가 이재관입니다."
+      }
+    ]
+  }
 }

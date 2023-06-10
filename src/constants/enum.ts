@@ -1,6 +1,6 @@
 enum CommonROLE {
   USER = "USER",
-  PB = " PB",
+  PB = "PB",
   ADMIN = "ADMIN",
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import DefaultProfile from "../../../../public/assets/images/default_profile.png";
+import DefaultProfile from "/public/assets/images/default_profile.png";
 import Image from "next/image";
 
 interface UserReservationItemProps {

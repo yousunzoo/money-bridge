@@ -2,7 +2,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Card from "@/components/common/Card/CardItem/Card";
 
 function PbCardItem({ item }: any) {
   const router = useRouter();
@@ -18,7 +17,7 @@ function PbCardItem({ item }: any) {
   };
 
   return (
-    <Card>
+    <li className="card">
       <div className="flex">
         <div>{/* <Image src={item.profile} alt="프로필" width={50} height={50} /> */}</div>
         <div className="flex flex-col">
@@ -43,7 +42,7 @@ function PbCardItem({ item }: any) {
         </div>
         <button onClick={goToDetail}>정보보기</button>
       </div>
-    </Card>
+    </li>
     // <li className="mx-auto my-4 flex h-48 w-4/5 flex-col rounded-xl shadow-md">
 
     // </li>

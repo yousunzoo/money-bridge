@@ -33,14 +33,20 @@ export interface IConsultTime {
 }
 export interface IBubbleSectionProps {
   step: 0 | 1 | 2 | 3 | 4 | 5;
+  isOpen?: Boolean;
   moveToNextStep: () => void;
   pbStation?: IPbStation;
+  consultTime?: IConsultTime;
   handleOpenModal?: () => void;
 }
 
 export interface ICandidateTimes {
   candidateTime1: string | null;
   candidateTime2: string | null;
+}
+
+export interface ICandidateTimeProps {
+  candidates: ICandidateTimes;
 }
 export interface ISelectTimeModalProps {
   handleCloseModal: () => void;

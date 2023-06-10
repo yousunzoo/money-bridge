@@ -8,6 +8,7 @@ import ModalLayout from "@/components/reservationPage/ModalLayout";
 import EditProfileModal from "@/components/reservationPage/EditProfileModal";
 import { convertReservationAnswer } from "@/utils/convertAnswer";
 import { useReservationStore } from "@/store/reservationStore";
+import { useRouter } from "next/navigation";
 
 function ReservationPage() {
   const { pbName, pbStation, consultTime, userInfo } = reservationInfo.data;
@@ -17,6 +18,7 @@ function ReservationPage() {
   const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>({});
   const [isPhoneConsult, setIsPhoneConsult] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   const handleOpenModal = (nowStep: number) => {
     setStep(nowStep);
@@ -36,7 +38,9 @@ function ReservationPage() {
   const handleSubmit = () => {
     const convertedAnswers = convertReservationAnswer(answers);
     // 상담 예약 신청 api 호출
+    router.replace("/reservation/complete");
   };
+
   useEffect(() => {
     if (!sectionRef.current) return;
     if (isChecked[5]) {
@@ -48,7 +52,7 @@ function ReservationPage() {
   }, [isChecked]);
   return (
     <>
-      <div className="w-full p-6" ref={sectionRef}>
+      <div className="w-full p-6 pb-40" ref={sectionRef}>
         <section className="mb-4 flex flex-col gap-y-4">
           {isChecked[5] ? (
             <div className="text-lg font-semibold">
@@ -99,7 +103,10 @@ function ReservationPage() {
           />
         )}
         {isChecked[5] && (
-          <button onClick={handleSubmit} className="mt-40 w-full rounded-lg bg-black py-2 text-white">
+          <button
+            onClick={handleSubmit}
+            className="fixed bottom-4 left-0 right-0 mx-auto flex h-[56px] w-[360px] items-center justify-center rounded-lg bg-black text-white"
+          >
             등록하기
           </button>
         )}

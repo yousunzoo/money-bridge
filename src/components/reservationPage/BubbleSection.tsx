@@ -67,6 +67,10 @@ function BubbleSection({
     }
     if (!isChoosable) {
       sectionRef.current.classList.remove("h-screen");
+      sectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
       return;
     }
     if (step !== 0 && isChoosable) {

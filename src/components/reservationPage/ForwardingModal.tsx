@@ -4,7 +4,7 @@ import { useReservationStore } from "@/store/reservationStore";
 import { IForwardingModalProps } from "@/types/reservation";
 
 const BUTTON_STYLE = "w-full py-2 rounded-lg";
-function ForwardingModal({ moveToNextStep, handleCloseModal }: IForwardingModalProps) {
+function ForwardingModal({ nowStep, moveToNextStep, handleCloseModal }: IForwardingModalProps) {
   const { setAnswers } = useReservationStore();
   const [forwarding, setForwarding] = useState("");
   const [isValidate, setIsValidate] = useState(false);
@@ -24,7 +24,7 @@ function ForwardingModal({ moveToNextStep, handleCloseModal }: IForwardingModalP
 
   const handleConfirmButton = () => {
     setAnswers(4, forwarding);
-    moveToNextStep();
+    moveToNextStep(nowStep);
     handleCloseModal();
   };
   return (

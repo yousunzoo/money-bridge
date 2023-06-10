@@ -1,4 +1,4 @@
-import { IBubbleSectionProps, IQuestions } from "@/types/reservation";
+import { IBubbleSectionProps, IQuestions, IUserInfo } from "@/types/reservation";
 import reservationQuestions from "@/constants/reservationQuestions.json";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import LocationCard from "../common/LocationCard";
@@ -12,6 +12,7 @@ function BubbleSection({
   consultTime,
   userInfo,
   handleOpenModal,
+  skipNextStep,
   moveToNextStep,
 }: IBubbleSectionProps) {
   const questions: IQuestions = reservationQuestions;
@@ -19,45 +20,72 @@ function BubbleSection({
   const [isChoosable, setIsChoosable] = useState(true);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const questionRef = useRef<HTMLDivElement | null>(null);
+  const answerRef = useRef<HTMLDivElement | null>(null);
   const { answers, setAnswers } = useReservationStore();
+
+  const editedInfo = userInfo ? (isChoosable ? userInfo : answers[5]) : null;
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>, option: string) => {
     const { textContent } = e.target as HTMLElement;
     if (step === 3) {
       if (!handleOpenModal) return;
-      handleOpenModal();
+      handleOpenModal(step);
       return;
     }
 
     if (textContent === "네(작성하기)" || textContent === "틀립니다(정보 수정)") {
       if (!handleOpenModal) return;
-      handleOpenModal();
+      handleOpenModal(step);
       return;
     }
 
-    setAnswers(step, option);
     setIsChoosable(false);
-    moveToNextStep();
+
+    if (textContent === "맞습니다") {
+      if (!editedInfo) return;
+      setAnswers(step, editedInfo);
+      return;
+    }
+    setAnswers(step, option);
+
+    if (textContent === "언제 어디든 쉽고 빠르게 전화 상담") {
+      if (!skipNextStep) return;
+      skipNextStep();
+      return;
+    }
+    moveToNextStep(step);
     return;
   };
 
   useEffect(() => {
-    if (!sectionRef.current || !questionRef.current) return;
-    if (answers[step] && !isOpen) {
-      setIsChoosable(false);
-    }
+    if (!sectionRef.current || !questionRef.current || !answerRef.current) return;
+
     if (!isChoosable) {
       sectionRef.current.classList.remove("h-screen");
+      answerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+    if (isChoosable) {
+      sectionRef.current.classList.add("h-screen");
       questionRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
-  }, [sectionRef, questionRef, isChoosable, isOpen]);
+  }, [isChoosable]);
+
+  useEffect(() => {
+    if (answers[step] && !isOpen) {
+      setIsChoosable(false);
+    }
+  }, [isOpen]);
 
   return (
     <section ref={sectionRef} className="mb-6 flex h-screen flex-col gap-y-4">
-      {intro1 && (
+      <div className="pt-6" ref={questionRef}></div>
+      {intro1 && isChoosable && (
         <div className="text-lg font-semibold">
           <p>{intro1}</p>
           {intro2 && <p>{intro2}</p>}
@@ -85,19 +113,19 @@ function BubbleSection({
               {consultTime.notice && <p>유의사항 : {consultTime.notice}</p>}
             </div>
           )}
-          {userInfo && (
+          {editedInfo && (
             <div className="w-full rounded-3xl border-2 p-6">
               <div className="flex justify-between">
                 <p>이름</p>
-                <p>{userInfo.userName}</p>
+                <p>{editedInfo.userName}</p>
               </div>
               <div className="flex justify-between">
                 <p>휴대폰 번호</p>
-                <p>{userInfo.userPhoneNumber}</p>
+                <p>{editedInfo.userPhoneNumber}</p>
               </div>
               <div className="flex justify-between">
                 <p>이메일</p>
-                <p>{userInfo.userEmail}</p>
+                <p>{editedInfo.userEmail}</p>
               </div>
             </div>
           )}
@@ -113,10 +141,16 @@ function BubbleSection({
             ))}
         </div>
       </div>
-      <div ref={questionRef}></div>
+      <div ref={answerRef}></div>
       {!answers[step] && <div className="grow"></div>}
-      {step === 3 && answers[3] && <CandidateTime candidates={answers[3]} />}
-      {answers[step] && step !== 3 && <div className="userBubble">{answers[step]}</div>}
+      {answers[step] && !isChoosable && (
+        <div className="userBubble flex gap-2">
+          {step === 3 && answers[3] && <CandidateTime candidates={answers[3]} />}
+          {step === 5 && answers[5] && <p>맞습니다</p>}
+          {step !== 3 && step !== 5 && answers[step] && <p>{answers[step]}</p>}
+          <button onClick={() => setIsChoosable(true)}>✏️</button>
+        </div>
+      )}
     </section>
   );
 }

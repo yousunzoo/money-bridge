@@ -12,12 +12,12 @@ export interface IQuestion {
 }
 
 export interface IAnswers {
-  0: string[] | null;
+  0: string | null;
   1: string | null;
   2: string | null;
-  3: { candidateTime1: string; candidateTime2: string } | null;
+  3: ICandidateTimes | null;
   4: string | null;
-  5: string | null;
+  5: IUserInfo | null;
 }
 
 export interface IPbStation {
@@ -40,10 +40,11 @@ export interface IUserInfo {
 export interface IBubbleSectionProps {
   step: 0 | 1 | 2 | 3 | 4 | 5;
   isOpen?: Boolean;
-  moveToNextStep: () => void;
+  moveToNextStep: (nowStep: number) => void;
+  skipNextStep?: () => void;
   pbStation?: IPbStation;
   consultTime?: IConsultTime;
-  handleOpenModal?: () => void;
+  handleOpenModal?: (nowStep: number) => void;
   userInfo?: IUserInfo;
 }
 
@@ -52,16 +53,18 @@ export interface ICandidateTimes {
   candidateTime2: string | null;
 }
 export interface IEditProfileModalProps {
+  nowStep: number;
   handleCloseModal: () => void;
-  moveToNextStep: () => void;
+  moveToNextStep: (nowStep: number) => void;
   userInfo: IUserInfo;
 }
 export interface ICandidateTimeProps {
   candidates: ICandidateTimes;
 }
 export interface ISelectTimeModalProps {
+  nowStep: number;
   handleCloseModal: () => void;
-  moveToNextStep: () => void;
+  moveToNextStep: (nowStep: number) => void;
   consultTime: IConsultTime;
 }
 export interface ISelectCalendarProps {
@@ -78,6 +81,7 @@ export interface ITimeSelectProps {
 }
 
 export interface IForwardingModalProps {
-  moveToNextStep: () => void;
+  nowStep: number;
+  moveToNextStep: (nowStep: number) => void;
   handleCloseModal: () => void;
 }

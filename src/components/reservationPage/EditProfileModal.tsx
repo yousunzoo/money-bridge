@@ -1,6 +1,6 @@
 import { useReservationStore } from "@/store/reservationStore";
 import { IEditProfileModalProps } from "@/types/reservation";
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,12 +8,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 const yup_phone = yup.string().min(10).max(11).required();
 const yup_name = yup.string().min(2).max(10).required();
 
-function EditProfileModal({ moveToNextStep, handleCloseModal, userInfo }: IEditProfileModalProps) {
+function EditProfileModal({ nowStep, moveToNextStep, handleCloseModal, userInfo }: IEditProfileModalProps) {
   const { userName, userEmail, userPhoneNumber } = userInfo;
   const { setAnswers } = useReservationStore();
   const [editedInfo, setEditedInfo] = useState({
     userName,
     userPhoneNumber,
+    userEmail,
   });
 
   const schema = yup.object().shape({
@@ -23,7 +24,6 @@ function EditProfileModal({ moveToNextStep, handleCloseModal, userInfo }: IEditP
 
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid },
   } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
 
@@ -31,17 +31,18 @@ function EditProfileModal({ moveToNextStep, handleCloseModal, userInfo }: IEditP
     const { value, id } = e.target;
     setEditedInfo({ ...editedInfo, [id]: value });
   };
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!isValid) return;
     setAnswers(5, editedInfo);
     handleCloseModal();
-    moveToNextStep();
+    moveToNextStep(nowStep);
   };
   return (
     <>
       <h2 className="mb-6 text-lg font-semibold">예약자 정보 수정</h2>
       <p className="mb-4">*기본 정보와 예약자가 다른 경우에만 수정해주세요</p>
-      <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange} className="flex grow flex-col gap-6">
+      <form onSubmit={e => onSubmit(e)} onChange={handleChange} className="flex grow flex-col gap-6">
         <div className="flex w-full flex-wrap justify-between gap-2">
           <label htmlFor="userName">이름</label>
           <input id="userName" className="text-right" value={editedInfo.userName} {...register("userName")} />

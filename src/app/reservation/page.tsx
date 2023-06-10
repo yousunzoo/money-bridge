@@ -11,15 +11,22 @@ function ReservationPage() {
   const { pbName, pbStation, consultTime, userInfo } = reservationInfo.data;
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
-
-  const handleOpenModal = () => {
+  const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>({});
+  const [isPhoneConsult, setIsPhoneConsult] = useState(false);
+  const handleOpenModal = (nowStep: number) => {
+    setStep(nowStep);
     setIsOpen(true);
   };
   const handleCloseModal = () => {
     setIsOpen(false);
   };
-  const moveToNextStep = () => {
+  const moveToNextStep = (nowStep: number) => {
     setStep(step + 1);
+    setIsChecked({ ...isChecked, [nowStep]: true });
+  };
+  const skipNextStep = () => {
+    setIsPhoneConsult(true);
+    setStep(step + 2);
   };
 
   return (
@@ -37,10 +44,12 @@ function ReservationPage() {
             <p>네! 좋아요</p>
           </div>
         </section>
-        {step >= 0 && <BubbleSection step={0} moveToNextStep={moveToNextStep} />}
-        {step >= 1 && <BubbleSection step={1} moveToNextStep={moveToNextStep} />}
-        {step >= 2 && <BubbleSection step={2} moveToNextStep={moveToNextStep} pbStation={pbStation} />}
-        {step >= 3 && (
+        <BubbleSection step={0} moveToNextStep={moveToNextStep} />
+        {isChecked[0] && <BubbleSection step={1} moveToNextStep={moveToNextStep} skipNextStep={skipNextStep} />}
+        {isChecked[1] && !isPhoneConsult && (
+          <BubbleSection step={2} moveToNextStep={moveToNextStep} pbStation={pbStation} />
+        )}
+        {(isChecked[2] || isPhoneConsult) && (
           <BubbleSection
             step={3}
             isOpen={isOpen}
@@ -49,10 +58,10 @@ function ReservationPage() {
             consultTime={consultTime}
           />
         )}
-        {step >= 4 && (
+        {isChecked[3] && (
           <BubbleSection step={4} isOpen={isOpen} handleOpenModal={handleOpenModal} moveToNextStep={moveToNextStep} />
         )}
-        {step >= 5 && (
+        {isChecked[4] && (
           <BubbleSection
             step={5}
             isOpen={isOpen}
@@ -66,14 +75,22 @@ function ReservationPage() {
         <ModalLayout>
           {step === 3 && (
             <SelectTimeModal
+              nowStep={3}
               moveToNextStep={moveToNextStep}
               handleCloseModal={handleCloseModal}
               consultTime={consultTime}
             />
           )}
-          {step === 4 && <ForwardingModal moveToNextStep={moveToNextStep} handleCloseModal={handleCloseModal} />}
+          {step === 4 && (
+            <ForwardingModal nowStep={4} moveToNextStep={moveToNextStep} handleCloseModal={handleCloseModal} />
+          )}
           {step === 5 && (
-            <EditProfileModal userInfo={userInfo} moveToNextStep={moveToNextStep} handleCloseModal={handleCloseModal} />
+            <EditProfileModal
+              userInfo={userInfo}
+              nowStep={5}
+              moveToNextStep={moveToNextStep}
+              handleCloseModal={handleCloseModal}
+            />
           )}
         </ModalLayout>
       )}

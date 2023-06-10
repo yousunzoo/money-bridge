@@ -5,8 +5,8 @@ import dayjs, { Dayjs } from "dayjs";
 import TimeSelect from "./TimeSelect";
 import { useReservationStore } from "@/store/reservationStore";
 
-const BUTTON_STYLE = "w-1/2 py-2 rounded-lg";
-function SelectTimeModal({ handleCloseModal, moveToNextStep, consultTime }: ISelectTimeModalProps) {
+const BUTTON_STYLE = "w-full py-2 rounded-lg";
+function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTime }: ISelectTimeModalProps) {
   const [step, setStep] = useState(1);
   const [select, setSelect] = useState<ICandidateTimes>({ candidateTime1: null, candidateTime2: null });
   const { setAnswers } = useReservationStore();
@@ -31,17 +31,11 @@ function SelectTimeModal({ handleCloseModal, moveToNextStep, consultTime }: ISel
     const candidate = step === 1 ? "candidateTime1" : "candidateTime2";
     setSelect({ ...select, [candidate]: date });
   };
-  const handleCancelButton = () => {
-    if (step === 1) {
-      handleCloseModal();
-      return;
-    }
-    setStep(step - 1);
-  };
+
   const handleNextButton = () => {
     if (step === 4) {
       setAnswers(3, select);
-      moveToNextStep();
+      moveToNextStep(nowStep);
       handleCloseModal();
       return;
     }
@@ -60,7 +54,6 @@ function SelectTimeModal({ handleCloseModal, moveToNextStep, consultTime }: ISel
   };
   return (
     <>
-      {" "}
       <h2 className="mb-6 text-lg font-semibold">
         희망 {step === 1 || step === 2 ? 1 : 2}순위 {step === 1 || step === 3 ? "날짜를" : "시간을"} 선택해주세요.
       </h2>
@@ -82,9 +75,6 @@ function SelectTimeModal({ handleCloseModal, moveToNextStep, consultTime }: ISel
         )}
       </section>
       <div className="relative flex w-full justify-between gap-4">
-        <button className={`${BUTTON_STYLE} bg-gray-300`} onClick={handleCancelButton}>
-          {step === 1 ? "취소" : step === 3 ? "1순위 다시 선택하기" : "날짜 다시 선택하기"}
-        </button>
         <button className={`${BUTTON_STYLE} bg-black text-white`} onClick={handleNextButton}>
           선택
         </button>

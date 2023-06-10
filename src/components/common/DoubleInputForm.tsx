@@ -52,12 +52,23 @@ function DoubleInputForm({
     }
   };
 
+  errors.first?.type === "required" ? (errors.first = undefined) : "";
+  errors.second?.type === "required" ? (errors.second = undefined) : "";
+  errors.second?.type === "min" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
+
   return (
     <div className="mt-[24px] px-[16px]">
       <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-[10px]">
           <h2 className="mb-[16px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header1}</h2>
-          <input type="text" className="formInput" {...register("first")} value={inputs.first} />
+          <input
+            type="text"
+            className={`formInput ${errors.first ? "formInput_warn" : ""} ${
+              dirtyFields.first ? "formInput_entering" : ""
+            }`}
+            {...register("first")}
+            value={inputs.first}
+          />
           <div className="h-[18px] pl-[8px]">
             <span className={`text-[12px] leading-[18px] ${errors.first ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
               {dirtyFields.first ? getNotice(type)?.data.notice1 : ""}
@@ -66,7 +77,14 @@ function DoubleInputForm({
         </div>
         <div className="mb-[10px]">
           <h2 className="mb-[16px] mt-[24px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header2}</h2>
-          <input type={inputType} className="formInput" {...register("second")} value={inputs.second} />
+          <input
+            type={inputType}
+            className={`formInput ${errors.second ? "formInput_warn" : ""} ${
+              dirtyFields.second ? "formInput_entering" : ""
+            }`}
+            {...register("second")}
+            value={inputs.second}
+          />
           <div className="h-[18px] pl-[8px]">
             <span className={`text-[12px] leading-[18px] ${errors.second ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
               {dirtyFields.second ? getNotice(type)?.data.notice2 : ""}
@@ -97,8 +115,8 @@ const getNotice = (type: string) => {
         data: {
           header1: "이메일",
           header2: "비밀번호",
-          notice1: "@포함하여 작성해 주세요.",
-          notice2: "8자 이상입니다.",
+          notice1: "@를 포함하여 작성해 주세요.",
+          notice2: "8자 이상 입력해 주세요.",
           submit: "로그인",
           func: "",
         },
@@ -120,7 +138,7 @@ const getNotice = (type: string) => {
           header1: "이름",
           header2: "이메일",
           notice1: "정확한 이름을 입력해주세요",
-          notice2: "@포함하여 작성해 주세요.",
+          notice2: "@를 포함하여 작성해 주세요.",
           submit: "인증코드 받기",
           func: "",
         },

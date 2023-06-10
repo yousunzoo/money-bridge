@@ -1,7 +1,6 @@
 "use client";
 import TopNav from "@/components/common/TopNav";
-import ButtonToFind from "@/components/loginPage/ButtonToFind";
-import ButtonToSignUp from "@/components/loginPage/ButtonToSignUp";
+import ButtonToFind from "@/components/loginPage/ButtonToAccountSetting";
 import DoubleInputForm from "@/components/common/DoubleInputForm";
 import KeepLoginButton from "@/components/loginPage/KeepLoginButton";
 import React, { useState } from "react";
@@ -22,7 +21,6 @@ function Login() {
       </div>
       <DoubleInputForm type="login" inputs={inputs} setInputs={setInputs} />
       <KeepLoginButton />
-      <ButtonToSignUp />
       <ButtonToFind />
     </>
   );

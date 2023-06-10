@@ -56,14 +56,14 @@ function DoubleInputForm({
     <div className="mt-[24px] px-[16px]">
       <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-[10px]">
-          <h2 className="mb-[16 px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header1}</h2>
+          <h2 className="mb-[16px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header1}</h2>
           <input type="text" className="formInput" {...register("first")} value={inputs.first} />
           <span className={`text-xs ${errors.first ? "text-red-600" : "text-slate-300"}`}>
             {getNotice(type)?.data.notice1}
           </span>
         </div>
         <div className="mb-[10px]">
-          <h2 className="mb-[16 px] mt-[24px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header2}</h2>
+          <h2 className="mb-[16px] mt-[24px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header2}</h2>
           <input type={inputType} className="formInput" {...register("second")} value={inputs.second} />
           <span className={`text-xs ${errors.second ? "text-red-600" : "text-slate-300"}`}>
             {getNotice(type)?.data.notice2}

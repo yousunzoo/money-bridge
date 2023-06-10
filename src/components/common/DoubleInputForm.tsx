@@ -31,8 +31,8 @@ function DoubleInputForm({
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
+    formState: { errors, isValid, dirtyFields },
+  } = useForm({ mode: "onChange", resolver: yupResolver(schema), defaultValues: { first: "", second: "" } });
 
   const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
     const { value, name } = e.target;
@@ -58,18 +58,22 @@ function DoubleInputForm({
         <div className="mb-[10px]">
           <h2 className="mb-[16px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header1}</h2>
           <input type="text" className="formInput" {...register("first")} value={inputs.first} />
-          <span className={`text-xs ${errors.first ? "text-red-600" : "text-slate-300"}`}>
-            {getNotice(type)?.data.notice1}
-          </span>
+          <div className="h-[18px] pl-[8px]">
+            <span className={`text-[12px] leading-[18px] ${errors.first ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
+              {dirtyFields.first ? getNotice(type)?.data.notice1 : ""}
+            </span>
+          </div>
         </div>
         <div className="mb-[10px]">
           <h2 className="mb-[16px] mt-[24px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header2}</h2>
           <input type={inputType} className="formInput" {...register("second")} value={inputs.second} />
-          <span className={`text-xs ${errors.second ? "text-red-600" : "text-slate-300"}`}>
-            {getNotice(type)?.data.notice2}
-          </span>
+          <div className="h-[18px] pl-[8px]">
+            <span className={`text-[12px] leading-[18px] ${errors.second ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
+              {dirtyFields.second ? getNotice(type)?.data.notice2 : ""}
+            </span>
+          </div>
         </div>
-        {/* <button type="submit" className="h-[40px] w-full bg-gray-300 "> */}
+        {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
           type="button"
           className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}
@@ -93,8 +97,8 @@ const getNotice = (type: string) => {
         data: {
           header1: "이메일",
           header2: "비밀번호",
-          notice1: "* @포함하여 작성해 주세요.",
-          notice2: "* 8자 이상입니다.",
+          notice1: "@포함하여 작성해 주세요.",
+          notice2: "8자 이상입니다.",
           submit: "로그인",
           func: "",
         },
@@ -104,8 +108,8 @@ const getNotice = (type: string) => {
         data: {
           header1: "이름",
           header2: "휴대폰 번호",
-          notice1: "* 정확한 이름을 입력해주세요",
-          notice2: "* -자 없이 숫자로만 적어주세요",
+          notice1: "정확한 이름을 입력해주세요",
+          notice2: "-자 없이 숫자로만 적어주세요",
           submit: "확인",
           func: "",
         },
@@ -115,8 +119,8 @@ const getNotice = (type: string) => {
         data: {
           header1: "이름",
           header2: "이메일",
-          notice1: "* 정확한 이름을 입력해주세요",
-          notice2: "* @포함하여 작성해 주세요.",
+          notice1: "정확한 이름을 입력해주세요",
+          notice2: "@포함하여 작성해 주세요.",
           submit: "인증코드 받기",
           func: "",
         },

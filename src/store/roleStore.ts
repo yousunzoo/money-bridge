@@ -6,13 +6,16 @@ interface RoleState {
   setRole: (role: string) => void;
   getRole: () => string;
 }
+const isClient = typeof window !== "undefined"; 
 const RoleState = create<RoleState>(
   // @ts-ignore
   persist(
     (set, get) => ({
-      role: localStorage.getItem("role") || "",
+      role: isClient ? localStorage.getItem("role") || "" : "",
       setRole: (role: string) => {
-        localStorage.setItem("role", JSON.stringify(role));
+        if (isClient) {
+          localStorage.setItem("role", JSON.stringify(role));
+        }
         set({ role });
       },
       getRole: () => get().role,

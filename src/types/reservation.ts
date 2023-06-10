@@ -6,10 +6,8 @@ export interface IQuestions {
 
 export interface IQuestion {
   question: string;
-  sub?: string;
   intro1?: string;
   intro2?: string;
-  intro3?: string;
   options: string[];
 }
 

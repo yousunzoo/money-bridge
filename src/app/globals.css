@@ -27,20 +27,13 @@ main {
   outline: none;
 }
 
-.chatBubble {
-  width: fit-content;
-  padding: 10px 20px 10px 20px;
-  background-color: #eee;
-  border-radius: 0 20px 20px 20px;
-}
-
 .userBubble {
   width: fit-content;
   padding: 10px 20px 10px 20px;
   background-color: #000;
   color: white;
   align-self: flex-end;
-  border-radius: 20px 0 20px 20px;
+  border-radius: 20px 6px 20px 20px;
 }
 
 .bubble {

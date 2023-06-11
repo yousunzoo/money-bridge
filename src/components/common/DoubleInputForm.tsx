@@ -31,8 +31,8 @@ function DoubleInputForm({
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
+    formState: { errors, isValid, dirtyFields },
+  } = useForm({ mode: "onChange", resolver: yupResolver(schema), defaultValues: { first: "", second: "" } });
 
   const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
     const { value, name } = e.target;
@@ -52,26 +52,55 @@ function DoubleInputForm({
     }
   };
 
+  errors.first?.type === "required" ? (errors.first = undefined) : "";
+  errors.first?.type === "min" ? (errors.first.ref?.value === "" ? (errors.first = undefined) : "") : "";
+  errors.second?.type === "required" ? (errors.second = undefined) : "";
+  errors.second?.type === "min" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
+
   return (
-    <div className="pt-[100px]">
+    <div className="mt-[24px] px-[16px]">
       <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-[10px]">
-          <h2 className="mb-[20px] font-bold">{getNotice(type)?.data.header1}</h2>
-          <input type="text" className="formInput" {...register("first")} value={inputs.first} />
-          <span className={`text-xs ${errors.first ? "text-red-600" : "text-slate-300"}`}>
-            {getNotice(type)?.data.notice1}
-          </span>
+          <h2 className="mb-[16px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header1}</h2>
+          <input
+            type="text"
+            className={`formInput ${errors.first ? "formInput_warn" : ""} ${
+              dirtyFields.first ? "formInput_entering" : ""
+            }`}
+            {...register("first")}
+            value={inputs.first}
+          />
+          <div className="h-[18px] pl-[8px]">
+            <span className={`text-[12px] leading-[18px] ${errors.first ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
+              {dirtyFields.first ? getNotice(type)?.data.notice1 : ""}
+            </span>
+          </div>
         </div>
         <div className="mb-[10px]">
-          <h2 className="mb-[20px] font-bold">{getNotice(type)?.data.header2}</h2>
-          <input type={inputType} className="formInput" {...register("second")} value={inputs.second} />
-          <span className={`text-xs ${errors.second ? "text-red-600" : "text-slate-300"}`}>
-            {getNotice(type)?.data.notice2}
-          </span>
+          <h2 className="mb-[16px] mt-[24px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header2}</h2>
+          <input
+            type={inputType}
+            className={`formInput ${errors.second ? "formInput_warn" : ""} ${
+              dirtyFields.second ? "formInput_entering" : ""
+            }`}
+            {...register("second")}
+            value={inputs.second}
+          />
+          <div className="h-[18px] pl-[8px]">
+            <span className={`text-[12px] leading-[18px] ${errors.second ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
+              {dirtyFields.second ? getNotice(type)?.data.notice2 : ""}
+            </span>
+          </div>
         </div>
-        {/* <button type="submit" className="h-[40px] w-full bg-gray-300 "> */}
-        <button type="button" className={`h-[40px] w-full ${isValid ? "bg-black" : "bg-gray-300"}`} onClick={onSubmit}>
-          <span className="text-xs font-semibold text-slate-400">{getNotice(type)?.data.submit}</span>
+        {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
+        <button
+          type="button"
+          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}
+          onClick={onSubmit}
+        >
+          <span className={`text-[20px] font-bold leading-[28px] ${isValid ? "text-white" : "text-[#565656]"}`}>
+            {getNotice(type)?.data.submit}
+          </span>
         </button>
       </form>
     </div>
@@ -87,8 +116,8 @@ const getNotice = (type: string) => {
         data: {
           header1: "이메일",
           header2: "비밀번호",
-          notice1: "* @포함하여 작성해 주세요.",
-          notice2: "* 8자 이상입니다.",
+          notice1: "@를 포함하여 작성해 주세요.",
+          notice2: "8자 이상 입력해 주세요.",
           submit: "로그인",
           func: "",
         },
@@ -98,8 +127,8 @@ const getNotice = (type: string) => {
         data: {
           header1: "이름",
           header2: "휴대폰 번호",
-          notice1: "* 정확한 이름을 입력해주세요",
-          notice2: "* -자 없이 숫자로만 적어주세요",
+          notice1: "정확한 이름을 입력해주세요",
+          notice2: "-자 없이 숫자로만 적어주세요",
           submit: "확인",
           func: "",
         },
@@ -109,8 +138,8 @@ const getNotice = (type: string) => {
         data: {
           header1: "이름",
           header2: "이메일",
-          notice1: "* 정확한 이름을 입력해주세요",
-          notice2: "* @포함하여 작성해 주세요.",
+          notice1: "정확한 이름을 입력해주세요",
+          notice2: "@를 포함하여 작성해 주세요.",
           submit: "인증코드 받기",
           func: "",
         },

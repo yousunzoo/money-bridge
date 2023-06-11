@@ -1,24 +1,13 @@
 "use client";
-
-import { useState, useRef } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-function LocationCard({ lat, lng, closeButton }: { lat: number; lng: number; closeButton: boolean }) {
-  const [display, setDisplay] = useState(true);
-  const mapRef = useRef<HTMLDivElement>(null);
-  mapRef.current?.classList.add(display ? "block" : "hidden");
-
+function LocationCard({ latitude, longitude }: { latitude: number; longitude: number }) {
   return (
     <>
-      <div className="relative h-[300px] w-full" ref={mapRef}>
-        <Map center={{ lat, lng }} style={{ width: "100%", height: "100%" }}>
-          <MapMarker position={{ lat, lng }}></MapMarker>
+      <div className="relative !z-0 h-[140px] w-[320px]">
+        <Map center={{ lat: latitude, lng: longitude }} style={{ width: "100%", height: "100%" }}>
+          <MapMarker position={{ lat: latitude, lng: longitude }}></MapMarker>
         </Map>
-        {closeButton && (
-          <button className="absolute right-[20px] top-[10px] z-10" onClick={() => setDisplay(!display)}>
-            X
-          </button>
-        )}
       </div>
     </>
   );

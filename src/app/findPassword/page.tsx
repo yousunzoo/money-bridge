@@ -1,6 +1,5 @@
 "use client";
 import DoubleInputForm from "@/components/common/DoubleInputForm";
-import LocationCard from "@/components/common/LocationCard";
 import TopNav from "@/components/common/TopNav";
 import React, { useState } from "react";
 

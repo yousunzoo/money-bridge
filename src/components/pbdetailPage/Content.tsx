@@ -8,6 +8,7 @@ import same from "@/mocks/hyeon17/PbDetail/same.json";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
 // import LocationCard from "@/components/common/LocationCard";
 import Carousel from "antd/lib/carousel";
+import "@/styles/defaultCarousel.css";
 
 function Content({ contentData }: any) {
   const { id, name, address, intro, speciality1, speciality2, career, award, branchName, companyName } = contentData;
@@ -137,7 +138,21 @@ function Content({ contentData }: any) {
             <Carousel autoplay className="">
               <li className="card">
                 <div>
-                  <div>이름</div>
+                  <div>이름1</div>
+                  <div>날짜</div>
+                </div>
+                <div>내용</div>
+              </li>
+              <li className="card">
+                <div>
+                  <div>이름2</div>
+                  <div>날짜</div>
+                </div>
+                <div>내용</div>
+              </li>
+              <li className="card">
+                <div>
+                  <div>이름3</div>
                   <div>날짜</div>
                 </div>
                 <div>내용</div>

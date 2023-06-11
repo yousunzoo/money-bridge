@@ -1,0 +1,17 @@
+.ant-carousel .slick-dots{
+  position: static !important;
+}
+.ant-carousel .slick-dots-bottom li {
+  width: 6px !important;
+  height: 6px;
+}
+.ant-carousel .slick-dots li.slick-active button{
+  background: red;
+}
+
+.ant-carousel .slick-dots-bottom li button {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: black;
+}

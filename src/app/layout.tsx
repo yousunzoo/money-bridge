@@ -4,7 +4,7 @@ import ReactQueryProvider from "./ReactQueryProvider";
 import "./globals.css";
 import { Noto_Sans } from "next/font/google";
 
-const noto = Noto_Sans({ weight: ["100", "300", "400", "500", "700", "900"], subsets: ["latin"] });
+const noto = Noto_Sans({ weight: ["500", "700"], subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",

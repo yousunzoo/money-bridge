@@ -3,7 +3,7 @@
   "msg": "ok",
   "data": {
     "id": 1,
-    "profile": "/profile.png",
+    "profile": "/assets/images/default_profile.png",
     "msg": "김피비입니다",
     "name": "김피비",
     "companyName": "미래에셋",

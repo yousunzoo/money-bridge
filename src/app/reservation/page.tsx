@@ -28,6 +28,9 @@ function ReservationPage() {
     setIsOpen(false);
   };
   const moveToNextStep = (nowStep: number) => {
+    if (nowStep === 1) {
+      setIsPhoneConsult(false);
+    }
     setStep(nowStep + 1);
     setIsChecked({ ...isChecked, [nowStep]: true });
   };

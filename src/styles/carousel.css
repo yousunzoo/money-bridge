@@ -1,0 +1,24 @@
+.pb_banner{
+  width: 390px !important;
+  height: 235px;
+  display: flex !important;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.ant-carousel .slick-dots-top{
+  margin-left:300px;
+}
+.ant-carousel .slick-dots-top li,
+.ant-carousel .slick-dots-top .slick-active {
+  width: 6px !important;
+  height: 6px;
+}
+
+.ant-carousel .slick-dots-top li button {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+
+}

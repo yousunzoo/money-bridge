@@ -1,9 +1,15 @@
 import reservationQuestions from "@/constants/reservationQuestions.json";
 import { IAnswers, IQuestions } from "@/types/reservation";
+import { ReservationGoal, ReservationType, ReservationLocationType } from "@/constants/enum";
 
-const reservationGoal = ["PROFIT", "RISK", "TAX", "PRESERVATION"];
-const reservationType = ["VISIT", "CALL"];
-const reservationLocationType = ["BRANCH", "CALL"];
+const reservationGoal = [
+  ReservationGoal.PROFIT,
+  ReservationGoal.RISK,
+  ReservationGoal.TAX,
+  ReservationGoal.PRESERVATION,
+];
+const reservationType = [ReservationType.VISIT, ReservationType.CALL];
+const reservationLocationType = [ReservationLocationType.BRANCH, ReservationLocationType.CALL];
 
 export const convertReservationAnswer = (answers: IAnswers) => {
   const questions: IQuestions = reservationQuestions;

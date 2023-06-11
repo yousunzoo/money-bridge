@@ -20,12 +20,20 @@ function Intro({ introData }: any) {
   return (
     <div id={id}>
       <div className="relative">
-        <button onClick={goToCompany} className="absolute z-10">
+        <button onClick={goToCompany} className="absolute z-10 h-[42px] w-[112px]">
           로고
         </button>
-        <div className="absolute h-[390px] w-[390px] bg-gradient-to-t from-black from-0%"></div>
-        <Image src={profile} alt="프로필 이미지" width={390} height={390} />
-        <div className="absolute top-72 text-white">{msg}</div>
+        <div className="absolute h-full w-full bg-gradient-to-t from-black from-0%"></div>
+        <div className="absolute bottom-[74px] left-[19px] h-[70px] w-[285px] text-white text-[26px]">{msg}</div>
+        <Image
+          src={profile}
+          alt="프로필 이미지"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: "100%", height: "auto" }}
+        />
+        
       </div>
       {getRole() === "" ? (
         <BlurModal />
@@ -35,7 +43,7 @@ function Intro({ introData }: any) {
             <div>{name} PB</div>
             <div>
               {companyName}
-              {branchName}점
+              {branchName}
             </div>
             <div>
               <div>총 상담횟수{reserveCount ? reserveCount : 0}회</div>

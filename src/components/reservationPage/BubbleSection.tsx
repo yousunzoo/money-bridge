@@ -16,7 +16,9 @@ function BubbleSection({
   moveToNextStep,
 }: IBubbleSectionProps) {
   const questions: IQuestions = reservationQuestions;
+
   const { question, intro1, intro2, options } = questions[step];
+
   const [isChoosable, setIsChoosable] = useState(true);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const questionRef = useRef<HTMLDivElement | null>(null);
@@ -108,7 +110,7 @@ function BubbleSection({
             <div className="w-full rounded-3xl border-2 p-6">
               <p className="font-semibold">{pbStation.branchName}</p>
               <p>{pbStation.branchAddress}</p>
-              <LocationCard lat={pbStation.branchLatitude} lng={pbStation.branchLongitude} closeButton={false} />
+              <LocationCard latitude={pbStation.branchLatitude} longitude={pbStation.branchLongitude} />
             </div>
           )}
           {consultTime && (

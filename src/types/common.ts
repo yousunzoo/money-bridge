@@ -18,6 +18,6 @@ export interface ReviewCardProps {
   createdAt: string;
 }
 
-export interface RevieCardItemProps extends ReviewCardProps {
+export interface ReviewCardItemProps extends ReviewCardProps {
   reviewId: number;
 }

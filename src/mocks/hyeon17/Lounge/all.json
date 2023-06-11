@@ -5,7 +5,7 @@
     "list": [
       {
         "id": 1,
-        "title": "제목입니다1",
+        "title": "전체1",
         "pbName": "김피비",
         "companyLogo": "logo.png",
         "career": 10,
@@ -15,7 +15,7 @@
       },
       {
         "id": 2,
-        "title": "제목입니다1",
+        "title": "전체2",
         "pbName": "김피비",
         "companyLogo": "logo.png",
         "career": 10,

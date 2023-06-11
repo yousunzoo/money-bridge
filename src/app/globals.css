@@ -23,6 +23,7 @@ main {
   height: 100%;
   margin: auto;
   background-color: #fff;
+  overflow-y: scroll;
 }
 
 .formInput {
@@ -44,6 +45,39 @@ main {
   outline: none;
 }
 
+.userBubble {
+  width: fit-content;
+  padding: 10px 20px 10px 20px;
+  background-color: #000;
+  color: white;
+  align-self: flex-end;
+  border-radius: 20px 6px 20px 20px;
+}
+
+.bubble {
+  position: absolute;
+  top: -60px;
+  left: 20px;
+  width: 140px;
+  border-radius: 40px;
+  text-align: center;
+  background-color: black;
+  padding: 4px 0;
+  font-size: 14px;
+  color: white;
+}
+
+.bubble::after {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 12px solid black;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
 .card {
   display: flex;
   flex-direction: column;

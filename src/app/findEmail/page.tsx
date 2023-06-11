@@ -4,6 +4,8 @@ import DoubleInputForm from "@/components/common/DoubleInputForm";
 import React, { MouseEvent, MouseEventHandler, useState } from "react";
 import InformationCheck from "@/components/findEmailPage/SelectInformation";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import check from "/public/assets/images/check.svg";
 
 function FindEmail() {
   const [isChecked, setIsChecked] = useState("");
@@ -37,11 +39,13 @@ function FindEmail() {
               <div key={item} className="mb-[24px] flex items-center gap-[12px]">
                 <button
                   id={`item_${item}`}
-                  className={`h-[24px] w-[26px] cursor-default rounded-full border-[2px]  ${
+                  className={`flex h-[24px] w-[26px] cursor-default items-center justify-center rounded-full border-[2px] ${
                     isChecked === `item_${item}` ? "border-[#153455] bg-[#153455]" : "border-[#dfdfdf] bg-transparent"
                   }`}
                   onClick={clickInform}
-                ></button>
+                >
+                  <Image src={check} alt="check" />
+                </button>
                 <InformationCheck inputs={inputs} />
               </div>
             ))}

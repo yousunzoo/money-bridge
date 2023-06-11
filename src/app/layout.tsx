@@ -2,9 +2,9 @@ import Navbar from "@/components/common/Navbar";
 import Script from "next/script";
 import ReactQueryProvider from "./ReactQueryProvider";
 import "./globals.css";
-import { Noto_Sans } from "next/font/google";
+import { Noto_Sans_KR } from "next/font/google";
 
-const noto = Noto_Sans({ weight: ["500", "700"], subsets: ["latin"] });
+const noto = Noto_Sans_KR({ weight: ["500", "700"], subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",

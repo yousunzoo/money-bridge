@@ -13,6 +13,7 @@ body {
   background-color: #eee;
   width: 100vw;
   height: 100vh;
+  letter-spacing: -0.6px;
 }
 
 main {
@@ -26,17 +27,27 @@ main {
 
 .formInput {
   width: 100%;
-  border-bottom: 1px solid #000;
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.formInput_entering {
+  border: 1px solid #153445;
+}
+
+.formInput_warn {
+  border: 1px solid #eb5147;
 }
 
 .formInput:focus-visible {
   outline: none;
 }
 
-.card{
+.card {
   display: flex;
   flex-direction: column;
-  margin:1rem auto;
+  margin: 1rem auto;
   height: 12rem;
   width: 80%;
   border-radius: 0.75rem;

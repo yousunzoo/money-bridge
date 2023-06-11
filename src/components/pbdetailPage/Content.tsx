@@ -1,63 +1,75 @@
 "use client";
 import React from "react";
-import Link from "next/link";
-import portfolio from "@/mocks/hyeon17/PbDetail/portfolio.json";
-import review from "@/mocks/hyeon17/PbDetail/review.json";
-import { ConsultationStyle } from "@/constants/enum";
-import same from "@/mocks/hyeon17/PbDetail/same.json";
-import PbCardList from "@/components/common/Card/CardList/PbCardList";
-// import LocationCard from "@/components/common/LocationCard";
-import Carousel from "antd/lib/carousel";
-import "@/styles/defaultCarousel.css";
+import { useRoleStore } from "@/store/roleStore";
+import { CommonROLE } from "@/constants/enum";
+import { useRouter, usePathname } from "next/navigation";
 
-function Content({ contentData }: any) {
-  const { id, name, address, intro, speciality1, speciality2, career, award, branchName, companyName } = contentData;
-  const portfolioData = portfolio.data;
-  const reviewData = review.data;
-  const sameData = same.data.list;
+function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
+  const { id, intro, speciality1, speciality2, career, award } = contentData;
+  const { getRole } = useRoleStore();
+  const router = useRouter();
+  const pathname = usePathname();
+  const isEdit = edit ? (
+    <div>
+      <div>아이콘</div>수정하기
+    </div>
+  ) : null;
 
-  const download = () => {
-    const link = document.createElement("a");
-    link.href = portfolioData.file;
-    link.download = "portfolio.pdf";
-    link.click();
-  };
-
-  const styleCase = (style: string) => {
-    switch (style) {
-      case "METICULOUS":
-        return ConsultationStyle.METICULOUS;
-      case "FAST":
-        return ConsultationStyle.FAST;
-      case "KIND":
-        return ConsultationStyle.KIND;
-      case "PROFESSIONAL":
-        return ConsultationStyle.PROFESSIONAL;
-      case "HONEST":
-        return ConsultationStyle.HONEST;
-      case "PRAGMATIC":
-        return ConsultationStyle.PRAGMATIC;
-      case "DIRECTIONAL":
-        return ConsultationStyle.DIRECTIONAL;
-      default:
-        return null;
+  const goToPage = () => {
+    if (getRole() === CommonROLE.USER) {
+      router.push("/reservation");
+      
+    } else if (getRole() === CommonROLE.PB) {
+      if (pathname === "/detail") {
+        router.push("/detail/edit");
+      }
+      if (pathname === "/detail/edit") {
+        router.push("/detail");
+      }
+      if (pathname === "/detail/content") {
+        router.push("/lounge/write");
+      }
     }
   };
+
+  let text;
+  if (getRole() === CommonROLE.USER) {
+    text = "상담 신청하기";
+  } else if (getRole() === CommonROLE.PB) {
+    if (pathname === "/detail") {
+      text = "프로필 수정하기";
+    }
+    if (pathname === "/detail/edit") {
+      text = "수정 완료";
+    }
+    if (pathname === "/detail/content") {
+      text = "콘텐츠 작성하기";
+    }
+  }
 
   return (
     <>
       <div id={id}>
         <div>
-          <div>한 줄 소개</div>
+          <div>
+            <div>한 줄 소개</div>
+            {isEdit}
+          </div>
           <div>"{intro}"</div>
         </div>
         <div>
-          <div>전문분야</div>
+          <div>
+            <div>전문분야 </div>
+            {isEdit}
+          </div>
           <div>{speciality1}</div>
           <div>{speciality2}</div>
         </div>
         <div>
-          <div>경력</div>
+          <div>
+            <div>경력</div>
+            {isEdit}
+          </div>
           <div>
             {career?.map((item: any) => (
               <div key={item.id}>
@@ -70,7 +82,10 @@ function Content({ contentData }: any) {
         </div>
         {award ? (
           <div>
-            <div>수상내역</div>
+            <div>
+              <div>수상내역</div>
+              {isEdit}
+            </div>
             <div>
               {award.map((item: any) => (
                 <div key={item.id}>
@@ -82,106 +97,46 @@ function Content({ contentData }: any) {
             </div>
           </div>
         ) : null}
-        <div>
-          <div>{name}PB의 포트폴리오를 확인해 보세요</div>
-          <div key={portfolioData.id}>
+        {edit ? (
+          <div>
             <div>
-              <div>{portfolioData.highestReturn}</div>
-              <div>최고 수익률</div>
-            </div>
-            <div>
-              <div>{portfolioData.propensity}</div>
-              <div>투자 성향</div>
+              <div>나의 포트폴리오</div>
+              <div>
+                <div>
+                  <div>최고 수익률</div>
+                  <div>입력</div>
+                </div>
+                <div>
+                  <div>투자성향</div>
+                  <div>드롭다운</div>
+                </div>
+                <div>
+                  <div>기간</div>
+                  <div>입력</div>
+                </div>
+                <div>
+                  <div>위험등급</div>
+                  <div>드롭다운</div>
+                </div>
+              </div>
             </div>
             <div>
               <div>
-                {portfolioData.startDate}
-                {portfolioData.endDate}
+                <div>포트폴리오 업로드</div>
+                <div>수정하기</div>
               </div>
-              <div>기간</div>
-            </div>
-            <div>
-              <div>{portfolioData.dangerRate}</div>
-              <div>위험등급</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div>포트폴리오 다운로드</div>
-          <div>
-            <div>portfolio.pdf</div>
-            <button onClick={() => download}>다운로드</button>
-          </div>
-        </div>
-        <div>
-          <div>투자자 님들의 실제 상담 후기</div>
-          <div>
-            <div>"투자자님들이 말하는 {name} PB의 매력은?"</div>
-            <div>
-              <div>이미지</div>
-              <div>{styleCase(reviewData.style1)}</div>
-            </div>
-            <div>
-              <div>이미지</div>
-              <div>{styleCase(reviewData.style2)}</div>
-            </div>
-            <div>
-              <div>이미지</div>
-              <div>{styleCase(reviewData.style3)}</div>
+              <div>
+                <div>파일명</div>
+                <div>파일용량</div>
+                <div>업로드 날짜</div>
+              </div>
             </div>
           </div>
-          <div>
-            <div>
-              <div>후기00건</div>
-              <Link href="/detail/review">전체보기</Link>
-            </div>
-            <Carousel autoplay className="">
-              <li className="card">
-                <div>
-                  <div>이름1</div>
-                  <div>날짜</div>
-                </div>
-                <div>내용</div>
-              </li>
-              <li className="card">
-                <div>
-                  <div>이름2</div>
-                  <div>날짜</div>
-                </div>
-                <div>내용</div>
-              </li>
-              <li className="card">
-                <div>
-                  <div>이름3</div>
-                  <div>날짜</div>
-                </div>
-                <div>내용</div>
-              </li>
-            </Carousel>
-          </div>
-        </div>
-        <div>
-          <div>방문 상담을 원하시나요?</div>
-          <div>
-            <div>
-              {companyName}
-              {branchName}점
-            </div>
-            <div>
-              <div>{address}</div>
-              <button>주소 복사</button>
-            </div>
-            <div>{/* <LocationCard latitude={lat} longitude={lng} /> */}</div>
-          </div>
-        </div>
-        <div>
-          <div>핏에 맞는 다른 PB도 함께 만나보세요</div>
-          <PbCardList props={sameData} />
-        </div>
+        ) : null}
       </div>
-      <Link className="fixedButton" href="/reservation">
-        상담 신청하기
-      </Link>
+      <button className="fixedButton" onClick={() => goToPage()}>
+        {text}
+      </button>
     </>
   );
 }

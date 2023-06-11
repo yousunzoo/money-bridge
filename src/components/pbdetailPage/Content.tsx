@@ -171,7 +171,7 @@ function Content({ contentData }: any) {
               <div>{address}</div>
               <button>주소 복사</button>
             </div>
-            <div>{/* <LocationCard lat={lat} lng={lng} /> */}</div>
+            <div>{/* <LocationCard latitude={lat} longitude={lng} /> */}</div>
           </div>
         </div>
         <div>

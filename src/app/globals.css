@@ -98,4 +98,5 @@ main {
   bottom: 50px;
   background-color: #000;
   color: #fff;
+  z-index: 10;
 }

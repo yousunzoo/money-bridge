@@ -1,8 +1,10 @@
+"use client";
 import React from "react";
 import TopNav from "@/components/common/TopNav";
 import Content from "@/components/pbdetailPage/Content";
 import Intro from "@/components/pbdetailPage/Intro";
 import profile from "@/mocks/hyeon17/PbDetail/profile.json";
+import { useRoleStore } from "@/store/roleStore";
 
 function PbDetail() {
   const data = profile.data;
@@ -28,11 +30,13 @@ function PbDetail() {
     career: data.career,
     award: data.award,
   };
+  const { getRole } = useRoleStore();
+
   return (
     <>
       <TopNav title="PB 상세프로필" hasBack={true} />
       <Intro introData={introData} />
-      <Content contentData={contentData} />
+      {getRole() === "" ? null : <Content contentData={contentData} />}
     </>
   );
 }

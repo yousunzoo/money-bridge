@@ -1,22 +1,28 @@
 "use client";
 import TopNav from "@/components/common/TopNav";
 import DoubleInputForm from "@/components/common/DoubleInputForm";
-import React, { useState } from "react";
+import React, { MouseEvent, MouseEventHandler, useState } from "react";
 import InformationCheck from "@/components/findEmailPage/SelectInformation";
+import { useRouter } from "next/navigation";
 
 function FindEmail() {
-  const [isChecked, setIsChecked] = useState(false);
-  const [nextStep, setNextStep] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState("");
+  const [nextStep, setNextStep] = useState(false);
   const [inputs, setInputs] = useState({
     first: "",
     second: "",
   });
+  const router = useRouter();
 
-  const clickInform = () => {
-    setIsChecked(!isChecked);
+  const clickInform = (e: MouseEvent<HTMLButtonElement>) => {
+    setIsChecked(isChecked === e.currentTarget.id ? "" : e.currentTarget.id);
   };
 
-  const clickLogin = () => {};
+  const clickLogin = () => {
+    if (isChecked) {
+      router.replace("/login");
+    }
+  };
 
   return (
     <>
@@ -30,15 +36,20 @@ function FindEmail() {
             {[1, 2].map(item => (
               <div key={item} className="mb-[24px] flex items-center gap-[12px]">
                 <button
-                  className={`h-[24px] w-[24px] cursor-default rounded-full border-[2px]  ${
-                    isChecked ? "border-[#153455] bg-[#153455]" : "border-[#dfdfdf] bg-transparent"
+                  id={`item_${item}`}
+                  className={`h-[24px] w-[26px] cursor-default rounded-full border-[2px]  ${
+                    isChecked === `item_${item}` ? "border-[#153455] bg-[#153455]" : "border-[#dfdfdf] bg-transparent"
                   }`}
                   onClick={clickInform}
                 ></button>
                 <InformationCheck inputs={inputs} />
               </div>
             ))}
-            <button type="button" className="mt-[54px] h-[56px] w-full rounded-[8px] bg-[#153445]" onClick={clickLogin}>
+            <button
+              type="button"
+              className="mb-[96px] mt-[54px] h-[56px] w-full rounded-[8px] bg-[#153445]"
+              onClick={clickLogin}
+            >
               <span className="text-[20px] font-bold leading-[28px] text-white">로그인</span>
             </button>
           </div>

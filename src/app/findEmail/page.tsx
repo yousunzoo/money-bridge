@@ -4,8 +4,6 @@ import DoubleInputForm from "@/components/common/DoubleInputForm";
 import React, { MouseEvent, MouseEventHandler, useState } from "react";
 import InformationCheck from "@/components/findEmailPage/SelectInformation";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import check from "/public/assets/images/check.svg";
 
 function FindEmail() {
   const [isChecked, setIsChecked] = useState("");
@@ -32,22 +30,13 @@ function FindEmail() {
       {nextStep ? (
         <>
           <p className="mb-[40px] mt-[56px] px-[16px] text-[20px] font-bold leading-[28px]">
-            해당하는 정보를 선택해 주세요.
+            회원 정보를 확인해 주세요.
           </p>
-          <div className="px-[16px]">
+          <div className="flex flex-col gap-[25px] px-[16px]">
             {[1, 2].map(item => (
-              <div key={item} className="mb-[24px] flex items-center gap-[12px]">
-                <button
-                  id={`item_${item}`}
-                  className={`flex h-[24px] w-[26px] cursor-default items-center justify-center rounded-full border-[2px] ${
-                    isChecked === `item_${item}` ? "border-[#153455] bg-[#153455]" : "border-[#dfdfdf] bg-transparent"
-                  }`}
-                  onClick={clickInform}
-                >
-                  <Image src={check} alt="check" />
-                </button>
+              <>
                 <InformationCheck inputs={inputs} />
-              </div>
+              </>
             ))}
             <button
               type="button"

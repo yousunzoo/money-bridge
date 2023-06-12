@@ -4,12 +4,9 @@ import ButtonToFind from "@/components/loginPage/ButtonToAccountSetting";
 import DoubleInputForm from "@/components/common/DoubleInputForm";
 import KeepLoginButton from "@/components/loginPage/KeepLoginButton";
 import React, { useState } from "react";
+import { InputFormType } from "@/constants/enum";
 
 function Login() {
-  const [inputs, setInputs] = useState({
-    first: "",
-    second: "",
-  });
   return (
     <>
       <TopNav title="로그인" hasBack backGroundWhite />
@@ -19,7 +16,7 @@ function Login() {
           <span className="text-[20px] font-bold leading-[28px] text-[#153445]">MONEY BRIDGE </span>입니다.
         </p>
       </div>
-      <DoubleInputForm type="login" />
+      <DoubleInputForm type={InputFormType.LOGIN} />
       <KeepLoginButton />
       <ButtonToFind />
     </>

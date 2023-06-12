@@ -3,6 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { InputFormType } from "@/constants/enum";
 
 const yup_email = yup.string().email().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -13,7 +14,7 @@ function DoubleInputForm({
   type,
   setNextStep,
 }: {
-  type: string;
+  type: InputFormType;
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
 }) {
   const [inputs, setInputs] = useState({
@@ -21,11 +22,12 @@ function DoubleInputForm({
     second: "",
   });
 
-  const inputType = type === "login" ? "password" : type === "findEmail" ? "number" : "text";
+  const inputType =
+    type === InputFormType.LOGIN ? InputFormType.FIND_PASSWORD : type === InputFormType.FIND_EMAIL ? "number" : "text";
 
   const schema = yup.object().shape({
-    first: type === "login" ? yup_email : yup_name,
-    second: type === "login" ? yup_password : type === "findEmail" ? yup_phone : yup_email,
+    first: InputFormType.LOGIN ? yup_email : yup_name,
+    second: InputFormType.LOGIN ? yup_password : InputFormType.FIND_EMAIL ? yup_phone : yup_email,
   });
 
   const {
@@ -109,9 +111,9 @@ function DoubleInputForm({
 
 export default DoubleInputForm;
 
-const getNotice = (type: string) => {
+const getNotice = (type: InputFormType) => {
   switch (type) {
-    case "login":
+    case InputFormType.LOGIN:
       return {
         data: {
           header1: "이메일",
@@ -122,7 +124,7 @@ const getNotice = (type: string) => {
           func: "",
         },
       };
-    case "findEmail":
+    case InputFormType.FIND_EMAIL:
       return {
         data: {
           header1: "이름",
@@ -133,7 +135,7 @@ const getNotice = (type: string) => {
           func: "",
         },
       };
-    case "findPassword":
+    case InputFormType.FIND_PASSWORD:
       return {
         data: {
           header1: "이름",

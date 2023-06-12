@@ -4,6 +4,7 @@ import DoubleInputForm from "@/components/common/DoubleInputForm";
 import React, { useState } from "react";
 import InformationCheck from "@/components/findEmailPage/SelectInformation";
 import { useRouter } from "next/navigation";
+import { InputFormType } from "@/constants/enum";
 
 function FindEmail() {
   const [nextStep, setNextStep] = useState(false);
@@ -41,7 +42,7 @@ function FindEmail() {
           <p className="mb-[40px] mt-[56px] px-[16px] text-[20px] font-bold leading-[28px]">
             가입할 때 등록한 정보를 입력해 주세요.
           </p>
-          <DoubleInputForm type="findEmail" setNextStep={setNextStep} />
+          <DoubleInputForm type={InputFormType.FIND_EMAIL} setNextStep={setNextStep} />
         </>
       )}
     </>

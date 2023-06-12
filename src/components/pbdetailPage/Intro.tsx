@@ -7,10 +7,10 @@ import BlurModal from "@/components/common/Modal/BlurModal";
 import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";
 
-function Intro({ introData, edit }: { introData: any; edit: boolean }) {
+function Intro({ introData, edit }: { introData: any, edit: boolean }) {
   const { id, profile, name, isBookmarked, branchName, msg, companyName, companyLogo, reserveCount, reviewCount } =
     introData;
-  const [isBookmark, setIsBookmark] = useState(false);
+  const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkOpen, setIsBookmarkOpen] = useState(false);
   const [isShare, setIsShare] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);

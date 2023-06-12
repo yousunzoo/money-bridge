@@ -3,10 +3,22 @@ import Intro from "@/components/pbdetailPage/Intro";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import ContentData from "@/mocks/hyeon17/PbDetail/boards.json";
 import TopNav from "@/components/common/TopNav";
-import { introData } from "@/app/detail/page";
+import authProfile from "@/mocks/hyeon17/PbDetail/Profile/authProfile.json";
 
 function PbDetailContent() {
- 
+  const data = authProfile.data;
+  const introData = {
+    id: data.id,
+    profile: data.profile,
+    name: data.name,
+    isBookmarked: data.isBookmarked,
+    branchName: data.branchName,
+    msg: data.msg,
+    companyName: data.companyName,
+    companyLogo: data.companyLogo,
+    reserveCount: data.reserveCount,
+    reviewCount: data.reviewCount,
+  };
   
   return (
     <>

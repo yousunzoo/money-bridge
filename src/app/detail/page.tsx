@@ -4,11 +4,18 @@ import TopNav from "@/components/common/TopNav";
 import Content from "@/components/pbdetailPage/Content";
 import Intro from "@/components/pbdetailPage/Intro";
 import authProfile from "@/mocks/hyeon17/PbDetail/Profile/authProfile.json";
+import profile from "@/mocks/hyeon17/PbDetail/Profile/profile.json";
 import { useRoleStore } from "@/store/roleStore";
 import About from "@/components/pbdetailPage/About";
 
 function PbDetail() {
   const data = authProfile.data;
+  const profileData = profile.data;
+  const notLoginData = {
+    companyLogo: profileData.companyLogo,
+    profile: profileData.profile,
+    msg: profileData.msg,
+  };
   const introData = {
     id: data.id,
     profile: data.profile,
@@ -45,7 +52,7 @@ function PbDetail() {
   return (
     <>
       <TopNav title="PB 상세프로필" hasBack={true} />
-      <Intro introData={introData} edit={false} />
+      <Intro introData={getRole() === "" ? notLoginData : introData} edit={false} />
       {getRole() === "" ? null : (
         <>
           <Content contentData={contentData} edit={false} />

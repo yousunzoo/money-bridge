@@ -42,7 +42,6 @@ function Authentication() {
 
   return (
     <>
-      <TopNav title="비밀번호 찾기" hasBack backGroundWhite />
       <div className="px-[16px]">
         <p className="my-[56px] text-[20px] font-bold leading-[28px]">인증코드 입력</p>
         <p className="mb-[8px] text-[12px] leading-[18px] text-[#242424]">

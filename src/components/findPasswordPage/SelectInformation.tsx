@@ -8,7 +8,6 @@ function SelectInformation() {
   const pathName = usePathname();
   return (
     <>
-      <TopNav title="비밀번호 찾기" hasBack backGroundWhite />
       <div className="px-[16px]">
         <p className="mb-[40px] mt-[56px] text-[20px] font-bold leading-[28px]">해당하는 정보를 선택해주세요.</p>
         <InformationCheck />

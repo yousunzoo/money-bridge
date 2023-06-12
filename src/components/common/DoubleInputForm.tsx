@@ -127,7 +127,7 @@ const getNotice = (type: string) => {
         data: {
           header1: "이름",
           header2: "휴대폰 번호",
-          notice1: "정확한 이름을 입력해주세요",
+          notice1: "",
           notice2: "-자 없이 숫자로만 적어주세요",
           submit: "확인",
           func: "",
@@ -138,7 +138,7 @@ const getNotice = (type: string) => {
         data: {
           header1: "이름",
           header2: "이메일",
-          notice1: "정확한 이름을 입력해주세요",
+          notice1: "",
           notice2: "@를 포함하여 작성해 주세요.",
           submit: "인증코드 받기",
           func: "",

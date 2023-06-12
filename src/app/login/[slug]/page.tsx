@@ -19,7 +19,7 @@ function Login() {
           <span className="text-[20px] font-bold leading-[28px] text-[#153445]">MONEY BRIDGE </span>입니다.
         </p>
       </div>
-      <DoubleInputForm type="login" inputs={inputs} setInputs={setInputs} />
+      <DoubleInputForm type="login" />
       <KeepLoginButton />
       <ButtonToFind />
     </>

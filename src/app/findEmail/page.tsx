@@ -7,10 +7,6 @@ import { useRouter } from "next/navigation";
 
 function FindEmail() {
   const [nextStep, setNextStep] = useState(false);
-  const [inputs, setInputs] = useState({
-    first: "",
-    second: "",
-  });
   const router = useRouter();
 
   const clickLogin = () => {
@@ -28,7 +24,7 @@ function FindEmail() {
           <div className="flex flex-col gap-[25px] px-[16px]">
             {[1, 2].map(item => (
               <div key={item}>
-                <InformationCheck inputs={inputs} />
+                <InformationCheck />
               </div>
             ))}
             <button
@@ -45,7 +41,7 @@ function FindEmail() {
           <p className="mb-[40px] mt-[56px] px-[16px] text-[20px] font-bold leading-[28px]">
             가입할 때 등록한 정보를 입력해 주세요.
           </p>
-          <DoubleInputForm type="findEmail" inputs={inputs} setInputs={setInputs} setNextStep={setNextStep} />
+          <DoubleInputForm type="findEmail" setNextStep={setNextStep} />
         </>
       )}
     </>

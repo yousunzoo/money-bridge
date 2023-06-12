@@ -3,7 +3,6 @@ import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Iinputs } from "@/types/DoubleInputForm";
 
 const yup_email = yup.string().email().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -13,14 +12,15 @@ const yup_phone = yup.string().min(10).max(11).required();
 function DoubleInputForm({
   type,
   setNextStep,
-  inputs,
-  setInputs,
 }: {
   type: string;
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
-  inputs: Iinputs;
-  setInputs: (value: React.SetStateAction<Iinputs>) => void;
 }) {
+  const [inputs, setInputs] = useState({
+    first: "",
+    second: "",
+  });
+
   const inputType = type === "login" ? "password" : type === "findEmail" ? "number" : "text";
 
   const schema = yup.object().shape({

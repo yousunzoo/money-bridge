@@ -12,7 +12,7 @@ function Login() {
   });
   return (
     <>
-      <TopNav title="로그인" hasBack />
+      <TopNav title="로그인" hasBack backGroundWhite />
       <div className="mt-[40px] pl-[16px] text-[#242424]">
         <p>안녕하세요,</p>
         <p>

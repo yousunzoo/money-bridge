@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InputFormType } from "@/constants/enum";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const yup_email = yup.string().email().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -19,6 +19,7 @@ function DoubleInputForm({
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
 }) {
   const router = useRouter();
+  const pathName = usePathname();
   const [inputs, setInputs] = useState({
     first: "",
     second: "",
@@ -53,7 +54,7 @@ function DoubleInputForm({
       setNextStep(true);
     }
     if (type === InputFormType.FIND_PASSWORD) {
-      router.push("/findPassword/2");
+      router.push(`/findPassword/${pathName.split("/")[2]}/2`);
     }
   };
 

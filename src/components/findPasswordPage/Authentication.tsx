@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import TopNav from "../common/TopNav";
 import help from "/public/assets/images/help.svg";
@@ -12,6 +12,7 @@ function Authentication() {
   const time = useRef(300);
   const timerId = useRef<NodeJS.Timeout>();
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
     timerId.current = setInterval(() => {
@@ -35,7 +36,7 @@ function Authentication() {
 
   const handleClick = () => {
     if (value) {
-      router.push("/findPassword/3");
+      router.push(`/findPassword/${pathName.split("/")[2]}/3`);
     }
   };
 

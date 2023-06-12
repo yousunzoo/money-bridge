@@ -4,13 +4,13 @@ import TopNav from "@/components/common/TopNav";
 
 function BookMark() {
   return (
-    <div>
-      <TopNav title="북마크"/>
+    <>
+      <TopNav title="북마크" hasBack={true} />
       <div>
         <Link href="/bookmark/content">콘텐츠</Link>
         <Link href="/bookmark/pb">PB</Link>
       </div>
-    </div>
+    </>
   );
 }
 

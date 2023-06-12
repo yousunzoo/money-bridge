@@ -1,0 +1,30 @@
+{
+  "status": "200",
+  "msg": "ok",
+  "data": {
+    "id": 1,
+    "profile": "/assets/images/default_profile.png",
+    "msg": "김피비입니다",
+    "name": "김피비",
+    "isBookmarked": false,
+    "companyName": "미래에셋",
+    "companyLogo": "logo.png",
+    "branchName": "용산점",
+    "branchAddress": "서울특별시 용산구 한강대로 92",
+    "branchLatitude": 35,
+    "branchLongitude": 127.5,
+    "reserveCount": 10,
+    "reviewCount": 10,
+    "intro": "안녕하세요, 김피비입니다",
+    "speciality1": "채권",
+    "speciality2": "해외선물",
+    "career": [
+      { "id": 1, "start": 2016, "end": 2019, "career": "하나증권" },
+      { "id": 2, "start": 2016, "end": 2019, "career": "하나증권" }
+    ],
+    "award": [
+      { "id": 1, "record": "실전투자대회 3등 수상" },
+      { "id": 2, "record": "실전투자대회 3등 수상" }
+    ]
+  }
+}

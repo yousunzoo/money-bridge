@@ -7,25 +7,17 @@ import { ConsultationStyle } from "@/constants/enum";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
 import review from "@/mocks/hyeon17/PbDetail/review.json";
 import same from "@/mocks/hyeon17/PbDetail/same.json";
-import portfolio from "@/mocks/hyeon17/PbDetail/portfolio.json";
-// import LocationCard from "@/components/common/LocationCard";
+import LocationCard from "@/components/common/LocationCard";
 
 function About({ aboutData }: any) {
-  const { id, name, address, branchName, companyName } = aboutData;
+  const { id, name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
   const reviewData = review.data;
   const sameData = same.data.list;
-  const portfolioData = portfolio.data;
+
   const router = useRouter();
 
   const goToPbReview = () => {
-    router.push(`/detail/review/${id}`);
-  };
-
-  const download = () => {
-    const link = document.createElement("a");
-    link.href = portfolioData.file;
-    link.download = "portfolio.pdf";
-    link.click();
+    router.push("/detail/reviews");
   };
 
   const styleCase = (style: string) => {
@@ -51,37 +43,6 @@ function About({ aboutData }: any) {
 
   return (
     <>
-      <div>
-        <div>{name}PB의 포트폴리오를 확인해 보세요</div>
-        <div key={portfolioData.id}>
-          <div>
-            <div>{portfolioData.highestReturn}</div>
-            <div>최고 수익률</div>
-          </div>
-          <div>
-            <div>{portfolioData.propensity}</div>
-            <div>투자 성향</div>
-          </div>
-          <div>
-            <div>
-              {portfolioData.startDate}
-              {portfolioData.endDate}
-            </div>
-            <div>기간</div>
-          </div>
-          <div>
-            <div>{portfolioData.dangerRate}</div>
-            <div>위험등급</div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div>포트폴리오 다운로드</div>
-        <div>
-          <div>portfolio.pdf</div>
-          <button onClick={() => download}>다운로드</button>
-        </div>
-      </div>
       <div>
         <div>투자자 님들의 실제 상담 후기</div>
         <div>
@@ -137,10 +98,10 @@ function About({ aboutData }: any) {
             {branchName}점
           </div>
           <div>
-            <div>{address}</div>
+            <div>{branchAddress}</div>
             <button>주소 복사</button>
           </div>
-          <div>{/* <LocationCard latitude={lat} longitude={lng} /> */}</div>
+          <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
         </div>
       </div>
       <div>

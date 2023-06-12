@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InputFormType } from "@/constants/enum";
+import { useRouter } from "next/navigation";
 
 const yup_email = yup.string().email().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -17,17 +18,16 @@ function DoubleInputForm({
   type: InputFormType;
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
 }) {
+  const router = useRouter();
   const [inputs, setInputs] = useState({
     first: "",
     second: "",
   });
-
-  const inputType =
-    type === InputFormType.LOGIN ? InputFormType.FIND_PASSWORD : type === InputFormType.FIND_EMAIL ? "number" : "text";
+  const inputType = type === InputFormType.LOGIN ? "password" : "text";
 
   const schema = yup.object().shape({
-    first: InputFormType.LOGIN ? yup_email : yup_name,
-    second: InputFormType.LOGIN ? yup_password : InputFormType.FIND_EMAIL ? yup_phone : yup_email,
+    first: type === InputFormType.LOGIN ? yup_email : yup_name,
+    second: type === InputFormType.LOGIN ? yup_password : type === InputFormType.FIND_EMAIL ? yup_phone : yup_email,
   });
 
   const {
@@ -51,6 +51,9 @@ function DoubleInputForm({
     }
     if (setNextStep) {
       setNextStep(true);
+    }
+    if (type === InputFormType.FIND_PASSWORD) {
+      router.push("/findPassword/2");
     }
   };
 
@@ -97,8 +100,11 @@ function DoubleInputForm({
         {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
           type="button"
-          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}
+          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"} cursor ${
+            isValid ? "cursor-pointer" : "cursor-not-allowed"
+          }`}
           onClick={onSubmit}
+          disabled={!isValid}
         >
           <span className={`text-[20px] font-bold leading-[28px] ${isValid ? "text-white" : "text-[#565656]"}`}>
             {getNotice(type)?.data.submit}

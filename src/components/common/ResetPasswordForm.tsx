@@ -48,7 +48,7 @@ function ResetPasswordForm() {
   errors.second?.type === "oneOf" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
 
   return (
-    <div className="mt-[24px] px-[16px]">
+    <div className="mt-[24px]">
       <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-[10px]">
           <h2 className="mb-[16px] text-[12px] leading-[18px]">기존과 다른 비밀번호를 입력해 주세요.</h2>

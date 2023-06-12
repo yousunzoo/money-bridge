@@ -9,15 +9,16 @@ function Login() {
   return (
     <>
       <TopNav title="로그인" hasBack backGroundWhite />
-      <div className="mt-[40px] pl-[16px] text-[#242424]">
+      <div className="mx-[16px] mt-[40px] text-[#242424]">
         <p>안녕하세요,</p>
         <p>
           <span className="text-[20px] font-bold leading-[28px] text-[#153445]">MONEY BRIDGE </span>입니다.
         </p>
+
+        <DoubleInputForm type={InputFormType.LOGIN} />
+        <KeepLoginButton />
+        <ButtonToFind />
       </div>
-      <DoubleInputForm type={InputFormType.LOGIN} />
-      <KeepLoginButton />
-      <ButtonToFind />
     </>
   );
 }

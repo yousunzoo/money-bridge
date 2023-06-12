@@ -23,7 +23,7 @@ function Page() {
   return (
     <>
       <TopNav title="비밀번호 찾기" hasBack backGroundWhite />
-      {step[path]}
+      <div className="mx-[16px]">{step[path]}</div>
     </>
   );
 }

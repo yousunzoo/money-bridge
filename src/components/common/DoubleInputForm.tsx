@@ -64,7 +64,7 @@ function DoubleInputForm({
   errors.second?.type === "min" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
 
   return (
-    <div className="mt-[24px] px-[16px]">
+    <div className="mt-[24px]">
       <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-[10px]">
           <h2 className="mb-[16px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header1}</h2>

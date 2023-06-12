@@ -3,22 +3,17 @@ import React from "react";
 import { useRoleStore } from "@/store/roleStore";
 import { CommonROLE } from "@/constants/enum";
 import { useRouter, usePathname } from "next/navigation";
+import portfolio from "@/mocks/hyeon17/PbDetail/portfolio.json";
 
 function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
-  const { id, intro, speciality1, speciality2, career, award } = contentData;
+  const { id, name, intro, speciality1, speciality2, career, award } = contentData;
   const { getRole } = useRoleStore();
   const router = useRouter();
   const pathname = usePathname();
-  const isEdit = edit ? (
-    <div>
-      <div>아이콘</div>수정하기
-    </div>
-  ) : null;
-
+  const portfolioData = portfolio.data;
   const goToPage = () => {
     if (getRole() === CommonROLE.USER) {
       router.push("/reservation");
-      
     } else if (getRole() === CommonROLE.PB) {
       if (pathname === "/detail") {
         router.push("/detail/edit");
@@ -47,29 +42,28 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
     }
   }
 
+  const download = () => {
+    const link = document.createElement("a");
+    link.href = portfolioData.file;
+    link.download = "portfolio.pdf";
+    link.click();
+  };
+
   return (
     <>
       <div id={id}>
         <div>
-          <div>
-            <div>한 줄 소개</div>
-            {isEdit}
-          </div>
+          <div>한 줄 소개</div>
           <div>"{intro}"</div>
         </div>
         <div>
-          <div>
-            <div>전문분야 </div>
-            {isEdit}
-          </div>
+          <div>전문분야 </div>
+
           <div>{speciality1}</div>
           <div>{speciality2}</div>
         </div>
         <div>
-          <div>
-            <div>경력</div>
-            {isEdit}
-          </div>
+          <div>경력</div>
           <div>
             {career?.map((item: any) => (
               <div key={item.id}>
@@ -82,10 +76,7 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
         </div>
         {award ? (
           <div>
-            <div>
-              <div>수상내역</div>
-              {isEdit}
-            </div>
+            <div>수상내역</div>
             <div>
               {award.map((item: any) => (
                 <div key={item.id}>
@@ -98,7 +89,7 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
           </div>
         ) : null}
         {edit ? (
-          <div>
+          <>
             <div>
               <div>나의 포트폴리오</div>
               <div>
@@ -131,8 +122,42 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
                 <div>업로드 날짜</div>
               </div>
             </div>
-          </div>
-        ) : null}
+          </>
+        ) : (
+          <>
+            <div>
+              <div>{name}PB의 포트폴리오를 확인해 보세요</div>
+              <div key={portfolioData.id}>
+                <div>
+                  <div>{portfolioData.highestReturn}</div>
+                  <div>최고 수익률</div>
+                </div>
+                <div>
+                  <div>{portfolioData.propensity}</div>
+                  <div>투자 성향</div>
+                </div>
+                <div>
+                  <div>
+                    {portfolioData.startDate}
+                    {portfolioData.endDate}
+                  </div>
+                  <div>기간</div>
+                </div>
+                <div>
+                  <div>{portfolioData.dangerRate}</div>
+                  <div>위험등급</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div>포트폴리오 다운로드</div>
+              <div>
+                <div>portfolio.pdf</div>
+                <button onClick={() => download}>다운로드</button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <button className="fixedButton" onClick={() => goToPage()}>
         {text}

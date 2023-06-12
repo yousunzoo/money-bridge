@@ -7,7 +7,7 @@ import BlurModal from "@/components/common/Modal/BlurModal";
 import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";
 
-function Intro({ introData, edit }: { introData: any, edit: boolean }) {
+function Intro({ introData, edit }: { introData: any; edit: boolean }) {
   const { id, profile, name, isBookmarked, branchName, msg, companyName, companyLogo, reserveCount, reviewCount } =
     introData;
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
@@ -25,15 +25,18 @@ function Intro({ introData, edit }: { introData: any, edit: boolean }) {
   const goToCompany = () => {
     console.log("goToCompany");
   };
+
   const bookMarkHandler = () => {
     setIsBookmarkOpen(true);
     setIsBookmark(!isBookmark);
     // 북마크 여부에 따라 추가, 삭제 api호출
   };
+
   const shareHandler = () => {
     setIsShareOpen(true);
     setIsShare(!isShare);
   };
+
   const shareContents = {
     content: "PB 정보 공유하기",
     confirmText: "카카오톡으로 공유",
@@ -71,19 +74,13 @@ function Intro({ introData, edit }: { introData: any, edit: boolean }) {
     },
   };
 
-  const isEdit = edit ? (
-    <div>
-      <div>이미지 변경하기</div>
-    </div>
-  ) : null;
-
   return (
     <div id={id}>
       <div className="relative">
         <button onClick={goToCompany} className="absolute z-10 h-[42px] w-[112px]">
           {companyLogo}
         </button>
-        {isEdit}
+        {edit ? <button>이미지 변경하기</button> : null}
         <div className="absolute h-full w-full bg-gradient-to-t from-black from-0%"></div>
         <div className="absolute bottom-[74px] left-[19px] h-[70px] w-[285px] text-[26px] text-white">{msg}</div>
         <Image
@@ -109,10 +106,14 @@ function Intro({ introData, edit }: { introData: any, edit: boolean }) {
               <div>총 상담횟수{reserveCount ? reserveCount : 0}회</div>
               <div>상담후기 {reviewCount ? reviewCount : 0}건</div>
             </div>
-            <div>
-              <button onClick={shareHandler}>공유 아이콘</button>
-              <button onClick={bookMarkHandler}>{isBookmark ? "북마크 해제" : "북마크"}</button>
-            </div>
+            {edit ? (
+              <div>기본정보 수정은 마이페이지 개인정보수정에서 가능합니다.</div>
+            ) : (
+              <div>
+                <button onClick={shareHandler}>공유 아이콘</button>
+                <button onClick={bookMarkHandler}>{isBookmark ? "북마크 해제" : "북마크"}</button>
+              </div>
+            )}
           </div>
           <div>
             <Link href="/detail">PB정보</Link>

@@ -2,7 +2,7 @@
 import TopNav from "@/components/common/TopNav";
 import DoubleInputForm from "@/components/common/DoubleInputForm";
 import React, { useState } from "react";
-import InformationCheck from "@/components/findEmailPage/SelectInformation";
+import InformationCheck from "@/components/findEmailPage/InformationCheck";
 import { useRouter } from "next/navigation";
 import { InputFormType } from "@/constants/enum";
 

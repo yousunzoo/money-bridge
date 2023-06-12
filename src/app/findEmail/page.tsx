@@ -1,12 +1,11 @@
 "use client";
 import TopNav from "@/components/common/TopNav";
 import DoubleInputForm from "@/components/common/DoubleInputForm";
-import React, { MouseEvent, MouseEventHandler, useState } from "react";
+import React, { useState } from "react";
 import InformationCheck from "@/components/findEmailPage/SelectInformation";
 import { useRouter } from "next/navigation";
 
 function FindEmail() {
-  const [isChecked, setIsChecked] = useState("");
   const [nextStep, setNextStep] = useState(false);
   const [inputs, setInputs] = useState({
     first: "",
@@ -14,14 +13,8 @@ function FindEmail() {
   });
   const router = useRouter();
 
-  const clickInform = (e: MouseEvent<HTMLButtonElement>) => {
-    setIsChecked(isChecked === e.currentTarget.id ? "" : e.currentTarget.id);
-  };
-
   const clickLogin = () => {
-    if (isChecked) {
-      router.replace("/login");
-    }
+    router.replace("/login");
   };
 
   return (
@@ -34,9 +27,9 @@ function FindEmail() {
           </p>
           <div className="flex flex-col gap-[25px] px-[16px]">
             {[1, 2].map(item => (
-              <>
+              <div key={item}>
                 <InformationCheck inputs={inputs} />
-              </>
+              </div>
             ))}
             <button
               type="button"

@@ -23,7 +23,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
   const urlToCopy = base + pathname;
 
   const goToCompany = () => {
-    console.log("goToCompany");
+    router.push("/pblist/financial");
   };
 
   const bookMarkHandler = () => {
@@ -116,7 +116,8 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
             )}
           </div>
           <div>
-            <Link href="/detail">PB정보</Link>
+              <Link href="/detail">PB정보</Link>
+              {/* todo: 수정 중이면 콘텐츠 누르는거 안되게 */}
             <Link href="/detail/content">콘텐츠</Link>
           </div>
         </>

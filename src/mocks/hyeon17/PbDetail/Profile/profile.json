@@ -1,0 +1,9 @@
+{
+  "status": "200",
+  "msg": "ok",
+  "data": {
+    "profile": "profile.png",
+    "msg": "김피비입니다",
+    "companyLogo": "logo.png"
+  }
+}

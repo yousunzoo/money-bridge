@@ -26,7 +26,7 @@ function FindEmail() {
 
   return (
     <>
-      <TopNav title="이메일 찾기" hasBack />
+      <TopNav title="이메일 찾기" hasBack backGroundWhite />
       {nextStep ? (
         <>
           <p className="mb-[40px] mt-[56px] px-[16px] text-[20px] font-bold leading-[28px]">

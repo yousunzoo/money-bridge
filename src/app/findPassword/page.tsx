@@ -10,7 +10,7 @@ function FindPassword() {
   });
   return (
     <>
-      <TopNav title="비밀번호 찾기" />
+      <TopNav title="비밀번호 찾기" hasBack backGroundWhite />
       <DoubleInputForm type="findPassword" inputs={inputs} setInputs={setInputs} />
     </>
   );

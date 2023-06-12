@@ -10,19 +10,21 @@ function TopNav({
   hasBack,
   hasClose,
   path = "",
-  backgroundColor = "#ffffff",
+  backGroundWhite,
 }: {
   title: string;
   hasBack?: boolean;
   hasClose?: boolean;
   path?: string;
-  backgroundColor?: string;
+  backGroundWhite?: boolean;
 }) {
   const router = useRouter();
 
   return (
     <div
-      className={`fixed top-0 grid h-[40px] min-w-[425px] grid-cols-3 items-center bg-[${backgroundColor}] px-[16px]`}
+      className={`fixed top-0 grid h-[40px] min-w-[425px] grid-cols-3 items-center ${
+        backGroundWhite ? "bg-white" : "bg-[#f3f3f3]"
+      } px-[16px]`}
     >
       <div className="flex">
         {hasBack && (

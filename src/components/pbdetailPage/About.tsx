@@ -8,12 +8,13 @@ import PbCardList from "@/components/common/Card/CardList/PbCardList";
 import review from "@/mocks/hyeon17/PbDetail/review.json";
 import same from "@/mocks/hyeon17/PbDetail/same.json";
 import LocationCard from "@/components/common/LocationCard";
+import Image from "next/image";
 
 function About({ aboutData }: any) {
-  const { id, name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
+  const { name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
   const reviewData = review.data;
+  const{ style1, style2, style3 } = reviewData;
   const sameData = same.data.list;
-
   const router = useRouter();
 
   const goToPbReview = () => {
@@ -23,19 +24,19 @@ function About({ aboutData }: any) {
   const styleCase = (style: string) => {
     switch (style) {
       case "METICULOUS":
-        return ConsultationStyle.METICULOUS;
+        return {style: ConsultationStyle.METICULOUS, image: "이미지"};
       case "FAST":
-        return ConsultationStyle.FAST;
+        return { style: ConsultationStyle.FAST, image: "이미지" };
       case "KIND":
-        return ConsultationStyle.KIND;
+        return { style: ConsultationStyle.KIND, image: "이미지" };
       case "PROFESSIONAL":
-        return ConsultationStyle.PROFESSIONAL;
+        return { style: ConsultationStyle.PROFESSIONAL, image: "이미지" };
       case "HONEST":
-        return ConsultationStyle.HONEST;
+        return { style: ConsultationStyle.HONEST, image: "이미지" };
       case "PRAGMATIC":
-        return ConsultationStyle.PRAGMATIC;
+        return { style: ConsultationStyle.PRAGMATIC, image: "이미지" };
       case "DIRECTIONAL":
-        return ConsultationStyle.DIRECTIONAL;
+        return { style: ConsultationStyle.DIRECTIONAL, image: "이미지" };
       default:
         return null;
     }
@@ -48,16 +49,16 @@ function About({ aboutData }: any) {
         <div>
           <div>"투자자님들이 말하는 {name} PB의 매력은?"</div>
           <div>
-            <div>이미지</div>
-            <div>{styleCase(reviewData.style1)}</div>
+            {/* <Image src={styleCase(reviewData.style1)?.image} alt="이미지" /> */}
+            <div>{styleCase(style1)?.style}</div>
           </div>
           <div>
-            <div>이미지</div>
-            <div>{styleCase(reviewData.style2)}</div>
+            {/* <Image src={styleCase(reviewData.style2)?.image} alt="이미지" /> */}
+            <div>{styleCase(style2)?.style}</div>
           </div>
           <div>
-            <div>이미지</div>
-            <div>{styleCase(reviewData.style3)}</div>
+            {/* <Image src={styleCase(reviewData.style3)?.image} alt="이미지" /> */}
+            <div>{styleCase(style3)?.style}</div>
           </div>
         </div>
         <div>

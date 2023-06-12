@@ -8,7 +8,7 @@ import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";
 
 function Intro({ introData, edit }: { introData: any; edit: boolean }) {
-  const { id, profile, name, isBookmarked, branchName, msg, companyName, companyLogo, reserveCount, reviewCount } =
+  const { profile, name, isBookmarked, branchName, msg, companyName, companyLogo, reserveCount, reviewCount } =
     introData;
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkOpen, setIsBookmarkOpen] = useState(false);
@@ -75,7 +75,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
   };
 
   return (
-    <div id={id}>
+    <div>
       <div className="relative">
         <button onClick={goToCompany} className="absolute z-10 h-[42px] w-[112px]">
           {companyLogo}

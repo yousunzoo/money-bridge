@@ -6,11 +6,13 @@ import { useRouter, usePathname } from "next/navigation";
 import portfolio from "@/mocks/hyeon17/PbDetail/portfolio.json";
 
 function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
-  const { id, name, intro, speciality1, speciality2, career, award } = contentData;
+  const { name, intro, speciality1, speciality2, career, award } = contentData;
   const { getRole } = useRoleStore();
   const router = useRouter();
   const pathname = usePathname();
   const portfolioData = portfolio.data;
+  const { highestReturn, propensity, startDate, endDate, dangerRate, file } = portfolioData;
+  
   const goToPage = () => {
     if (getRole() === CommonROLE.USER) {
       router.push("/reservation");
@@ -44,48 +46,47 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
 
   const download = () => {
     const link = document.createElement("a");
-    link.href = portfolioData.file;
+    link.href = file;
     link.download = "portfolio.pdf";
     link.click();
   };
 
   return (
     <>
-      <div id={id}>
+      <div>
         <div>
           <div>한 줄 소개</div>
           <div>"{intro}"</div>
         </div>
         <div>
           <div>전문분야 </div>
-
           <div>{speciality1}</div>
           <div>{speciality2}</div>
         </div>
         <div>
           <div>경력</div>
-          <div>
+          <ul>
             {career?.map((item: any) => (
-              <div key={item.id}>
+              <li key={item.id}>
                 <div>{item.start}</div>
                 <div>{item.end}</div>
                 <div>{item.career}</div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
         {award ? (
           <div>
             <div>수상내역</div>
-            <div>
+            <ul>
               {award.map((item: any) => (
-                <div key={item.id}>
+                <li key={item.id}>
                   <div>{item.start}</div>
                   <div>{item.end}</div>
                   <div>{item.record}</div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         ) : null}
         {edit ? (
@@ -127,24 +128,24 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
           <>
             <div>
               <div>{name}PB의 포트폴리오를 확인해 보세요</div>
-              <div key={portfolioData.id}>
+              <div>
                 <div>
-                  <div>{portfolioData.highestReturn}</div>
+                  <div>{highestReturn}</div>
                   <div>최고 수익률</div>
                 </div>
                 <div>
-                  <div>{portfolioData.propensity}</div>
+                  <div>{propensity}</div>
                   <div>투자 성향</div>
                 </div>
                 <div>
                   <div>
-                    {portfolioData.startDate}
-                    {portfolioData.endDate}
+                    {startDate}
+                    {endDate}
                   </div>
                   <div>기간</div>
                 </div>
                 <div>
-                  <div>{portfolioData.dangerRate}</div>
+                  <div>{dangerRate}</div>
                   <div>위험등급</div>
                 </div>
               </div>

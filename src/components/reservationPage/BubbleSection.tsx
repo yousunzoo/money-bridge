@@ -22,7 +22,6 @@ function BubbleSection({
   const [isChoosable, setIsChoosable] = useState(true);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const questionRef = useRef<HTMLDivElement | null>(null);
-  const answerRef = useRef<HTMLDivElement | null>(null);
   const { answers, setAnswers } = useReservationStore();
 
   const editedInfo = userInfo ? (isChoosable ? userInfo : answers[5]) : null;
@@ -61,7 +60,7 @@ function BubbleSection({
   };
 
   useEffect(() => {
-    if (!sectionRef.current || !questionRef.current || !answerRef.current) return;
+    if (!sectionRef.current || !questionRef.current) return;
     if (!isChoosable && step === 5) {
       sectionRef.current.classList.remove("h-screen");
 
@@ -92,30 +91,40 @@ function BubbleSection({
   }, [isOpen]);
 
   return (
-    <section ref={sectionRef} className="mb-6 flex h-screen flex-col gap-y-4">
-      <div className="pt-6" ref={questionRef}></div>
+    <section ref={sectionRef} className="flex h-screen flex-col pb-10">
+      <div className={`${isChoosable ? "pt-12" : "pt-4"}`} ref={questionRef} />
       {intro1 && isChoosable && (
-        <div className="text-lg font-semibold">
+        <div className="text-lg mb-10 font-semibold">
           <p>{intro1}</p>
           {intro2 && <p>{intro2}</p>}
         </div>
       )}
 
-      <div>
-        <div className="mb-4">
-          <p className="text-lg font-semibold">{question}</p>
+      <div className="pb-5">
+        <div>
+          <p className="text-lg font-bold">{question}</p>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="mt-5 flex flex-col gap-4">
           {pbStation && (
-            <div className="w-full rounded-3xl border-2 p-6">
-              <p className="font-semibold">{pbStation.branchName}</p>
-              <p>{pbStation.branchAddress}</p>
+            <div className="info_card">
+              <p className="font-bold text-primary-normal">{pbStation.branchName}</p>
+              <div className="mb-4 flex w-full justify-between text-xs">
+                <p>{pbStation.branchAddress}</p>
+                <button
+                  // onClick={() => {
+                  //   handleCopyClipBoard(pbStation.branchAddress);
+                  // }}
+                  className="text-gray-heavy underline"
+                >
+                  주소 복사
+                </button>
+              </div>
               <LocationCard latitude={pbStation.branchLatitude} longitude={pbStation.branchLongitude} />
             </div>
           )}
           {consultTime && (
-            <div className="w-full rounded-3xl border-2 p-6">
-              <p className="font-semibold">상담 가능 시간을 확인해주세요.</p>
+            <div className="info_card">
+              <p className="font-bold">상담 가능 시간을 확인해주세요.</p>
               <p>
                 업무시간 : 월~금 {consultTime.consultStart} ~ {consultTime.consultEnd}
               </p>
@@ -123,7 +132,7 @@ function BubbleSection({
             </div>
           )}
           {editedInfo && (
-            <div className="w-full rounded-3xl border-2 p-6">
+            <div className="info_card">
               <div className="flex justify-between">
                 <p>이름</p>
                 <p>{editedInfo.userName}</p>
@@ -140,20 +149,15 @@ function BubbleSection({
           )}
           {isChoosable &&
             options.map((option, idx) => (
-              <button
-                onClick={e => handleClick(e, option)}
-                className="w-fit rounded-3xl border-2 border-black bg-white px-4 py-2"
-                key={idx}
-              >
+              <button onClick={e => handleClick(e, option)} className="option" key={idx}>
                 {option}
               </button>
             ))}
         </div>
       </div>
-      <div ref={answerRef}></div>
-      {!answers[step] && <div className="grow"></div>}
+      {!answers[step] && <div className="grow" />}
       {answers[step] && !isChoosable && (
-        <div className="userBubble flex gap-2">
+        <div className="user_bubble flex gap-2">
           {step === 3 && answers[3] && <CandidateTime candidates={answers[3]} />}
           {step === 5 && answers[5] && <p>맞습니다</p>}
           {step !== 3 && step !== 5 && answers[step] && <p>{answers[step]}</p>}

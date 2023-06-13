@@ -23,6 +23,7 @@ function PbDetail() {
     isBookmarked: data.isBookmarked,
     branchName: data.branchName,
     msg: data.msg,
+    companyId: data.companyId,
     companyName: data.companyName,
     companyLogo: data.companyLogo,
     reserveCount: data.reserveCount,

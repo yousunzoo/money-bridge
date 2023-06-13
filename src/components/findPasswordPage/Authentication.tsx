@@ -74,7 +74,7 @@ function Authentication() {
       </div>
       <button
         className={`h-[56px] w-full rounded-[8px] text-[20px] font-bold leading-[28px] ${
-          value ? "cursor-pointer bg-[#153445] text-white" : "cursor-not-allowed bg-[#ececec] text-[#565656]"
+          value ? "bg-[#153445] text-white" : "bg-[#ececec] text-[#565656]"
         }`}
         onClick={handleClick}
         disabled={value.length === 0}

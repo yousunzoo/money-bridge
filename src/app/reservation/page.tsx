@@ -74,7 +74,7 @@ function ReservationPage() {
                   저와 함께 예약을 시작해볼까요?
                 </p>
               </div>
-              <div className="userBubble">
+              <div className="user_bubble">
                 <p>네! 좋아요</p>
               </div>
             </>
@@ -107,10 +107,7 @@ function ReservationPage() {
           />
         )}
         {isChecked[5] && (
-          <button
-            onClick={handleSubmit}
-            className="fixed bottom-20 left-0 right-0 mx-auto flex h-[56px] w-[360px] items-center justify-center rounded-lg bg-black text-white"
-          >
+          <button onClick={handleSubmit} className="button_fixed">
             등록하기
           </button>
         )}

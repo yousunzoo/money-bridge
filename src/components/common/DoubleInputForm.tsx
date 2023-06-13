@@ -3,7 +3,8 @@ import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Iinputs } from "@/types/DoubleInputForm";
+import { InputFormType } from "@/constants/enum";
+import { usePathname, useRouter } from "next/navigation";
 
 const yup_email = yup.string().email().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -13,19 +14,21 @@ const yup_phone = yup.string().min(10).max(11).required();
 function DoubleInputForm({
   type,
   setNextStep,
-  inputs,
-  setInputs,
 }: {
-  type: string;
+  type: InputFormType;
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
-  inputs: Iinputs;
-  setInputs: (value: React.SetStateAction<Iinputs>) => void;
 }) {
-  const inputType = type === "login" ? "password" : type === "findEmail" ? "number" : "text";
+  const router = useRouter();
+  const pathName = usePathname();
+  const [inputs, setInputs] = useState({
+    first: "",
+    second: "",
+  });
+  const inputType = type === InputFormType.LOGIN ? "password" : "text";
 
   const schema = yup.object().shape({
-    first: type === "login" ? yup_email : yup_name,
-    second: type === "login" ? yup_password : type === "findEmail" ? yup_phone : yup_email,
+    first: type === InputFormType.LOGIN ? yup_email : yup_name,
+    second: type === InputFormType.LOGIN ? yup_password : type === InputFormType.FIND_EMAIL ? yup_phone : yup_email,
   });
 
   const {
@@ -50,6 +53,9 @@ function DoubleInputForm({
     if (setNextStep) {
       setNextStep(true);
     }
+    if (type === InputFormType.FIND_PASSWORD) {
+      router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
+    }
   };
 
   errors.first?.type === "required" ? (errors.first = undefined) : "";
@@ -58,7 +64,7 @@ function DoubleInputForm({
   errors.second?.type === "min" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
 
   return (
-    <div className="mt-[24px] px-[16px]">
+    <div className="mt-[24px]">
       <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-[10px]">
           <h2 className="mb-[16px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header1}</h2>
@@ -95,8 +101,11 @@ function DoubleInputForm({
         {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
           type="button"
-          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}
+          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"} cursor ${
+            isValid ? "cursor-pointer" : "cursor-not-allowed"
+          }`}
           onClick={onSubmit}
+          disabled={!isValid}
         >
           <span className={`text-[20px] font-bold leading-[28px] ${isValid ? "text-white" : "text-[#565656]"}`}>
             {getNotice(type)?.data.submit}
@@ -109,9 +118,9 @@ function DoubleInputForm({
 
 export default DoubleInputForm;
 
-const getNotice = (type: string) => {
+const getNotice = (type: InputFormType) => {
   switch (type) {
-    case "login":
+    case InputFormType.LOGIN:
       return {
         data: {
           header1: "이메일",
@@ -122,23 +131,23 @@ const getNotice = (type: string) => {
           func: "",
         },
       };
-    case "findEmail":
+    case InputFormType.FIND_EMAIL:
       return {
         data: {
           header1: "이름",
           header2: "휴대폰 번호",
-          notice1: "정확한 이름을 입력해주세요",
+          notice1: "",
           notice2: "-자 없이 숫자로만 적어주세요",
           submit: "확인",
           func: "",
         },
       };
-    case "findPassword":
+    case InputFormType.FIND_PASSWORD:
       return {
         data: {
           header1: "이름",
           header2: "이메일",
-          notice1: "정확한 이름을 입력해주세요",
+          notice1: "",
           notice2: "@를 포함하여 작성해 주세요.",
           submit: "인증코드 받기",
           func: "",

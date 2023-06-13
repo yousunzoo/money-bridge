@@ -12,7 +12,7 @@ function SelectLoginType() {
         <p className="font-normal">내가 찾던 PB와 투자자를 지금 만나보세요 :&#41;</p>
         <p></p>
       </div>
-      <div className="mx-[16px] mt-[200px] flex flex-col gap-[16px]">
+      <div className="mx-[16px] mb-[96px] mt-[200px] flex flex-col gap-[16px]">
         <Link
           href={"/login/user"}
           className="flex h-[56px] w-full items-center  justify-center rounded-[8px] bg-[#453015] text-[20px] font-bold leading-[28px] text-white"

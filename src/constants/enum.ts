@@ -113,6 +113,12 @@ enum Award {}
 enum Branch {}
 enum Company {}
 
+enum InputFormType {
+  LOGIN = "LOGIN",
+  FIND_EMAIL = "FIND_EMAIL",
+  FIND_PASSWORD = "FIND_PASSWORD",
+}
+
 export {
   CommonROLE,
   Propensity,
@@ -140,4 +146,5 @@ export {
   Award,
   Branch,
   Company,
+  InputFormType,
 };

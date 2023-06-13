@@ -1,6 +1,10 @@
 "use client";
 import API_KEY from "@/app/layout";
-
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 const shareKakao = (url: string, title: string, description: string, imageUrl: string) => {
   if (window.Kakao) {
     const kakao = window.Kakao;

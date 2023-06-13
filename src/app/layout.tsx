@@ -13,11 +13,6 @@ export const metadata = {
 
 export const API_KEY = "a00d33a77c654313f467c84771f981c2";
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${API_KEY}&autoload=false`;
-declare global {
-  interface Window {
-    Kakao: any;
-  }
-}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

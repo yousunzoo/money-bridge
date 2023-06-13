@@ -7,18 +7,18 @@ import SelectInformation from "@/components/findPasswordPage/SelectInformation";
 import { usePathname } from "next/navigation";
 import TopNav from "@/components/common/TopNav";
 
-type Tstep = "1" | "2" | "3" | "4";
+type Tstep = "enterInformation" | "authentication" | "selectInformation" | "resetPassword";
 
 const step = {
-  "1": <EnterInformation />,
-  "2": <Authentication />,
-  "3": <SelectInformation />,
-  "4": <ResetPassword />,
+  enterInformation: <EnterInformation />,
+  authentication: <Authentication />,
+  selectInformation: <SelectInformation />,
+  resetPassword: <ResetPassword />,
 };
 
 function Page() {
   const pathName = usePathname();
-  const path = pathName.substring(pathName.length - 1) as Tstep;
+  const path = pathName.split("/")[3] as Tstep;
 
   return (
     <>

@@ -11,7 +11,7 @@ function SelectInformation() {
       <InformationCheck />
       <button
         className="mb-[96px] mt-[266px] h-[56px] w-full rounded-[8px] bg-[#153445] text-[20px] font-bold leading-[28px] text-white"
-        onClick={() => router.push(`/findPassword/${pathName.split("/")[2]}/4`)}
+        onClick={() => router.push(`/findPassword/${pathName.split("/")[2]}/resetPassword`)}
       >
         비밀번호 재설정
       </button>

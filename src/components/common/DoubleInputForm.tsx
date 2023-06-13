@@ -54,7 +54,7 @@ function DoubleInputForm({
       setNextStep(true);
     }
     if (type === InputFormType.FIND_PASSWORD) {
-      router.push(`/findPassword/${pathName.split("/")[2]}/2`);
+      router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
     }
   };
 

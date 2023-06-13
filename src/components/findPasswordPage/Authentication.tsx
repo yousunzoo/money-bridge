@@ -36,7 +36,7 @@ function Authentication() {
 
   const handleClick = () => {
     if (value) {
-      router.push(`/findPassword/${pathName.split("/")[2]}/3`);
+      router.push(`/findPassword/${pathName.split("/")[2]}/selectInformation`);
     }
   };
 

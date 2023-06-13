@@ -16,13 +16,35 @@ module.exports = {
       "status-alert": "#EB5147",
       "status-caution": "#FA9538",
       "status-positive": "#0090FF",
+      "status-error": "#EB5147",
       "background-primary": "#F3F3F3",
       "background-secondary": "#EBEBEB",
       "background-normal": "#EEEEEE",
+      "background-disabled": "#ECECEC",
+      "gray-heavy": "#565656",
+      "gray-normal": "#949494",
+      "button-inactive": "#D9D9D9",
+      placeholder: "#C1C1C1",
+      white: "#FFFFFF",
+      black: "#242424",
     },
-    fontSize:{
-      '3xl': '2rem',
-      '5xl':'2.5rem'
+    fontSize: {
+      xs: "0.75rem",
+      sm: "0.875rem",
+      base: "1rem",
+      xl: "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "2rem",
+      "4xl": "2.25rem",
+      "5xl": "2.5rem",
+    },
+    borderRadius: {
+      sm: "0.25rem",
+      md: "0.75rem",
+      lg: "1.125rem",
+    },
+    borderWidth: {
+      1: "1px",
     },
     extend: {
       backgroundImage: {

@@ -9,17 +9,24 @@ import same from "@/mocks/hyeon17/PbDetail/same.json";
 import LocationCard from "@/components/common/LocationCard";
 import Image from "next/image";
 import Link from "next/link";
+import ButtonModal from "@/components/common/ButtonModal";
+import useCopyClipboard from "@/hooks/useCopyClipboard";
+import PbRecentReview from "@/mocks/hyeon17/PbDetail/Review/pbrecentreview.json";
+import PbReview from "@/mocks/hyeon17/PbDetail/Review/pbreview.json";
 
 function About({ aboutData }: any) {
   const { name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
   const reviewData = review.data;
-  const{ style1, style2, style3 } = reviewData;
+  const { style1, style2, style3 } = reviewData;
   const sameData = same.data.list;
+  const pbReviewData = PbReview.data;
+  const pbRecentData = PbRecentReview.data;
+  const { isCopyOpen, isCopy, setIsCopyOpen, addressCopy, copyContents } = useCopyClipboard(branchAddress);
 
   const styleCase = (style: string) => {
     switch (style) {
       case "METICULOUS":
-        return {style: ConsultationStyle.METICULOUS, image: "이미지"};
+        return { style: ConsultationStyle.METICULOUS, image: "이미지" };
       case "FAST":
         return { style: ConsultationStyle.FAST, image: "이미지" };
       case "KIND":
@@ -58,32 +65,29 @@ function About({ aboutData }: any) {
         </div>
         <div>
           <div>
-            <div>후기00건</div>
-            <Link href='/detail/review'>전체보기</Link>
+            <div>후기{pbReviewData ? pbReviewData.totalElements : 0}건</div>
+            {pbReviewData ? <Link href="/detail/review">전체보기</Link> : null}
           </div>
-          <Carousel className="">
-            <li className="card">
-              <div>
-                <div>이름1</div>
-                <div>날짜</div>
-              </div>
-              <div>내용</div>
-            </li>
-            <li className="card">
-              <div>
-                <div>이름2</div>
-                <div>날짜</div>
-              </div>
-              <div>내용</div>
-            </li>
-            <li className="card">
-              <div>
-                <div>이름3</div>
-                <div>날짜</div>
-              </div>
-              <div>내용</div>
-            </li>
-          </Carousel>
+          {pbRecentData ? (
+            <ul>
+              <Carousel autoplay>
+                {pbRecentData.list.map((item: any) => (
+                  <li className="card" key={item.reviewId}>
+                    <div>
+                      <div>{item.userName}</div>
+                      <div>{item.createdAt}</div>
+                      <ul>
+                        {item.list.map((styles: any, idx: number) => (
+                          <li key={idx}>{styles.style}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>{item.content}</div>
+                  </li>
+                ))}
+              </Carousel>
+            </ul>
+          ) : null}
         </div>
       </div>
       <div>
@@ -95,7 +99,7 @@ function About({ aboutData }: any) {
           </div>
           <div>
             <div>{branchAddress}</div>
-            <button>주소 복사</button>
+            <button onClick={addressCopy}>주소 복사</button>
           </div>
           <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
         </div>
@@ -104,6 +108,9 @@ function About({ aboutData }: any) {
         <div>핏에 맞는 다른 PB도 함께 만나보세요</div>
         <PbCardList props={sameData} />
       </div>
+      {isCopyOpen && isCopy && (
+        <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
+      )}
     </>
   );
 }

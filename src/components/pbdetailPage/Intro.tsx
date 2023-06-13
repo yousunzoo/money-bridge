@@ -8,7 +8,7 @@ import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";
 
 function Intro({ introData, edit }: { introData: any; edit: boolean }) {
-  const { profile, name, isBookmarked, branchName, msg, companyName, companyLogo, reserveCount, reviewCount } =
+  const { profile, name, isBookmarked, branchName, msg, companyId,companyName, companyLogo, reserveCount, reviewCount } =
     introData;
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkOpen, setIsBookmarkOpen] = useState(false);
@@ -23,7 +23,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
   const urlToCopy = base + pathname;
 
   const goToCompany = () => {
-    router.push("/pblist/financial");
+    router.push(`/pblist/financial/${companyId}`);
   };
 
   const bookMarkHandler = () => {

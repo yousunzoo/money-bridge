@@ -54,8 +54,8 @@ function ResetPasswordForm() {
           <h2 className="mb-[16px] text-[12px] leading-[18px]">기존과 다른 비밀번호를 입력해 주세요.</h2>
           <input
             type="password"
-            className={`formInput ${errors.first || checkWhitespace(inputs.first) ? "formInput_warn" : ""} ${
-              dirtyFields.first ? "formInput_entering" : ""
+            className={`form_input ${errors.first || checkWhitespace(inputs.first) ? "warnning" : ""} ${
+              dirtyFields.first ? "entering" : ""
             }`}
             {...register("first")}
             value={inputs.first}
@@ -77,9 +77,7 @@ function ResetPasswordForm() {
           <h2 className="mb-[16px] mt-[24px] text-[12px] leading-[18px]">다시 한 번 입력해 주세요</h2>
           <input
             type="password"
-            className={`formInput ${errors.second ? "formInput_warn" : ""} ${
-              dirtyFields.second ? "formInput_entering" : ""
-            }`}
+            className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
             {...register("second")}
             value={inputs.second}
           />

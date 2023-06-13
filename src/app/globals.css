@@ -31,18 +31,23 @@
   .search_input {
     @apply w-[358px] rounded-sm border-1 px-3 py-2 pl-[50px];
   }
+
   .form_input {
-    @apply w-[358px] rounded-sm border-1 px-3 py-2 pr-[70px] focus-visible:outline-none;
+    @apply w-[358px] rounded-sm border-background-secondary border-1 px-3 py-2 pr-[70px];
   }
+
   .form_input:focus-visible {
     @apply outline-none;
   }
+
   .form_input::placeholder {
     @apply text-placeholder;
   }
+
   .input_small {
     @apply w-[240px] px-3 py-2;
   }
+
   .input_small::placeholder {
     @apply text-placeholder;
   }
@@ -69,6 +74,7 @@
   .chip {
     @apply rounded-sm border-1 border-primary-normal px-4 py-2 font-bold text-primary-normal;
   }
+
   .selected {
     @apply !bg-primary-normal !text-white;
   }
@@ -84,9 +90,11 @@
   .info_card {
     @apply w-full rounded-xl border-1 border-primary-normal p-4;
   }
+
   .button_cancel {
     @apply border-1 !bg-white !text-primary-normal;
   }
+
   .inactive {
     @apply border-1 !border-button-inactive !bg-white !text-gray-normal;
   }

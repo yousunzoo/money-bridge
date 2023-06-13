@@ -6,6 +6,7 @@ import { useRoleStore } from "@/store/roleStore";
 import BlurModal from "@/components/common/Modal/BlurModal";
 import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";
+import shareKakao from "@/utils/shareKakao";
 
 function Intro({ introData, edit }: { introData: any; edit: boolean }) {
   const { profile, name, isBookmarked, branchName, msg, companyId,companyName, companyLogo, reserveCount, reviewCount } =
@@ -42,7 +43,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
     confirmText: "카카오톡으로 공유",
     cancelText: "링크 복사",
     confirmFn: () => {
-      console.log("카카오톡으로 공유");
+      shareKakao(base, "테스트", "https://www.google.com", "/public/assets/images/default_profile.png");
       setIsShareOpen(false);
     },
     cancelFn: () => {

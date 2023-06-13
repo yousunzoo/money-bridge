@@ -5,11 +5,20 @@ enum CommonROLE {
 }
 
 enum Propensity {
-  CONSERVATIVE = "CONSERVATIVE",
-  CAUTIOUS = "CAUTIOUS",
-  BALANCED = "BALANCED",
-  AGGRESSIVE = "AGGRESSIVE",
-  SPECULATIVE = "SPECULATIVE",
+  CONSERVATIVE = "안전형",
+  CAUTIOUS = "안전추구형",
+  BALANCED = "중립형",
+  AGGRESSIVE = "적극투자형",
+  SPECULATIVE = "공격투자형",
+}
+
+enum RiskRating {
+  VERY_LOW = "매우 낮은 위험",
+  LOW = "낮은 위험",
+  MIDDLE = "보통 위험",
+  HIGH = "다수 높은 위험",
+  VERY_HIGH = "높은 위험",
+  SUPER_HIGH = "매우 높은 위험",
 }
 
 enum PBSpecialty {
@@ -114,6 +123,7 @@ export {
   CommonROLE,
   Propensity,
   PBSpecialty,
+  RiskRating,
   PBStatus,
   Admin,
   ReservationProcess,

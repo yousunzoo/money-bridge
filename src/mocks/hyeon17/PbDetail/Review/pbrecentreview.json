@@ -1,0 +1,47 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "reviewId": 1,
+        "userName": "이승민",
+        "content": "친절하게 상담을 해주셔서 너무 좋았습니다.",
+        "createdAt": "2023-05-15",
+        "list": [
+          {
+            "style": "KIND"
+          }
+        ]
+      },
+      {
+        "reviewId": 2,
+        "userName": "이상엽",
+        "content": "친절하게 상담을 해주셔서 너무 좋았습니다.",
+        "createdAt": "2023-05-15",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 3,
+        "userName": "홍길동",
+        "content": "친절하게 상담을 해주셔서 너무 좋았습니다.",
+        "createdAt": "2023-05-17",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@
     "msg": "김피비입니다",
     "name": "김피비",
     "isBookmarked": false,
+    "companyId": 1,
     "companyName": "미래에셋",
     "companyLogo": "logo.png",
     "branchName": "용산점",
@@ -23,8 +24,8 @@
       { "id": 2, "start": 2016, "end": 2019, "career": "하나증권" }
     ],
     "award": [
-      { "id": 1, "record": "실전투자대회 3등 수상" },
-      { "id": 2, "record": "실전투자대회 3등 수상" }
+      { "id": 1,"year": 2016, "record": "실전투자대회 3등 수상" },
+      { "id": 2, "year": 2016,"record": "실전투자대회 3등 수상" }
     ]
   }
 }

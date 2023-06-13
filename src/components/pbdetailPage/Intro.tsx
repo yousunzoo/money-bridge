@@ -6,9 +6,10 @@ import { useRoleStore } from "@/store/roleStore";
 import BlurModal from "@/components/common/Modal/BlurModal";
 import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";
+// import shareKakao from "@/utils/shareKakao";
 
 function Intro({ introData, edit }: { introData: any; edit: boolean }) {
-  const { id, profile, name, isBookmarked, branchName, msg, companyName, companyLogo, reserveCount, reviewCount } =
+  const { profile, name, isBookmarked, branchName, msg, companyId,companyName, companyLogo, reserveCount, reviewCount } =
     introData;
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkOpen, setIsBookmarkOpen] = useState(false);
@@ -23,7 +24,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
   const urlToCopy = base + pathname;
 
   const goToCompany = () => {
-    router.push("/pblist/financial");
+    router.push(`/pblist/financial/${companyId}`);
   };
 
   const bookMarkHandler = () => {
@@ -42,10 +43,11 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
     confirmText: "카카오톡으로 공유",
     cancelText: "링크 복사",
     confirmFn: () => {
-      console.log("카카오톡으로 공유");
+      // shareKakao(base, "테스트", "https://www.google.com", "/public/assets/images/default_profile.png");
       setIsShareOpen(false);
     },
     cancelFn: () => {
+      navigator.clipboard.writeText(urlToCopy);
       setIsShareOpen(false);
       setIsCopy(!isCopy);
       setIsCopyOpen(true);
@@ -56,7 +58,6 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
     content: "링크가 복사되었습니다.",
     confirmText: "확인",
     confirmFn: () => {
-      navigator.clipboard.writeText(urlToCopy);
       setIsCopyOpen(false);
     },
   };
@@ -75,7 +76,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
   };
 
   return (
-    <div id={id}>
+    <div>
       <div className="relative">
         <button onClick={goToCompany} className="absolute z-10 h-[42px] w-[112px]">
           {companyLogo}

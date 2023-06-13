@@ -56,7 +56,7 @@ function ReservationPage() {
   }, [isChecked]);
   return (
     <>
-      <div className="w-full p-6 pb-40" ref={sectionRef}>
+      <div className="w-full py-6 pb-40" ref={sectionRef}>
         <section className="mb-4 flex flex-col gap-y-4">
           {isChecked[5] ? (
             <div className="text-lg font-semibold">

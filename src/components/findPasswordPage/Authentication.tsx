@@ -1,9 +1,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
-import TopNav from "../common/TopNav";
 import help from "/public/assets/images/help.svg";
 import Image from "next/image";
-import { clearInterval, setInterval } from "timers";
 
 function Authentication() {
   const [value, setValue] = useState("");
@@ -19,14 +17,17 @@ function Authentication() {
       //@ts-ignore
       setMin(parseInt(time.current / 60));
       setSec(time.current % 60);
-      time.current -= 1;
+      if (time.current > 0) {
+        time.current -= 1;
+      }
     }, 1000);
     return () => clearInterval(timerId.current);
   }, []);
 
   useEffect(() => {
     if (time.current <= 0) {
-      clearInterval(timerId.current);
+      // clearInterval(timerId.current);
+      setSec(0);
     }
   }, [sec]);
 

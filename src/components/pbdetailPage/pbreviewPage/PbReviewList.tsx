@@ -1,4 +1,6 @@
+"use client";
 import React, { useState, useEffect, useRef } from "react";
+import PbReviewItem from "@/components/pbdetailPage/pbreviewPage/PbReviewItem";
 
 function PbReviewList({ props }: any) {
   const dataList = props.data ? props.data.list : props;
@@ -48,7 +50,7 @@ function PbReviewList({ props }: any) {
     <>
       <ul>
         {items.map((item: any) => (
-          <PbCardItem key={item.id} item={item} />
+          <PbReviewItem key={item.reviewId} item={item} />
         ))}
       </ul>
       {!isLastPage && <div ref={observerRef} style={{ height: "1px" }}></div>}

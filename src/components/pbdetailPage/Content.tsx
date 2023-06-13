@@ -1,16 +1,28 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRoleStore } from "@/store/roleStore";
-import { CommonROLE } from "@/constants/enum";
+import { CommonROLE, Propensity, RiskRating } from "@/constants/enum";
 import { useRouter, usePathname } from "next/navigation";
 import portfolio from "@/mocks/hyeon17/PbDetail/portfolio.json";
 
 function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
-  const { id, name, intro, speciality1, speciality2, career, award } = contentData;
+  const { name, intro, speciality1, speciality2, career, award } = contentData;
   const { getRole } = useRoleStore();
   const router = useRouter();
   const pathname = usePathname();
   const portfolioData = portfolio.data;
+  const { highestReturn, propensity, startDate, endDate, dangerRate, file } = portfolioData;
+  const [introValue, setIntroValue] = useState(intro);
+  const [value, setValue] = useState(introValue.length);
+  const [speciality1Value, setSpeciality1Value] = useState(speciality1);
+  const [speciality2Value, setSpeciality2Value] = useState(speciality2);
+  const [careerValue, setCareerValue] = useState(career);
+  const [awardValue, setAwardValue] = useState(award);
+  const [highestReturnValue, setHighestReturnValue] = useState(highestReturn);
+  const [startDateValue, setStartDateValue] = useState(startDate);
+  const [endDateValue, setEndDateValue] = useState(endDate);
+  const [fileValue, setFileValue] = useState(file);
+
   const goToPage = () => {
     if (getRole() === CommonROLE.USER) {
       router.push("/reservation");
@@ -44,48 +56,97 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
 
   const download = () => {
     const link = document.createElement("a");
-    link.href = portfolioData.file;
+    link.href = file;
     link.download = "portfolio.pdf";
     link.click();
   };
 
+  const introChange = (event: any) => {
+    setValue(event.target.value.length);
+    const text = event.target.value;
+    if (value <= 150) {
+      setIntroValue(text);
+    }
+  };
+
+  const Change = (event: any) => {};
+
   return (
     <>
-      <div id={id}>
+      <div>
         <div>
           <div>한 줄 소개</div>
-          <div>"{intro}"</div>
+          {edit ? (
+            <>
+              <div>
+                <div>"</div>
+                <input type="text" value={introValue} onChange={introChange} />
+                <div>"</div>
+              </div>
+              <div>{value}/150</div>
+            </>
+          ) : (
+            <>
+              <div>"{introValue}"</div>
+            </>
+          )}
         </div>
         <div>
           <div>전문분야 </div>
-
-          <div>{speciality1}</div>
-          <div>{speciality2}</div>
+          {edit ? (
+            <>
+              <input type="text" value={speciality1Value} />
+              <input type="text" value={speciality2Value} />
+            </>
+          ) : (
+            <>
+              <div>{speciality1Value}</div>
+              <div>{speciality2Value}</div>
+            </>
+          )}
         </div>
         <div>
           <div>경력</div>
-          <div>
-            {career?.map((item: any) => (
-              <div key={item.id}>
-                <div>{item.start}</div>
-                <div>{item.end}</div>
-                <div>{item.career}</div>
-              </div>
+          <ul>
+            {careerValue?.map((item: any) => (
+              <li key={item.id}>
+                {edit ? (
+                  <>
+                    <input type="text" value={item.start} />
+                    <input type="text" value={item.end} />
+                    <input type="text" value={item.career} />
+                  </>
+                ) : (
+                  <>
+                    <div>{item.start}</div>
+                    <div>{item.end}</div>
+                    <div>{item.career}</div>
+                  </>
+                )}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-        {award ? (
+        {awardValue ? (
           <div>
             <div>수상내역</div>
-            <div>
-              {award.map((item: any) => (
-                <div key={item.id}>
-                  <div>{item.start}</div>
-                  <div>{item.end}</div>
-                  <div>{item.record}</div>
-                </div>
+            <ul>
+              {awardValue.map((item: any) => (
+                <li key={item.id}>
+                  {edit ? (
+                    <>
+                      <input type="text" value={item.year} />
+                      <input type="text" value={item.record} />
+                    </>
+                  ) : (
+                    <>
+                      <div>{item.year}</div>
+                      <div>{item.record}</div>
+                    </>
+                  )}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         ) : null}
         {edit ? (
@@ -95,29 +156,37 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
               <div>
                 <div>
                   <div>최고 수익률</div>
-                  <div>입력</div>
+                  <input type="text" value={highestReturnValue} />
                 </div>
                 <div>
                   <div>투자성향</div>
-                  <div>드롭다운</div>
+                  <select>
+                    {Object.keys(Propensity).map((item, idx) => (
+                      <option key={idx} value={item}>
+                        {item}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <div>기간</div>
-                  <div>입력</div>
+                  <input type="text" value={startDateValue} />
+                  <input type="text" value={endDateValue} />
                 </div>
                 <div>
                   <div>위험등급</div>
-                  <div>드롭다운</div>
+                  <div>{dangerRate}</div>
                 </div>
               </div>
             </div>
             <div>
               <div>
                 <div>포트폴리오 업로드</div>
-                <div>수정하기</div>
+                <button>수정하기</button>
               </div>
+              <div>파일명</div>
               <div>
-                <div>파일명</div>
+                <div>{fileValue}</div>
                 <div>파일용량</div>
                 <div>업로드 날짜</div>
               </div>
@@ -127,24 +196,24 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
           <>
             <div>
               <div>{name}PB의 포트폴리오를 확인해 보세요</div>
-              <div key={portfolioData.id}>
+              <div>
                 <div>
-                  <div>{portfolioData.highestReturn}</div>
+                  <div>{highestReturnValue}</div>
                   <div>최고 수익률</div>
                 </div>
                 <div>
-                  <div>{portfolioData.propensity}</div>
+                  <div>{propensity}</div>
                   <div>투자 성향</div>
                 </div>
                 <div>
                   <div>
-                    {portfolioData.startDate}
-                    {portfolioData.endDate}
+                    {startDateValue}
+                    {endDateValue}
                   </div>
                   <div>기간</div>
                 </div>
                 <div>
-                  <div>{portfolioData.dangerRate}</div>
+                  <div>{dangerRate}</div>
                   <div>위험등급</div>
                 </div>
               </div>
@@ -152,7 +221,7 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
             <div>
               <div>포트폴리오 다운로드</div>
               <div>
-                <div>portfolio.pdf</div>
+                <div>{fileValue}</div>
                 <button onClick={() => download}>다운로드</button>
               </div>
             </div>

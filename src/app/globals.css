@@ -104,7 +104,7 @@
   }
 
   .card {
-    @apply mx-auto my-4 flex h-3 w-[80%] flex-col rounded-md shadow-md;
+    @apply mx-auto my-4 flex w-[80%] flex-col rounded-md shadow-md;
   }
 
   .popup {

@@ -41,8 +41,8 @@ function ReservationPage() {
   const handleSubmit = () => {
     const convertedAnswers = convertReservationAnswer(answers);
     // 상담 예약 신청 api 호출
-    resetAnswers();
     router.replace("/reservation/complete");
+    resetAnswers();
   };
 
   useEffect(() => {

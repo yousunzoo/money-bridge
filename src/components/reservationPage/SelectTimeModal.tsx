@@ -5,7 +5,6 @@ import dayjs, { Dayjs } from "dayjs";
 import TimeSelect from "./TimeSelect";
 import { useReservationStore } from "@/store/reservationStore";
 
-const BUTTON_STYLE = "w-full py-2 rounded-lg";
 function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTime }: ISelectTimeModalProps) {
   const [step, setStep] = useState(1);
   const [isDisabled, setIsDisabled] = useState(true);

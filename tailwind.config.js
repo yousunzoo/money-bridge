@@ -42,6 +42,7 @@ module.exports = {
       sm: "0.25rem",
       md: "0.75rem",
       lg: "1.125rem",
+      xl: "1.25rem",
     },
     borderWidth: {
       1: "1px",

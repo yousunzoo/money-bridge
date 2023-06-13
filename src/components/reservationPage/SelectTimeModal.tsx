@@ -53,8 +53,8 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
     }
   };
   return (
-    <>
-      <h2 className="mb-6 text-lg font-semibold">
+    <div className="flex h-[500px] flex-col">
+      <h2 className="mb-6 text-xl font-bold">
         희망 {step === 1 || step === 2 ? 1 : 2}순위 {step === 1 || step === 3 ? "날짜를" : "시간을"} 선택해주세요.
       </h2>
       <section className="mb-6 grow">
@@ -74,12 +74,10 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
           />
         )}
       </section>
-      <div className="relative flex w-full justify-between gap-4">
-        <button className={`${BUTTON_STYLE} bg-black text-white`} onClick={handleNextButton}>
-          선택
-        </button>
-      </div>
-    </>
+      <button className="button" onClick={handleNextButton}>
+        선택
+      </button>
+    </div>
   );
 }
 

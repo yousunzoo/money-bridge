@@ -70,9 +70,7 @@ function DoubleInputForm({
           <h2 className="mb-[16px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header1}</h2>
           <input
             type="text"
-            className={`formInput ${errors.first ? "formInput_warn" : ""} ${
-              dirtyFields.first ? "formInput_entering" : ""
-            }`}
+            className={`form_input ${errors.first ? "warnning" : dirtyFields.first ? "entering" : ""} `}
             {...register("first")}
             value={inputs.first}
           />
@@ -86,9 +84,7 @@ function DoubleInputForm({
           <h2 className="mb-[16px] mt-[24px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header2}</h2>
           <input
             type={inputType}
-            className={`formInput ${errors.second ? "formInput_warn" : ""} ${
-              dirtyFields.second ? "formInput_entering" : ""
-            }`}
+            className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
             {...register("second")}
             value={inputs.second}
           />

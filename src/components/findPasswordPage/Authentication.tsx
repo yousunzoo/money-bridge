@@ -47,7 +47,7 @@ function Authentication() {
         개인정보 보호를 위해 인증코드는 5분간 유효합니다.
       </p>
       <div className="flex gap-[18px]">
-        <input className="formInput" onChange={handleChange} />
+        <input className={`form_input ${value ? "entering" : ""}`} onChange={handleChange} />
         <button
           className="break-keep text-[14px] leading-[20px]"
           onClick={() => {
@@ -73,9 +73,10 @@ function Authentication() {
       </div>
       <button
         className={`h-[56px] w-full rounded-[8px] text-[20px] font-bold leading-[28px] ${
-          value ? "bg-[#153445] text-white" : "bg-[#ececec] text-[#565656]"
+          value ? "cursor-pointer bg-[#153445] text-white" : "cursor-not-allowed bg-[#ececec] text-[#565656]"
         }`}
         onClick={handleClick}
+        disabled={value.length === 0}
       >
         확인
       </button>

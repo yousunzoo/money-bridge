@@ -1,12 +1,8 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 function FindPassword() {
-  const router = useRouter();
-  useEffect(() => {
-    router.push("/findPassword/1");
-  }, []);
+  redirect("/login");
   return <></>;
 }
 

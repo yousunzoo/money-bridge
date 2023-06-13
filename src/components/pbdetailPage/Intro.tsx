@@ -46,6 +46,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
       setIsShareOpen(false);
     },
     cancelFn: () => {
+      navigator.clipboard.writeText(urlToCopy);
       setIsShareOpen(false);
       setIsCopy(!isCopy);
       setIsCopyOpen(true);
@@ -56,7 +57,6 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
     content: "링크가 복사되었습니다.",
     confirmText: "확인",
     confirmFn: () => {
-      navigator.clipboard.writeText(urlToCopy);
       setIsCopyOpen(false);
     },
   };

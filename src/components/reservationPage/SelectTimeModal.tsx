@@ -8,6 +8,7 @@ import { useReservationStore } from "@/store/reservationStore";
 const BUTTON_STYLE = "w-full py-2 rounded-lg";
 function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTime }: ISelectTimeModalProps) {
   const [step, setStep] = useState(1);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [select, setSelect] = useState<ICandidateTimes>({ candidateTime1: null, candidateTime2: null });
   const { setAnswers } = useReservationStore();
 
@@ -26,10 +27,12 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
     }
     return { am, pm };
   })();
+
   const handleCalendarSelect = (e: Dayjs) => {
     const date = e.format();
     const candidate = step === 1 ? "candidateTime1" : "candidateTime2";
     setSelect({ ...select, [candidate]: date });
+    setIsDisabled(false);
   };
 
   const handleNextButton = () => {
@@ -41,6 +44,7 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
     }
     setStep(step + 1);
   };
+
   const handleTimeSelect = (time: string) => {
     const hour = Number(time.split(":")[0]);
     const selectedCand = step === 2 ? select.candidateTime1 : select.candidateTime2;
@@ -52,13 +56,16 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
       setSelect({ ...select, candidateTime2: candidate });
     }
   };
+
   return (
-    <div className="flex h-[500px] flex-col">
+    <div className="flex h-[520px] flex-col">
       <h2 className="mb-6 text-xl font-bold">
         희망 {step === 1 || step === 2 ? 1 : 2}순위 {step === 1 || step === 3 ? "날짜를" : "시간을"} 선택해주세요.
       </h2>
       <section className="mb-6 grow">
-        {(step === 1 || step === 3) && <SelectCalendar handleSelect={handleCalendarSelect} />}
+        {(step === 1 || step === 3) && (
+          <SelectCalendar setIsDisabled={setIsDisabled} handleSelect={handleCalendarSelect} />
+        )}
         {step === 2 && select.candidateTime1 && (
           <TimeSelect
             handleTimeSelect={handleTimeSelect}
@@ -74,7 +81,7 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
           />
         )}
       </section>
-      <button className="button" onClick={handleNextButton}>
+      <button className={`button ${isDisabled && "inactive"}`} onClick={handleNextButton} disabled={isDisabled}>
         선택
       </button>
     </div>

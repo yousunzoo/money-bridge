@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from "react";
-import ModalBackground from "../common/Modal/ModalBackground";
 import { useReservationStore } from "@/store/reservationStore";
 import { IForwardingModalProps } from "@/types/reservation";
 
@@ -33,7 +32,7 @@ function ForwardingModal({ nowStep, moveToNextStep, handleCloseModal }: IForward
       <textarea
         onChange={handleChange}
         value={forwarding}
-        className="mb-2 h-40 w-full resize-none border-2 px-4 py-2"
+        className="border-2 mb-2 h-40 w-full resize-none px-4 py-2"
         placeholder="참고사항이나 날짜, 시간 등 편안하게 입력해주세요."
       />
       <div className="mb-10 flex flex-wrap justify-between text-sm">
@@ -48,7 +47,7 @@ function ForwardingModal({ nowStep, moveToNextStep, handleCloseModal }: IForward
         <p className="text-sm">*투자 관련 이외의 상담 글</p>
         <p className="text-sm">*의미 없는 문자의 나열</p>
       </div>
-      <button className={`${BUTTON_STYLE} mt-auto bg-gray-300`} onClick={handleConfirmButton} disabled={!isValidate}>
+      <button className={`${BUTTON_STYLE} bg-gray-300 mt-auto`} onClick={handleConfirmButton} disabled={!isValidate}>
         완료
       </button>
     </>

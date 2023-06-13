@@ -2,24 +2,19 @@
 import React from "react";
 import Carousel from "antd/lib/carousel";
 import "@/styles/defaultCarousel.css";
-import { useRouter } from "next/navigation";
 import { ConsultationStyle } from "@/constants/enum";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
 import review from "@/mocks/hyeon17/PbDetail/review.json";
 import same from "@/mocks/hyeon17/PbDetail/same.json";
 import LocationCard from "@/components/common/LocationCard";
 import Image from "next/image";
+import Link from "next/link";
 
 function About({ aboutData }: any) {
   const { name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
   const reviewData = review.data;
   const{ style1, style2, style3 } = reviewData;
   const sameData = same.data.list;
-  const router = useRouter();
-
-  const goToPbReview = () => {
-    router.push("/detail/reviews");
-  };
 
   const styleCase = (style: string) => {
     switch (style) {
@@ -64,7 +59,7 @@ function About({ aboutData }: any) {
         <div>
           <div>
             <div>후기00건</div>
-            <button onClick={() => goToPbReview}>전체보기</button>
+            <Link href='/detail/review'>전체보기</Link>
           </div>
           <Carousel className="">
             <li className="card">

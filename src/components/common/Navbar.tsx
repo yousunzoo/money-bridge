@@ -7,7 +7,7 @@ function Navbar() {
   const [isRole, setisRole] = useState("USER");
 
   return (
-    <nav className="fixed bottom-0  min-w-[425px] bg-gray-200">
+    <nav className="bg-gray-200 fixed bottom-0 min-w-[425px]">
       <div className="flex justify-around py-4">
         <Link href="/">home</Link>
         {isRole === "USER" && <Link href="/">PB리스트</Link>}

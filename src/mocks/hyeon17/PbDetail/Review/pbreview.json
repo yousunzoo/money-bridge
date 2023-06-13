@@ -62,12 +62,18 @@
         "userName": "이나라",
         "content": "너무 친절하고 신속하게 상담해주셔서 감사합니다.",
         "createdAt": "2023-05-24"
+      },
+      {
+        "reviewId": 11,
+        "userName": "이나라2",
+        "content": "너무 친절하고 신속하게 상담해주셔서 감사합니다.",
+        "createdAt": "2023-05-25"
       }
     ],
-    "totalElements": 25,
-    "totalPages": 3,
-    "curPage": 1,
-    "first": false,
+    "totalElements": 11,
+    "totalPages": 1,
+    "curPage": 0,
+    "first": true,
     "last": false,
     "empty": false
   }

@@ -175,13 +175,7 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
                 </div>
                 <div>
                   <div>위험등급</div>
-                  <select>
-                    {Object.keys(RiskRating).map((item, idx) => (
-                      <option key={idx} value={item}>
-                        {item}
-                      </option>
-                    ))}
-                  </select>
+                  <div>{dangerRate}</div>
                 </div>
               </div>
             </div>

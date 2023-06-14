@@ -22,9 +22,9 @@ function TopNav({
 
   return (
     <div
-      className={`fixed top-0 grid h-[40px] w-full min-w-[390px] max-w-[425px] grid-cols-3 items-center ${
+      className={`fixed left-1/2 top-0 grid h-[40px] w-full min-w-[390px] max-w-[425px] -translate-x-1/2 grid-cols-3 items-center px-4 ${
         backGroundWhite ? "bg-white" : "bg-[#f3f3f3]"
-      } px-[16px]`}
+      }`}
     >
       <div className="flex">
         {hasBack && (

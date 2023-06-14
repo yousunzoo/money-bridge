@@ -1,0 +1,37 @@
+.ant-picker-calendar .ant-picker-calendar-header {
+  justify-content: flex-start;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.ant-picker-calendar .ant-picker-date-panel .ant-picker-content {
+  height: 100%;
+}
+
+.ant-picker-calendar .ant-picker-date-panel .ant-picker-content th {
+  height: 36px;
+}
+.ant-picker-calendar .ant-picker-calendar-header .ant-picker-calendar-mode-switch {
+  display: none;
+}
+
+.ant-picker-calendar .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  width: 36px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+}
+
+.ant-picker-calendar .ant-picker-cell::before {
+  height: 100%;
+}
+.ant-picker-calendar .ant-picker-cell .ant-picker-cell-inner {
+  height: 36px;
+  line-height: 36px;
+}
+
+.ant-picker-calendar .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #000;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}

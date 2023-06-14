@@ -1,15 +1,24 @@
 enum CommonROLE {
   USER = "USER",
-  PB = " PB",
+  PB = "PB",
   ADMIN = "ADMIN",
 }
 
 enum Propensity {
-  CONSERVATIVE = "CONSERVATIVE",
-  CAUTIOUS = "CAUTIOUS",
-  BALANCED = "BALANCED",
-  AGGRESSIVE = "AGGRESSIVE",
-  SPECULATIVE = "SPECULATIVE",
+  CONSERVATIVE = "안전형",
+  CAUTIOUS = "안전추구형",
+  BALANCED = "중립형",
+  AGGRESSIVE = "적극투자형",
+  SPECULATIVE = "공격투자형",
+}
+
+enum RiskRating {
+  VERY_LOW = "매우 낮은 위험",
+  LOW = "낮은 위험",
+  MIDDLE = "보통 위험",
+  HIGH = "다수 높은 위험",
+  VERY_HIGH = "높은 위험",
+  SUPER_HIGH = "매우 높은 위험",
 }
 
 enum PBSpecialty {
@@ -61,13 +70,13 @@ enum ReservationLocationType {
 }
 
 enum ConsultationStyle {
-  METICULOUS = "METICULOUS",
-  KIND = "KIND",
-  PROFESSIONAL = "PROFESSIONAL",
-  FAST = "FAST",
-  HONEST = "HONEST",
-  PRAGMATIC = "PRAGMATIC",
-  DIRECTIONAL = "DIRECTIONAL",
+  METICULOUS = "꼼꼼한",
+  KIND = "친절한",
+  PROFESSIONAL = "노련한",
+  FAST = "빠른",
+  HONEST = "솔직한",
+  PRAGMATIC = "현실적인",
+  DIRECTIONAL = "방향 제시",
 }
 
 enum BoardStatus {
@@ -104,10 +113,17 @@ enum Award {}
 enum Branch {}
 enum Company {}
 
+enum InputFormType {
+  LOGIN = "LOGIN",
+  FIND_EMAIL = "FIND_EMAIL",
+  FIND_PASSWORD = "FIND_PASSWORD",
+}
+
 export {
   CommonROLE,
   Propensity,
   PBSpecialty,
+  RiskRating,
   PBStatus,
   Admin,
   ReservationProcess,
@@ -130,4 +146,5 @@ export {
   Award,
   Branch,
   Company,
+  InputFormType,
 };

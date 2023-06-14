@@ -18,6 +18,7 @@ function Intro() {
       router.push("/login");
     },
   };
+
   useEffect(() => {
     const roles = getRole();
     setRole(roles);
@@ -31,15 +32,22 @@ function Intro() {
     }
   };
 
+  const goToSearch = () => {
+    router.push("/lounge/search");
+  }
+
   return (
     <div className="flex">
       <div className="flex">
         <div className="flex flex-1 flex-col">
-          <div>라운지</div>
-          <div>라운지 소개</div>
+          <div>Lounge</div>
+          <div>프라이빗 뱅커들의<br/>고급정보를 만나보세요</div>
         </div>
         <button className="flex justify-end" onClick={goToBookMark}>
-          아이콘
+          내 북마크
+        </button>
+        <button className="flex justify-end" onClick={goToSearch}>
+          검색
         </button>
       </div>
       {role === CommonROLE.PB && (

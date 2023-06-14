@@ -41,8 +41,9 @@ function Authentication() {
   };
 
   const handleClick = () => {
+    const routePath = pathName.split("/")[1] === "join" ? "name" : "selectInformation";
     if (value) {
-      router.push(`/findPassword/${pathName.split("/")[2]}/selectInformation`);
+      router.push(`/${pathName.split("/")[1]}/${pathName.split("/")[2]}/${routePath}`);
     }
   };
 
@@ -56,7 +57,7 @@ function Authentication() {
       <p className="my-14 text-xl font-bold leading-7">인증코드 입력</p>
       <p className="mb-2 text-xs leading-[18px] text-black">개인정보 보호를 위해 인증코드는 5분간 유효합니다.</p>
       <div className="flex gap-[18px]">
-        <input className={`form_input ${value ? "entering" : ""}`} onChange={handleChange} />
+        <input className={`input_authentication ${value ? "entering" : ""}`} onChange={handleChange} />
         <button className="break-keep text-sm leading-5" onClick={handleResend}>
           재발송
         </button>

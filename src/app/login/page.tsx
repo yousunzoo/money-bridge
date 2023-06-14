@@ -1,9 +1,11 @@
+import TopNav from "@/components/common/TopNav";
 import Link from "next/link";
 import React from "react";
 
 function SelectLoginType() {
   return (
     <>
+      <TopNav title="로그인" hasBack backGroundWhite />
       <div className="mr-19 mt-[86px] text-black">
         <p className="font-bold ">처음뵙겠습니다,</p>
         <p className="font-bold">

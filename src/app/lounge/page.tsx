@@ -1,5 +1,4 @@
 import Header from "@/components/common/Header/Header";
-import Search from "@/components/loungePage/Search";
 import Intro from "@/components/loungePage/Intro";
 import PbRecommend from "@/components/loungePage/PbRecommend";
 import NewAndHot from "@/mocks/hyeon17/Lounge/newandhot.json";
@@ -12,7 +11,6 @@ function Lounge() {
     <div className="mb-5 flex w-full flex-col">
       <Header />
       <Intro />
-      <Search />
       <PbRecommend />
       <Content NewAndHot={NewAndHot} All={All} />
     </div>

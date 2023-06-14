@@ -97,9 +97,9 @@ function DoubleInputForm({
         {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
           type="button"
-          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${
-            isValid ? "bg-primary-normal" : "bg-background-disabled"
-          } cursor ${isValid ? "cursor-pointer" : "cursor-not-allowed"}`}
+          className={`mt-4 h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"} ${
+            isValid ? "cursor-pointer" : "cursor-not-allowed"
+          }`}
           onClick={onSubmit}
           disabled={!isValid}
         >

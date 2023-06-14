@@ -60,7 +60,7 @@ function BubbleSection({
   };
 
   useEffect(() => {
-    if (!sectionRef.current || !questionRef.current) return;
+    if (!sectionRef.current) return;
     if (!isChoosable && step === 5) {
       sectionRef.current.classList.remove("h-screen");
 
@@ -92,7 +92,7 @@ function BubbleSection({
 
   return (
     <section ref={sectionRef} className="flex h-screen flex-col pb-10">
-      <div className={`${isChoosable ? "pt-12" : "pt-4"}`} ref={questionRef} />
+      <div className={`${isChoosable ? "pt-12" : "pt-4"}`} />
       {intro1 && isChoosable && (
         <div className="text-lg mb-10 font-semibold">
           <p>{intro1}</p>

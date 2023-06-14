@@ -56,7 +56,7 @@ function ManagementPage() {
     <div className="flex flex-col items-center">
       <TopNav title={"고객관리"} />
       <ConsultationStatus {...data} />
-      <ProcessList setIsProcess={setIsProcess} role={"user"} />
+      <ProcessList setIsProcess={setIsProcess} role={"pb"} />
 
       <div className="my-8 h-2 w-full bg-background-secondary"></div>
 

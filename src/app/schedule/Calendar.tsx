@@ -21,7 +21,7 @@ const ManagementCalendar: React.FC<ManagementCalendarProps> = ({ reservationList
       setIsClickDay(today);
       setInitialDateSelected(true);
     }
-  }, [reservationList, setIsClickDay, initialDateSelected]);
+  }, []);
 
   const getListData = (value: Dayjs) => {
     const dateString = value.format("YYYY-MM-DD");
@@ -31,14 +31,16 @@ const ManagementCalendar: React.FC<ManagementCalendarProps> = ({ reservationList
     const listData = filteredData.map(item => {
       let status: BadgeProps["status"] = "default";
 
-      if (item.process === "상담완료") {
-        status = "success";
-      } else if (item.process === "예약확정") {
-        status = "warning";
-      } else if (item.process === "신규예약") {
-        status = "error";
-      } else if (item.process === "예약취소") {
-        status = "processing";
+      switch (item.process) {
+        case "상담완료":
+          status = "success";
+          break;
+        case "예약확정":
+          status = "warning";
+          break;
+        case "신규예약":
+          status = "error";
+          break;
       }
 
       return { type: status };
@@ -47,25 +49,11 @@ const ManagementCalendar: React.FC<ManagementCalendarProps> = ({ reservationList
     return listData;
   };
 
-  const getMonthData = (value: Dayjs) => {
-    if (value.month() === 8) {
-      return 1394;
-    }
-  };
   const onSelect = (date: Dayjs | null) => {
     if (date) {
       const dateString = date.format("YYYY-MM-DD");
       setIsClickDay(dateString);
     }
-  };
-  const monthCellRender = (value: Dayjs) => {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
   };
 
   const dateCellRender = (value: Dayjs) => {
@@ -89,7 +77,6 @@ const ManagementCalendar: React.FC<ManagementCalendarProps> = ({ reservationList
 
   const cellRender = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
     if (info.type === "date") return dateCellRender(current);
-    if (info.type === "month") return monthCellRender(current);
     return info.originNode;
   };
 

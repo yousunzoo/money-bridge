@@ -1,0 +1,27 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "title": "[공지] 서버 점검 안",
+        "content": "[시스매틱] 서버 점검으로 인하여...",
+        "date": "2023-05-30"
+      },
+      {
+        "id": 2,
+        "title": "[공지] 위치정보 이용약관 개정 안내",
+        "content": "[시스매틱] 이용약관이 개정됨에 따라...",
+        "date": "2023-05-30"
+      }
+    ],
+    "size": 10,
+    "totalElements": 25,
+    "totalPages": 3,
+    "curPage": 0,
+    "first": true,
+    "last": false,
+    "empty": false
+  }
+}

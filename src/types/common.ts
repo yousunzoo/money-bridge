@@ -11,3 +11,13 @@ export interface ButtonModalProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
+export interface ReviewCardProps {
+  profileImage: string;
+  userName: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface ReviewCardItemProps extends ReviewCardProps {
+  reviewId: number;
+}

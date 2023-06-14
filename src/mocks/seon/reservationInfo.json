@@ -1,0 +1,23 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "pbName": "최우선",
+    "pbStation": {
+      "branchName": "미래에셋증권 용산wm점",
+      "branchAddress": "서울특별시 용산구 한강로동 한강대로 92",
+      "branchLatitude": 37.5562,
+      "branchLongitude": 126.9703
+    },
+    "consultTime": {
+      "consultStart": "09:00",
+      "consultEnd": "18:00",
+      "notice": "월요일 13시 제외"
+    },
+    "userInfo": {
+      "userName": "홍길동",
+      "userPhoneNumber": "01011112222",
+      "userEmail": "asdf1234@gmail.com"
+    }
+  }
+}

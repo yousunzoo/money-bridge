@@ -2,17 +2,138 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #eee;
-  width:100vw;
-  height:100vh;
+@layer utilities {
+  body {
+    background-color: #eee;
+    width: 100vw;
+    height: 100vh;
+    letter-spacing: -0.6px;
+    color: #242424;
+  }
+
+  main {
+    background-color: #fff;
+    min-width: 390px;
+    max-width: 425px;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    padding: 0 16px;
+    overflow-y: scroll;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
-main {
-  background-color: #fff;
-  min-width: 390px;
-  max-width: 425px;
-  height: 100%;
-  margin:auto;
-  background-color: #fff;
+@layer components {
+  .search_input {
+    @apply w-[358px] rounded-sm border-1 px-3 py-2 pl-[50px];
+  }
+
+  .form_input {
+    @apply w-[358px] rounded-sm border-background-secondary border-1 px-3 py-2 pr-[70px];
+  }
+
+  .form_input:focus-visible {
+    @apply outline-none;
+  }
+
+  .form_input::placeholder {
+    @apply text-placeholder;
+  }
+
+  .input_small {
+    @apply w-[240px] px-3 py-2;
+  }
+
+  .input_small::placeholder {
+    @apply text-placeholder;
+  }
+
+  /* formInput_entering -> .entering */
+  /* formInput_warn -> .warnning */
+  .entering {
+    @apply !border-primary-normal;
+  }
+
+  .warnning {
+    @apply !border-status-alert;
+  }
+
+  .user_bubble {
+    @apply w-fit self-end bg-primary-light px-6 py-3 text-sm text-white shadow-md;
+    border-radius: 20px 4px 20px 20px;
+  }
+
+  .option {
+    @apply w-fit rounded-xl border-1 bg-white px-6 py-3 text-sm font-bold -tracking-[0.8px] text-primary-normal;
+  }
+
+  .chip {
+    @apply rounded-sm border-1 border-primary-normal px-4 py-2 font-bold text-primary-normal;
+  }
+
+  .selected {
+    @apply !bg-primary-normal !text-white;
+  }
+
+  .button {
+    @apply h-[56px] w-full min-w-[358px] rounded-md bg-primary-normal text-white;
+  }
+
+  .button_small {
+    @apply h-[56px] w-[110px] rounded-sm border-1 border-primary-normal bg-white font-bold;
+  }
+
+  .info_card {
+    @apply w-full rounded-xl border-1 border-primary-normal p-4;
+  }
+
+  .button_cancel {
+    @apply border-1 !bg-white !text-primary-normal;
+  }
+
+  .inactive {
+    @apply border-1 !border-button-inactive !bg-white !text-gray-normal;
+  }
+
+  .button_fixed {
+    @apply fixed bottom-[58px] left-1/2 flex h-[80px] w-full min-w-[390px] max-w-[425px] -translate-x-1/2 items-center justify-center rounded-t-lg bg-primary-normal text-2xl font-bold text-white;
+  }
+
+  .modal_background {
+    @apply fixed left-0 top-0 h-full w-full bg-black opacity-40;
+  }
+
+  .modal {
+    @apply fixed bottom-[58px] left-1/2 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 rounded-t-md bg-white px-4 py-8;
+  }
+
+  .card {
+    @apply mx-auto my-4 flex w-[80%] flex-col rounded-md shadow-md;
+  }
+
+  .popup {
+    @apply fixed left-1/2 top-1/2 h-[300px] w-[312px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white px-5 py-10 shadow-md;
+  }
+
+  .popup h3 {
+    @apply text-bold text-center text-xl;
+  }
+}
+
+.fixedButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 425px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  background-color: #000;
+  color: #fff;
+  z-index: 10;
 }

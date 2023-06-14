@@ -1,0 +1,32 @@
+{
+  "status": "200",
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "title": "제목입니다1",
+        "pbName": "김피비",
+        "speciality1": "채권",
+        "speciality2": "해외선물",
+        "profile": "person.png",
+        "address": "서울특별시 용산구 한강대로 92",
+        "reserveCount": 10,
+        "reviewCount": 10,
+        "career": 10
+      },
+      {
+        "id": 2,
+        "title": "제목입니다2",
+        "pbName": "김피비",
+        "speciality1": "채권",
+        "speciality2": "해외선물",
+        "profile": "person.png",
+        "address": "서울특별시 용산구 한강대로 92",
+        "reserveCount": 10,
+        "reviewCount": 10,
+        "career": 10
+      }
+    ]
+  }
+}

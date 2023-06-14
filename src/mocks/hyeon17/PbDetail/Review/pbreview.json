@@ -1,0 +1,168 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "reviewId": 1,
+        "userName": "이승민",
+        "content": "친절하게 상담을 해주셔서 너무 좋았습니다.",
+        "createdAt": "2023-05-15",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 2,
+        "userName": "이상엽",
+        "content": "친절하게 상담을 해주셔서 너무 좋았습니다.",
+        "createdAt": "2023-05-16",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 3,
+        "userName": "홍길동",
+        "content": "친절하게 상담을 해주셔서 너무 좋았습니다.",
+        "createdAt": "2023-05-17",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 4,
+        "userName": "김영희",
+        "content": "매우 친절한 서비스를 받았습니다. 감사합니다.",
+        "createdAt": "2023-05-18",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 5,
+        "userName": "박철수",
+        "content": "정말 친절하고 신속한 응대를 받았습니다. 감사합니다.",
+        "createdAt": "2023-05-19",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 6,
+        "userName": "송미영",
+        "content": "상담이 매우 유익했습니다. 친절하게 설명해주셔서 감사합니다.",
+        "createdAt": "2023-05-20",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 7,
+        "userName": "이준호",
+        "content": "상담이 꼼꼼하게 이루어져서 매우 만족스러웠습니다. 추천합니다.",
+        "createdAt": "2023-05-21",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 8,
+        "userName": "김수진",
+        "content": "친절한 상담으로 고민을 해결할 수 있었습니다. 감사합니다.",
+        "createdAt": "2023-05-22",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 9,
+        "userName": "정재영",
+        "content": "상담사님의 친절한 안내 덕분에 좋은 선택을 할 수 있었습니다.",
+        "createdAt": "2023-05-23",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 10,
+        "userName": "이나라",
+        "content": "너무 친절하고 신속하게 상담해주셔서 감사합니다.",
+        "createdAt": "2023-05-24",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      },
+      {
+        "reviewId": 11,
+        "userName": "이나라2",
+        "content": "너무 친절하고 신속하게 상담해주셔서 감사합니다.",
+        "createdAt": "2023-05-25",
+        "list": [
+          {
+            "style": "KIND"
+          },
+          {
+            "style": "HONEST"
+          }
+        ]
+      }
+    ],
+    "totalElements": 11,
+    "totalPages": 1,
+    "curPage": 0,
+    "first": true,
+    "last": false,
+    "empty": false
+  }
+}

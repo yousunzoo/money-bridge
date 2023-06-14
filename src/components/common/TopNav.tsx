@@ -22,7 +22,7 @@ function TopNav({
 
   return (
     <div
-      className={`fixed top-0 grid h-[40px] min-w-[425px] grid-cols-3 items-center ${
+      className={`fixed top-0 grid h-[40px] w-full min-w-[390px] max-w-[425px] grid-cols-3 items-center ${
         backGroundWhite ? "bg-white" : "bg-[#f3f3f3]"
       } px-[16px]`}
     >

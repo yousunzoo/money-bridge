@@ -5,20 +5,9 @@ import { Badge, Calendar } from "antd";
 import type { Dayjs } from "dayjs";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
 import dayjs from "dayjs";
+import { ManagementCalendarProps } from "@/types/schedule";
 
 dayjs.locale("ko");
-
-interface ManagementCalendarProps {
-  reservationList: {
-    id: number;
-    userName: string;
-    day: string;
-    time: string;
-    type: string;
-    process: string;
-  }[];
-  setIsClickDay: React.Dispatch<React.SetStateAction<string>>;
-}
 
 const ManagementCalendar: React.FC<ManagementCalendarProps> = ({ reservationList, setIsClickDay }) => {
   const [scheduleData, setScheduleData] = useState(reservationList); // 초기 데이터로 상태 초기화

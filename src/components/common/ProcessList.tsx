@@ -9,9 +9,10 @@ const LINKS = [
 
 interface ProcessListProps {
   setIsProcess: React.Dispatch<React.SetStateAction<string>>;
+  role: string;
 }
 
-function ProcessList({ setIsProcess }: ProcessListProps) {
+function ProcessList({ setIsProcess, role }: ProcessListProps) {
   const [selectedItem, setSelectedItem] = useState("APPLY");
 
   const clickHendler = (item: string) => {
@@ -19,15 +20,18 @@ function ProcessList({ setIsProcess }: ProcessListProps) {
     setIsProcess(item);
   };
 
+  const getContainerClasses = (itemHref: string) => {
+    if (role === "user") {
+      return selectedItem === itemHref ? "bg-secondary-heavy text-white" : "border-secondary-heavy text-primary-normal";
+    } else {
+      return selectedItem === itemHref ? "bg-primary-normal text-white" : "border-primary-normal text-primary-normal";
+    }
+  };
+
   return (
     <ul className="mt-8 flex w-full justify-start gap-2 bg-white">
       {LINKS.map(item => (
-        <li
-          key={item.id}
-          className={`rounded-full rounded-lg border-1 p-2 text-sm ${
-            selectedItem === item.href ? "bg-primary-normal text-white" : "border-primary-normal text-primary-normal"
-          }`}
-        >
+        <li key={item.id} className={`rounded-full rounded-lg border-1 p-2 text-sm ${getContainerClasses(item.href)}`}>
           <button onClick={() => clickHendler(item.href)}>{item.text}</button>
         </li>
       ))}

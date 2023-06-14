@@ -23,7 +23,7 @@ function About({ aboutData }: any) {
   const pbRecentData = PbRecentReview.data;
   const { isCopyOpen, isCopy, setIsCopyOpen, addressCopy, copyContents } = useCopyClipboard(branchAddress);
 
-  const styleCase = (style: string) => {
+  const styleCase = (style: string): { style: ConsultationStyle; image: string } => {
     switch (style) {
       case "METICULOUS":
         return { style: ConsultationStyle.METICULOUS, image: "이미지" };
@@ -40,7 +40,7 @@ function About({ aboutData }: any) {
       case "DIRECTIONAL":
         return { style: ConsultationStyle.DIRECTIONAL, image: "이미지" };
       default:
-        return null;
+        return { style: ConsultationStyle.OTHER, image: "" };
     }
   };
 
@@ -51,15 +51,15 @@ function About({ aboutData }: any) {
         <div>
           <div>"투자자님들이 말하는 {name} PB의 매력은?"</div>
           <div>
-            {/* <Image src={styleCase(reviewData.style1)?.image} alt="이미지" /> */}
+            <Image src={styleCase(style1)?.image} alt={styleCase(style1)?.style} />
             <div>{styleCase(style1)?.style}</div>
           </div>
           <div>
-            {/* <Image src={styleCase(reviewData.style2)?.image} alt="이미지" /> */}
+            <Image src={styleCase(style2)?.image} alt={styleCase(style2)?.style} />
             <div>{styleCase(style2)?.style}</div>
           </div>
           <div>
-            {/* <Image src={styleCase(reviewData.style3)?.image} alt="이미지" /> */}
+            <Image src={styleCase(style3)?.image} alt={styleCase(style3)?.style} />
             <div>{styleCase(style3)?.style}</div>
           </div>
         </div>

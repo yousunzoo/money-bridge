@@ -46,6 +46,7 @@ module.exports = {
     },
     borderWidth: {
       1: "1px",
+      4: "4px",
     },
     extend: {
       backgroundImage: {

@@ -1,0 +1,107 @@
+.ant-picker-calendar {
+  width: 358px;
+  margin: 24px;
+  padding: 20px 16px 10px;
+  border-radius: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 10px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ant-picker-panel {
+  border-radius: 30px !important;
+}
+.events {
+  display: flex;
+  justify-content: center;
+  & > li {
+    margin: 0 2px;
+    width: 4px;
+    height: 4px;
+  }
+}
+
+.ant-picker-calendar-date-content {
+  height: 20px !important;
+  overflow-y: hidden !important;
+}
+
+.ant-picker-content thead {
+  border-bottom: 1px solid rgb(0, 0, 0, 0.06);
+}
+
+.ant-picker-content thead tr {
+  text-align: center;
+}
+.ant-picker-content thead tr th {
+  padding: 0 0 10px !important;
+}
+
+.ant-picker-calendar.ant-picker-calendar-full .ant-picker-calendar-date {
+  height: 40px;
+  border-top: none;
+  text-align: center;
+  font-size: 14px;
+  padding: 0;
+}
+
+:where(.css-dev-only-do-not-override-k7429z).ant-picker-calendar.ant-picker-calendar-full
+  .ant-picker-calendar-date-content
+  .ant-picker-calendar-date-content {
+  height: 10px;
+}
+
+.ant-badge-status-warning {
+  background-color: black !important;
+}
+
+.ant-badge-status-success {
+  background-color: #3a7391 !important;
+}
+
+.ant-badge-status-error {
+  background-color: #ff4d00 !important;
+}
+
+.ant-badge-status-processing {
+  background-color: #979797 !important;
+}
+
+.ant-picker-calendar .ant-picker-calendar-header {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.ant-picker-calendar .ant-picker-calendar-header .ant-picker-calendar-mode-switch {
+  display: none;
+}
+
+.ant-picker-calendar-date:has(.ant-picker-calendar-date-content > ul) {
+  font-weight: bold;
+  font-size: 16px;
+}
+.ant-picker-cell-today {
+  .ant-picker-calendar-date-value {
+    color: #fff !important;
+    height: 24px;
+    width: 24px;
+    background-color: black;
+    border-radius: 100%;
+  }
+}
+.ant-picker-cell-selected {
+  .ant-picker-calendar-date {
+    background-color: inherit !important;
+    display: flex;
+    align-items: center;
+    .ant-picker-calendar-date-value {
+      border-radius: 100%;
+    }
+  }
+}
+
+.ant-picker-calendar-month-select {
+  width: 80px !important;
+}
+
+.ant-picker-calendar-date-value {
+  height: 18px;
+}

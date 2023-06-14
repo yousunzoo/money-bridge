@@ -2,19 +2,61 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
+import home from "/public/assets/images/navbar/home.svg";
+import contacts from "/public/assets/images/navbar/contacts.svg";
+import list from "/public/assets/images/navbar/list.svg";
+import identity from "/public/assets/images/navbar/identity.svg";
+import Image from "next/image";
+
+const navItems = [
+  {
+    role: "ALL",
+    href: "/",
+    image: home,
+    text: "홈",
+  },
+  {
+    role: "ALL",
+    href: "/lounge",
+    image: list,
+    text: "라운지",
+  },
+  {
+    role: "USER",
+    href: "/",
+    image: contacts,
+    text: "PB 리스트",
+  },
+  {
+    role: "PB",
+    href: "/",
+    image: contacts,
+    text: "고객관리",
+  },
+  {
+    role: "ALL",
+    href: "/",
+    image: identity,
+    text: "마이페이지",
+  },
+];
 
 function Navbar() {
   const [isRole, setisRole] = useState("USER");
 
   return (
-    <nav className="bg-gray-200 fixed bottom-0 left-1/2 min-w-[425px] -translate-x-1/2">
-      <div className="flex justify-around py-4">
-        <Link href="/">home</Link>
-        {isRole === "USER" && <Link href="/">PB리스트</Link>}
-        {isRole === "PB" && <Link href="/">고객관리</Link>}
-        <Link href="/">라운지</Link>
-        <Link href="/">마이페이지</Link>
-      </div>
+    <nav className="fixed bottom-0 left-1/2 flex min-w-[425px] -translate-x-1/2 justify-around bg-white p-4">
+      {navItems.map(item => {
+        if (item.role === "ALL" || item.role === isRole) {
+          return (
+            <Link key={item.text} href={item.href} className="group flex w-[74px] flex-col items-center">
+              <Image src={item.image} alt={item.text} width={26} height={26} />
+              <span className="text-sm group-focus:font-bold">{item.text}</span>
+            </Link>
+          );
+        }
+        return null;
+      })}
     </nav>
   );
 }

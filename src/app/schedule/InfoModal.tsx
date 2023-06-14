@@ -3,9 +3,9 @@ import React from "react";
 import question from "/public/assets/images/question_mark.svg";
 
 const statusItems = [
-  { id: 1, color: "#EB5147", text: "신규예약" },
-  { id: 2, color: "#3A7391", text: "예약확정" },
-  { id: 3, color: "#153445", text: "상담완료" },
+  { id: 1, color: "bg-[#EB5147]", text: "신규예약" },
+  { id: 2, color: "bg-[#3A7391]", text: "예약확정" },
+  { id: 3, color: "bg-[#153445]", text: "상담완료" },
 ];
 
 function InfoModal() {
@@ -21,17 +21,14 @@ function InfoModal() {
           <div className="font-bold">9</div>
           <ul className="flex gap-1">
             {statusItems.map(item => (
-              <li key={item.id} className={`h-[6px] w-[6px] rounded-full bg-[${item.color}]`}></li>
+              <li key={item.id} className={`h-[6px] w-[6px] rounded-full ${item.color}`}></li>
             ))}
           </ul>
         </div>
       </div>
       <ul className="mt-3 flex gap-2">
         {statusItems.map(item => (
-          <li
-            key={item.id}
-            className={`w-[60px] rounded-full  p-2 text-center text-[10px] text-white bg-[${item.color}]`}
-          >
+          <li key={item.id} className={`w-[60px] rounded-full  p-2 text-center text-[10px] text-white ${item.color}`}>
             {item.text}
           </li>
         ))}

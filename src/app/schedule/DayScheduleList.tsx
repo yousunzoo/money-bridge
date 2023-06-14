@@ -3,9 +3,9 @@ import dayjs from "dayjs";
 import React from "react";
 
 const statusItems = [
-  { id: 1, color: "#EB5147", text: "신규예약" },
-  { id: 2, color: "#3A7391", text: "예약확정" },
-  { id: 3, color: "#153445", text: "상담완료" },
+  { id: 1, color: "bg-[#EB5147]", text: "신규예약" },
+  { id: 2, color: "bg-[#3A7391]", text: "예약확정" },
+  { id: 3, color: "bg-[#153445]", text: "상담완료" },
 ];
 
 function DayScheduleList({ clickDayList, isClickDay }: { clickDayList: DayScheduleListProps[]; isClickDay: string }) {

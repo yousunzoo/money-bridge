@@ -8,7 +8,7 @@ import { ISelectCalendarProps } from "@/types/reservation";
 
 dayjs.locale("ko");
 
-function SelectCalendar({ handleSelect }: ISelectCalendarProps) {
+function SelectCalendar({ handleSelect, setIsDisabled }: ISelectCalendarProps) {
   const isWeekday = (date: dayjs.Dayjs) => {
     return date.day() !== 0 && date.day() !== 6;
   };
@@ -22,8 +22,7 @@ function SelectCalendar({ handleSelect }: ISelectCalendarProps) {
   };
 
   useEffect(() => {
-    const now = dayjs();
-    handleSelect(now);
+    setIsDisabled(true);
   }, []);
 
   return <Calendar locale={locale} disabledDate={disabledDate} fullscreen={false} onSelect={handleSelect} />;

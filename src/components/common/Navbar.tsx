@@ -23,19 +23,19 @@ const navItems = [
   },
   {
     role: "USER",
-    href: "/",
+    href: "/pblist",
     image: contacts,
     text: "PB 리스트",
   },
   {
     role: "PB",
-    href: "/",
+    href: "/management",
     image: contacts,
     text: "고객관리",
   },
   {
     role: "ALL",
-    href: "/",
+    href: "/my",
     image: identity,
     text: "마이페이지",
   },

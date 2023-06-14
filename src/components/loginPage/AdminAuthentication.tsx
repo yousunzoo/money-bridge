@@ -34,14 +34,14 @@ function AdminAuthentication() {
 
   return (
     <>
-      <p className="mb-[24px] mt-[56px] break-all text-[20px] font-bold leading-[28px]">
+      <p className="mb-[38px] mt-[56px] break-all text-[20px] font-bold leading-[28px]">
         관리자 인증을 위해 해당 이메일로
         <br /> 인증코드를 발송하였습니다.
       </p>
-      <p className="border w-full rounded-[4px] border-1 border-solid border-primary-normal px-[12px] py-[16px]">
+      <p className="mb-[50px] w-full rounded-sm px-3 text-xl font-bold leading-7 text-primary-normal">
         Moneybridge@logo.com
       </p>
-      <p className="mb-[16px] mt-[36px] text-[20px] font-bold leading-[28px]">인증코드 입력</p>
+      <p className="mb-4 text-xl font-bold leading-5">인증코드 입력</p>
       <p className="mb-[8px] text-[12px] leading-[18px]">개인정보 보호를 위해 인증코드는 5분 간 유효합니다.</p>
 
       <div className="flex gap-[18px]">

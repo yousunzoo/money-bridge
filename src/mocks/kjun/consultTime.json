@@ -1,0 +1,7 @@
+{
+  "data": {
+    "consultStart": "09:00:00",
+    "consultEnd": "18:00:00",
+    "consultNotice": "월요일 13:00 제외"
+  }
+}

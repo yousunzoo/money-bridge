@@ -26,19 +26,22 @@ function About({ aboutData }: any) {
   const styleCase = (style: string): { style: ConsultationStyle; image: string } => {
     switch (style) {
       case "METICULOUS":
-        return { style: ConsultationStyle.METICULOUS, image: "이미지" };
+        return { style: ConsultationStyle.METICULOUS, image: "/assets/images/counselingStyle/METICULOUS.svg" };
       case "FAST":
-        return { style: ConsultationStyle.FAST, image: "이미지" };
+        return { style: ConsultationStyle.FAST, image: "/assets/images/counselingStyle/FAST.svg" };
       case "KIND":
-        return { style: ConsultationStyle.KIND, image: "이미지" };
+        return { style: ConsultationStyle.KIND, image: "/assets/images/counselingStyle/KIND.svg" };
       case "PROFESSIONAL":
-        return { style: ConsultationStyle.PROFESSIONAL, image: "이미지" };
+        return {
+          style: ConsultationStyle.PROFESSIONAL,
+          image: "/assets/images/counselingStyle/PROFESSIONAL.svg",
+        };
       case "HONEST":
-        return { style: ConsultationStyle.HONEST, image: "이미지" };
+        return { style: ConsultationStyle.HONEST, image: "/assets/images/counselingStyle/HONEST.svg" };
       case "PRAGMATIC":
-        return { style: ConsultationStyle.PRAGMATIC, image: "이미지" };
+        return { style: ConsultationStyle.PRAGMATIC, image: "/assets/images/counselingStyle/PRAGMATIC.svg" };
       case "DIRECTIONAL":
-        return { style: ConsultationStyle.DIRECTIONAL, image: "이미지" };
+        return { style: ConsultationStyle.DIRECTIONAL, image: "/assets/images/counselingStyle/DIRECTIONAL.svg" };
       default:
         return { style: ConsultationStyle.OTHER, image: "" };
     }
@@ -51,15 +54,15 @@ function About({ aboutData }: any) {
         <div>
           <div>"투자자님들이 말하는 {name} PB의 매력은?"</div>
           <div>
-            <Image src={styleCase(style1)?.image} alt={styleCase(style1)?.style} />
+            <Image src={styleCase(style1)?.image} alt={styleCase(style1)?.style} width={100} height={100} />
             <div>{styleCase(style1)?.style}</div>
           </div>
           <div>
-            <Image src={styleCase(style2)?.image} alt={styleCase(style2)?.style} />
+            <Image src={styleCase(style2)?.image} alt={styleCase(style2)?.style} width={100} height={100}/>
             <div>{styleCase(style2)?.style}</div>
           </div>
           <div>
-            <Image src={styleCase(style3)?.image} alt={styleCase(style3)?.style} />
+            <Image src={styleCase(style3)?.image} alt={styleCase(style3)?.style} width={100} height={100}/>
             <div>{styleCase(style3)?.style}</div>
           </div>
         </div>

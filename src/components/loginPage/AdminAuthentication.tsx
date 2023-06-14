@@ -1,27 +1,32 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 
+const TIMER_TIME = 300;
+
 function AdminAuthentication() {
   const [code, setCode] = useState("");
   const [min, setMin] = useState(5);
   const [sec, setSec] = useState(0);
-  const time = useRef(300);
+  const time = useRef(TIMER_TIME);
   const timerId = useRef<NodeJS.Timeout>();
 
-  useEffect(() => {
+  const startTimer = () => {
+    time.current = TIMER_TIME;
     timerId.current = setInterval(() => {
-      //@ts-ignore
+      // @ts-ignore
       setMin(parseInt(time.current / 60));
       setSec(time.current % 60);
-      if (time.current > 0) {
-        time.current -= 1;
-      }
+      time.current -= 1;
     }, 1000);
+  };
+
+  useEffect(() => {
+    startTimer();
     return () => clearInterval(timerId.current);
   }, []);
 
   useEffect(() => {
     if (time.current <= 0) {
-      // clearInterval(timerId.current);
+      clearInterval(timerId.current);
       setSec(0);
     }
   }, [sec]);
@@ -31,6 +36,11 @@ function AdminAuthentication() {
   };
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {};
+
+  const handleResend = () => {
+    clearInterval(timerId.current);
+    startTimer();
+  };
 
   return (
     <>
@@ -46,12 +56,7 @@ function AdminAuthentication() {
 
       <div className="flex gap-[18px]">
         <input className={`form_input ${code ? "entering" : ""}`} onChange={handleChange} />
-        <button
-          className="break-keep text-[14px] leading-[20px] underline"
-          onClick={() => {
-            time.current = 300;
-          }}
-        >
+        <button className="break-keep text-[14px] leading-[20px] underline" onClick={handleResend}>
           재발송
         </button>
       </div>

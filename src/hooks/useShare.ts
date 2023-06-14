@@ -1,10 +1,12 @@
 import { useState } from "react";
+import shareKakao from "@/utils/shareKakao";
 
-const useShare = (copy: any) => {
+const useShare = (url: any, title?: any, description?: any, imageUrl?: any) => {
   const [isShare, setIsShare] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isCopy, setIsCopy] = useState(false);
   const [isCopyOpen, setIsCopyOpen] = useState(false);
+  const [isKaKaoOpen, setIsKaKaoOpen] = useState(false);
 
   const shareHandler = () => {
     setIsShareOpen(true);
@@ -17,9 +19,10 @@ const useShare = (copy: any) => {
     cancelText: "링크 복사",
     confirmFn: () => {
       setIsShareOpen(false);
+      setIsKaKaoOpen(true);
     },
     cancelFn: () => {
-      navigator.clipboard.writeText(copy);
+      navigator.clipboard.writeText(url);
       setIsShareOpen(false);
       setIsCopy(!isCopy);
       setIsCopyOpen(true);
@@ -33,6 +36,11 @@ const useShare = (copy: any) => {
       setIsCopyOpen(false);
     },
   };
+
+  if (isKaKaoOpen) {
+    shareKakao(url, title, description, imageUrl);
+    setIsKaKaoOpen(false);
+  }
 
   return {
     isShare,

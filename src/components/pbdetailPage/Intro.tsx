@@ -10,8 +10,18 @@ import useBookMark from "@/hooks/useBookMark";
 import useShare from "@/hooks/useShare";
 
 function Intro({ introData, edit }: { introData: any; edit: boolean }) {
-  const { profile, name, isBookmarked, branchName, msg, companyId,companyName, companyLogo, reserveCount, reviewCount } =
-    introData;
+  const {
+    profile,
+    name,
+    isBookmarked,
+    branchName,
+    msg,
+    companyId,
+    companyName,
+    companyLogo,
+    reserveCount,
+    reviewCount,
+  } = introData;
   const { getRole } = useRoleStore();
   const pathname = usePathname();
   const router = useRouter();
@@ -31,7 +41,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
     isCopyOpen,
     setIsCopyOpen,
     copyContents,
-  } = useShare(urlToCopy);
+  } = useShare(urlToCopy, name + "PB", msg, profile);
 
   const goToCompany = () => {
     router.push(`/pblist/financial/${companyId}`);
@@ -79,8 +89,8 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
             )}
           </div>
           <div>
-              <Link href="/detail">PB정보</Link>
-              {/* todo: 수정 중이면 콘텐츠 누르는거 안되게 */}
+            <Link href="/detail">PB정보</Link>
+            {/* todo: 수정 중이면 콘텐츠 누르는거 안되게 */}
             <Link href="/detail/content">콘텐츠</Link>
           </div>
         </>

@@ -9,7 +9,7 @@ function ReservationCompletePage() {
     router.back();
   };
   return (
-    <section className="flex h-full w-full flex-col px-4 py-[100px]">
+    <section className="flex h-full w-full flex-col py-[100px]">
       <div>
         <p className="mb-6 text-3xl font-bold">
           홍길동님의

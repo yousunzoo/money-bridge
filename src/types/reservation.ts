@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { Dayjs } from "dayjs";
 
 export interface IQuestions {
@@ -70,6 +70,7 @@ export interface ISelectTimeModalProps {
 }
 export interface ISelectCalendarProps {
   handleSelect: (e: Dayjs) => void;
+  setIsDisabled: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface ITimeSelectProps {

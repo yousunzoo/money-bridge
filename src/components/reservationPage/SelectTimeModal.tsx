@@ -5,7 +5,7 @@ import dayjs, { Dayjs } from "dayjs";
 import TimeSelect from "./TimeSelect";
 import { useReservationStore } from "@/store/reservationStore";
 
-function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTime }: ISelectTimeModalProps) {
+function SelectTimeModal({ handleCloseModal, moveToNextStep, consultTime }: ISelectTimeModalProps) {
   const [step, setStep] = useState(1);
   const [isDisabled, setIsDisabled] = useState(true);
   const [select, setSelect] = useState<ICandidateTimes>({ candidateTime1: null, candidateTime2: null });
@@ -37,7 +37,7 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
   const handleNextButton = () => {
     if (step === 4) {
       setAnswers(3, select);
-      moveToNextStep(nowStep);
+      moveToNextStep(3);
       handleCloseModal();
       return;
     }

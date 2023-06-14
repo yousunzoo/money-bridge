@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 const yup_phone = yup.string().min(10).max(11).required();
 const yup_name = yup.string().min(2).max(10).required();
 
-function EditProfileModal({ nowStep, moveToNextStep, handleCloseModal, userInfo }: IEditProfileModalProps) {
+function EditProfileModal({ moveToNextStep, handleCloseModal, userInfo }: IEditProfileModalProps) {
   const { userName, userEmail, userPhoneNumber } = userInfo;
   const { setAnswers } = useReservationStore();
   const [editedInfo, setEditedInfo] = useState({
@@ -36,7 +36,7 @@ function EditProfileModal({ nowStep, moveToNextStep, handleCloseModal, userInfo 
     if (!isValid) return;
     setAnswers(5, editedInfo);
     handleCloseModal();
-    moveToNextStep(nowStep);
+    moveToNextStep(5);
   };
   return (
     <>

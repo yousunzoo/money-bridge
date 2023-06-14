@@ -1,11 +1,11 @@
 import { IBubbleSectionProps, IQuestions } from "@/types/reservation";
-import reservationQuestions from "@/constants/reservationQuestions.json";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import LocationCard from "../common/LocationCard";
 import { useReservationStore } from "@/store/reservationStore";
 import CandidateTime from "./CandidateTime";
 
 function BubbleSection({
+  nowQuestion,
   step,
   isOpen,
   pbStation,
@@ -15,9 +15,7 @@ function BubbleSection({
   skipNextStep,
   moveToNextStep,
 }: IBubbleSectionProps) {
-  const questions: IQuestions = reservationQuestions;
-
-  const { question, intro1, intro2, options } = questions[step];
+  const { question, intro1, intro2, options } = nowQuestion;
 
   const [isChoosable, setIsChoosable] = useState(true);
   const sectionRef = useRef<HTMLDivElement | null>(null);

@@ -39,6 +39,7 @@ export interface IUserInfo {
   userEmail: string;
 }
 export interface IBubbleSectionProps {
+  nowQuestion: IQuestion;
   step: 0 | 1 | 2 | 3 | 4 | 5;
   isOpen?: Boolean;
   moveToNextStep: (nowStep: number) => void;
@@ -54,7 +55,6 @@ export interface ICandidateTimes {
   candidateTime2: string | null;
 }
 export interface IEditProfileModalProps {
-  nowStep: number;
   handleCloseModal: () => void;
   moveToNextStep: (nowStep: number) => void;
   userInfo: IUserInfo;
@@ -63,7 +63,6 @@ export interface ICandidateTimeProps {
   candidates: ICandidateTimes;
 }
 export interface ISelectTimeModalProps {
-  nowStep: number;
   handleCloseModal: () => void;
   moveToNextStep: (nowStep: number) => void;
   consultTime: IConsultTime;
@@ -83,7 +82,6 @@ export interface ITimeSelectProps {
 }
 
 export interface IForwardingModalProps {
-  nowStep: number;
   moveToNextStep: (nowStep: number) => void;
   handleCloseModal: () => void;
 }

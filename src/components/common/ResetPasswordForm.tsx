@@ -48,10 +48,10 @@ function ResetPasswordForm() {
   errors.second?.type === "oneOf" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
 
   return (
-    <div className="mt-[24px]">
+    <div className="mt-6">
       <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
-        <div className="mb-[10px]">
-          <h2 className="mb-[16px] text-[12px] leading-[18px]">기존과 다른 비밀번호를 입력해 주세요.</h2>
+        <div className="mb-2.5">
+          <h2 className="mb-4 text-xs leading-[18px]">기존과 다른 비밀번호를 입력해 주세요.</h2>
           <input
             type="password"
             className={`form_input ${errors.first || checkWhitespace(inputs.first) ? "warnning" : ""} ${
@@ -60,29 +60,29 @@ function ResetPasswordForm() {
             {...register("first")}
             value={inputs.first}
           />
-          <div className="mt-[2px] h-[18px] pl-[8px]">
-            <p className={`text-[12px] leading-[18px] ${errors.first ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
+          <div className="mt-0.5 h-[18px] pl-2">
+            <p className={`text-xs leading-[18px] ${errors.first ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.first ? "*영문(대소문자), 숫자 포함하여 8자 이상으로 작성해 주세요." : ""}
             </p>
             <p
-              className={`text-[12px] leading-[18px] ${
-                checkWhitespace(inputs.first) ? "text-[#eb5147]" : "text-[#0090ff]"
+              className={`text-xs leading-[18px] ${
+                checkWhitespace(inputs.first) ? "text-status-alert" : "text-status-positive"
               }`}
             >
               {dirtyFields.first ? "*공백없이 작성해 주세요." : ""}
             </p>
           </div>
         </div>
-        <div className="mb-[10px]">
-          <h2 className="mb-[16px] mt-[24px] text-[12px] leading-[18px]">다시 한 번 입력해 주세요</h2>
+        <div className="mb-2.5">
+          <h2 className="mb-4 mt-6 text-xs leading-[18px]">다시 한 번 입력해 주세요</h2>
           <input
             type="password"
             className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
             {...register("second")}
             value={inputs.second}
           />
-          <div className="h-[18px] pl-[8px]">
-            <span className={`text-[12px] leading-[18px] ${errors.second ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
+          <div className="h-[18px] pl-2">
+            <span className={`text-xs leading-[18px] ${errors.second ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.second ? "동일한 비밀번호를 입력해 주세요" : ""}
             </span>
           </div>
@@ -90,15 +90,13 @@ function ResetPasswordForm() {
         {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
           type="button"
-          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"} ${
+          className={`mt-4 h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"} ${
             isValid ? "cursor-pointer" : "cursor-not-allowed"
           }`}
           onClick={onSubmit}
           disabled={!isValid}
         >
-          <span className={`text-[20px] font-bold leading-[28px] ${isValid ? "text-white" : "text-[#565656]"}`}>
-            확인
-          </span>
+          <span className={`text-xl font-bold leading-7 ${isValid ? "text-white" : "text-gray-heavy"}`}>확인</span>
         </button>
       </form>
     </div>

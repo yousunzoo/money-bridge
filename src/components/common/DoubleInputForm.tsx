@@ -64,32 +64,32 @@ function DoubleInputForm({
   errors.second?.type === "min" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
 
   return (
-    <div className="mt-[24px]">
+    <div className="mt-6">
       <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
-        <div className="mb-[10px]">
-          <h2 className="mb-[16px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header1}</h2>
+        <div className="mb-2.5">
+          <h2 className="mb-4 text-sm font-bold leading-5">{getNotice(type)?.data.header1}</h2>
           <input
             type="text"
             className={`form_input ${errors.first ? "warnning" : dirtyFields.first ? "entering" : ""} `}
             {...register("first")}
             value={inputs.first}
           />
-          <div className="h-[18px] pl-[8px]">
-            <span className={`text-[12px] leading-[18px] ${errors.first ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
+          <div className="h-[18px] pl-2">
+            <span className={`text-xs leading-[18px] ${errors.first ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.first ? getNotice(type)?.data.notice1 : ""}
             </span>
           </div>
         </div>
-        <div className="mb-[10px]">
-          <h2 className="mb-[16px] mt-[24px] text-[14px] font-bold leading-[20px]">{getNotice(type)?.data.header2}</h2>
+        <div className="mb-2.5">
+          <h2 className="mb-4 mt-6 text-sm font-bold leading-5">{getNotice(type)?.data.header2}</h2>
           <input
             type={inputType}
             className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
             {...register("second")}
             value={inputs.second}
           />
-          <div className="h-[18px] pl-[8px]">
-            <span className={`text-[12px] leading-[18px] ${errors.second ? "text-[#eb5147]" : "text-[#0090ff]"}`}>
+          <div className="h-[18px] pl-2">
+            <span className={`text-xs leading-[18px] ${errors.second ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.second ? getNotice(type)?.data.notice2 : ""}
             </span>
           </div>
@@ -97,13 +97,13 @@ function DoubleInputForm({
         {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
           type="button"
-          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"} cursor ${
-            isValid ? "cursor-pointer" : "cursor-not-allowed"
-          }`}
+          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${
+            isValid ? "bg-primary-normal" : "bg-background-disabled"
+          } cursor ${isValid ? "cursor-pointer" : "cursor-not-allowed"}`}
           onClick={onSubmit}
           disabled={!isValid}
         >
-          <span className={`text-[20px] font-bold leading-[28px] ${isValid ? "text-white" : "text-[#565656]"}`}>
+          <span className={`text-xl font-bold leading-7 ${isValid ? "text-white" : "text-gray-heavy"}`}>
             {getNotice(type)?.data.submit}
           </span>
         </button>

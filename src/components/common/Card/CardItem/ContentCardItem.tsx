@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 
-function ContentCardItem({ item }: any) {
+function ContentCardItem({ item, user }: any) {
   const router = useRouter();
   const [isBookmark, setIsBookmark] = useState(false);
   const bookMark = (event: any) => {
@@ -27,9 +27,11 @@ function ContentCardItem({ item }: any) {
             </div>
             <div className="text-2xl font-bold">{item.title}</div>
           </div>
-          <button onClick={bookMark} className="flex-3 flex w-12 items-center justify-center">
-            {isBookmark ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
-          </button>
+          {user && (
+            <button onClick={bookMark} className="flex-3 flex w-12 items-center justify-center">
+              {isBookmark ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
+            </button>
+          )}
         </div>
         <div className="mt-[66px] flex">
           <div className="flex flex-col">

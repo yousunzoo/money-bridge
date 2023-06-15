@@ -5,7 +5,7 @@ import MainCarousel from "@/components/common/Carousel/MainCarousel";
 import "@/styles/carousel.css";
 import "@/styles/lounge.css";
 
-function Content({ NewAndHot,All }: any) {
+function Content({ NewAndHot, All, user }: any) {
   const [all, setAll] = useState(All?.data?.list.slice(0, 2));
   const [newData, setNewData] = useState(NewAndHot?.data?.list.slice(0, 2));
   const [hotData, setHotData] = useState(NewAndHot?.data?.list.slice(2, 4));
@@ -30,7 +30,7 @@ function Content({ NewAndHot,All }: any) {
           </Link>
         </div>
         <div>
-          <ContentCardList props={newData} />
+          <ContentCardList props={newData} user={user} />
         </div>
       </div>
       <div>
@@ -45,7 +45,7 @@ function Content({ NewAndHot,All }: any) {
           </Link>
         </div>
         <div>
-          <ContentCardList props={hotData} />
+          <ContentCardList props={hotData} user={user} />
         </div>
       </div>
       <MainCarousel className="my-11 h-[235px] text-white">
@@ -92,7 +92,7 @@ function Content({ NewAndHot,All }: any) {
           </button>
         </div>
         <div>
-          <ContentCardList props={all} />
+          <ContentCardList props={all} user={user} />
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ function Lounge() {
   const [newAndHot, setNewAndHot] = useState(NewAndHot);
 
   useEffect(() => {
-    setUser("USER", "홍길동");
+    setUser("PB", "test");
   }, [setUser]);
   
   useEffect(() => {
@@ -30,7 +30,7 @@ function Lounge() {
       <TopNav title="라운지" hasBack={true} />
       <Intro user={role} />
       {role === "USER" && <PbRecommend name={name} />}
-      <Content NewAndHot={newAndHot} All={all} />
+      <Content NewAndHot={newAndHot} All={all} user={role} />
     </div>
   );
 }

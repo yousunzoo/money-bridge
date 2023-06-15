@@ -24,3 +24,19 @@ export interface ICompany {
 }
 
 export interface ICompanyList extends Array<ICompany> {}
+
+export interface IPropensityList {
+  [key: string]: {
+    propensity: IPropensity;
+    bar: number;
+    lossRisk: string;
+    pursuit: string;
+    productRisk: string;
+  };
+}
+
+export interface IPropensityCardProps {
+  userPropensity: IPropensity;
+}
+
+export type IPropensity = "CONSERVATIVE" | "CAUTIOUS" | "BALANCED" | "AGGRESSIVE" | "SPECULATIVE";

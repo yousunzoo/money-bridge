@@ -1,13 +1,16 @@
 import Link from "next/link";
-import React, { ReactElement } from "react";
+import React from "react";
 import Image from "next/image";
 import PBMenu from "@/components/pblistPage/PBMenu";
 import { ICompanyList } from "@/types/pblist";
 import { company } from "@/mocks/seon/companyList";
-function PBListPage({ children }: { children: ReactElement }) {
+import pbListData from "@/mocks/seon/pblist.json";
+import PbCardList from "@/components/common/Card/CardList/PbCardList";
+import SortTab from "@/components/pblistPage/SortTab";
+
+function PBListPage() {
   // 기본경로 pblist?speciality=all
   const companyList = company as ICompanyList;
-
   return (
     <div className="h-full w-full bg-background-normal">
       <h2 className="mb-7 text-xl font-bold">
@@ -24,9 +27,11 @@ function PBListPage({ children }: { children: ReactElement }) {
         <Image src="/assets/images/arrayNext.svg" alt="맞춤 추천으로 이동" width={14} height={14} />
       </Link>
       <PBMenu companyList={companyList} />
-      {children}
+      <SortTab />
+      <PbCardList props={pbListData} />
     </div>
   );
 }
 
 export default PBListPage;
+``;

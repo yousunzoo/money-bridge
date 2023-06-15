@@ -1,16 +1,19 @@
+import Image from "next/image";
 import { ICompanyListProps } from "@/types/pblist";
 import { Carousel } from "antd";
 import React, { MouseEvent } from "react";
-import "@/styles/companyCarousel.css";
 import { chunkArray } from "@/utils/chunkArray";
 import { createQueryString } from "@/utils/createQueryString";
 import { useRouter } from "next/navigation";
+import "@/styles/companyCarousel.css";
 
-const LI_STYLE = "flex w-full h-[50px] justify-center items-center rounded-sm cursor-pointer z-[1]";
+const LI_STYLE =
+  "flex flex-col py-2 justify-between w-full h-[60px] justify-center items-center rounded-sm cursor-pointer";
+
 function CompanyList({ companyList, nowCompany }: ICompanyListProps) {
   const router = useRouter();
-  const chunkedCompanyList = chunkArray(companyList, 8);
-
+  const chunkedCompanyList = chunkArray([{ id: "ALL", logo: null, name: "전체보기" }, ...companyList], 8);
+  console.log(chunkedCompanyList);
   const handleIDClick = (e: MouseEvent<HTMLLIElement>) => {
     const selectedId = e.currentTarget.dataset.id as string;
     const url = createQueryString("company", selectedId);
@@ -26,10 +29,23 @@ function CompanyList({ companyList, nowCompany }: ICompanyListProps) {
               <li
                 data-id={company.id}
                 onClick={handleIDClick}
-                className={`${LI_STYLE} ${company.id == nowCompany && "bg-primary-normal text-white"}`}
+                className={`${LI_STYLE} ${company.id == nowCompany && "bg-primary-normal font-bold text-white"} ${
+                  company.name === "전체보기" && "!justify-center"
+                }`}
                 key={company.id}
               >
-                <span className="text-xs font-bold">{company.name}</span>
+                {company.logo && (
+                  <Image src="/assets/images/default_profile.png" alt={company.name} width={24} height={24} />
+                )}
+                {company.name === "전체보기" ? (
+                  <p>
+                    전체
+                    <br />
+                    보기
+                  </p>
+                ) : (
+                  <p className="text-xs font-bold leading-3">{company.name}</p>
+                )}
               </li>
             ))}
           </ul>

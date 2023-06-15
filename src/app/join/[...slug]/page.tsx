@@ -1,22 +1,23 @@
 "use client";
 import TopNav from "@/components/common/TopNav";
 import Authentication from "@/components/findPasswordPage/Authentication";
-import ResetPassword from "@/components/findPasswordPage/ResetPassword";
 import JoinInformation from "@/components/joinPage/common/JoinInformation";
 import AgreeProvision from "@/components/joinPage/common/AgreeProvision";
 import { JoinFormType } from "@/constants/enum";
 import { redirect, usePathname } from "next/navigation";
-import React, { useState } from "react";
 import UserComplete from "@/components/joinPage/user/UserComplete";
+import { useJoinStore } from "@/store/joinStore";
+import SetPasswordForm from "@/components/joinPage/common/SetPasswordForm";
 
-type Tstep = "email" | "authentication" | "name" | "phoneNumber" | "provision" | "complete";
+type Tstep = "email" | "authentication" | "password" | "name" | "phoneNumber" | "agreements" | "complete";
 
 const step = {
   email: <JoinInformation type={JoinFormType.EMAIL} />,
   authentication: <Authentication />,
+  password: <SetPasswordForm />,
   name: <JoinInformation type={JoinFormType.NAME} />,
   phoneNumber: <JoinInformation type={JoinFormType.PHONENUMBER} />,
-  provision: <AgreeProvision />,
+  agreements: <AgreeProvision />,
   complete: <UserComplete />,
 };
 
@@ -50,6 +51,28 @@ function Page() {
   const pathName = usePathname();
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
   checkRedirect(pathName) ?? redirect("/login");
+  const { informations } = useJoinStore();
+  const stepPath = pathName.split("/")[3];
+  console.log(informations);
+
+  switch (stepPath) {
+    case "authentication":
+    case "password":
+      informations.email === "" ? redirect("/login") : "";
+      break;
+    case "name":
+      informations.password === "" ? redirect("/login") : "";
+      break;
+    case "phoneNumber":
+      informations.name === "" ? redirect("/login") : "";
+      break;
+    case "agreements":
+      informations.phoneNumber === "" ? redirect("/login") : "";
+      break;
+    case "complete":
+      informations.agreements.length === 0 ? redirect("/login") : "";
+      break;
+  }
 
   return (
     <>

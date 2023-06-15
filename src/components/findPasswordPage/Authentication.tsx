@@ -41,7 +41,7 @@ function Authentication() {
   };
 
   const handleClick = () => {
-    const routePath = pathName.split("/")[1] === "join" ? "name" : "selectInformation";
+    const routePath = pathName.split("/")[1] === "join" ? "password" : "selectInformation";
     if (value) {
       router.push(`/${pathName.split("/")[1]}/${pathName.split("/")[2]}/${routePath}`);
     }

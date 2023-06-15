@@ -13,14 +13,14 @@ function Login() {
   return (
     <>
       <TopNav title={`${nextStep ? "관리자 인증" : "로그인"}`} hasBack backGroundWhite />
-      <div className="mx-[16px] mt-[40px] text-[#242424]">
+      <div className="mt-10 text-black">
         {nextStep ? (
           <AdminAuthentication />
         ) : (
           <>
             <p>안녕하세요,</p>
             <p>
-              <span className="text-[20px] font-bold leading-[28px] text-[#153445]">MONEY BRIDGE </span>입니다.
+              <span className="text-xl font-bold leading-7 text-primary-normal">MONEY BRIDGE </span>입니다.
             </p>
             <DoubleInputForm type={InputFormType.LOGIN} setNextStep={setNextStep} />
             <KeepLoginButton />

@@ -16,24 +16,34 @@ const step = {
   resetPassword: <ResetPassword />,
 };
 
-const checkRedirect = (path: string) => {
-  for (const key in step) {
-    if (path === key) {
-      return true;
-    }
+const type = ["user", "pb"];
+
+const checkRedirect = (pathName: string) => {
+  let res1 = null;
+  let res2 = null;
+
+  const path1 = pathName.split("/")[3] as Tstep;
+  if (Object.keys(step).includes(path1)) {
+    res1 = true;
   }
-  return null;
+
+  const path2 = pathName.split("/")[2];
+  if (type.includes(path2)) {
+    res2 = true;
+  }
+
+  return res1 && res2;
 };
 
 function Page() {
   const pathName = usePathname();
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
-  checkRedirect(path) ?? redirect("/login");
+  checkRedirect(pathName) ?? redirect("/login");
 
   return (
     <>
       <TopNav title="비밀번호 찾기" hasBack backGroundWhite />
-      <div className="mx-[16px]">{step[path]}</div>
+      {step[path]}
     </>
   );
 }

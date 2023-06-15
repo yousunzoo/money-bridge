@@ -34,7 +34,7 @@
   }
 
   .form_input {
-    @apply w-[358px] rounded-sm border-1 border-background-secondary px-3 py-2 pr-[70px];
+    @apply min-w-[358px] w-full rounded-sm border-1 border-background-secondary px-3 py-2 pr-[70px];
   }
 
   .form_input:focus-visible {
@@ -53,8 +53,6 @@
     @apply text-placeholder;
   }
 
-  /* formInput_entering -> .entering */
-  /* formInput_warn -> .warnning */
   .entering {
     @apply !border-primary-normal;
   }

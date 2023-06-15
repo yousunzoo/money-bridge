@@ -1,4 +1,5 @@
 import { JoinFormType } from "@/constants/enum";
+import { useJoinStore } from "@/store/joinStore";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { usePathname, useRouter } from "next/navigation";
 import React, { ChangeEvent, useState } from "react";
@@ -12,12 +13,13 @@ const yup_phone = yup
   .matches(/^[0-9]{10,11}$/i)
   .required();
 
-const _nextPath = ["email", "authentication", "name", "phoneNumber", "provision"];
+const _nextPath = ["email", "authentication", "password", "name", "phoneNumber", "agreements"];
 
 function JoinInformation({ type }: { type: JoinFormType }) {
   const [value, setValue] = useState("");
   const router = useRouter();
   const pathName = usePathname();
+  const { setInformations } = useJoinStore();
 
   const schema = yup.object().shape({
     text: type === JoinFormType.EMAIL ? yup_email : type === JoinFormType.NAME ? yup_name : yup_phone,
@@ -35,7 +37,10 @@ function JoinInformation({ type }: { type: JoinFormType }) {
 
   const onSubmit = () => {
     const joinType = pathName.split("/")[2];
-    const pathIndex = _nextPath.indexOf(`${pathName.split("/")[3]}`);
+    const currentPath = pathName.split("/")[3];
+    const pathIndex = _nextPath.indexOf(currentPath);
+
+    setInformations(currentPath, value);
     router.push(`/join/${joinType}/${_nextPath[pathIndex + 1]}`);
   };
 

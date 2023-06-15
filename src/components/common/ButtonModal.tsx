@@ -35,14 +35,11 @@ function ButtonModal({ modalContents, isOpen, setIsOpen, children }: ButtonModal
         <div className="text-center">{children}</div>
         <div className="flex w-full gap-4">
           {cancelText && (
-            <button onClick={handleCancelButton} className="border-2 h-10 w-1/2 border-black">
+            <button onClick={handleCancelButton} className="cancel-button">
               {cancelText}
             </button>
           )}
-          <button
-            onClick={handleConfirmButton}
-            className={`${cancelText ? "w-1/2" : "w-full"} h-10 bg-black text-white`}
-          >
+          <button onClick={handleConfirmButton} className={`${cancelText ? "w-1/2" : "w-full"} popup-button`}>
             {confirmText}
           </button>
         </div>

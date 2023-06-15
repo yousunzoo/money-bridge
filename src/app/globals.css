@@ -123,6 +123,12 @@
   .popup h3 {
     @apply text-center text-xl font-bold;
   }
+  .popup .popup-button {
+    @apply rounded-sm bg-primary-normal  text-white;
+  }
+  .popup .cancel-button {
+    @apply w-1/2 rounded-sm border-1 border-black py-3;
+  }
 }
 
 .fixedButton {

@@ -77,6 +77,7 @@ enum ConsultationStyle {
   HONEST = "솔직한",
   PRAGMATIC = "현실적인",
   DIRECTIONAL = "방향 제시",
+  OTHER = "",
 }
 
 enum BoardStatus {

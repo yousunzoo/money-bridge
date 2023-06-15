@@ -4,7 +4,7 @@ import "@/styles/carousel.css";
 
 function MainCarousel({ children, className }: { children: React.ReactNode; className: any }) {
   return (
-    <Carousel autoplay dotPosition="top" className={className} style={{ width: 408, height: 235, display: "flex" }}>
+    <Carousel autoplay dotPosition="top" className={className}>
       {children}
     </Carousel>
   );

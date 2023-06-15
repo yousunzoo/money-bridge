@@ -3,7 +3,7 @@
 import { ButtonModalProps } from "@/types/common";
 import { useEffect } from "react";
 
-function ButtonModal({ modalContents, isOpen, setIsOpen }: ButtonModalProps) {
+function ButtonModal({ modalContents, isOpen, setIsOpen, children }: ButtonModalProps) {
   const { content, confirmText, cancelText, confirmFn, cancelFn } = modalContents;
 
   useEffect(() => {
@@ -27,21 +27,19 @@ function ButtonModal({ modalContents, isOpen, setIsOpen }: ButtonModalProps) {
   return (
     <div className="fixed left-0 top-0 z-10 h-full w-full">
       <div className="modal_background" />
-      <div className="rounded-xl fixed left-1/2 top-1/2 flex h-80 w-80 -translate-x-1/2 -translate-y-1/2 flex-col justify-between bg-white p-7">
+      <div className="popup flex flex-col justify-between">
         <button onClick={handleClose} className="absolute right-7">
           닫기
         </button>
-        <p className="text-lg break-keep pt-20 text-center">{content}</p>
+        <h3 className={`text-lg break-keep text-center ${children ? "pt-14" : "pt-20"}`}>{content}</h3>
+        <div className="text-center">{children}</div>
         <div className="flex w-full gap-4">
           {cancelText && (
-            <button onClick={handleCancelButton} className="border-2 h-10 w-1/2 border-black">
+            <button onClick={handleCancelButton} className="cancel-button">
               {cancelText}
             </button>
           )}
-          <button
-            onClick={handleConfirmButton}
-            className={`${cancelText ? "w-1/2" : "w-full"} h-10 bg-black text-white`}
-          >
+          <button onClick={handleConfirmButton} className={`${cancelText ? "w-1/2" : "w-full"} popup-button`}>
             {confirmText}
           </button>
         </div>

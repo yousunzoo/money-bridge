@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export interface ButtonModalProps {
   modalContents: {
@@ -8,6 +8,7 @@ export interface ButtonModalProps {
     confirmFn?: () => any;
     cancelFn?: () => any;
   };
+  children?: ReactNode;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }

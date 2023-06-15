@@ -3,9 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 import PostCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 
 function ContentCardList({ props }: any) {
-  const dataList = props.data ? props.data.list : props;
-  const data = props.data ? props.data : props;
-  const [items, setItems] = useState(dataList.slice(0, 10));
+  const dataList = props?.data ? props.data.list : props;
+  const data = props?.data ? props.data : props;
+  const [items, setItems] = useState(dataList?.slice(0, 10));
   const [isLastPage, setIsLastPage] = useState(false);
   const observerRef = useRef<HTMLDivElement | null>(null);
 

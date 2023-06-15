@@ -1,8 +1,8 @@
 import { MouseEvent } from "react";
 
 export interface ICompanyListProps {
+  companyList: ICompanyList;
   nowCompany: string;
-  handleIDClick: (e: MouseEvent<HTMLUListElement>) => void;
 }
 
 export interface ISpecialityListProps {
@@ -16,3 +16,11 @@ export interface ISpeciality {
 }
 
 export interface ISpecialityList extends Array<ISpeciality> {}
+
+export interface ICompany {
+  id: number;
+  logo: string;
+  name: string;
+}
+
+export interface ICompanyList extends Array<ICompany> {}

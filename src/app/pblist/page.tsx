@@ -2,9 +2,11 @@ import Link from "next/link";
 import React, { ReactElement } from "react";
 import Image from "next/image";
 import PBMenu from "@/components/pblistPage/PBMenu";
-
+import { ICompanyList } from "@/types/pblist";
+import { company } from "@/mocks/seon/companyList";
 function PBListPage({ children }: { children: ReactElement }) {
   // 기본경로 pblist?speciality=all
+  const companyList = company as ICompanyList;
 
   return (
     <div className="h-full w-full bg-background-normal">
@@ -21,7 +23,7 @@ function PBListPage({ children }: { children: ReactElement }) {
         <span>당신을 위한 맞춤 추천</span>
         <Image src="/assets/images/arrayNext.svg" alt="맞춤 추천으로 이동" width={14} height={14} />
       </Link>
-      <PBMenu />
+      <PBMenu companyList={companyList} />
       {children}
     </div>
   );

@@ -1,22 +1,18 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { MouseEvent, useCallback, useState } from "react";
+import React, { MouseEvent } from "react";
 import SpecialityList from "./SpecialityList";
-import CompanyList from "./CompanyList";
+import CompanyList from "../common/CompanyList";
+import { createQueryString } from "@/utils/createQueryString";
+import { ICompanyList } from "@/types/pblist";
 
 const BUTTON_STYLE = "w-1/2 rounded-t-md bg-white py-4 shadow-md box-border";
-function PBMenu() {
+function PBMenu({ companyList }: { companyList: ICompanyList }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const speciality = searchParams.get("speciality");
   const company = searchParams.get("company");
   const nowType = speciality ? "speciality" : "company";
-
-  const createQueryString = (name: string, value: string) => {
-    const params = new URLSearchParams();
-    params.set(name, value);
-    return params.toString();
-  };
 
   const handleTypeClick = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
@@ -43,7 +39,7 @@ function PBMenu() {
       </div>
       <div className="h-[180px] w-full rounded-b-md bg-white px-3 py-4">
         {speciality && <SpecialityList nowSpeciality={speciality} handleIDClick={handleIDClick} />}
-        {company && <CompanyList nowCompany={company} handleIDClick={handleIDClick} />}
+        {company && <CompanyList companyList={companyList} nowCompany={company} />}
       </div>
     </nav>
   );

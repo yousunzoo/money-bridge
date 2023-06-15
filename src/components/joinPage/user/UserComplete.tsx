@@ -3,7 +3,6 @@ import React from "react";
 
 function UserComplete() {
   const router = useRouter();
-  console.log(history);
 
   const handleSubmit = () => {
     router.push("/analysis");

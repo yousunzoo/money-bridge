@@ -7,10 +7,10 @@ function SelectInformation() {
   const pathName = usePathname();
   return (
     <>
-      <p className="mb-[40px] mt-[56px] text-[20px] font-bold leading-[28px]">해당하는 정보를 선택해주세요.</p>
+      <p className="mb-10 mt-14 text-xl font-bold leading-7">해당하는 정보를 선택해주세요.</p>
       <InformationCheck />
       <button
-        className="mb-[96px] mt-[266px] h-[56px] w-full rounded-[8px] bg-[#153445] text-[20px] font-bold leading-[28px] text-white"
+        className="mb-24 mt-[266px] h-14 w-full rounded-[8px] bg-primary-normal text-xl font-bold leading-7 text-white"
         onClick={() => router.push(`/findPassword/${pathName.split("/")[2]}/resetPassword`)}
       >
         비밀번호 재설정

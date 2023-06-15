@@ -13,12 +13,19 @@ export const metadata = {
 
 export const API_KEY = "a00d33a77c654313f467c84771f981c2";
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${API_KEY}&autoload=false`;
-
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={noto.className}>
+      <head>
+        <Script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></Script>
         <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
+      </head>
+      <body className={noto.className}>
         <ReactQueryProvider>
           <main className="overflow-auto pb-[56px] pt-[40px]">
             {children}

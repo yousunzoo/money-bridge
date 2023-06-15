@@ -6,9 +6,7 @@
   margin-top: 30px;
   margin-left: 20px;
 }
-.ant-carousel .slick-dots{
-  position: static !important;
-}
+
 .ant-carousel .slick-dots-top{
   margin-left:300px;
 }

@@ -119,11 +119,17 @@
   }
 
   .popup {
-    @apply fixed left-1/2 top-1/2 h-[300px] w-[312px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white px-5 py-10 shadow-md;
+    @apply fixed left-1/2 top-1/2 min-h-[300px] w-[312px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white px-5 py-10 shadow-md;
   }
 
   .popup h3 {
-    @apply text-bold text-center text-xl;
+    @apply text-center text-xl font-bold;
+  }
+  .popup .popup-button {
+    @apply rounded-sm bg-primary-normal  text-white;
+  }
+  .popup .cancel-button {
+    @apply w-1/2 rounded-sm border-1 border-black py-3;
   }
 }
 

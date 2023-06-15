@@ -58,12 +58,12 @@ function ManagementPage() {
       <ConsultationStatus {...data} />
       <ProcessList setIsProcess={setIsProcess} role={"pb"} />
 
-      <div className="my-8 h-2 w-full bg-background-secondary"></div>
+      <div className="w-full h-2 my-8 bg-background-secondary"></div>
 
-      <div className="w-full justify-start">
+      <div className="justify-start w-full">
         <div>
-          <h3 className="text-lg pl-1 font-bold">{`${PROCESS_NAME[isProcess]} ${selectData?.length}건`}</h3>
-          <p className="my-1 mb-6 pl-1 text-sm">예약 희망 일정을 확인 한 후 유선으로 상담 일정을 조율해주세요.</p>
+          <h3 className="pl-1 text-lg font-bold">{`${PROCESS_NAME[isProcess]} ${selectData?.length}건`}</h3>
+          <p className="pl-1 my-1 mb-6 text-sm">예약 희망 일정을 확인 한 후 유선으로 상담 일정을 조율해주세요.</p>
           <ul className="flex flex-col gap-4">
             {selectData &&
               selectData.map(({ reservationId, name, createdAt, type }) => (
@@ -75,7 +75,7 @@ function ManagementPage() {
                 >
                   <p className="font-bold">{name}</p>
                   <p className="text-xs ">{createdAt} </p>
-                  <p className="text-xs ">상담방식 : {type === "VISIT" ? "방문상담" : "유선상담"}</p>
+                  <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"}</p>
                 </UserReservationItem>
               ))}
           </ul>

@@ -22,14 +22,16 @@ function ProcessList({ setIsProcess, role }: ProcessListProps) {
 
   const getContainerClasses = (itemHref: string) => {
     if (role === "user") {
-      return selectedItem === itemHref ? "bg-secondary-heavy text-white" : "border-secondary-heavy text-primary-normal";
+      return selectedItem === itemHref
+        ? "bg-secondary-heavy text-white"
+        : "border-secondary-heavy text-secondary-heavy";
     } else {
       return selectedItem === itemHref ? "bg-primary-normal text-white" : "border-primary-normal text-primary-normal";
     }
   };
 
   return (
-    <ul className="mt-8 flex w-full justify-start gap-2 bg-white">
+    <ul className="flex justify-start w-full gap-2 mt-8 bg-white">
       {LINKS.map(item => (
         <li key={item.id} className={`rounded-full rounded-lg border-1 p-2 text-sm ${getContainerClasses(item.href)}`}>
           <button onClick={() => clickHendler(item.href)}>{item.text}</button>

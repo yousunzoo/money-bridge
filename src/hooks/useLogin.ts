@@ -1,5 +1,5 @@
 import { userLogin } from "@/app/apis/services/auth";
-import { useMutation } from "@tanstack/react-query";
+import { UseMutateFunction, useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
@@ -16,7 +16,7 @@ export const useLogin = (setNextStep: ((value: React.SetStateAction<boolean>) =>
   const router = useRouter();
 
   const { mutate } = useMutation(userLogin, {
-    onSuccess: (data: IResponseLogin) => {
+    onSuccess: data => {
       console.log(data.data);
       if (setNextStep) {
         if (data.data.code) {

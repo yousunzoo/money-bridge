@@ -4,17 +4,17 @@ import React from "react";
 import Image from "next/image";
 import PBMenu from "@/components/pblistPage/PBMenu";
 import { ICompanyList } from "@/types/pblist";
-import { company } from "@/mocks/seon/companyList";
+import { companyListData } from "@/mocks/seon/companyList";
 import pbListData from "@/mocks/seon/pblist.json";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
 import SortTab from "@/components/pblistPage/SortTab";
-import { usePathname } from "next/navigation";
+import { usePBListQueries } from "@/hooks/usePBListQueries";
 
 function PBListPage() {
-  // 기본경로 pblist?speciality=all&sort=distance
-  const pathname = usePathname();
-  console.log(pathname);
-  const companyList = company as ICompanyList;
+  const { redirectPath } = usePBListQueries();
+  redirectPath();
+
+  const companyList = companyListData as ICompanyList;
   return (
     <div className="h-full w-full bg-background-normal">
       <h2 className="mb-7 text-xl font-bold">

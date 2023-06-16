@@ -1,4 +1,4 @@
-export const company = [
+export const companyListData = [
   { id: 1, logo: "mirae.png", name: "미래에셋" },
   { id: 2, logo: "mirae.png", name: "키움" },
   { id: 3, logo: "mirae.png", name: "카카오페이" },

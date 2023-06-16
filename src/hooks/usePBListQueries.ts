@@ -1,5 +1,5 @@
 import { createQueryString } from "@/utils/createQueryString";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { MouseEvent } from "react";
 
 export const usePBListQueries = () => {
@@ -10,6 +10,12 @@ export const usePBListQueries = () => {
   const speciality = searchParams.get("speciality");
   const company = searchParams.get("company");
   const nowType = speciality ? "speciality" : "company";
+
+  const redirectPath = () => {
+    if (!speciality && !company) {
+      redirect("/pblist?speciality=ALL&sort=distance");
+    }
+  };
 
   const handleTypeClick = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
@@ -25,5 +31,5 @@ export const usePBListQueries = () => {
     router.push("/pblist?" + url);
   };
 
-  return { handleTypeClick, handleIDClick, speciality, company };
+  return { handleTypeClick, handleIDClick, speciality, company, redirectPath };
 };

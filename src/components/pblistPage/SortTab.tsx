@@ -24,8 +24,12 @@ function SortTab() {
     <div className="flex w-full justify-between text-xs">
       <button>서울시 강남구</button>
       <div className="flex gap-1" onClick={handleClick}>
-        <button data-sort="distance">거리순</button>
-        <button data-sort="career">경력순</button>
+        <button data-sort="distance" className={`${sortParam === "distance" && "font-bold"}`}>
+          거리순
+        </button>
+        <button data-sort="career" className={`${sortParam === "career" && "font-bold"}`}>
+          경력순
+        </button>
       </div>
     </div>
   );

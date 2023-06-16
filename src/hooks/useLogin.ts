@@ -1,5 +1,6 @@
 import { userLogin } from "@/app/apis/services/auth";
 import { IResponseLogin } from "@/types/login";
+import { setCookie } from "@/utils/cookies";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -14,6 +15,7 @@ export const useLogin = (setNextStep: ((value: React.SetStateAction<boolean>) =>
           setNextStep(true);
         }
       } else {
+        setCookie("Authorization", data.headers.authorization);
         alert("환영!");
         router.push("/");
       }

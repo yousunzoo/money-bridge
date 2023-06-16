@@ -26,6 +26,7 @@ export const usePBListQueries = () => {
   };
 
   const handleIDClick = (e: MouseEvent<HTMLUListElement | HTMLLIElement>) => {
+    if (speciality && !(e.target instanceof HTMLLIElement)) return;
     const selectedId = (e.target instanceof HTMLLIElement ? e.target.dataset.id : e.currentTarget.dataset.id) as string;
     const url = createQueryString(nowType, selectedId, sortParam);
     router.push("/pblist?" + url);

@@ -1,3 +1,5 @@
+"use client";
+
 import propensityListData from "@/constants/propensityList.json";
 import { IPropensityCardProps, IPropensityList } from "@/types/pblist";
 import Link from "next/link";
@@ -5,8 +7,16 @@ import Link from "next/link";
 function PropensityCard({ userPropensity }: IPropensityCardProps) {
   const propensityList = propensityListData as IPropensityList;
   const { lossRisk, pursuit, productRisk, bar, propensity } = propensityList[userPropensity];
-  const dotPosition = `left-[${Math.floor((bar / 6) * 100)}%]`;
-  const DOT_STYLE = `absolute top-1/2 -translate-x-1/2 h-[10px] w-[10px] -translate-y-1/2 rounded-[5px] bg-primary-normal ${dotPosition}`;
+
+  const dotPosition: { [key: number]: string } = {
+    1: "left-[16.5%]",
+    2: "left-[33%]",
+    3: "left-[49.5%]",
+    4: "left-[66%]",
+    5: "left-[82.5%]",
+  };
+
+  const DOT_STYLE = `propensity_circle ${dotPosition[bar]}`;
   return (
     <article className="mb-10 w-full rounded-lg bg-white px-4 py-4 shadow-md">
       <div className="mb-4 flex items-end justify-between border-b-1 border-dashed border-gray-normal pb-4">

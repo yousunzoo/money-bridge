@@ -1,4 +1,5 @@
 import { JoinFormType } from "@/constants/enum";
+import { useAuthentication } from "@/hooks/useAuthentication";
 import { useJoinStore } from "@/store/joinStore";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { usePathname, useRouter } from "next/navigation";
@@ -19,6 +20,7 @@ function JoinInformation({ type }: { type: JoinFormType }) {
   const [value, setValue] = useState("");
   const router = useRouter();
   const pathName = usePathname();
+  const authentication = useAuthentication();
   const { setInformations } = useJoinStore();
 
   const schema = yup.object().shape({
@@ -41,6 +43,10 @@ function JoinInformation({ type }: { type: JoinFormType }) {
     const pathIndex = _nextPath.indexOf(currentPath);
 
     setInformations(currentPath, value);
+    if (type === JoinFormType.EMAIL) {
+      authentication(value);
+    }
+
     router.push(`/join/${joinType}/${_nextPath[pathIndex + 1]}`);
   };
 

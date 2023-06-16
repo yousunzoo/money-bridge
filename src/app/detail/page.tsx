@@ -48,13 +48,13 @@ function PbDetail() {
     branchLatitude: data.branchLatitude,
     branchLongitude: data.branchLongitude,
   };
-  const { getRole } = useRoleStore();
+  const { getUser } = useRoleStore();
 
   return (
     <>
       <TopNav title="PB 상세프로필" hasBack={true} />
-      <Intro introData={getRole() === "" ? notLoginData : introData} edit={false} />
-      {getRole() === "" ? null : (
+      <Intro introData={getUser().role === "" ? notLoginData : introData} edit={false} />
+      {getUser().role === "" ? null : (
         <>
           <Content contentData={contentData} edit={false} />
           <About aboutData={aboutData} />

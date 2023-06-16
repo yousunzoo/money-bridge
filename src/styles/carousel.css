@@ -1,23 +1,31 @@
-.pb_banner{
-  width: 390px !important;
-  height: 235px;
-  display: flex !important;
-  flex-direction: column;
-  margin-top: 30px;
-  margin-left: 20px;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .pb_banner{
+   @apply h-[235px] flex flex-col
+ }
+ .title{
+  @apply text-2xl font-bold mt-[33px] ml-5
+ }
+ .link{
+  @apply flex ml-[200px] mt-[87px] underline decoration-1 text-sm font-bold text-white hover:text-white hover:underline 
+ }
 }
 
 .ant-carousel .slick-dots-top{
   margin-left:300px;
 }
+
 .ant-carousel .slick-dots-top li,
 .ant-carousel .slick-dots-top .slick-active {
   width: 6px !important;
-  height: 6px;
+  height: 6px !important;
 }
 
 .ant-carousel .slick-dots-top li button {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
 }

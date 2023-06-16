@@ -58,11 +58,11 @@ function About({ aboutData }: any) {
             <div>{styleCase(style1)?.style}</div>
           </div>
           <div>
-            <Image src={styleCase(style2)?.image} alt={styleCase(style2)?.style} width={100} height={100}/>
+            <Image src={styleCase(style2)?.image} alt={styleCase(style2)?.style} width={100} height={100} />
             <div>{styleCase(style2)?.style}</div>
           </div>
           <div>
-            <Image src={styleCase(style3)?.image} alt={styleCase(style3)?.style} width={100} height={100}/>
+            <Image src={styleCase(style3)?.image} alt={styleCase(style3)?.style} width={100} height={100} />
             <div>{styleCase(style3)?.style}</div>
           </div>
         </div>
@@ -73,7 +73,7 @@ function About({ aboutData }: any) {
           </div>
           {pbRecentData ? (
             <ul>
-              <Carousel autoplay>
+              <Carousel autoplay draggable={true}>
                 {pbRecentData.list.map((item: any) => (
                   <li className="card" key={item.reviewId}>
                     <div>

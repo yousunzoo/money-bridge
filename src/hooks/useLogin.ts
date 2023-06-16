@@ -9,7 +9,7 @@ export const useLogin = (setNextStep: ((value: React.SetStateAction<boolean>) =>
   const router = useRouter();
 
   const { mutate } = useMutation(userLogin, {
-    onSuccess: (data: IResponseLogin) => {
+    onSuccess: data => {
       if (data.data.data.code) {
         if (setNextStep) {
           setNextStep(true);

@@ -120,6 +120,12 @@ enum InputFormType {
   FIND_PASSWORD = "FIND_PASSWORD",
 }
 
+enum JoinFormType {
+  EMAIL = "EMAIL",
+  NAME = "NAME",
+  PHONENUMBER = "PHONENUMBER",
+}
+
 export {
   CommonROLE,
   Propensity,
@@ -148,4 +154,5 @@ export {
   Branch,
   Company,
   InputFormType,
+  JoinFormType,
 };

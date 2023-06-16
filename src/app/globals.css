@@ -53,6 +53,10 @@
     @apply text-placeholder;
   }
 
+  .input_authentication {
+    @apply w-full min-w-[302px] rounded-sm border-1 border-background-secondary px-3 py-2;
+  }
+
   .entering {
     @apply !border-primary-normal;
   }
@@ -111,7 +115,7 @@
   }
 
   .card {
-    @apply mx-auto my-4 flex w-[80%] flex-col rounded-md shadow-md;
+    @apply mx-auto my-4 flex w-full flex-col rounded-md shadow-md;
   }
 
   .popup {

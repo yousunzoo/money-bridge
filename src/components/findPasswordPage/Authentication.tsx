@@ -2,6 +2,9 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import help from "/public/assets/images/help.svg";
 import Image from "next/image";
+import { useAuthentication } from "@/hooks/useAuthentication";
+import { useAuthenticationStore } from "@/store/authenticationStore";
+import { useJoinStore } from "@/store/joinStore";
 
 const TIMER_TIME = 300;
 
@@ -13,6 +16,9 @@ function Authentication() {
   const timerId = useRef<NodeJS.Timeout>();
   const router = useRouter();
   const pathName = usePathname();
+  const { code } = useAuthenticationStore();
+  const authentication = useAuthentication();
+  const { informations } = useJoinStore();
 
   const startTimer = () => {
     time.current = TIMER_TIME;
@@ -41,12 +47,16 @@ function Authentication() {
   };
 
   const handleClick = () => {
-    if (value) {
-      router.push(`/findPassword/${pathName.split("/")[2]}/selectInformation`);
+    if (code === value) {
+      const routePath = pathName.split("/")[1] === "join" ? "password" : "selectInformation";
+      router.push(`/${pathName.split("/")[1]}/${pathName.split("/")[2]}/${routePath}`);
+    } else {
+      alert("인증번호 틀림");
     }
   };
 
   const handleResend = () => {
+    authentication(informations.email);
     clearInterval(timerId.current);
     startTimer();
   };
@@ -56,7 +66,7 @@ function Authentication() {
       <p className="my-14 text-xl font-bold leading-7">인증코드 입력</p>
       <p className="mb-2 text-xs leading-[18px] text-black">개인정보 보호를 위해 인증코드는 5분간 유효합니다.</p>
       <div className="flex gap-[18px]">
-        <input className={`form_input ${value ? "entering" : ""}`} onChange={handleChange} />
+        <input className={`input_authentication ${value ? "entering" : ""}`} onChange={handleChange} />
         <button className="break-keep text-sm leading-5" onClick={handleResend}>
           재발송
         </button>

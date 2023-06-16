@@ -5,8 +5,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InputFormType } from "@/constants/enum";
 import { usePathname, useRouter } from "next/navigation";
+import { useLogin } from "@/hooks/useLogin";
 
-const yup_email = yup.string().email().required();
+const yup_email = yup.string().required();
 const yup_password = yup.string().min(8).max(15).required();
 const yup_name = yup.string().min(2).max(10).required();
 const yup_phone = yup.string().min(10).max(11).required();
@@ -18,6 +19,7 @@ function DoubleInputForm({
   type: InputFormType;
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
 }) {
+  const login = useLogin(setNextStep);
   const router = useRouter();
   const pathName = usePathname();
   const [inputs, setInputs] = useState({
@@ -45,16 +47,17 @@ function DoubleInputForm({
     });
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!isValid) {
       alert("양식을 확인해");
       return;
     }
-    if (setNextStep) {
-      setNextStep(true);
-    }
-    if (type === InputFormType.FIND_PASSWORD) {
+    if (type === InputFormType.LOGIN) {
+      login({ email: inputs.first, password: inputs.second, role: pathName.split("/")[2].toUpperCase() });
+    } else if (type === InputFormType.FIND_PASSWORD) {
       router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
+    } else if (type === InputFormType.FIND_EMAIL) {
+      if (setNextStep) setNextStep(true);
     }
   };
 
@@ -97,9 +100,9 @@ function DoubleInputForm({
         {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
           type="button"
-          className={`mt-[16px] h-[56px] w-full rounded-[8px] ${
-            isValid ? "bg-primary-normal" : "bg-background-disabled"
-          } cursor ${isValid ? "cursor-pointer" : "cursor-not-allowed"}`}
+          className={`mt-4 h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"} ${
+            isValid ? "cursor-pointer" : "cursor-not-allowed"
+          }`}
           onClick={onSubmit}
           disabled={!isValid}
         >

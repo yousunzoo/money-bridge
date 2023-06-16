@@ -1,8 +1,15 @@
+"use client";
 import TopNav from "@/components/common/TopNav";
+import { useJoinStore } from "@/store/joinStore";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 function SelectLoginType() {
+  const { resetInformations } = useJoinStore();
+  useEffect(() => {
+    resetInformations();
+  }, []);
+
   return (
     <>
       <TopNav title="로그인" hasBack backGroundWhite />

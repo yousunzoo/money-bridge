@@ -1,18 +1,7 @@
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 function UserComplete() {
-  const router = useRouter();
-
-  const handleSubmit = () => {
-    router.push("/analysis");
-  };
-
-  const handleClickHome = () => {
-    router.push("/");
-  };
-
   return (
     <>
       <p className="mt-14 font-bold leading-[22px]">반갑습니다 투자자님 :&#41;</p>

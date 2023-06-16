@@ -2,6 +2,9 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import help from "/public/assets/images/help.svg";
 import Image from "next/image";
+import { useAuthentication } from "@/hooks/useAuthentication";
+import { useAuthenticationStore } from "@/store/authenticationStore";
+import { useJoinStore } from "@/store/joinStore";
 
 const TIMER_TIME = 300;
 
@@ -13,6 +16,9 @@ function Authentication() {
   const timerId = useRef<NodeJS.Timeout>();
   const router = useRouter();
   const pathName = usePathname();
+  const { code } = useAuthenticationStore();
+  const authentication = useAuthentication();
+  const { informations } = useJoinStore();
 
   const startTimer = () => {
     time.current = TIMER_TIME;
@@ -41,13 +47,16 @@ function Authentication() {
   };
 
   const handleClick = () => {
-    const routePath = pathName.split("/")[1] === "join" ? "password" : "selectInformation";
-    if (value) {
+    if (code === value) {
+      const routePath = pathName.split("/")[1] === "join" ? "password" : "selectInformation";
       router.push(`/${pathName.split("/")[1]}/${pathName.split("/")[2]}/${routePath}`);
+    } else {
+      alert("인증번호 틀림");
     }
   };
 
   const handleResend = () => {
+    authentication(informations.email);
     clearInterval(timerId.current);
     startTimer();
   };

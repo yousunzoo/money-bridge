@@ -2,10 +2,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import PostCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 
-function ContentCardList({ props }: any) {
-  const dataList = props.data ? props.data.list : props;
-  const data = props.data ? props.data : props;
-  const [items, setItems] = useState(dataList.slice(0, 10));
+function ContentCardList({ props, user }: any) {
+  const dataList = props?.data ? props.data.list : props;
+  const data = props?.data ? props.data : props;
+  const [items, setItems] = useState(dataList?.slice(0, 10));
   const [isLastPage, setIsLastPage] = useState(false);
   const observerRef = useRef<HTMLDivElement | null>(null);
 
@@ -50,7 +50,7 @@ function ContentCardList({ props }: any) {
   return (
     <ul>
       {props ? (
-        items.map((item: any) => <PostCardItem key={item.id} item={item} />)
+        items.map((item: any) => <PostCardItem key={item.id} item={item} user={user} />)
       ) : (
         <li className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">
           작성한 콘텐츠가 없습니다

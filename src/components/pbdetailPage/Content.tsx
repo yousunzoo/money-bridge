@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { useRoleStore } from "@/store/roleStore";
-import { CommonROLE, Propensity, RiskRating } from "@/constants/enum";
+import { CommonROLE, Propensity } from "@/constants/enum";
 import { useRouter, usePathname } from "next/navigation";
 import portfolio from "@/mocks/hyeon17/PbDetail/portfolio.json";
 
 function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
   const { name, intro, speciality1, speciality2, career, award } = contentData;
-  const { getRole } = useRoleStore();
+  const { getUser } = useRoleStore();
   const router = useRouter();
   const pathname = usePathname();
   const portfolioData = portfolio.data;
@@ -24,9 +24,9 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
   const [fileValue, setFileValue] = useState(file);
 
   const goToPage = () => {
-    if (getRole() === CommonROLE.USER) {
+    if (getUser().role === CommonROLE.USER) {
       router.push("/reservation");
-    } else if (getRole() === CommonROLE.PB) {
+    } else if (getUser().role === CommonROLE.PB) {
       if (pathname === "/detail") {
         router.push("/detail/edit");
       }
@@ -40,9 +40,9 @@ function Content({ contentData, edit }: { contentData: any; edit: boolean }) {
   };
 
   let text;
-  if (getRole() === CommonROLE.USER) {
+  if (getUser().role === CommonROLE.USER) {
     text = "상담 신청하기";
-  } else if (getRole() === CommonROLE.PB) {
+  } else if (getUser().role === CommonROLE.PB) {
     if (pathname === "/detail") {
       text = "프로필 수정하기";
     }

@@ -44,7 +44,7 @@ function AdminAuthentication() {
 
   return (
     <>
-      <p className="mb-[38px] mt-[56px] break-all text-[20px] font-bold leading-[28px]">
+      <p className="mb-[38px] mt-14 break-all text-xl font-bold leading-7">
         관리자 인증을 위해 해당 이메일로
         <br /> 인증코드를 발송하였습니다.
       </p>
@@ -52,20 +52,22 @@ function AdminAuthentication() {
         Moneybridge@logo.com
       </p>
       <p className="mb-4 text-xl font-bold leading-5">인증코드 입력</p>
-      <p className="mb-[8px] text-[12px] leading-[18px]">개인정보 보호를 위해 인증코드는 5분 간 유효합니다.</p>
+      <p className="mb-2 text-xs leading-[18px]">개인정보 보호를 위해 인증코드는 5분 간 유효합니다.</p>
 
       <div className="flex gap-[18px]">
         <input className={`form_input ${code ? "entering" : ""}`} onChange={handleChange} />
-        <button className="break-keep text-[14px] leading-[20px] underline" onClick={handleResend}>
+        <button className="break-keep text-sm leading-5 underline" onClick={handleResend}>
           재발송
         </button>
       </div>
-      <p className="mb-[20px] mt-[2px] px-[8px] text-[12px] leading-[18px] text-status-alert">
+      <p className="mb-5 mt-0.5 px-2 text-xs leading-[18px] text-status-alert">
         남은시간: {min}:{sec < 10 ? `0${sec}` : sec}
       </p>
       <button
-        className={`h-[56px] w-full rounded-[8px] text-[20px] font-bold leading-[28px] ${
-          code ? "cursor-pointer bg-[#153445] text-white" : "cursor-not-allowed bg-[#ececec] text-[#565656]"
+        className={`h-14 w-full rounded-[8px] text-xl font-bold leading-7 ${
+          code
+            ? "cursor-pointer bg-primary-normal text-white"
+            : "cursor-not-allowed bg-background-disabled text-gray-heavy"
         }`}
         onClick={handleClick}
         disabled={code.length === 0}

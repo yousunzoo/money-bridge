@@ -1,15 +1,14 @@
 {
   "data": {
-    "reservationList": [
+    "APPLY": [
       {
         "reservationId": 1,
         "isNewReservation": true,
         "userId": 1,
         "profileImage": "URL",
-        "name": "김길동",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "APPLY"
+        "name": "박영웅",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
       },
       {
         "reservationId": 2,
@@ -17,116 +16,132 @@
         "userId": 2,
         "profileImage": "URL",
         "name": "김민환",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "CONFIRM"
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "CALL"
       },
       {
         "reservationId": 3,
         "isNewReservation": true,
         "userId": 1,
         "profileImage": "URL",
-        "name": "김길동",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "CONFIRM"
+        "name": "김상헌",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
+      },
+      {
+        "reservationId": 4,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "김상헌",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
+      }
+    ],
+    "CONFIRM": [
+      {
+        "reservationId": 1,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "지쉬",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
+      },
+      {
+        "reservationId": 2,
+        "isNewReservation": true,
+        "userId": 2,
+        "profileImage": "URL",
+        "name": "조쉬",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
+      },
+      {
+        "reservationId": 3,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "굴상",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "CALL"
+      }
+    ],
+    "COMPLETE": [
+      {
+        "reservationId": 1,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "병욱",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
+      },
+      {
+        "reservationId": 2,
+        "isNewReservation": true,
+        "userId": 2,
+        "profileImage": "URL",
+        "name": "현준",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
+      },
+      {
+        "reservationId": 3,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "선주",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
       },
       {
         "reservationId": 4,
         "isNewReservation": true,
         "userId": 2,
         "profileImage": "URL",
-        "name": "김민환",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "APPLY"
+        "name": "현준",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
       },
       {
         "reservationId": 5,
         "isNewReservation": true,
         "userId": 1,
         "profileImage": "URL",
-        "name": "김길동",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "COMPLETE"
-      },
-      {
-        "reservationId": 6,
-        "isNewReservation": true,
-        "userId": 2,
-        "profileImage": "URL",
-        "name": "김민환",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "COMPLETE"
-      },
-      {
-        "reservationId": 7,
-        "isNewReservation": true,
-        "userId": 1,
-        "profileImage": "URL",
-        "name": "김길동",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "WITHDRAW"
-      },
-      {
-        "reservationId": 8,
-        "isNewReservation": true,
-        "userId": 2,
-        "profileImage": "URL",
-        "name": "김민환",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "WITHDRAW"
-      },
-      {
-        "reservationId": 9,
-        "isNewReservation": true,
-        "userId": 1,
-        "profileImage": "URL",
-        "name": "김길동",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "APPLY"
-      },
-      {
-        "reservationId": 10,
-        "isNewReservation": true,
-        "userId": 2,
-        "profileImage": "URL",
-        "name": "김민환",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "CONFIRM"
-      },
-      {
-        "reservationId": 11,
-        "isNewReservation": true,
-        "userId": 1,
-        "profileImage": "URL",
-        "name": "김길동",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "COMPLETE"
-      },
-      {
-        "reservationId": 12,
-        "isNewReservation": true,
-        "userId": 2,
-        "profileImage": "URL",
-        "name": "김민환",
-        "createdAt": "2023-05-15T09:00:00",
-        "time": "2023-05-15T09:00:00",
-        "type": "CONFIRM"
+        "name": "선주",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
       }
     ],
-    "totalElements": 25,
-    "totalPages": 3,
-    "curPage": 1,
-    "first": false,
-    "last": false,
-    "empty": false
+    "WITHDRAW": [
+      {
+        "reservationId": 1,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "창우",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "CALL"
+      },
+      {
+        "reservationId": 2,
+        "isNewReservation": true,
+        "userId": 2,
+        "profileImage": "URL",
+        "name": "지수",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "CALL"
+      },
+      {
+        "reservationId": 3,
+        "isNewReservation": true,
+        "userId": 1,
+        "profileImage": "URL",
+        "name": "승민",
+        "createdAt": "2023년 6월 26일 오전 9시 30분",
+        "type": "VISIT"
+      }
+    ]
   }
 }

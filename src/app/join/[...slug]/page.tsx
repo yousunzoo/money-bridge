@@ -8,6 +8,7 @@ import { redirect, usePathname } from "next/navigation";
 import UserComplete from "@/components/joinPage/user/UserComplete";
 import { useJoinStore } from "@/store/joinStore";
 import SetPasswordForm from "@/components/joinPage/common/SetPasswordForm";
+import { useAuthenticationStore } from "@/store/authenticationStore";
 
 type Tstep = "email" | "authentication" | "password" | "name" | "phoneNumber" | "agreements" | "complete";
 
@@ -52,13 +53,17 @@ function Page() {
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
   checkRedirect(pathName) ?? redirect("/login");
   const { informations } = useJoinStore();
+  const { code } = useAuthenticationStore();
   const stepPath = pathName.split("/")[3];
   console.log(informations);
+  console.log(code);
 
   switch (stepPath) {
     case "authentication":
-    case "password":
       informations.email === "" ? redirect("/login") : "";
+      break;
+    case "password":
+      code === "" ? redirect("/login") : "";
       break;
     case "name":
       informations.password === "" ? redirect("/login") : "";
@@ -68,9 +73,6 @@ function Page() {
       break;
     case "agreements":
       informations.phoneNumber === "" ? redirect("/login") : "";
-      break;
-    case "complete":
-      informations.agreements.length === 0 ? redirect("/login") : "";
       break;
   }
 

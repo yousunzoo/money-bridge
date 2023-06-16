@@ -48,8 +48,7 @@ function AgreeProvision() {
   };
 
   const handleSubmit = () => {
-    const checkedBoxsObjects = Object.entries(isChecked).filter(([key, value]) => value === true);
-    const checkedBoxs = checkedBoxsObjects.map(([key]) => Number(key)).filter(key => key >= required.length);
+    const optional_ = Object.entries(isChecked).filter((value, index) => index > required.length - 1);
 
     const reqData_required = required.map(item => ({
       title: item.title,
@@ -57,11 +56,12 @@ function AgreeProvision() {
       isAgreed: true,
     }));
 
-    const reqData_optional = checkedBoxs.map(index => ({
-      title: optional[index - required.length].title,
+    const reqData_optional = optional_.map(index => ({
+      title: optional[Number(index[0]) - required.length].title,
       type: "OPTIONAL",
-      isAgreed: true,
+      isAgreed: index[1],
     }));
+
     const data = reqData_required.concat(reqData_optional);
 
     setInformations("agreements", data);

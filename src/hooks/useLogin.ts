@@ -1,15 +1,16 @@
-import { userLogin } from "@/app/apis/services/auth";
+import { IUser, userLogin } from "@/app/apis/services/auth";
 import { IResponseLogin } from "@/types/login";
 import { setCookie } from "@/utils/cookies";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 
 export const useLogin = (setNextStep: ((value: React.SetStateAction<boolean>) => void) | undefined) => {
   const router = useRouter();
 
   const { mutate } = useMutation(userLogin, {
-    onSuccess: (data: IResponseLogin) => {
+    onSuccess: data => {
+      console.log(data);
       if (data.data.data.code) {
         if (setNextStep) {
           setNextStep(true);

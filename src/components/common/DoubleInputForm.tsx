@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { InputFormType } from "@/constants/enum";
 import { usePathname, useRouter } from "next/navigation";
 import { useLogin } from "@/hooks/useLogin";
+import { useFindEmail } from "@/hooks/useFindEmail";
 
 const yup_email = yup.string().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -20,6 +21,7 @@ function DoubleInputForm({
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
 }) {
   const login = useLogin(setNextStep);
+  const findEmail = useFindEmail(setNextStep);
   const router = useRouter();
   const pathName = usePathname();
   const [inputs, setInputs] = useState({
@@ -52,12 +54,17 @@ function DoubleInputForm({
       alert("양식을 확인해");
       return;
     }
-    if (type === InputFormType.LOGIN) {
-      login({ email: inputs.first, password: inputs.second, role: pathName.split("/")[2].toUpperCase() });
-    } else if (type === InputFormType.FIND_PASSWORD) {
-      router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
-    } else if (type === InputFormType.FIND_EMAIL) {
-      if (setNextStep) setNextStep(true);
+
+    switch (type) {
+      case InputFormType.LOGIN:
+        login({ email: inputs.first, password: inputs.second, role: pathName.split("/")[2].toUpperCase() });
+        break;
+      case InputFormType.FIND_EMAIL:
+        findEmail({ email: inputs.first, phoneNumber: inputs.second, role: pathName.split("/")[2].toUpperCase() });
+        break;
+      case InputFormType.FIND_PASSWORD:
+        router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
+        break;
     }
   };
 
@@ -68,7 +75,7 @@ function DoubleInputForm({
 
   return (
     <div className="mt-6">
-      <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
+      <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-2.5">
           <h2 className="mb-4 text-sm font-bold leading-5">{getNotice(type)?.data.header1}</h2>
           <input
@@ -97,9 +104,8 @@ function DoubleInputForm({
             </span>
           </div>
         </div>
-        {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
-          type="button"
+          type="submit"
           className={`mt-4 h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"} ${
             isValid ? "cursor-pointer" : "cursor-not-allowed"
           }`}

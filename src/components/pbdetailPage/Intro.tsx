@@ -22,7 +22,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
     reserveCount,
     reviewCount,
   } = introData;
-  const { getRole } = useRoleStore();
+  const { getUser } = useRoleStore();
   const pathname = usePathname();
   const router = useRouter();
   const base = "http://localhost:3000";
@@ -65,7 +65,7 @@ function Intro({ introData, edit }: { introData: any; edit: boolean }) {
           style={{ width: "100%", height: "auto" }}
         />
       </div>
-      {getRole() === "" ? (
+      {getUser().role === "" ? (
         <BlurModal />
       ) : (
         <>

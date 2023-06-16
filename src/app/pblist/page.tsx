@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
@@ -7,9 +8,12 @@ import { company } from "@/mocks/seon/companyList";
 import pbListData from "@/mocks/seon/pblist.json";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
 import SortTab from "@/components/pblistPage/SortTab";
+import { usePathname } from "next/navigation";
 
 function PBListPage() {
-  // 기본경로 pblist?speciality=all
+  // 기본경로 pblist?speciality=all&sort=distance
+  const pathname = usePathname();
+  console.log(pathname);
   const companyList = company as ICompanyList;
   return (
     <div className="h-full w-full bg-background-normal">
@@ -34,4 +38,3 @@ function PBListPage() {
 }
 
 export default PBListPage;
-``;

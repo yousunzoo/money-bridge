@@ -5,28 +5,12 @@ import SpecialityList from "./SpecialityList";
 import CompanyList from "../common/CompanyList";
 import { createQueryString } from "@/utils/createQueryString";
 import { ICompanyList } from "@/types/pblist";
+import { usePBListQueries } from "@/hooks/usePBListQueries";
 
 const BUTTON_STYLE = "w-1/2 rounded-t-md bg-white py-4 shadow-md box-border";
 function PBMenu({ companyList }: { companyList: ICompanyList }) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const speciality = searchParams.get("speciality");
-  const company = searchParams.get("company");
-  const nowType = speciality ? "speciality" : "company";
+  const { handleTypeClick, handleIDClick, company, speciality } = usePBListQueries();
 
-  const handleTypeClick = (e: MouseEvent<HTMLDivElement>) => {
-    if (!(e.target instanceof HTMLButtonElement)) return;
-    const selectedType = e.target.dataset.type as string;
-    const url = createQueryString(selectedType, "ALL");
-    router.push("/pblist?" + url);
-  };
-
-  const handleIDClick = (e: MouseEvent<HTMLUListElement>) => {
-    if (!(e.target instanceof HTMLLIElement)) return;
-    const selectedId = e.target.dataset.id as string;
-    const url = createQueryString(nowType, selectedId);
-    router.push("/pblist?" + url);
-  };
   return (
     <nav className="mb-8">
       <div onClick={handleTypeClick}>

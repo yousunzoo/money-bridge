@@ -4,21 +4,16 @@ import { Carousel } from "antd";
 import React, { MouseEvent } from "react";
 import { chunkArray } from "@/utils/chunkArray";
 import { createQueryString } from "@/utils/createQueryString";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import "@/styles/companyCarousel.css";
+import { usePBListQueries } from "@/hooks/usePBListQueries";
 
 const LI_STYLE =
   "flex flex-col py-2 justify-between w-full h-[60px] justify-center items-center rounded-sm cursor-pointer";
 
 function CompanyList({ companyList, nowCompany }: ICompanyListProps) {
-  const router = useRouter();
+  const { handleIDClick } = usePBListQueries();
   const chunkedCompanyList = chunkArray([{ id: "ALL", logo: null, name: "전체보기" }, ...companyList], 8);
-  console.log(chunkedCompanyList);
-  const handleIDClick = (e: MouseEvent<HTMLLIElement>) => {
-    const selectedId = e.currentTarget.dataset.id as string;
-    const url = createQueryString("company", selectedId);
-    router.push("/pblist?" + url);
-  };
 
   return (
     <Carousel draggable={true}>

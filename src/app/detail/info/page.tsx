@@ -64,7 +64,7 @@ function PbDetailInfo() {
       {role === "" ? null : (
         <>
           <Content contentData={contentData} />
-          <About aboutData={aboutData} />
+          <About aboutData={aboutData} role={role} />
           <FixedButton role={role} />
         </>
       )}

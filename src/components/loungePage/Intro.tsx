@@ -25,7 +25,7 @@ function Intro({role}: any) {
     if (role === "") {
       setIsOpen(true);
     } else {
-      router.push("/bookmark");
+      router.push("/bookmark/content");
     }
   };
 

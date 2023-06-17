@@ -57,7 +57,7 @@ function Intro({ introData, role }: { introData: any; role: any }) {
         <div className="absolute bottom-[74px] left-[19px] h-[70px] w-[285px] text-[26px] text-white">{msg}</div>
         <Image src={profile} alt="프로필 이미지" width={0} height={0} sizes="100vw" className="h-[390px] w-full" />
       </div>
-      {role.user === "" ? (
+      {role === "" ? (
         <BlurModal />
       ) : (
         <div className="flex flex-col items-center">

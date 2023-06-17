@@ -30,7 +30,7 @@ function Intro(role: any) {
   };
 
   return (
-    <div className="flex h-[190px] items-center bg-secondary-heavy">
+    <div className="flex h-[190px] items-center bg-secondary-heavy mx-[-16px] px-[16px]">
       <div className="flex w-full flex-col">
         <div className="mb-1 ml-2 text-3xl font-bold text-white">Lounge</div>
         <div className="ml-2 text-xs text-white">

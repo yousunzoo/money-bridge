@@ -23,9 +23,9 @@ function Lounge() {
   return (
     <div className="my-5 flex w-full flex-col">
       <TopNav title="라운지" hasBack={true} />
-      <Intro user={role} />
+      <Intro role={role} />
       {role === "USER" && <PbRecommend name={name} />}
-      <Content NewAndHot={newAndHot} All={all} user={role} />
+      <Content NewAndHot={newAndHot} All={all} role={role} />
     </div>
   );
 }

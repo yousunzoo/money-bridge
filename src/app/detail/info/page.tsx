@@ -51,7 +51,6 @@ function PbDetailInfo() {
   };
   const userData = useRoleStore();
   const [role, setRole] = useState("");
-  const [name, setName] = useState("");
 
   useEffect(() => {
     setRole(userData.user.role);

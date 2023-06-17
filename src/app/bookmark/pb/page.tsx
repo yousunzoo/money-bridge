@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
-import BookMark from "@/app/bookmark/page";
+import BookMark from "@/components/bookmarkPage/BookMark";
 import PbData from "@/mocks/hyeon17/Common/pbList.json";
 import { useRoleStore } from "@/store/roleStore";
 

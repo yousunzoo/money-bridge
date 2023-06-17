@@ -2,6 +2,7 @@ import { Propensity } from "@/constants/enum";
 import { IUserInfoProps } from "@/types/my";
 import React from "react";
 import StepProgress from "./StepProgress";
+import MyReservationStatus from "./MyReservationStatus";
 
 function UserInfo({ data }: IUserInfoProps) {
   const { name, propensity, step, reservationCount, boardBookmark, userBookmark } = data;
@@ -18,6 +19,7 @@ function UserInfo({ data }: IUserInfoProps) {
         )}
       </h2>
       <StepProgress step={step} />
+      <MyReservationStatus reservationCount={reservationCount} />
     </section>
   );
 }

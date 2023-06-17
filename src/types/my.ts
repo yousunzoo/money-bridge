@@ -42,3 +42,7 @@ export interface IUserInfo {
 export interface IStepProgressProps {
   step: IUserStep;
 }
+
+export interface IMyReservationStatusProps {
+  reservationCount: IReservationCount;
+}

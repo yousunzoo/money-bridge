@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .header {
+    @apply text-base font-bold mb-4;
+  }
+
+  .info_header {
+    @apply text-[18px] font-bold mb-6;
+  }
+
+  .portfolio {
+    @apply flex h-[114px] w-[76px] flex-col items-center justify-center;
+  }
+
+  .portfolio_number {
+    @apply flex h-20 items-center justify-center text-sm text-primary-normal px-1 m-0
+  }
+
+  .portfolio_text {
+    @apply flex items-center text-xs h-[35px]
+  }
+
+  .review_section {
+    @apply flex flex-col justify-center
+  }
+
+  .review_text {
+    @apply mt-1.5 flex justify-center text-xs font-bold
+  }
+
+}

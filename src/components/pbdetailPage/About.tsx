@@ -14,7 +14,7 @@ import PbRecentReview from "@/mocks/hyeon17/PbDetail/Review/pbrecentreview.json"
 import PbReview from "@/mocks/hyeon17/PbDetail/Review/pbreview.json";
 import "@/styles/pb.css";
 
-function About({ aboutData }: any) {
+function About({ aboutData, role }: any) {
   const { name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
   const reviewData = review.data;
   const { style1, style2, style3 } = reviewData;
@@ -84,17 +84,19 @@ function About({ aboutData }: any) {
         </div>
         {pbRecentData ? (
           <ul>
-            <Carousel draggable={true}>
+            <Carousel autoplay draggable={true}>
               {pbRecentData.list.map((item: any) => (
                 <li className="card h-[188px] p-[15px]" key={item.reviewId}>
-                  <div className="flex mb-[9px] items-end">
-                    <div className="text-sm font-bold mr-2">{item.userName}님</div>
+                  <div className="mb-[9px] flex items-end">
+                    <div className="mr-2 text-sm font-bold">{item.userName}님</div>
                     <div className="text-xs">{item.createdAt}</div>
                   </div>
-                  <div className="bg-background-secondary h-[90px] rounded-md p-3.5 text-xs">{item.content}</div>
+                  <div className="h-[90px] rounded-md bg-background-secondary p-3.5 text-xs">{item.content}</div>
                   <ul className="mt-3 flex">
                     {item.list.map((styles: any, idx: number) => (
-                      <li key={idx} className="mr-[7px]">{styles.style}</li>
+                      <li key={idx} className="mr-[7px]">
+                        {styles.style}
+                      </li>
                     ))}
                   </ul>
                 </li>
@@ -105,24 +107,28 @@ function About({ aboutData }: any) {
       </div>
       <div>
         <div className="info_header">방문 상담을 원하시나요?</div>
-        <div className="card">
-          <div>
+        <div className="card h-[240px] p-[18px]">
+          <div className="text-base font-bold">
             {companyName}&nbsp;{branchName}
           </div>
-          <div>
-            <div>{branchAddress}</div>
-            <button onClick={addressCopy}>주소 복사</button>
+          <div className="flex text-xs">
+            <div className="flex-1">{branchAddress}</div>
+            <button onClick={addressCopy} className="flex-2 text-gray-normal underline">
+              주소 복사
+            </button>
           </div>
-          <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
+          <div className="mt-4 h-[140px]">
+            <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
+          </div>
         </div>
       </div>
-      <div>
+      <div className="mt-[90px]">
         <div className="info_header">
           핏에 맞는 다른 PB도
           <br />
           함께 만나보세요
         </div>
-        <PbCardList props={sameData} />
+        <PbCardList props={sameData} role={role} />
       </div>
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />

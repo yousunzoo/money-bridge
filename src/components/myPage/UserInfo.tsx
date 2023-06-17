@@ -3,6 +3,7 @@ import { IUserInfoProps } from "@/types/my";
 import React from "react";
 import StepProgress from "./StepProgress";
 import MyReservationStatus from "./MyReservationStatus";
+import BookmarkPreview from "./BookmarkPreview";
 
 function UserInfo({ data }: IUserInfoProps) {
   const { name, propensity, step, reservationCount, boardBookmark, userBookmark } = data;
@@ -20,6 +21,7 @@ function UserInfo({ data }: IUserInfoProps) {
       </h2>
       <StepProgress step={step} />
       <MyReservationStatus reservationCount={reservationCount} />
+      <BookmarkPreview boardBookmark={boardBookmark} userBookmark={userBookmark} />
     </section>
   );
 }

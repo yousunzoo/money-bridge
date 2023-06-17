@@ -1,8 +1,6 @@
 import { speciality } from "@/constants/pbListMenu";
 import { ISpecialityList, ISpecialityListProps } from "@/types/pblist";
-import { createQueryString } from "@/utils/createQueryString";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { MouseEvent } from "react";
 
 const LI_STYLE = "rounded-sm py-2 text-center text-primary-normal cursor-pointer";
 const ACTIVE_STYLE = "bg-primary-normal font-bold text-white";

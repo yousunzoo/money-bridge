@@ -1,4 +1,4 @@
-import { IPropensity } from "./pblist";
+import { IPropensity, TSpeciality } from "./pblist";
 
 export interface IUserStep {
   hasDonePropensity: boolean;
@@ -28,7 +28,9 @@ export interface IBookmarkPreview {
 export interface IUserInfoProps {
   data: IUserInfo;
 }
-
+export interface IPBInfoprops {
+  data: IPBInfo;
+}
 export interface IUserInfo {
   id: number;
   name: string;
@@ -37,6 +39,18 @@ export interface IUserInfo {
   reservationCount: IReservationCount;
   boardBookmark: IBookmarkPreviewList;
   userBookmark: IBookmarkPreviewList;
+}
+
+export interface IPBInfo {
+  name: string;
+  profile: string;
+  branchName: string;
+  msg: string;
+  career: number;
+  speciality1: TSpeciality;
+  speciality2: TSpeciality;
+  reserveCount: number;
+  reviewCount: number;
 }
 
 export interface IStepProgressProps {

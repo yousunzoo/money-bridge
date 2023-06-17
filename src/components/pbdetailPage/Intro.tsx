@@ -9,6 +9,7 @@ import useShare from "@/hooks/useShare";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 import share from "/public/assets/images/icon/share.svg";
+import PbContentButton from "@/components/pbdetailPage/PbContentButton";
 
 function Intro({ introData, role }: { introData: any; role: any }) {
   const {
@@ -84,24 +85,17 @@ function Intro({ introData, role }: { introData: any; role: any }) {
               {isBookmark ? <Image src={bookmark_filled} alt="북마크 활성화" /> : <Image src={bookmark} alt="북마크" />}
             </button>
           </div>
-          <div className="mb-6 flex h-[52px] w-full items-center border-[1px] border-solid border-primary-normal text-base font-bold">
-            <Link
-              href="/detail/info"
-              className={`flex h-full w-full items-center justify-center ${
-                pathname === "/detail/info" ? "bg-primary-normal text-white" : ""
-              }`}
-            >
-              PB정보
-            </Link>
-            <Link
-              href="/detail/content"
-              className={`flex h-full w-full items-center justify-center ${
-                pathname === "/detail/content" ? "bg-primary-normal text-white" : ""
-              }`}
-            >
-              콘텐츠
-            </Link>
-          </div>
+          <PbContentButton
+            path1={"/detail/info"}
+            path2={"/detail/content"}
+            text1={"PB정보"}
+            text2={"콘텐츠"}
+            mainStyle={
+              "mb-6 flex h-[52px] w-full items-center border-[1px] border-solid border-primary-normal text-base font-bold"
+            }
+            subStyle1={"flex h-full w-full items-center justify-center"}
+            subStyle2={"flex h-full w-full items-center justify-center"}
+          />
         </div>
       )}
       {isShareOpen && isShare && (

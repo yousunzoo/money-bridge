@@ -6,10 +6,12 @@
   .header {
     @apply my-7 flex h-14 font-bold;
   }
-  .section{
+
+  .section {
     @apply flex-1 text-xl
   }
-  .more{
+
+  .more {
     @apply flex items-end justify-end text-base text-gray-normal underline decoration-1
   }
 }

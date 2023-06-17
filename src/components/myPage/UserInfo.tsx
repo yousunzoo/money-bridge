@@ -9,7 +9,7 @@ function UserInfo({ data }: IUserInfoProps) {
   const { name, propensity, step, reservationCount, boardBookmark, userBookmark } = data;
 
   return (
-    <section>
+    <section className="mb-10">
       <h2 className="mb-9 text-2xl font-bold">
         반가워요, {name}님!
         <br />

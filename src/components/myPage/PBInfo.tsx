@@ -10,7 +10,7 @@ function PBInfo({ data }: IPBInfoprops) {
   const pbSpeciality2 = speciality.find(item => item.id === speciality2)?.text;
 
   return (
-    <section>
+    <section className="mb-10">
       <h2 className="mb-9 text-2xl font-bold">
         반가워요, {name}PB님!
         <br />

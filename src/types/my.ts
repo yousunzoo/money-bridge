@@ -70,3 +70,28 @@ export interface IBookmarkPreviewCardProps {
   type: "board" | "user";
   bookmark: IBookmarkPreviewList;
 }
+
+export interface IPropensityData {
+  name: string;
+  propensity: IPropensity;
+  list: IPBCard[];
+}
+
+export interface IPBCard {
+  id: number;
+  profile: string;
+  name: string;
+  branchName: string;
+  msg: string;
+  career: number;
+  specialty1: IPropensity;
+  specialty2: IPropensity;
+  reserveCount: number;
+  reviewCount: number;
+  isBookmark: boolean;
+}
+
+export interface IPropensityInfoCardProps {
+  propensity: string;
+  info: string[];
+}

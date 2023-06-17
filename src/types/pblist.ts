@@ -37,7 +37,7 @@ export interface ICompanyList extends Array<ICompany> {}
 
 export interface IPropensityList {
   [key: string]: {
-    propensity: IPropensity;
+    propensity: string;
     bar: number;
     lossRisk: string;
     pursuit: string;
@@ -49,4 +49,4 @@ export interface IPropensityCardProps {
   userPropensity: IPropensity;
 }
 
-export type IPropensity = "CONSERVATIVE" | "CAUTIOUS" | "BALANCED" | "AGGRESSIVE" | "SPECULATIVE";
+export type IPropensity = "CONSERVATIVE" | "CAUTIOUS" | "BALANCED" | "AGGRESSIVE" | "SPECULATIVE" | null;

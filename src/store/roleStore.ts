@@ -2,33 +2,27 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface RoleState {
-  role: string;
-  name: string;
-  setUser: (role: string, name: string) => void;
-  getUser: () => { role: string; name: string };
+  user: {
+    role: string;
+    name: string;
+  };
+  User: () => void;
 }
 const isClient = typeof window !== "undefined";
+
 const RoleState = create<RoleState>(
   // @ts-ignore
   persist(
-    (set) => ({
-      role: "",
-      name: "",
-      setUser: (role: string, name: string) => {
-        if (isClient) {
-          localStorage.setItem("user", JSON.stringify({ role, name }));
-        }
-        set({ role, name });
+    (set, get) => ({
+      user: {
+        role: "USER",
+        name: "홍길동",
       },
-      getUser: () => {
+
+      User: () => {
         if (isClient) {
-          const userData = localStorage.getItem("user");
-          if (userData !== null) {
-            const { role, name } = JSON.parse(userData).state;
-            return { role, name };
-          }
+          set({ user: { role: get().user.role, name: get().user.name } });
         }
-          return { role: "", name: "" };      
       },
     }),
     {

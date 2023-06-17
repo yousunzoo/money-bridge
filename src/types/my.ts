@@ -46,3 +46,13 @@ export interface IStepProgressProps {
 export interface IMyReservationStatusProps {
   reservationCount: IReservationCount;
 }
+
+export interface IBookmarkPreviewProps {
+  boardBookmark: IBookmarkPreviewList;
+  userBookmark: IBookmarkPreviewList;
+}
+
+export interface IBookmarkPreviewCardProps {
+  type: "board" | "user";
+  bookmark: IBookmarkPreviewList;
+}

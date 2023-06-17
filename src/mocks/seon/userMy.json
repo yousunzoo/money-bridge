@@ -27,7 +27,7 @@
           "thumbnail": "thumbnail.png"
         }
       ],
-      "count": 3
+      "count": 2
     },
     "userBookmark": {
       "list": [
@@ -38,9 +38,13 @@
         {
           "id": 2,
           "thumbnail": "profile.png"
+        },
+        {
+          "id": 3,
+          "thumbnail": "profile.png"
         }
       ],
-      "count": 2
+      "count": 3
     }
   }
 }

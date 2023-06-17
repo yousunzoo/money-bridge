@@ -53,6 +53,10 @@
     @apply text-placeholder;
   }
 
+  .input_authentication {
+    @apply w-full min-w-[302px] rounded-sm border-1 border-background-secondary px-3 py-2;
+  }
+
   .entering {
     @apply !border-primary-normal;
   }
@@ -121,10 +125,16 @@
   .popup h3 {
     @apply text-center text-xl font-bold;
   }
+
   .popup .popup-button {
-    @apply rounded-sm bg-primary-normal  text-white;
+    @apply rounded-sm bg-primary-normal text-white;
   }
+
   .popup .cancel-button {
     @apply w-1/2 rounded-sm border-1 border-black py-3;
+  }
+
+  .propensity_circle {
+    @apply absolute top-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 rounded-[5px] bg-primary-normal;
   }
 }

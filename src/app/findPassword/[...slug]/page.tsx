@@ -18,21 +18,28 @@ const step = {
 
 const type = ["user", "pb"];
 
+interface IRes {
+  res1: null | boolean;
+  res2: null | boolean;
+}
+
 const checkRedirect = (pathName: string) => {
-  let res1 = null;
-  let res2 = null;
+  const res: IRes = {
+    res1: null,
+    res2: null,
+  };
 
   const path1 = pathName.split("/")[3] as Tstep;
   if (Object.keys(step).includes(path1)) {
-    res1 = true;
+    res.res1 = true;
   }
 
   const path2 = pathName.split("/")[2];
   if (type.includes(path2)) {
-    res2 = true;
+    res.res2 = true;
   }
 
-  return res1 && res2;
+  return res.res1 && res.res2;
 };
 
 function Page() {

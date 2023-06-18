@@ -34,7 +34,7 @@ function Lounge() {
       <TopNav title="라운지" hasBack={true} />
       <Intro role={role} />
       {role === "USER" && <PbRecommend name={name} />}
-      <Content NewAndHot={NewAndHot} All={all} role={role} />
+      <Content NewAndHot={NewAndHot} All={all} />
     </div>
   );
 }

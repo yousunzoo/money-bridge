@@ -7,15 +7,7 @@ import "@/styles/lounge.css";
 import { ListResponse } from "@/types/common";
 import { ContentCard } from "@/types/card";
 
-function Content({
-  NewAndHot,
-  All,
-  role,
-}: {
-  NewAndHot: ListResponse<ContentCard> | undefined;
-  All: any;
-  role: string;
-}) {
+function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | undefined; All: any }) {
   const [all, setAll] = useState(All?.data?.list.slice(0, 2));
   const [newData, setNewData] = useState<ContentCard[]>();
   const [hotData, setHotData] = useState<ContentCard[]>();
@@ -47,7 +39,7 @@ function Content({
           </Link>
         </div>
         <div>
-          <ContentCardList props={newData} role={role} />
+          <ContentCardList props={newData} />
         </div>
       </div>
       <div>
@@ -62,7 +54,7 @@ function Content({
           </Link>
         </div>
         <div>
-          <ContentCardList props={hotData} role={role} />
+          <ContentCardList props={hotData} />
         </div>
       </div>
       <MainCarousel className="my-11 h-[235px] text-white">
@@ -109,7 +101,7 @@ function Content({
           </button>
         </div>
         <div>
-          <ContentCardList props={all} role={role} />
+          <ContentCardList props={all} />
         </div>
       </div>
     </div>

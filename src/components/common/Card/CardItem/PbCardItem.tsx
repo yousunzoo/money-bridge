@@ -2,8 +2,10 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
+import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 
-function PbCardItem({ item }: any) {
+function PbCardItem({ item, role }: any) {
   const router = useRouter();
   const [isBookmark, setIsBookmark] = useState(item.isBookmark);
 
@@ -13,39 +15,53 @@ function PbCardItem({ item }: any) {
   };
 
   const goToDetail = () => {
-    router.push(`/detail/${item.id}`);
+    router.push("/detail/info");
   };
 
   return (
-    <li className="card">
-      <div className="flex">
-        <div>{/* <Image src={item.profile} alt="프로필" width={50} height={50} /> */}</div>
-        <div className="flex flex-col">
-          <div>이름{item.name}</div>
-          <div>소속{item.companyName}</div>
-          <div>
-            전문분야/경력
-            {item.speciality1}
-            {item.speciality2 ? item.speciality2 : null}
-            {item.career}
+    <li className="card h-[200px] px-[20px] pt-[20px]">
+      <div className="mb-[18px] flex">
+        <Image
+          src={item.profile}
+          alt="프로필"
+          width={0}
+          height={0}
+          className="mr-[13px] h-[60px] w-[60px] rounded-full"
+        />
+        <div className="flex flex-1 flex-col">
+          <div className="mb-[6px] text-base font-bold">{item.pbName} PB</div>
+          <div className="text-xs">
+            {item.companyName}&nbsp;{item.branchName}
           </div>
-          <div>사무실 위치{item.roadAddress ? item.roadAddress : item.streetAddress}</div>
+          <div className="flex text-xs text-gray-normal">
+            <p className="font-bold">분야</p>&nbsp;{item.speciality1}&nbsp;
+            {item.speciality2 ? item.speciality2 : null}&nbsp;・&nbsp;
+            {item.career}년차
+          </div>
         </div>
-        {/* 비로그인시 안보여야함 나중에 수정 */}
-        <button onClick={bookMark}>{item.isBookmark ? "북마크 해제" : "북마크"}</button>
+        {role && (
+          <button onClick={bookMark} className="flex-2 flex w-12 items-start justify-center pt-1">
+            {isBookmark ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
+          </button>
+        )}
       </div>
-      <div>{item.intro}</div>
-      <div className="flex">
-        <div className="flex">
-          <div>총 상담횟수 {item.reservCount}회</div>
-          <div>후기 {item.reviewCount}건</div>
+      <div className="flex h-[34px] items-center justify-center rounded-md bg-background-primary text-xs font-bold text-primary-normal">
+        "{item.intro}"
+      </div>
+      <div className="mt-[13px] flex items-center text-sm">
+        <div className="flex flex-1 text-[10px]">
+          <div className="mr-[27px] flex">
+            <p className="font-bold">총 상담횟수</p>&nbsp;{item.reserveCount}회
+          </div>
+          <div className="flex">
+            <p className="font-bold">상담 후기</p>&nbsp;{item.reviewCount}건
+          </div>
         </div>
-        <button onClick={goToDetail}>정보보기</button>
+        <button onClick={goToDetail} className="flex-2 h-[34px] w-[110px] rounded-md bg-primary-normal text-white">
+          상담 신청
+        </button>
       </div>
     </li>
-    // <li className="mx-auto my-4 flex h-48 w-4/5 flex-col rounded-xl shadow-md">
-
-    // </li>
   );
 }
 

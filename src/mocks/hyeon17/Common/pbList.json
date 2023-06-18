@@ -5,7 +5,7 @@
     "list": [
       {
         "id": 1,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "김피비",
         "companyName": "미래에셋",
         "intro": "김pb입니다.",
@@ -20,7 +20,7 @@
       },
       {
         "id": 2,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "김pb.",
         "companyName": "미래에셋",
         "intro": "김pb입니다.",
@@ -35,7 +35,7 @@
       },
       {
         "id": 3,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "이예린",
         "companyName": "한화자산운용",
         "intro": "이pb입니다.",
@@ -50,7 +50,7 @@
       },
       {
         "id": 4,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "박민수",
         "companyName": "하나금융투자",
         "intro": "박pb입니다.",
@@ -65,7 +65,7 @@
       },
       {
         "id": 5,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "홍길동",
         "companyName": "KB증권",
         "intro": "홍pb입니다.",
@@ -80,7 +80,7 @@
       },
       {
         "id": 6,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "김철수",
         "companyName": "NH투자증권",
         "intro": "김pb입니다.",
@@ -95,7 +95,7 @@
       },
       {
         "id": 7,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "이영희",
         "companyName": "신한금융투자",
         "intro": "이pb입니다.",
@@ -110,7 +110,7 @@
       },
       {
         "id": 8,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "정민호",
         "companyName": "삼성증권",
         "intro": "정pb입니다.",
@@ -125,7 +125,7 @@
       },
       {
         "id": 9,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "김지영",
         "companyName": "하이투자증권",
         "intro": "김pb입니다.",
@@ -140,7 +140,7 @@
       },
       {
         "id": 10,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "이승민",
         "companyName": "현대차증권",
         "intro": "이pb입니다.",
@@ -155,7 +155,7 @@
       },
       {
         "id": 11,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "박영수",
         "companyName": "메리츠증권",
         "intro": "박pb입니다.",
@@ -170,7 +170,7 @@
       },
       {
         "id": 12,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "김미영",
         "companyName": "하나금융투자",
         "intro": "김pb입니다.",
@@ -185,7 +185,7 @@
       },
       {
         "id": 13,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "정진우",
         "companyName": "KB증권",
         "intro": "정pb입니다.",
@@ -200,7 +200,7 @@
       },
       {
         "id": 14,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "이민지",
         "companyName": "미래에셋",
         "intro": "이pb입니다.",
@@ -215,7 +215,7 @@
       },
       {
         "id": 15,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "김영수",
         "companyName": "NH투자증권",
         "intro": "김pb입니다.",
@@ -230,7 +230,7 @@
       },
       {
         "id": 16,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "박준호",
         "companyName": "신한금융투자",
         "intro": "박pb입니다.",
@@ -245,7 +245,7 @@
       },
       {
         "id": 17,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "김민지",
         "companyName": "삼성증권",
         "intro": "김pb입니다.",
@@ -260,7 +260,7 @@
       },
       {
         "id": 18,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "이민수",
         "companyName": "하이투자증권",
         "intro": "이pb입니다.",
@@ -275,7 +275,7 @@
       },
       {
         "id": 19,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "정수민",
         "companyName": "현대차증권",
         "intro": "정pb입니다.",
@@ -290,7 +290,7 @@
       },
       {
         "id": 20,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "박영수",
         "companyName": "미래에셋",
         "intro": "박pb입니다.",

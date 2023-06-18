@@ -7,15 +7,17 @@
     @apply flex h-[235px] flex-col;
   }
   .title {
-    @apply ml-5 mt-[33px] text-2xl font-bold;
+    @apply ml-6 mt-[33px] text-2xl font-bold;
   }
   .link {
-    @apply ml-[200px] mt-[87px] flex text-sm font-bold text-white underline decoration-1 hover:text-white hover:underline;
+    @apply ml-[250px] mt-[87px] flex text-sm font-bold text-white underline decoration-1 hover:text-white hover:underline;
   }
 }
-
+.ant-carousel{
+  margin: 0 -16px;
+}
 .ant-carousel .slick-dots-top {
-  margin-left: 300px;
+  margin-left: 320px;
 }
 
 .ant-carousel .slick-dots-top li,

@@ -106,7 +106,7 @@
   }
 
   .button_fixed {
-    @apply fixed bottom-[58px] left-1/2 flex h-[80px] w-full min-w-[390px] max-w-[425px] -translate-x-1/2 items-center justify-center rounded-t-lg bg-primary-normal text-2xl font-bold text-white;
+    @apply fixed bottom-[75px] left-1/2 flex h-20 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 items-center justify-center rounded-t-lg bg-primary-normal text-2xl font-bold text-white;
   }
 
   .modal_background {
@@ -128,9 +128,11 @@
   .popup h3 {
     @apply text-center text-xl font-bold;
   }
+
   .popup .popup-button {
-    @apply rounded-sm bg-primary-normal  text-white;
+    @apply rounded-sm bg-primary-normal text-white;
   }
+
   .popup .cancel-button {
     @apply w-1/2 rounded-sm border-1 border-black py-3;
   }
@@ -138,17 +140,4 @@
   .propensity_circle {
     @apply absolute top-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 rounded-[5px] bg-primary-normal;
   }
-}
-
-.fixedButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 425px;
-  height: 50px;
-  position: fixed;
-  bottom: 50px;
-  background-color: #000;
-  color: #fff;
-  z-index: 10;
 }

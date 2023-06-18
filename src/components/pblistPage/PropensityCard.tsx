@@ -1,11 +1,11 @@
 "use client";
 
-import propensityListData from "@/constants/propensityList.json";
+import { propensityList } from "@/constants/propensityList";
 import { IPropensityCardProps, IPropensityList } from "@/types/pblist";
 import Link from "next/link";
 
 function PropensityCard({ userPropensity }: IPropensityCardProps) {
-  const propensityList = propensityListData as IPropensityList;
+  if (!userPropensity) return;
   const { lossRisk, pursuit, productRisk, bar, propensity } = propensityList[userPropensity];
 
   const dotPosition: { [key: number]: string } = {

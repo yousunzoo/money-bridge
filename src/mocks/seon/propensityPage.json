@@ -1,0 +1,49 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "name": "홍길동",
+    "propensity": "CONSERVATIVE",
+    "list": [
+      {
+        "id": 1,
+        "profile": "profile.png",
+        "name": "김pb",
+        "branchName": "미래에셋증권 여의도점",
+        "msg": "한줄메시지..",
+        "career": 10,
+        "specialty1": "BOND",
+        "specialty2": null,
+        "reserveCount": 4,
+        "reviewCount": 1,
+        "isBookmark": true
+      },
+      {
+        "id": 3,
+        "profile": "profile.png",
+        "name": "박pb",
+        "branchName": "키움증권 여의도점",
+        "msg": "한줄메시지..",
+        "career": 10,
+        "specialty1": "BOND",
+        "specialty2": "ETF",
+        "reserveCount": 0,
+        "reviewCount": 0,
+        "isBookmark": false
+      },
+      {
+        "id": 4,
+        "profile": "profile.png",
+        "name": "윤pb",
+        "branchName": "미래에셋증권 여의도점",
+        "msg": "한줄메시지..",
+        "career": 10,
+        "specialty1": "BOND",
+        "specialty2": null,
+        "reserveCount": 0,
+        "reviewCount": 0,
+        "isBookmark": false
+      }
+    ]
+  }
+}

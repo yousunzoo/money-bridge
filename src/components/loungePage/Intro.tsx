@@ -9,9 +9,9 @@ import Image from "next/image";
 import mylist from "/public/assets/images/icon/lounge_mylist.svg";
 import write from "/public/assets/images/icon/lounge_write.svg";
 
-function Intro({role}: any) {
+function Intro({ role }: { role: string }) {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const modalContents = {
     content: "로그인 후 북마크 저장이 가능합니다",

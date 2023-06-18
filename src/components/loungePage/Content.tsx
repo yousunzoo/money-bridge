@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import Link from "next/link";
 import MainCarousel from "@/components/common/Carousel/MainCarousel";
 import "@/styles/carousel.css";
 import "@/styles/lounge.css";
+import { ListResponse } from "@/types/common";
+import { ContentCard } from "@/types/card";
 
-function Content({ NewAndHot, All, role }: any) {
+function Content({
+  NewAndHot,
+  All,
+  role,
+}: {
+  NewAndHot: ListResponse<ContentCard> | undefined;
+  All: any;
+  role: string;
+}) {
   const [all, setAll] = useState(All?.data?.list.slice(0, 2));
-  const [newData, setNewData] = useState(NewAndHot?.data?.list.slice(0, 2));
-  const [hotData, setHotData] = useState(NewAndHot?.data?.list.slice(2, 4));
+  const [newData, setNewData] = useState<ContentCard[]>();
+  const [hotData, setHotData] = useState<ContentCard[]>();
+
+  useEffect(() => {
+    if (NewAndHot) {
+      setNewData(NewAndHot.data?.list?.slice(0, 2));
+      setHotData(NewAndHot.data?.list?.slice(2, 4));
+    }
+  }, [NewAndHot]);
 
   const getAllContent = () => {
     // setAll(All);

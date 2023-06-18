@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 import { PbCard } from "@/types/card";
+import { useRoleStore } from "@/store/roleStore";
 
-function PbCardItem({ item, role }: { item: PbCard; role: string; }) {
+function PbCardItem({ item}: { item: any; }) {
   const router = useRouter();
+  const userData = useRoleStore();
   const [isBookmark, setIsBookmark] = useState(item.isBookmark);
 
   const bookMark = () => {
@@ -40,7 +42,7 @@ function PbCardItem({ item, role }: { item: PbCard; role: string; }) {
             {item.career}년차
           </div>
         </div>
-        {role && (
+        {userData.user.role && (
           <button onClick={bookMark} className="flex-2 flex w-12 items-start justify-center pt-1">
             {item.isBookmark ? (
               <Image src={bookmark_filled} alt="북마크 해제" />

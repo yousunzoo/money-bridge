@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 import { ContentCard } from "@/types/card";
+import { useRoleStore } from "@/store/roleStore";
 
-function ContentCardItem({ item, role }: { item: ContentCard; role: string }) {
+function ContentCardItem({ item }: { item: any; }) {
   const router = useRouter();
+  const userData = useRoleStore();
   const [isBookmark, setIsBookmark] = useState(item.isBookmark);
   const bookMark = (event: any) => {
     setIsBookmark(!isBookmark);
@@ -28,9 +30,13 @@ function ContentCardItem({ item, role }: { item: ContentCard; role: string }) {
             </div>
             <div className="text-2xl font-bold">{item.title}</div>
           </div>
-          {role && (
+          {userData.user.role && (
             <button onClick={bookMark} className="flex-3 flex w-12 items-center justify-center">
-              {item.isBookmark ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
+              {item.isBookmark ? (
+                <Image src={bookmark_filled} alt="북마크 해제" />
+              ) : (
+                <Image src={bookmark} alt="북마크" />
+              )}
             </button>
           )}
         </div>

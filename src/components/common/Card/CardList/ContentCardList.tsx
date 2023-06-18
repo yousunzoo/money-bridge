@@ -3,10 +3,10 @@ import React, { useState, useEffect, useRef } from "react";
 import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import { ContentCard } from "@/types/card";
 
-function ContentCardList({ props, role }: { props: any; role: string }) {
+function ContentCardList({ props }: { props: any; }) {
   const dataList = props?.data ? props.data.list : props;
   const data = props?.data ? props.data : props;
-  const [isLastPage, setIsLastPage] = useState<boolean>(data.last);
+  const [isLastPage, setIsLastPage] = useState<boolean>(data?.last);
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ function ContentCardList({ props, role }: { props: any; role: string }) {
   return (
     <ul>
       {props ? (
-        dataList?.map((item: ContentCard) => <ContentCardItem key={item.id} item={item} role={role} />)
+        dataList?.map((item: ContentCard) => <ContentCardItem key={item.id} item={item} />)
       ) : (
         <li className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">
           작성한 콘텐츠가 없습니다

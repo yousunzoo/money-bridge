@@ -3,10 +3,10 @@ import React, { useState, useEffect, useRef } from "react";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
 import { PbCard } from "@/types/card";
 
-function PbCardList({ props, role }: { props: any; role: string }) {
+function PbCardList({ props }: { props: any; }) {
   const dataList = props?.data ? props.data.list : props;
   const data = props?.data ? props.data : props;
-  const [isLastPage, setIsLastPage] = useState<boolean>(data.last);
+  const [isLastPage, setIsLastPage] = useState<boolean>(data?.last);
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ function PbCardList({ props, role }: { props: any; role: string }) {
     <>
       <ul>
         {dataList?.map((item: PbCard) => (
-          <PbCardItem key={item.id} item={item} role={role} />
+          <PbCardItem key={item.id} item={item} />
         ))}
       </ul>
       {!isLastPage && <div ref={observerRef} style={{ height: "1px" }}></div>}

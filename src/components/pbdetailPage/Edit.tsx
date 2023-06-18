@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 
 function Edit({ contentData }: any) {
@@ -15,4 +16,4 @@ function Edit({ contentData }: any) {
   return <div>Edit</div>;
 }
 
-export default Edit
+export default Edit;

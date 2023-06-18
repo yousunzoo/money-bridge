@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
+import { PbCard } from "@/types/card";
 
-function PbCardItem({ item, role }: any) {
+function PbCardItem({ item, role }: { item: PbCard; role: string; }) {
   const router = useRouter();
   const [isBookmark, setIsBookmark] = useState(item.isBookmark);
 
@@ -29,7 +30,7 @@ function PbCardItem({ item, role }: any) {
           className="mr-[13px] h-[60px] w-[60px] rounded-full"
         />
         <div className="flex flex-1 flex-col">
-          <div className="mb-[6px] text-base font-bold">{item.pbName} PB</div>
+          <div className="mb-[6px] text-base font-bold">{item.name} PB</div>
           <div className="text-xs">
             {item.companyName}&nbsp;{item.branchName}
           </div>
@@ -41,12 +42,16 @@ function PbCardItem({ item, role }: any) {
         </div>
         {role && (
           <button onClick={bookMark} className="flex-2 flex w-12 items-start justify-center pt-1">
-            {isBookmark ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
+            {item.isBookmark ? (
+              <Image src={bookmark_filled} alt="북마크 해제" />
+            ) : (
+              <Image src={bookmark} alt="북마크" />
+            )}
           </button>
         )}
       </div>
       <div className="flex h-[34px] items-center justify-center rounded-md bg-background-primary text-xs font-bold text-primary-normal">
-        "{item.intro}"
+        "{item.msg}"
       </div>
       <div className="mt-[13px] flex items-center text-sm">
         <div className="flex flex-1 text-[10px]">

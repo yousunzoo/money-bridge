@@ -5,6 +5,7 @@ import { IPropensityCardProps, IPropensityList } from "@/types/pblist";
 import Link from "next/link";
 
 function PropensityCard({ userPropensity }: IPropensityCardProps) {
+  if (!userPropensity) return;
   const { lossRisk, pursuit, productRisk, bar, propensity } = propensityList[userPropensity];
 
   const dotPosition: { [key: number]: string } = {

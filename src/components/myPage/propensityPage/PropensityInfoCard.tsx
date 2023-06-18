@@ -1,6 +1,5 @@
 import { IPropensityInfoCardProps } from "@/types/my";
 import Image from "next/image";
-import React from "react";
 
 function PropensityInfoCard({ propensity, info }: IPropensityInfoCardProps) {
   return (

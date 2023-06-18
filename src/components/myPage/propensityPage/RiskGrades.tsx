@@ -1,5 +1,4 @@
 import { riskRating } from "@/constants/propensityList";
-import React from "react";
 
 function RiskGrades({ grade }: { grade: string }) {
   riskRating;

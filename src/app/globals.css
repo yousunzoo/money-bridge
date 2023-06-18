@@ -34,7 +34,7 @@
   }
 
   .form_input {
-    @apply min-w-[358px] w-full rounded-sm border-1 border-background-secondary px-3 py-2 pr-[70px];
+    @apply w-full min-w-[358px] rounded-sm border-1 border-background-secondary px-3 py-2 pr-[70px];
   }
 
   .form_input:focus-visible {
@@ -62,7 +62,7 @@
   }
 
   .user_bubble {
-    @apply w-fit self-end bg-primary-light px-6 py-3 text-sm text-white shadow-md;
+    @apply self-end px-6 py-3 text-sm text-white shadow-md w-fit bg-primary-light;
     border-radius: 20px 4px 20px 20px;
   }
 
@@ -71,7 +71,7 @@
   }
 
   .chip {
-    @apply rounded-sm border-1 border-primary-normal px-4 py-2 font-bold text-primary-normal;
+    @apply px-4 py-2 font-bold rounded-sm border-1 border-primary-normal text-primary-normal;
   }
 
   .selected {
@@ -87,7 +87,7 @@
   }
 
   .info_card {
-    @apply w-full rounded-xl border-1 border-primary-normal p-4;
+    @apply w-full p-4 rounded-xl border-1 border-primary-normal;
   }
 
   .button_cancel {
@@ -103,7 +103,7 @@
   }
 
   .modal_background {
-    @apply fixed left-0 top-0 h-full w-full bg-black opacity-40;
+    @apply fixed top-0 left-0 w-full h-full bg-black opacity-40;
   }
 
   .modal {
@@ -119,13 +119,19 @@
   }
 
   .popup h3 {
-    @apply text-center text-xl font-bold;
+    @apply text-xl font-bold text-center;
   }
   .popup .popup-button {
-    @apply rounded-sm bg-primary-normal  text-white;
+    @apply text-white rounded-sm bg-primary-normal;
   }
   .popup .cancel-button {
-    @apply w-1/2 rounded-sm border-1 border-black py-3;
+    @apply w-1/2 py-3 border-black rounded-sm border-1;
+  }
+  .pb_top_Phrase {
+    @apply w-full h-8 p-2 mt-4 mb-6 text-xs text-center bg-primary-normal;
+  }
+  .user_top_Phrase {
+    @apply w-full h-8 p-2 mt-4 mb-6 text-xs text-center bg-secondary-heavy;
   }
 }
 
@@ -140,4 +146,21 @@
   background-color: #000;
   color: #fff;
   z-index: 10;
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade {
+  animation: fade 3s linear;
+  transition: opacity 2s linear;
 }

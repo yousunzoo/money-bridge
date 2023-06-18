@@ -6,10 +6,10 @@ function FixedButton({ role }: any) {
   const router = useRouter();
   const pathname = usePathname();
   const goToPage = () => {
-    if (role.user === CommonROLE.USER) {
+    if (role === CommonROLE.USER) {
       router.push("/reservation");
-    } else if (role.user === CommonROLE.PB) {
-      if (pathname === "/detail") {
+    } else if (role === CommonROLE.PB) {
+      if (pathname === "/detail/info") {
         router.push("/detail/edit");
       }
       if (pathname === "/detail/edit") {
@@ -22,10 +22,10 @@ function FixedButton({ role }: any) {
   };
 
   let text;
-  if (role.user === CommonROLE.USER) {
+  if (role === CommonROLE.USER) {
     text = "상담 신청하기";
   } else if (role === CommonROLE.PB) {
-    if (pathname === "/detail") {
+    if (pathname === "/detail/info") {
       text = "프로필 수정하기";
     }
     if (pathname === "/detail/edit") {

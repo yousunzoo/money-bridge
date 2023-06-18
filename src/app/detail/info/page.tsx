@@ -51,7 +51,6 @@ function PbDetailInfo() {
   };
   const userData = useRoleStore();
   const [role, setRole] = useState("");
-  const [name, setName] = useState("");
 
   useEffect(() => {
     setRole(userData.user.role);
@@ -64,7 +63,7 @@ function PbDetailInfo() {
       {role === "" ? null : (
         <>
           <Content contentData={contentData} />
-          <About aboutData={aboutData} />
+          <About aboutData={aboutData} role={role} />
           <FixedButton role={role} />
         </>
       )}

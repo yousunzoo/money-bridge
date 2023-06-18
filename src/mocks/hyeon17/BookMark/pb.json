@@ -5,7 +5,7 @@
     "list": [
       {
         "id": 1,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "김피비",
         "companyName": "미래에셋",
         "intro": "김pb입니다.",
@@ -19,7 +19,7 @@
       },
       {
         "id": 1,
-        "profile": "abcde.png",
+        "profile": "/assets/images/check.svg",
         "name": "김pb.",
         "companyName": "미래에셋",
         "intro": "김pb입니다.",

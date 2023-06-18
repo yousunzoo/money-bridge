@@ -1,7 +1,7 @@
 "use client";
 import TopNav from "@/components/common/TopNav";
 import React, { useEffect, useState } from "react";
-import ConsultationStatus from "./ConsultationStatus";
+import ConsultationStatus from "../../components/managementPage/ConsultationStatus";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import managementRecent from "../../mocks/kjun/managementRecent.json";
 import ProcessList from "@/components/common/ProcessList";

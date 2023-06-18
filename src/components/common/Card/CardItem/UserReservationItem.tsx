@@ -14,7 +14,7 @@ interface UserReservationItemProps {
 
 function UserReservationItem({ children, buttonName, onClickhandler, isRole, profileImage }: UserReservationItemProps) {
   return (
-    <li className="flex h-[90px] w-full justify-between overflow-hidden rounded-xl bg-white pl-4 shadow-md">
+    <li className="flex h-[90px] w-full justify-between overflow-hidden rounded-lg bg-white pl-4 shadow-md">
       <div className="flex items-center">
         <Image
           src={profileImage ? profileImage : DefaultProfile}
@@ -24,13 +24,13 @@ function UserReservationItem({ children, buttonName, onClickhandler, isRole, pro
           className=" max-w-[70px]"
         />
       </div>
-      <div className="flex flex-col justify-center rounded-lg px-4 py-3 ">{children}</div>
+      <div className="flex flex-col justify-center px-4 py-3 rounded-lg ">{children}</div>
 
       <button
         className={
-          isRole === "user"
-            ? "text-lg ml-auto h-auto w-[100px] justify-end rounded-r-lg bg-secondary-heavy font-bold text-white"
-            : "text-lg ml-auto h-auto w-[100px] justify-end rounded-r-lg bg-primary-normal font-bold text-white"
+          isRole === "USER"
+            ? "text-lg ml-auto h-auto w-[100px] justify-end rounded-r-lg bg-secondary-heavy text-sm font-bold text-white"
+            : "text-lg ml-auto h-auto w-[100px] justify-end rounded-r-lg bg-primary-normal text-sm font-bold text-white"
         }
         onClick={onClickhandler}
       >

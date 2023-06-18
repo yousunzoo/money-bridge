@@ -26,7 +26,7 @@ function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | un
   };
 
   return (
-    <div className="flex flex-col">
+    <article className="flex flex-col">
       <div>
         <div className="header">
           <div className="section">
@@ -104,7 +104,7 @@ function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | un
           <ContentCardList props={all} />
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 

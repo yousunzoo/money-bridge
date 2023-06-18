@@ -136,8 +136,31 @@
   .popup .cancel-button {
     @apply w-1/2 rounded-sm border-1 border-black py-3;
   }
+  .pb_top_Phrase {
+    @apply mb-6 mt-4 h-8 w-full bg-primary-normal p-2 text-center text-xs;
+  }
+  .user_top_Phrase {
+    @apply mb-6 mt-4 h-8 w-full bg-secondary-heavy p-2 text-center text-xs;
+  }
 
   .propensity_circle {
     @apply absolute top-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 rounded-[5px] bg-primary-normal;
   }
+
+  .propensity_circle {
+    @apply absolute top-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 rounded-[5px] bg-primary-normal;
+  }
+}
+
+.fixedButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 425px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  background-color: #000;
+  color: #fff;
+  z-index: 10;
 }

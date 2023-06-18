@@ -2,6 +2,7 @@
 import TopNav from "@/components/common/TopNav";
 import UserInfoList from "@/components/myPage/editInfoPage/UserInfoList";
 import CheckPassword from "@/components/myPage/editInfoPage/CheckPassword";
+import userInfo from "@/mocks/seon/userInfo.json";
 import { useState } from "react";
 
 function EditInfoPage() {
@@ -13,7 +14,7 @@ function EditInfoPage() {
   return (
     <>
       <TopNav title="개인 정보 수정" />
-      {isUser ? <UserInfoList /> : <CheckPassword setIsUser={setIsUser} />}
+      {userInfo.data && isUser ? <UserInfoList userInfo={userInfo.data} /> : <CheckPassword setIsUser={setIsUser} />}
     </>
   );
 }

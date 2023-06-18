@@ -10,12 +10,22 @@ export interface ISpecialityListProps {
   handleIDClick: (e: MouseEvent<HTMLUListElement>) => void;
 }
 
-export interface ISpeciality {
+export type TSpeciality =
+  | "KOREAN_STOCK"
+  | "US_STOCK"
+  | "DERIVATIVE"
+  | "FUND"
+  | "ETF"
+  | "REAL_ESTATE"
+  | "BOND"
+  | "WRAP"
+  | null;
+export interface ISpecialityData {
   id: string;
-  text: string;
+  text: TSpeciality;
 }
 
-export interface ISpecialityList extends Array<ISpeciality> {}
+export interface ISpecialityList extends Array<ISpecialityData> {}
 
 export interface ICompany {
   id: number;
@@ -27,7 +37,7 @@ export interface ICompanyList extends Array<ICompany> {}
 
 export interface IPropensityList {
   [key: string]: {
-    propensity: IPropensity;
+    propensity: string;
     bar: number;
     lossRisk: string;
     pursuit: string;
@@ -39,4 +49,4 @@ export interface IPropensityCardProps {
   userPropensity: IPropensity;
 }
 
-export type IPropensity = "CONSERVATIVE" | "CAUTIOUS" | "BALANCED" | "AGGRESSIVE" | "SPECULATIVE";
+export type IPropensity = "CONSERVATIVE" | "CAUTIOUS" | "BALANCED" | "AGGRESSIVE" | "SPECULATIVE" | null;

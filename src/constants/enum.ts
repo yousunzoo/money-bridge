@@ -32,6 +32,16 @@ enum PBSpecialty {
   WRAP = "WRAP",
 }
 
+enum PBSpecialtyText {
+  KOREAN_STOCK = "한국주식",
+  US_STOCK = "미국주식",
+  DERIVATIVE = "파생",
+  FUND = "펀드",
+  ETF = "ETF",
+  REAL_ESTATE = "부동산",
+  BOND = "채권",
+  WRAP = "랩",
+}
 enum PBStatus {
   PENDING = "PENDING",
   ACTIVE = "ACTIVE",
@@ -120,10 +130,17 @@ enum InputFormType {
   FIND_PASSWORD = "FIND_PASSWORD",
 }
 
+enum JoinFormType {
+  EMAIL = "EMAIL",
+  NAME = "NAME",
+  PHONENUMBER = "PHONENUMBER",
+}
+
 export {
   CommonROLE,
   Propensity,
   PBSpecialty,
+  PBSpecialtyText,
   RiskRating,
   PBStatus,
   Admin,
@@ -148,4 +165,5 @@ export {
   Branch,
   Company,
   InputFormType,
+  JoinFormType,
 };

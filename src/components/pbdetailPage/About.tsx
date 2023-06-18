@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Carousel from "antd/lib/carousel";
 import "@/styles/defaultCarousel.css";
@@ -13,8 +12,9 @@ import ButtonModal from "@/components/common/ButtonModal";
 import useCopyClipboard from "@/hooks/useCopyClipboard";
 import PbRecentReview from "@/mocks/hyeon17/PbDetail/Review/pbrecentreview.json";
 import PbReview from "@/mocks/hyeon17/PbDetail/Review/pbreview.json";
+import "@/styles/pb.css";
 
-function About({ aboutData }: any) {
+function About({ aboutData, role }: any) {
   const { name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
   const reviewData = review.data;
   const { style1, style2, style3 } = reviewData;
@@ -49,67 +49,86 @@ function About({ aboutData }: any) {
 
   return (
     <>
-      <div>
-        <div>투자자 님들의 실제 상담 후기</div>
-        <div>
-          <div>"투자자님들이 말하는 {name} PB의 매력은?"</div>
-          <div>
-            <Image src={styleCase(style1)?.image} alt={styleCase(style1)?.style} width={100} height={100} />
-            <div>{styleCase(style1)?.style}</div>
+      <div className="info_header">
+        투자자 님들의
+        <br />
+        실제 상담 후기
+      </div>
+      <div className="card mb-[46px] flex h-[154px] w-full flex-col justify-center">
+        <div className="mx-auto mb-[15px] flex text-xs">
+          "투자자님들이 말하는&nbsp;<p className="font-bold">{name} PB의 매력</p>은?"
+        </div>
+        <div className="mx-auto flex w-full justify-between px-[51px]">
+          <div className="review_section">
+            <Image src={styleCase(style1)?.image} alt={styleCase(style1)?.style} width={56} height={56} />
+            <div className="review_text">{styleCase(style1)?.style}</div>
           </div>
-          <div>
-            <Image src={styleCase(style2)?.image} alt={styleCase(style2)?.style} width={100} height={100}/>
-            <div>{styleCase(style2)?.style}</div>
+          <div className="review_section">
+            <Image src={styleCase(style2)?.image} alt={styleCase(style2)?.style} width={56} height={56} />
+            <div className="review_text">{styleCase(style2)?.style}</div>
           </div>
-          <div>
-            <Image src={styleCase(style3)?.image} alt={styleCase(style3)?.style} width={100} height={100}/>
-            <div>{styleCase(style3)?.style}</div>
+          <div className="review_section">
+            <Image src={styleCase(style3)?.image} alt={styleCase(style3)?.style} width={56} height={56} />
+            <div className="review_text">{styleCase(style3)?.style}</div>
           </div>
         </div>
-        <div>
-          <div>
-            <div>후기{pbReviewData ? pbReviewData.totalElements : 0}건</div>
-            {pbReviewData ? <Link href="/detail/review">전체보기</Link> : null}
-          </div>
-          {pbRecentData ? (
-            <ul>
-              <Carousel autoplay>
-                {pbRecentData.list.map((item: any) => (
-                  <li className="card" key={item.reviewId}>
-                    <div>
-                      <div>{item.userName}</div>
-                      <div>{item.createdAt}</div>
-                      <ul>
-                        {item.list.map((styles: any, idx: number) => (
-                          <li key={idx}>{styles.style}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>{item.content}</div>
-                  </li>
-                ))}
-              </Carousel>
-            </ul>
+      </div>
+      <div className="mb-20">
+        <div className="flex w-full items-center">
+          <div className="w-full text-xs font-bold">후기 {pbReviewData ? pbReviewData.totalElements : 0}건</div>
+          {pbReviewData ? (
+            <Link href="/detail/review" className="flex w-full justify-end text-sm underline">
+              전체보기
+            </Link>
           ) : null}
         </div>
+        {pbRecentData ? (
+          <ul>
+            <Carousel autoplay draggable={true}>
+              {pbRecentData.list.map((item: any) => (
+                <li className="card h-[188px] p-[15px]" key={item.reviewId}>
+                  <div className="mb-[9px] flex items-end">
+                    <div className="mr-2 text-sm font-bold">{item.userName}님</div>
+                    <div className="text-xs">{item.createdAt}</div>
+                  </div>
+                  <div className="h-[90px] rounded-md bg-background-secondary p-3.5 text-xs">{item.content}</div>
+                  <ul className="mt-3 flex">
+                    {item.list.map((styles: any, idx: number) => (
+                      <li key={idx} className="mr-[7px]">
+                        {styles.style}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </Carousel>
+          </ul>
+        ) : null}
       </div>
       <div>
-        <div>방문 상담을 원하시나요?</div>
-        <div>
-          <div>
-            {companyName}
-            {branchName}점
+        <div className="info_header">방문 상담을 원하시나요?</div>
+        <div className="card h-[240px] p-[18px]">
+          <div className="text-base font-bold">
+            {companyName}&nbsp;{branchName}
           </div>
-          <div>
-            <div>{branchAddress}</div>
-            <button onClick={addressCopy}>주소 복사</button>
+          <div className="flex text-xs">
+            <div className="flex-1">{branchAddress}</div>
+            <button onClick={addressCopy} className="flex-2 text-gray-normal underline">
+              주소 복사
+            </button>
           </div>
-          <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
+          <div className="mt-4 h-[140px]">
+            <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
+          </div>
         </div>
       </div>
-      <div>
-        <div>핏에 맞는 다른 PB도 함께 만나보세요</div>
-        <PbCardList props={sameData} />
+      <div className="mt-[90px]">
+        <div className="info_header">
+          핏에 맞는 다른 PB도
+          <br />
+          함께 만나보세요
+        </div>
+        <PbCardList props={sameData} role={role} />
       </div>
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />

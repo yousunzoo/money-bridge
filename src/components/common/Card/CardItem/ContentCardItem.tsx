@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
-import { ContentCard } from "@/types/card";
 import { useRoleStore } from "@/store/roleStore";
 
 function ContentCardItem({ item }: { item: any; }) {
@@ -21,7 +20,7 @@ function ContentCardItem({ item }: { item: any; }) {
   };
 
   return (
-    <li className="card h-56 cursor-pointer" onClick={goTOLounge}>
+    <li className="card h-56 cursor-pointer bg-white" onClick={goTOLounge}>
       <div className="px-[17px]">
         <div className="mt-7 flex">
           <div className="flex-1">

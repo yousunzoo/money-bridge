@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
-import { PbCard } from "@/types/card";
 import { useRoleStore } from "@/store/roleStore";
 
 function PbCardItem({ item}: { item: any; }) {
@@ -22,7 +21,7 @@ function PbCardItem({ item}: { item: any; }) {
   };
 
   return (
-    <li className="card h-[200px] px-[20px] pt-[20px]">
+    <li className="card h-[200px] bg-white px-[20px] pt-[20px]">
       <div className="mb-[18px] flex">
         <Image
           src={item.profile}
@@ -53,7 +52,7 @@ function PbCardItem({ item}: { item: any; }) {
         )}
       </div>
       <div className="flex h-[34px] items-center justify-center rounded-md bg-background-primary text-xs font-bold text-primary-normal">
-        "{item.msg}"
+        {item.msg ? `"${item.msg}"` : null}
       </div>
       <div className="mt-[13px] flex items-center text-sm">
         <div className="flex flex-1 text-[10px]">

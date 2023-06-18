@@ -81,3 +81,11 @@ export const riskRating = [
   { grade: "5", info: "낮은 위험", volatility: "5% 이하" },
   { grade: "6", info: "매우 낮은 위험", volatility: "0.5% 이하" },
 ];
+
+export const propensityChart = [
+  { name: "안정형", volatility: 0.5 },
+  { name: "안정추구형", volatility: 5 },
+  { name: "위험중립형", volatility: 10 },
+  { name: "적극형", volatility: 15 },
+  { name: "공격형", volatility: 24 },
+];

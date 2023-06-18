@@ -1,7 +1,8 @@
 "use client";
 import TopNav from "@/components/common/TopNav";
-import PropensityChart from "@/components/myPage/propensityPage/PropensityChart";
+// import PropensityChart from "@/components/myPage/propensityPage/PropensityChart";
 import PropensityInfoCard from "@/components/myPage/propensityPage/PropensityInfoCard";
+import RiskGrades from "@/components/myPage/propensityPage/RiskGrades";
 import { propensityDetailedList } from "@/constants/propensityList";
 import propensityData from "@/mocks/seon/propensityPage.json";
 import { IPropensityData } from "@/types/my";
@@ -25,7 +26,8 @@ function PropensityPage() {
         <span className="text-primary-normal">{userPropensity.propensity}</span>입니다.
       </h2>
       <PropensityInfoCard propensity={userPropensity.propensity} info={userPropensity.info} />
-      <PropensityChart />
+      {/* <PropensityChart /> */}
+      <RiskGrades grade={userPropensity.grade} />
     </>
   );
 }

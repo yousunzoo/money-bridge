@@ -11,8 +11,8 @@ export const useFindEmail = (setIsOpen: ((value: React.SetStateAction<boolean>) 
   const { mutate } = useMutation(findEmail, {
     onSuccess: data => {
       console.log(data);
-      if (data.data) {
-        queryClient.setQueryData(["findEmail"], data);
+      queryClient.setQueryData(["findEmail"], data);
+      if (data.data[0].email) {
         router.push(`/findEmail/${pathName.split("/")[2]}/informationCheck`);
       } else {
         if (setIsOpen) setIsOpen(true);

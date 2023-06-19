@@ -4,7 +4,7 @@ import DoubleButton from "@/components/common/DoubleButton";
 import TopNav from "@/components/common/TopNav";
 import React, { useEffect, useState } from "react";
 
-const COUNSELING_STYLE = {
+const COUNSELING_STYLE: { [key: string]: string } = {
   METICULOUS: "꼼꼼한",
   KIND: "친절한",
   PROFESSIONAL: "전문적인",
@@ -15,10 +15,10 @@ const COUNSELING_STYLE = {
   EXPERIENCED: "노련한",
 };
 
-const ADHERENCE = {
-  1: "아니요",
-  2: "보통이에요",
-  3: "잘 지켜졌어요",
+const ADHERENCE: { [key: string]: string } = {
+  BAD: "아니요",
+  NORMAL: "보통이에요",
+  EXCELLENT: "잘 지켜졌어요",
 };
 
 function ReviewWritePage({ params }: { params: { slug: string } }) {
@@ -118,7 +118,7 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
                 onClick={counselingClickHandler}
                 className={`${
                   reviewState.styleList.includes(key) && "bg-black text-white"
-                } flex  h-8 w-[70px] cursor-pointer items-center justify-center rounded-full border-1 text-black `}
+                } flex h-8 w-[70px] cursor-pointer items-center justify-center rounded-full border-1 text-black `}
               >
                 {value}
               </li>

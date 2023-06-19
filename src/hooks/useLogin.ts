@@ -10,13 +10,13 @@ export const useLogin = (setNextStep: ((value: React.SetStateAction<boolean>) =>
   const { mutate } = useMutation(userLogin, {
     onSuccess: data => {
       console.log(data.data);
-      if (setNextStep) {
-        if (data.data.code) {
+      if (data.data.data.code) {
+        if (setNextStep) {
           setNextStep(true);
         }
       } else {
         setCookie("Authorization", data.headers.authorization);
-        alert("환영!");
+        alert(`${data.data.data.name}님 환영~`);
         router.push("/");
       }
     },

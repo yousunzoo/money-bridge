@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
 
-function PbCardList({ props }: any) {
+function PbCardList({ props, role }: any) {
   const dataList = props.data ? props.data.list : props;
   const data = props.data ? props.data : props;
   const [items, setItems] = useState(dataList.slice(0, 10));
@@ -51,7 +51,7 @@ function PbCardList({ props }: any) {
     <>
       <ul>
         {items.map((item: any) => (
-          <PbCardItem key={item.id} item={item} />
+          <PbCardItem key={item.id} item={item} role={role} />
         ))}
       </ul>
       {!isLastPage && <div ref={observerRef} style={{ height: "1px" }}></div>}

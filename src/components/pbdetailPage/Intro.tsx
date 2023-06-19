@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
 import BlurModal from "@/components/common/Modal/BlurModal";
 import ButtonModal from "@/components/common/ButtonModal";
@@ -49,7 +48,7 @@ function Intro({ introData, role }: { introData: any; role: any }) {
   };
 
   return (
-    <div>
+    <header>
       <div className="relative">
         <button onClick={goToCompany} className="absolute h-[42px] w-[112px]">
           {companyLogo}
@@ -86,15 +85,13 @@ function Intro({ introData, role }: { introData: any; role: any }) {
             </button>
           </div>
           <PbContentButton
-            path1={"/detail/info"}
-            path2={"/detail/content"}
-            text1={"PB정보"}
-            text2={"콘텐츠"}
-            mainStyle={
-              "mb-6 flex h-[52px] w-full items-center border-[1px] border-solid border-primary-normal text-base font-bold"
-            }
-            subStyle1={"flex h-full w-full items-center justify-center"}
-            subStyle2={"flex h-full w-full items-center justify-center"}
+            path1="/detail/info"
+            path2="/detail/content"
+            text1="PB정보"
+            text2="콘텐츠"
+            mainStyle="mb-6 flex h-[52px] w-full items-center border-[1px] border-solid border-primary-normal text-base font-bold"
+            subStyle1="flex h-full w-full items-center justify-center"
+            subStyle2="flex h-full w-full items-center justify-center"
           />
         </div>
       )}
@@ -107,7 +104,7 @@ function Intro({ introData, role }: { introData: any; role: any }) {
       {isBookmarkOpen && isBookmark && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkOpen} setIsOpen={setIsBookmarkOpen} />
       )}
-    </div>
+    </header>
   );
 }
 

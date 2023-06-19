@@ -3,19 +3,21 @@
 @tailwind utilities;
 
 @layer components {
-  .pb_banner{
-   @apply h-[235px] flex flex-col
- }
- .title{
-  @apply text-2xl font-bold mt-[33px] ml-5
- }
- .link{
-  @apply flex ml-[200px] mt-[87px] underline decoration-1 text-sm font-bold text-white hover:text-white hover:underline 
- }
+  .pb_banner {
+    @apply flex h-[235px] flex-col;
+  }
+  .title {
+    @apply ml-6 mt-[33px] text-2xl font-bold;
+  }
+  .link {
+    @apply ml-[250px] mt-[87px] flex text-sm font-bold text-white underline decoration-1 hover:text-white hover:underline;
+  }
 }
-
-.ant-carousel .slick-dots-top{
-  margin-left:300px;
+.ant-carousel{
+  margin: 0 -16px;
+}
+.ant-carousel .slick-dots-top {
+  margin-left: 320px;
 }
 
 .ant-carousel .slick-dots-top li,

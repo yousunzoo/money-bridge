@@ -9,28 +9,23 @@ import { useRoleStore } from "@/store/roleStore";
 import TopNav from "@/components/common/TopNav";
 
 function Lounge() {
-  const { getUser, setUser } = useRoleStore();
+  const userData = useRoleStore();
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
   const [all, setAll] = useState(All);
   const [newAndHot, setNewAndHot] = useState(NewAndHot);
 
   useEffect(() => {
-    setUser("PB", "test");
-  }, [setUser]);
-  
-  useEffect(() => {
-    const user = getUser();
-    setRole(user.role);
-    setName(user.name);
-  }, [getUser]);
+    setRole(userData.user.role);
+    setName(userData.user.name);
+  }, [userData]);
 
   return (
     <div className="my-5 flex w-full flex-col">
       <TopNav title="라운지" hasBack={true} />
-      <Intro user={role} />
+      <Intro role={role} />
       {role === "USER" && <PbRecommend name={name} />}
-      <Content NewAndHot={newAndHot} All={all} user={role} />
+      <Content NewAndHot={newAndHot} All={all} role={role} />
     </div>
   );
 }

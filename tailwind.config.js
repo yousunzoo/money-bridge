@@ -29,6 +29,7 @@ module.exports = {
       black: "#242424",
     },
     fontSize: {
+      tiny: "0.625rem",
       xs: "0.75rem",
       sm: "0.875rem",
       base: "1rem",
@@ -43,9 +44,13 @@ module.exports = {
       md: "0.75rem",
       lg: "1.125rem",
       xl: "1.25rem",
+      "2xl": "1rem",
+      "3xl": "1.5rem",
+      "full": "9999px",
     },
     borderWidth: {
       1: "1px",
+      4: "4px",
     },
     extend: {
       backgroundImage: {

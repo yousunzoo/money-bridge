@@ -4,13 +4,13 @@ import TopNav from "@/components/common/TopNav";
 import reviewMockData from "../../mocks/kjun/calendarData.json";
 import consultTime from "../../mocks/kjun/consultTime.json";
 import { useState } from "react";
-import ManagementCalendar from "./Calendar";
+import ManagementCalendar from "../../components/schedulePage/Calendar";
 import "@/styles/calendar.css";
 import question from "/public/assets/images/question_mark.svg";
 import Image from "next/image";
-import InfoModal from "./InfoModal";
-import DayScheduleList from "./DayScheduleList";
-import ConsultationTimeCard from "./ConsultationTimeCard";
+import InfoModal from "@/components/schedulePage/InfoModal";
+import DayScheduleList from "@/components/schedulePage/DayScheduleList";
+import ConsultationTimeCard from "@/components/schedulePage/ConsultationTimeCard";
 const data = reviewMockData.data.reservationList;
 const counltTime = consultTime.data;
 

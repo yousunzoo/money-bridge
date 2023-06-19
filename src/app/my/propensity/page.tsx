@@ -26,7 +26,7 @@ function PropensityPage() {
         <br />
         <span className="text-primary-normal">{userPropensity.propensity}</span>입니다.
       </h2>
-      <PropensityInfoCard propensity={userPropensity.propensity} info={userPropensity.info} />
+      {userPropensity && <PropensityInfoCard propensity={userPropensity.propensity} info={userPropensity.info} />}
       {/* <PropensityChart /> */}
       <RiskGrades grade={userPropensity.grade} />
       <RecommendPBList list={list} />

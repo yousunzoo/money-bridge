@@ -4,7 +4,7 @@
 "data": 
 	{ 
 		"id": 1, 
-		"thumbnail" : "thumbnail.png",
+		"thumbnail" : "/assets/images/check.svg",
 		"tag1" : "시장정보",
 		"tag2" : "쉽게읽혀요",
 		"title" : "컨텐츠제목",

@@ -9,7 +9,7 @@ import Image from "next/image";
 import mylist from "/public/assets/images/icon/lounge_mylist.svg";
 import write from "/public/assets/images/icon/lounge_write.svg";
 
-function Intro(role: any) {
+function Intro({role}: any) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,15 +22,15 @@ function Intro(role: any) {
   };
 
   const goToBookMark = () => {
-    if (role.user === "") {
+    if (role === "") {
       setIsOpen(true);
     } else {
-      router.push("/bookmark");
+      router.push("/bookmark/content");
     }
   };
 
   return (
-    <div className="flex h-[190px] items-center bg-secondary-heavy">
+    <div className="flex h-[190px] items-center bg-secondary-heavy mx-[-16px] px-[16px]">
       <div className="flex w-full flex-col">
         <div className="mb-1 ml-2 text-3xl font-bold text-white">Lounge</div>
         <div className="ml-2 text-xs text-white">
@@ -38,7 +38,7 @@ function Intro(role: any) {
           <br />
           고급정보를 만나보세요
         </div>
-        {role.user === CommonROLE.PB ? (
+        {role === CommonROLE.PB ? (
           <div className="flex justify-end">
             <Link
               href="/detail/content"

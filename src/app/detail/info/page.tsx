@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TopNav from "@/components/common/TopNav";
 import Content from "@/components/pbdetailPage/Content";
 import Intro from "@/components/pbdetailPage/Intro";
@@ -7,8 +7,9 @@ import authProfile from "@/mocks/hyeon17/PbDetail/Profile/authProfile.json";
 import profile from "@/mocks/hyeon17/PbDetail/Profile/profile.json";
 import { useRoleStore } from "@/store/roleStore";
 import About from "@/components/pbdetailPage/About";
+import FixedButton from "@/components/pbdetailPage/FixedButton";
 
-function PbDetail() {
+function PbDetailInfo() {
   const data = authProfile.data;
   const profileData = profile.data;
   const notLoginData = {
@@ -48,20 +49,26 @@ function PbDetail() {
     branchLatitude: data.branchLatitude,
     branchLongitude: data.branchLongitude,
   };
-  const { getUser } = useRoleStore();
+  const userData = useRoleStore();
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    setRole(userData.user.role);
+  }, [userData]);
 
   return (
-    <>
+    <div className="mb-28 flex w-full flex-col">
       <TopNav title="PB 상세프로필" hasBack={true} />
-      <Intro introData={getUser().role === "" ? notLoginData : introData} edit={false} />
-      {getUser().role === "" ? null : (
+      <Intro introData={role === "" ? notLoginData : introData} role={role} />
+      {role === "" ? null : (
         <>
-          <Content contentData={contentData} edit={false} />
-          <About aboutData={aboutData} />
+          <Content contentData={contentData} />
+          <About aboutData={aboutData} role={role} />
+          <FixedButton role={role} />
         </>
       )}
-    </>
+    </div>
   );
 }
 
-export default PbDetail;
+export default PbDetailInfo;

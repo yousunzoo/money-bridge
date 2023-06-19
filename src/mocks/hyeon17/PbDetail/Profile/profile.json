@@ -4,6 +4,6 @@
   "data": {
     "profile": "/assets/images/default_profile.png",
     "msg": "김피비입니다",
-    "companyLogo": "logo.png"
+    "companyLogo": "/assets/images/check.svg"
   }
 }

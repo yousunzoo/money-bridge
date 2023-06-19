@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import PostCardItem from "@/components/common/Card/CardItem/ContentCardItem";
+import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 
-function ContentCardList({ props, user }: any) {
+function ContentCardList({ props, role }: any) {
   const dataList = props?.data ? props.data.list : props;
   const data = props?.data ? props.data : props;
   const [items, setItems] = useState(dataList?.slice(0, 10));
@@ -50,7 +50,7 @@ function ContentCardList({ props, user }: any) {
   return (
     <ul>
       {props ? (
-        items.map((item: any) => <PostCardItem key={item.id} item={item} user={user} />)
+        items.map((item: any) => <ContentCardItem key={item.id} item={item} role={role} />)
       ) : (
         <li className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">
           작성한 콘텐츠가 없습니다

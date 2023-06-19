@@ -11,6 +11,7 @@ import ButtonModal from "./ButtonModal";
 import Image from "next/image";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
+import { usePasswordAuthentication } from "@/hooks/usePasswordAuthentication";
 
 const yup_email = yup.string().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -33,6 +34,7 @@ function DoubleInputForm({
   const [isOpen, setIsOpen] = useState(false);
   const login = useLogin(setNextStep);
   const findEmail = useFindEmail(setIsOpen);
+  const authentication = usePasswordAuthentication();
   const inputType = type === InputFormType.LOGIN ? "password" : "text";
 
   const modalContents = {
@@ -80,7 +82,7 @@ function DoubleInputForm({
         findEmail({ name: inputs.first, phoneNumber: inputs.second, role: pathName.split("/")[2].toUpperCase() });
         break;
       case InputFormType.FIND_PASSWORD:
-        router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
+        authentication({ name: inputs.first, email: inputs.second, role: pathName.split("/")[2].toUpperCase() });
         break;
     }
   };

@@ -6,19 +6,21 @@
   body {
     background-color: #eee;
     width: 100vw;
-    height: 100vh;
+    height: auto;
     letter-spacing: -0.6px;
     color: #242424;
   }
 
   main {
-    background-color: #fff;
+    background-color: #f8f8f8;
     min-width: 390px;
     max-width: 425px;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     margin: auto;
     padding: 0 16px;
+    padding-top: 70px;
+    padding-bottom: 100px;
     overflow-y: scroll;
   }
 
@@ -130,11 +132,11 @@
   }
 
   .popup .popup-button {
-    @apply rounded-sm bg-primary-normal text-white;
+    @apply h-[44px] rounded-md bg-primary-normal  text-white;
   }
 
   .popup .cancel-button {
-    @apply w-1/2 rounded-sm border-1 border-black py-3;
+    @apply w-1/2  rounded-md border-1 border-black py-3;
   }
   .pb_top_Phrase {
     @apply mb-6 mt-4 h-8 w-full bg-primary-normal p-2 text-center text-xs;

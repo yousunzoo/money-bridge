@@ -95,3 +95,8 @@ export interface IPropensityInfoCardProps {
   propensity: string;
   info: string[];
 }
+
+export interface IEditInfoFormProps {
+  type: string;
+  onSubmit: (data: { [key: string]: string }) => void;
+}

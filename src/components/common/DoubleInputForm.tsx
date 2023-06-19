@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, MouseEvent, useState } from "react";
+import React, { ChangeEvent, MouseEvent, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -101,13 +101,14 @@ function DoubleInputForm({
               className={`form_input ${errors.first ? "warnning" : dirtyFields.first ? "entering" : ""} `}
               {...register("first")}
               value={inputs.first}
+              autoFocus
             />
-            {dirtyFields.first ? (
+            {dirtyFields.first && (
               <>
                 <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
                 <Image src={errors.first ? alert : correct} alt="input_status" className="input_status" />
               </>
-            ) : null}
+            )}
           </div>
           <div className="h-[18px] pl-2">
             <span className={`text-xs leading-[18px] ${errors.first ? "text-status-alert" : "text-status-positive"}`}>

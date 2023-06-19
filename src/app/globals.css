@@ -4,7 +4,7 @@
 
 @layer utilities {
   body {
-    background-color: #eee;
+    background-color: #f8f8f8;
     width: 100vw;
     height: auto;
     letter-spacing: -0.6px;
@@ -20,8 +20,7 @@
     margin: auto;
     padding: 0 16px;
     padding-top: 70px;
-    padding-bottom: 100px;
-    overflow-y: scroll;
+    padding-bottom: 140px;
   }
 
   input[type="number"]::-webkit-inner-spin-button {

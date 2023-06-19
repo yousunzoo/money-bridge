@@ -12,7 +12,6 @@ function AccordianItem({ listItem, nowClicked, setNowClicked }: IAccordianItemPr
       event.stopPropagation();
       if (!liRef.current || !contentRef.current) return;
       if (event.target instanceof HTMLParagraphElement) return;
-      console.log(liRef.current.id, nowClicked);
 
       if (!isCollapse) {
         contentRef.current.classList.add("h-0");
@@ -50,7 +49,7 @@ function AccordianItem({ listItem, nowClicked, setNowClicked }: IAccordianItemPr
       </div>
       <div ref={contentRef} className="h-0 overflow-hidden">
         <p className="py-4">{listItem.title}</p>
-        <p className="pb-4 text-sm">{listItem.content}</p>
+        <p className="break-keep pb-4 text-sm">{listItem.content}</p>
       </div>
     </li>
   );

@@ -81,7 +81,7 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
     <div>
       <TopNav title="후기 작성" hasBack={true} />
       <div className="user_top_Phrase mt-4">
-        <span className="text-white ">프라이빗 뱅커가 곧 유선으로 연락을 드립니다.</span>
+        <span className="text-white ">상담 후기를 남겨주세요.</span>
       </div>
       <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs shadow-2xl">
         <article className="w-full pt-3">

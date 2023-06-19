@@ -1,22 +1,29 @@
+"use client";
 import React from "react";
+import InformationItem from "./InformationItem";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { IFindEmail } from "@/types/login";
 
 function InformationCheck() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData(["findEmail"]) as IFindEmail;
+  console.log(data);
+
+  const handleClick = () => {
+    router.push("/login");
+  };
   return (
     <>
-      <div className="flex w-full flex-col items-center gap-6 rounded-sm border-1 border-primary-normal p-6">
-        <div className="flex w-full flex-row justify-between">
-          <p className="leading-6">이름</p>
-          <p className="font-bold leading-[22px]">props 이름</p>
-        </div>
-        <div className="flex w-full flex-row justify-between">
-          <p className="leading-6">전화번호</p>
-          <p className="font-bold leading-[22px]">props 전화번호</p>
-        </div>
-        <div className="flex w-full flex-row justify-between">
-          <p className="leading-6">이메일</p>
-          <p className="font-bold leading-[22px]">props 이메일</p>
-        </div>
-      </div>
+      <p className="mb-10 mt-14 text-xl font-bold leading-7">회원 정보를 확인해 주세요.</p>
+      <ul>{data.data && data.data.map(item => <InformationItem information={item} key={item.email} />)}</ul>
+      <button
+        className="mb-24 mt-[266px] h-14 w-full rounded-[8px] bg-primary-normal text-xl font-bold leading-7 text-white"
+        onClick={handleClick}
+      >
+        로그인
+      </button>
     </>
   );
 }

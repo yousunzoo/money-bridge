@@ -1,48 +1,9 @@
 "use client";
-import TopNav from "@/components/common/TopNav";
-import DoubleInputForm from "@/components/common/DoubleInputForm";
-import React, { useState } from "react";
-import InformationCheck from "@/components/findEmailPage/InformationCheck";
-import { useRouter } from "next/navigation";
-import { InputFormType } from "@/constants/enum";
+import { redirect } from "next/navigation";
 
 function FindEmail() {
-  const [nextStep, setNextStep] = useState(false);
-  const router = useRouter();
-
-  const clickLogin = () => {
-    router.replace("/login");
-  };
-
-  return (
-    <>
-      <TopNav title="이메일 찾기" hasBack backGroundWhite />
-      {nextStep ? (
-        <>
-          <p className="mb-10 mt-14 text-xl font-bold leading-7">회원 정보를 확인해 주세요.</p>
-          <div className="flex flex-col gap-[25px] ">
-            {[1, 2].map(item => (
-              <div key={item}>
-                <InformationCheck />
-              </div>
-            ))}
-            <button
-              type="button"
-              className="mb-24 mt-[54px] h-14 w-full rounded-[8px] bg-primary-normal"
-              onClick={clickLogin}
-            >
-              <span className="text-xl font-bold leading-7 text-white">로그인</span>
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <p className="mb-10 mt-14 text-xl font-bold leading-7">가입할 때 등록한 정보를 입력해 주세요.</p>
-          <DoubleInputForm type={InputFormType.FIND_EMAIL} setNextStep={setNextStep} />
-        </>
-      )}
-    </>
-  );
+  redirect("/login");
+  return <></>;
 }
 
 export default FindEmail;

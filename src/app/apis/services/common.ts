@@ -1,10 +1,9 @@
 import { instance } from "../axios";
 import { useQuery } from "@tanstack/react-query";
 
-export const useBookmarkPB = () => {
-  const queryKey = "/user/bookmarks/pb";
+export const useLoungeBoard = () => {
+  const queryKey = "/lounge/board";
   const queryFn = () =>
-    // todo: 헤더 붙이기
     instance.get(queryKey).then(res => {
       return res.data;
     });

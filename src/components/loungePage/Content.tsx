@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import Link from "next/link";
 import MainCarousel from "@/components/common/Carousel/MainCarousel";
 import "@/styles/carousel.css";
 import "@/styles/lounge.css";
+import { ListResponse } from "@/types/common";
+import { ContentCard } from "@/types/card";
 
-function Content({ NewAndHot, All, role }: any) {
+function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | undefined; All: any }) {
   const [all, setAll] = useState(All?.data?.list.slice(0, 2));
-  const [newData, setNewData] = useState(NewAndHot?.data?.list.slice(0, 2));
-  const [hotData, setHotData] = useState(NewAndHot?.data?.list.slice(2, 4));
+  const [newData, setNewData] = useState<ContentCard[]>();
+  const [hotData, setHotData] = useState<ContentCard[]>();
+
+  useEffect(() => {
+    if (NewAndHot) {
+      setNewData(NewAndHot.data?.list?.slice(0, 2));
+      setHotData(NewAndHot.data?.list?.slice(2, 4));
+    }
+  }, [NewAndHot]);
 
   const getAllContent = () => {
     // setAll(All);
@@ -17,7 +26,7 @@ function Content({ NewAndHot, All, role }: any) {
   };
 
   return (
-    <div className="flex flex-col">
+    <article className="flex flex-col">
       <div>
         <div className="header">
           <div className="section">
@@ -30,7 +39,7 @@ function Content({ NewAndHot, All, role }: any) {
           </Link>
         </div>
         <div>
-          <ContentCardList props={newData} role={role} />
+          <ContentCardList props={newData} />
         </div>
       </div>
       <div>
@@ -45,7 +54,7 @@ function Content({ NewAndHot, All, role }: any) {
           </Link>
         </div>
         <div>
-          <ContentCardList props={hotData} role={role} />
+          <ContentCardList props={hotData} />
         </div>
       </div>
       <MainCarousel className="my-11 h-[235px] text-white">
@@ -92,10 +101,10 @@ function Content({ NewAndHot, All, role }: any) {
           </button>
         </div>
         <div>
-          <ContentCardList props={all} role={role} />
+          <ContentCardList props={all} />
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 

@@ -20,3 +20,13 @@ export interface IUser {
   password?: string;
   phoneNumber?: string;
 }
+export interface IFindEmail {
+  status: number;
+  msg: string;
+  data: IFindEmailData[];
+}
+export interface IFindEmailData {
+  email: string;
+  name: string;
+  phoneNumber: string;
+}

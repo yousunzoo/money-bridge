@@ -4,7 +4,10 @@ import TopNav from "@/components/common/TopNav";
 import React from "react";
 import res from "../../../../mocks/kjun/managementReservations.json";
 import ConsultingHistoryCard from "../../../../components/common/ConsultingHistoryCard";
-import SingleButton from "@/components/consultationPage/SingleButton";
+import SingleButton from "@/components/common/SingleButton";
+import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
+import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
+import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
 
 interface Props {
   params: {
@@ -64,20 +67,36 @@ function NewReservationPage({ params }: Props) {
     completionPhrase1,
     completionPhrase2,
   };
+  const undoChangeClickHandler = () => {
+    console.log("변경/취소");
+  };
+
+  const scheduleSectionProps = { candidateTime1, candidateTime2, role };
+  const locationSectionProps = { type, role, location, locationAddress };
+  const noteSectionProps = { role, goal, question };
 
   return (
     <div>
       <TopNav title="신규예약" hasBack={true} />
-      <div className="mt-4 user_top_Phrase">
+      <div className="user_top_Phrase mt-4">
         <span className="text-white ">프라이빗 뱅커가 곧 유선으로 연락을 드립니다.</span>
       </div>
-      <UserReservationItem buttonName="PB 정보" onClickhandler={onClickhandler} isRole={"PB"}>
+      <UserReservationItem buttonName="PB 정보" href={"/"} isRole={"PB"}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{phoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
-      <ConsultingHistoryCard {...historyCard} />
-      <SingleButton title={"예약 변경/취소"} role={"USER"} ClickFunc={onClickhandler} />
+
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
+        <ConsultationScheduleSection {...scheduleSectionProps} />
+        <ConsultationLocationSection {...locationSectionProps} />
+        <ConsultationNoteSection {...noteSectionProps} />
+      </section>
+      <div className="flex flex-col items-center py-6 text-xs">
+        <p className="font-bold text-primary-normal">PB가 유선연락을 통해 일정과 장소를 확인해드립니다.</p>
+        <p className="text-primary-normal">(영업일 1일 이내)</p>
+      </div>
+      <SingleButton title={"예약 변경/취소"} role={"USER"} ClickFunc={undoChangeClickHandler} />
     </div>
   );
 }

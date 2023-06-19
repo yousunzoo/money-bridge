@@ -28,11 +28,10 @@ function ButtonModal({ modalContents, isOpen, setIsOpen, children }: ButtonModal
     <div className="fixed left-0 top-0 z-10 h-full w-full">
       <div className="modal_background" />
       <div className="popup flex flex-col justify-between">
-        <button onClick={handleClose} className="absolute right-7">
-          닫기
-        </button>
-        <h3 className={`text-lg break-keep text-center ${children ? "pt-14" : "pt-20"}`}>{content}</h3>
-        <div className="text-center">{children}</div>
+        <div className="text-center">
+          <h3 className={`text-lg mb-2 break-keep text-center ${children ? "pt-14" : "pt-20"}`}>{content}</h3>
+          {children}
+        </div>
         <div className="flex w-full gap-4">
           {cancelText && (
             <button onClick={handleCancelButton} className="cancel-button">

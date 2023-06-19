@@ -24,7 +24,7 @@ function PBInfo({ data }: IPBInfoprops) {
           <div>
             <p className="font-bold">{name} PB</p>
             <p className="text-xs">{branchName}</p>
-            <p className="text-tiny text-gray-normal">
+            <p className="text-xs text-gray-normal">
               <b>{pbSpeciality1}</b>{" "}
               {pbSpeciality2 && (
                 <>

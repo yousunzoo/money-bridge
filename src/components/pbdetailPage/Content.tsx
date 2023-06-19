@@ -5,14 +5,12 @@ import "@/styles/pb.css";
 function Content({ contentData }: any) {
   const { name, intro, speciality1, speciality2, career, award } = contentData;
   const portfolioData = portfolio.data;
-  const { highestReturn, propensity, startDate, dangerRate, file } = portfolioData;
+  const { cumulativeReturn, maxDrawdown, profitFactor, averageProfit, file } = portfolioData;
   const [introValue, setIntroValue] = useState(intro);
   const [speciality1Value, setSpeciality1Value] = useState(speciality1);
   const [speciality2Value, setSpeciality2Value] = useState(speciality2);
   const [careerValue, setCareerValue] = useState(career);
   const [awardValue, setAwardValue] = useState(award);
-  const [highestReturnValue, setHighestReturnValue] = useState(highestReturn);
-  const [startDateValue, setStartDateValue] = useState(startDate);
   const [fileValue, setFileValue] = useState(file);
 
   const download = () => {
@@ -23,7 +21,7 @@ function Content({ contentData }: any) {
   };
 
   return (
-    <div>
+    <article>
       <div className="mb-7">
         <div className="header">한 줄 소개</div>
         <div className="flex h-[111px] items-center justify-center rounded-md bg-background-secondary px-[22px] py-6 text-xs">
@@ -68,19 +66,19 @@ function Content({ contentData }: any) {
         </div>
         <div className="flex justify-between px-3 font-bold">
           <div className="portfolio">
-            <div className="card portfolio_number">{highestReturnValue}%</div>
+            <div className="card portfolio_number">{cumulativeReturn}%</div>
             <div className="portfolio_text">누적 수익률</div>
           </div>
           <div className="portfolio">
-            <div className="card portfolio_number">{propensity}%</div>
+            <div className="card portfolio_number">{maxDrawdown}%</div>
             <div className="portfolio_text">최대 자본인하율</div>
           </div>
           <div className="portfolio">
-            <div className="card portfolio_number">{startDateValue}%</div>
+            <div className="card portfolio_number">{averageProfit}%</div>
             <div className="portfolio_text">평균 손익률</div>
           </div>
           <div className="portfolio">
-            <div className="card portfolio_number">{dangerRate}:1</div>
+            <div className="card portfolio_number">{profitFactor}:1</div>
             <div className="portfolio_text">Profit Factor</div>
           </div>
         </div>
@@ -96,7 +94,7 @@ function Content({ contentData }: any) {
           </button>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 

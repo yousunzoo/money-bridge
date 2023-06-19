@@ -3,11 +3,25 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ButtonModal from "@/components/common/ButtonModal";
+import { useRouter } from "next/navigation";
+import { ButtonModalProps } from "@/types/common";
 
 const yup_password = yup.string().min(8).max(15).matches(/^\S+$/).required();
 
-function CheckPassword({ setIsUser }: { setIsUser: Dispatch<SetStateAction<boolean>> }) {
+function CheckPassword({
+  type,
+  setIsUser,
+}: {
+  type: "check" | "secession";
+  setIsUser?: Dispatch<SetStateAction<boolean>>;
+}) {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalContents, setModalContents] = useState<ButtonModalProps["modalContents"]>({
+    content: "",
+    confirmText: "",
+  });
+  const router = useRouter();
+
   const schema = yup.object().shape({
     password: yup_password,
   });
@@ -22,13 +36,21 @@ function CheckPassword({ setIsUser }: { setIsUser: Dispatch<SetStateAction<boole
     e.preventDefault();
     const password = getValues("password");
     // mutate 함수로 비밀번호 확인, 리턴값에 따라 state 처리
-    setIsUser(true);
+    if (setIsUser) {
+      setIsUser(true);
+      return;
+    }
+    setIsOpen(true);
+    setModalContents({ content: "탈퇴가 완료되었습니다.", confirmText: "확인", confirmFn: () => router.replace("/") });
+
+    // 에러 처리
+    // setModalContents({ content: "비밀번호가 일치하지 않습니다.", confirmText: "확인" });
     // setIsOpen(true);
   };
   return (
     <>
       <h3 className="mb-12 text-xl font-bold">
-        개인 정보 수정을 위해
+        {type === "check" ? "개인 정보 수정을" : "탈퇴하기"} 위해
         <br />
         비밀번호를 입력해주세요
       </h3>
@@ -49,16 +71,12 @@ function CheckPassword({ setIsUser }: { setIsUser: Dispatch<SetStateAction<boole
           )}
         </div>
         <button className={`button ${!isValid && "inactive"}`} disabled={!isValid}>
-          확인
+          {type === "check" ? "확인" : "탈퇴하기"}
         </button>
       </form>
       {isOpen && (
-        <ButtonModal
-          modalContents={{ content: "비밀번호가 일치하지 않습니다.", confirmText: "확인" }}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        >
-          <p>다시 입력해주세요.</p>
+        <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen}>
+          {type === "check" && <p>다시 입력해주세요.</p>}
         </ButtonModal>
       )}
     </>

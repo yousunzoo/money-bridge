@@ -14,7 +14,11 @@ function EditInfoPage() {
   return (
     <>
       <TopNav title="개인 정보 수정" />
-      {userInfo.data && isUser ? <UserInfoList userInfo={userInfo.data} /> : <CheckPassword setIsUser={setIsUser} />}
+      {userInfo.data && isUser ? (
+        <UserInfoList userInfo={userInfo.data} />
+      ) : (
+        <CheckPassword type="check" setIsUser={setIsUser} />
+      )}
     </>
   );
 }

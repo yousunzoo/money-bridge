@@ -1,12 +1,13 @@
 "use client";
 import React, { ChangeEvent, useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InputFormType } from "@/constants/enum";
 import { usePathname, useRouter } from "next/navigation";
 import { useLogin } from "@/hooks/useLogin";
 import { useFindEmail } from "@/hooks/useFindEmail";
+import ButtonModal from "./ButtonModal";
 
 const yup_email = yup.string().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -20,15 +21,24 @@ function DoubleInputForm({
   type: InputFormType;
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
 }) {
-  const login = useLogin(setNextStep);
-  const findEmail = useFindEmail(setNextStep);
   const router = useRouter();
   const pathName = usePathname();
   const [inputs, setInputs] = useState({
     first: "",
     second: "",
   });
+  const [isOpen, setIsOpen] = useState(false);
+  const login = useLogin(setNextStep);
+  const findEmail = useFindEmail(setIsOpen);
   const inputType = type === InputFormType.LOGIN ? "password" : "text";
+
+  const modalContents = {
+    content: "사용자가 존재하지 않습니다.",
+    confirmText: "재입력",
+    confirmFn: () => {
+      setIsOpen(false);
+    },
+  };
 
   const schema = yup.object().shape({
     first: type === InputFormType.LOGIN ? yup_email : yup_name,
@@ -60,7 +70,7 @@ function DoubleInputForm({
         login({ email: inputs.first, password: inputs.second, role: pathName.split("/")[2].toUpperCase() });
         break;
       case InputFormType.FIND_EMAIL:
-        findEmail({ email: inputs.first, phoneNumber: inputs.second, role: pathName.split("/")[2].toUpperCase() });
+        findEmail({ name: inputs.first, phoneNumber: inputs.second, role: pathName.split("/")[2].toUpperCase() });
         break;
       case InputFormType.FIND_PASSWORD:
         router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
@@ -117,6 +127,11 @@ function DoubleInputForm({
           </span>
         </button>
       </form>
+      {isOpen && (
+        <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen}>
+          <h3>정보를 확인해 주세요.</h3>
+        </ButtonModal>
+      )}
     </div>
   );
 }

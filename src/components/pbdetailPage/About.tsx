@@ -8,11 +8,12 @@ import same from "@/mocks/hyeon17/PbDetail/same.json";
 import LocationCard from "@/components/common/LocationCard";
 import Image from "next/image";
 import Link from "next/link";
-import ButtonModal from "@/components/common/ButtonModal";
-import useCopyClipboard from "@/hooks/useCopyClipboard";
 import PbRecentReview from "@/mocks/hyeon17/PbDetail/Review/pbrecentreview.json";
 import PbReview from "@/mocks/hyeon17/PbDetail/Review/pbreview.json";
 import "@/styles/pb.css";
+import { useRouter, usePathname } from "next/navigation";
+import { CommonROLE } from "@/constants/enum";
+import LocationCopyButton from "@/components/common/LocationCopyButton";
 
 function About({ aboutData, role }: any) {
   const { name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
@@ -21,7 +22,8 @@ function About({ aboutData, role }: any) {
   const sameData = same.data.list;
   const pbReviewData = PbReview.data;
   const pbRecentData = PbRecentReview.data;
-  const { isCopyOpen, isCopy, setIsCopyOpen, addressCopy, copyContents } = useCopyClipboard(branchAddress);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const styleCase = (style: string): { style: ConsultationStyle; image: string } => {
     switch (style) {
@@ -47,8 +49,34 @@ function About({ aboutData, role }: any) {
     }
   };
 
+  const goToPage = () => {
+    if (role === CommonROLE.USER) {
+      router.push("/reservation");
+    } else if (role === CommonROLE.PB) {
+      if (pathname === "/detail/info") {
+        router.push("/detail/edit");
+      }
+      if (pathname === "/detail/content") {
+        router.push("/lounge/write");
+      }
+    }
+  };
+
+  let text;
+  if (role === CommonROLE.USER) {
+    text = "상담 신청하기";
+  } else if (role === CommonROLE.PB) {
+    if (pathname === "/detail/info") {
+      text = "프로필 수정하기";
+    }
+    if (pathname === "/detail/content") {
+      text = "콘텐츠 작성하기";
+    }
+  }
+  
+
   return (
-    <>
+    <article>
       <div className="info_header">
         투자자 님들의
         <br />
@@ -113,9 +141,7 @@ function About({ aboutData, role }: any) {
           </div>
           <div className="flex text-xs">
             <div className="flex-1">{branchAddress}</div>
-            <button onClick={addressCopy} className="flex-2 text-gray-normal underline">
-              주소 복사
-            </button>
+            <LocationCopyButton location={branchAddress} />
           </div>
           <div className="mt-4 h-[140px]">
             <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
@@ -128,12 +154,12 @@ function About({ aboutData, role }: any) {
           <br />
           함께 만나보세요
         </div>
-        <PbCardList props={sameData} role={role} />
+        <PbCardList props={sameData} />
       </div>
-      {isCopyOpen && isCopy && (
-        <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
-      )}
-    </>
+      <button className="button_fixed" onClick={() => goToPage()}>
+        {text}
+      </button>
+    </article>
   );
 }
 

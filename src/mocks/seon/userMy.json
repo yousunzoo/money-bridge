@@ -1,0 +1,50 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "id": 1,
+    "name": "김투자",
+    "propensity": "CONSERVATIVE",
+    "step": {
+      "hasDonePropensity": true,
+      "hasDoneBoardBookMark": false,
+      "hasDoneReservation": false,
+      "hasDoneReview": false
+    },
+    "reservationCount": {
+      "apply": 2,
+      "confirm": 3,
+      "complete": 2
+    },
+    "boardBookmark": {
+      "list": [
+        {
+          "id": 1,
+          "thumbnail": "thumbnail.png"
+        },
+        {
+          "id": 2,
+          "thumbnail": "thumbnail.png"
+        }
+      ],
+      "count": 2
+    },
+    "userBookmark": {
+      "list": [
+        {
+          "id": 1,
+          "thumbnail": "profile.png"
+        },
+        {
+          "id": 2,
+          "thumbnail": "profile.png"
+        },
+        {
+          "id": 3,
+          "thumbnail": "profile.png"
+        }
+      ],
+      "count": 3
+    }
+  }
+}

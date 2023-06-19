@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .header {
+    @apply my-7 flex h-14 font-bold;
+  }
+
+  .section {
+    @apply flex-1 text-xl
+  }
+
+  .more {
+    @apply flex items-end justify-end text-base text-gray-normal underline decoration-1
+  }
+}

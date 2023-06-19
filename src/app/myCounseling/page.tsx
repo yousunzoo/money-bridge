@@ -74,7 +74,7 @@ function MyCounselingPage() {
                 >
                   <p className="font-bold">{name}</p>
                   <p className="text-xs ">{createdAt} </p>
-                  <p className="text-xs ">상담방식 : {type === "VISIT" ? "방문상담" : "유선상담"}</p>
+                  <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"}</p>
                 </UserReservationItem>
               ))}
           </ul>

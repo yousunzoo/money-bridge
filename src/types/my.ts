@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { IPropensity, TSpeciality } from "./pblist";
 
 export interface IUserStep {
@@ -99,4 +100,21 @@ export interface IPropensityInfoCardProps {
 export interface IEditInfoFormProps {
   type: string;
   onSubmit: (data: { [key: string]: string }) => void;
+}
+
+export interface IAccordianItemProps {
+  listItem: INoticeItem;
+  nowClicked: string | null;
+  setNowClicked: Dispatch<SetStateAction<string | null>>;
+}
+
+export interface IAccordianListProps {
+  list: INoticeItem[];
+}
+export interface INoticeItem {
+  id: number;
+  title: string;
+  content: string;
+  date?: string;
+  label?: string;
 }

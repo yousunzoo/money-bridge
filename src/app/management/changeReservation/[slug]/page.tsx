@@ -115,19 +115,12 @@ function ChangeReservationPage({ params }: Props) {
 
   // 상담 방식 선택 버튼
   const selectLocationHandler = (clickType: string | null) => {
-    if (clickType === null) {
-      setChangeState(prevState => ({
-        ...prevState,
-        type: "CALL",
-        category: clickType,
-      }));
-    } else {
-      setChangeState(prevState => ({
-        ...prevState,
-        type: "ViSIT",
-        category: clickType,
-      }));
-    }
+    setChangeState(prevState => ({
+      ...prevState,
+      type: clickType === null ? "CALL" : "VISIT",
+      category: clickType,
+    }));
+
     setIsOpenLocation(false);
   };
 

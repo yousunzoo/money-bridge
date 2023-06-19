@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import InformationBox, { IFindEmail } from "./InformationBox";
+import InformationItem from "./InformationItem";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { IFindEmail } from "@/types/login";
 
 function InformationCheck() {
   const router = useRouter();
@@ -16,7 +17,7 @@ function InformationCheck() {
   return (
     <>
       <p className="mb-10 mt-14 text-xl font-bold leading-7">회원 정보를 확인해 주세요.</p>
-      <ul>{data.data && data.data.map(item => <InformationBox information={item} key={item.email} />)}</ul>
+      <ul>{data.data && data.data.map(item => <InformationItem information={item} key={item.email} />)}</ul>
       <button
         className="mb-24 mt-[266px] h-14 w-full rounded-[8px] bg-primary-normal text-xl font-bold leading-7 text-white"
         onClick={handleClick}

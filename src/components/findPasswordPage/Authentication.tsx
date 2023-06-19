@@ -8,7 +8,7 @@ import { useJoinStore } from "@/store/joinStore";
 
 const TIMER_TIME = 300;
 
-function Authentication() {
+function Authentication({ userEmail, onSubmit }: { userEmail?: string; onSubmit?: () => void }) {
   const [value, setValue] = useState("");
   const [min, setMin] = useState(5);
   const [sec, setSec] = useState(0);
@@ -48,6 +48,10 @@ function Authentication() {
 
   const handleClick = () => {
     if (code === value) {
+      if (onSubmit) {
+        onSubmit();
+        return;
+      }
       const routePath = pathName.split("/")[1] === "join" ? "password" : "selectInformation";
       router.push(`/${pathName.split("/")[1]}/${pathName.split("/")[2]}/${routePath}`);
     } else {
@@ -56,7 +60,8 @@ function Authentication() {
   };
 
   const handleResend = () => {
-    authentication(informations.email);
+    const email = userEmail ? userEmail : informations.email;
+    authentication(email);
     clearInterval(timerId.current);
     startTimer();
   };

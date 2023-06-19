@@ -3,8 +3,10 @@ import UserReservationItem from "@/components/common/Card/CardItem/UserReservati
 import TopNav from "@/components/common/TopNav";
 import React from "react";
 import res from "../../../../mocks/kjun/managementReservations.json";
-import ConsultingHistoryCard from "../../../../components/common/ConsultingHistoryCard";
-import DoubleButton from "@/components/consultationPage/DoubleButton";
+import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
+import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
+import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
+import DoubleButton from "@/components/common/DoubleButton";
 
 interface Props {
   params: {
@@ -64,31 +66,43 @@ function CompletedConsultationPage({ params }: Props) {
     goal,
     question,
     role,
-    reviewCheck,
+    reviewCheck: false,
     completionPhrase1,
     completionPhrase2,
   };
+  const scheduleSectionProps = { candidateTime1, candidateTime2, role, time };
+  const locationSectionProps = { type, role, location, locationAddress };
+  const noteSectionProps = { role, goal, question };
 
   return (
     <div>
       <TopNav title="완료된 상담" hasBack={true} />
-      <div className="mt-4 user_top_Phrase">
+      <div className="user_top_Phrase mt-4">
         <span className="text-white ">상담이 완료되었습니다.</span>
       </div>
-      <UserReservationItem buttonName="PB 정보" onClickhandler={onClickhandler} isRole={"PB"}>
+      <UserReservationItem buttonName="PB 정보" href={"/"} isRole={"PB"}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{phoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
-      <ConsultingHistoryCard {...historyCard} />
-      <DoubleButton
-        reviewCheck={reviewCheck}
-        firstTitle={"상담 다시 신청하기"}
-        secondTitle={"후기 작성"}
-        firstClickFunc={onClickhandler}
-        secondClickFunc={onClickhandler}
-        role={"USER"}
-      />
+
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
+        <ConsultationScheduleSection {...scheduleSectionProps} />
+        <ConsultationLocationSection {...locationSectionProps} />
+        <ConsultationNoteSection {...noteSectionProps} />
+        <div className="flex flex-col items-center pt-6 text-xs">
+          <p className="font-bold text-secondary-heavy">상담이 완료되었습니다.</p>
+          <p className="text-secondary-heavy">{reviewCheck && "상담 후기를 작성해주세요."}</p>
+        </div>
+        <DoubleButton
+          reviewCheck={reviewCheck}
+          firstTitle={"상담 다시 신청하기"}
+          secondTitle={"후기 작성"}
+          firstClickFunc={onClickhandler}
+          secondClickFunc={onClickhandler}
+          role={"USER"}
+        />
+      </section>
     </div>
   );
 }

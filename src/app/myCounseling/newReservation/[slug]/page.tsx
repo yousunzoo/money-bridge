@@ -91,12 +91,12 @@ function NewReservationPage({ params }: Props) {
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />
+        <div className="flex flex-col items-center py-6 text-xs">
+          <p className="font-bold text-primary-normal">PB가 유선연락을 통해 일정과 장소를 확인해드립니다.</p>
+          <p className="text-primary-normal">(영업일 1일 이내)</p>
+        </div>
+        <SingleButton title={"예약 변경/취소"} role={"USER"} ClickFunc={undoChangeClickHandler} />
       </section>
-      <div className="flex flex-col items-center py-6 text-xs">
-        <p className="font-bold text-primary-normal">PB가 유선연락을 통해 일정과 장소를 확인해드립니다.</p>
-        <p className="text-primary-normal">(영업일 1일 이내)</p>
-      </div>
-      <SingleButton title={"예약 변경/취소"} role={"USER"} ClickFunc={undoChangeClickHandler} />
     </div>
   );
 }

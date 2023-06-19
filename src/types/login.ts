@@ -13,3 +13,10 @@ interface IResponseLoginData {
     code: string | null;
   };
 }
+export interface IUser {
+  role: string;
+  email?: string;
+  name?: string;
+  password?: string;
+  phoneNumber?: string;
+}

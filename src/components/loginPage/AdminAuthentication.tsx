@@ -55,7 +55,7 @@ function AdminAuthentication() {
       <p className="mb-2 text-xs leading-[18px]">개인정보 보호를 위해 인증코드는 5분 간 유효합니다.</p>
 
       <div className="flex gap-[18px]">
-        <input className={`form_input ${code ? "entering" : ""}`} onChange={handleChange} />
+        <input className={`input_authentication ${code ? "entering" : ""}`} onChange={handleChange} />
         <button className="break-keep text-sm leading-5 underline" onClick={handleResend}>
           재발송
         </button>

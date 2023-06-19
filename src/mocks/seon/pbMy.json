@@ -1,0 +1,15 @@
+{
+  "status": 200,
+  "msg": "ok",
+  "data": {
+    "profile": "profile.png",
+    "name": "김pb",
+    "branchName": "미래에셋증권 여의도점",
+    "msg": "한줄메시지..",
+    "career": 10,
+    "speciality1": "BOND",
+    "speciality2": "ETF",
+    "reserveCount": 4,
+    "reviewCount": 1
+  }
+}

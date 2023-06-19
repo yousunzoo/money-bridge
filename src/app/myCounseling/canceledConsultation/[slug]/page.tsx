@@ -96,15 +96,15 @@ function CanceledConsultationPage({ params }: Props) {
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />
+        <DoubleButton
+          reviewCheck={reviewCheck}
+          firstTitle={"상담 다시 신청하기"}
+          secondTitle={"확인"}
+          firstClickFunc={consultationRequestHandler}
+          secondClickFunc={checkClickHandler}
+          role={"USER"}
+        />
       </section>
-      <DoubleButton
-        reviewCheck={reviewCheck}
-        firstTitle={"상담 다시 신청하기"}
-        secondTitle={"확인"}
-        firstClickFunc={consultationRequestHandler}
-        secondClickFunc={checkClickHandler}
-        role={"USER"}
-      />
     </div>
   );
 }

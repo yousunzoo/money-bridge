@@ -1,6 +1,6 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
-import { set, useForm } from "react-hook-form";
+import React, { ChangeEvent, MouseEvent, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InputFormType } from "@/constants/enum";
@@ -8,6 +8,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { useLogin } from "@/hooks/useLogin";
 import { useFindEmail } from "@/hooks/useFindEmail";
 import ButtonModal from "./ButtonModal";
+import Image from "next/image";
+import alert from "/public/assets/images/alert.svg";
+import correct from "/public/assets/images/correct.svg";
 
 const yup_email = yup.string().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -59,6 +62,10 @@ function DoubleInputForm({
     });
   };
 
+  const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  };
+
   const onSubmit = async () => {
     if (!isValid) {
       alert("양식을 확인해");
@@ -88,12 +95,21 @@ function DoubleInputForm({
       <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-2.5">
           <h2 className="mb-4 text-sm font-bold leading-5">{getNotice(type)?.data.header1}</h2>
-          <input
-            type="text"
-            className={`form_input ${errors.first ? "warnning" : dirtyFields.first ? "entering" : ""} `}
-            {...register("first")}
-            value={inputs.first}
-          />
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              className={`form_input ${errors.first ? "warnning" : dirtyFields.first ? "entering" : ""} `}
+              {...register("first")}
+              value={inputs.first}
+              autoFocus
+            />
+            {dirtyFields.first && (
+              <>
+                <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <Image src={errors.first ? alert : correct} alt="input_status" className="input_status" />
+              </>
+            )}
+          </div>
           <div className="h-[18px] pl-2">
             <span className={`text-xs leading-[18px] ${errors.first ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.first ? getNotice(type)?.data.notice1 : ""}
@@ -102,12 +118,20 @@ function DoubleInputForm({
         </div>
         <div className="mb-2.5">
           <h2 className="mb-4 mt-6 text-sm font-bold leading-5">{getNotice(type)?.data.header2}</h2>
-          <input
-            type={inputType}
-            className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
-            {...register("second")}
-            value={inputs.second}
-          />
+          <div className="relative flex items-center">
+            <input
+              type={inputType}
+              className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
+              {...register("second")}
+              value={inputs.second}
+            />
+            {dirtyFields.second ? (
+              <>
+                <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <Image src={errors.second ? alert : correct} alt="input_status" className="input_status" />
+              </>
+            ) : null}
+          </div>
           <div className="h-[18px] pl-2">
             <span className={`text-xs leading-[18px] ${errors.second ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.second ? getNotice(type)?.data.notice2 : ""}

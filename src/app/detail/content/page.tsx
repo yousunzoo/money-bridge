@@ -5,7 +5,7 @@ import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import ContentData from "@/mocks/hyeon17/PbDetail/boards.json";
 import TopNav from "@/components/common/TopNav";
 import authProfile from "@/mocks/hyeon17/PbDetail/Profile/authProfile.json";
-import { useRoleStore } from "@/store/roleStore";
+import { useUserStore } from "@/store/userStore";
 
 function PbDetailContent() {
   const data = authProfile.data;
@@ -23,7 +23,7 @@ function PbDetailContent() {
   };
 
   // 테스트를 위해 넣어놓은 코드
-  const userData = useRoleStore();
+  const userData = useUserStore();
   const [role, setRole] = useState("");
 
   useEffect(() => {

@@ -4,14 +4,14 @@ import Intro from "@/components/loungePage/Intro";
 import PbRecommend from "@/components/loungePage/PbRecommend";
 import All from "@/mocks/hyeon17/Lounge/all.json";
 import Content from "@/components/loungePage/Content";
-import { useRoleStore } from "@/store/roleStore";
+import { useUserStore } from "@/store/userStore";
 import TopNav from "@/components/common/TopNav";
 import { useLoungeBoard } from "@/app/apis/services/common";
 import { ListResponse } from "@/types/common";
 import { ContentCard } from "@/types/card";
 
 function Lounge() {
-  const userData = useRoleStore();
+  const userData = useUserStore();
   const [role, setRole] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [all, setAll] = useState(All);

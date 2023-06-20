@@ -80,13 +80,13 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
   return (
     <div>
       <TopNav title="후기 작성" hasBack={true} />
-      <div className="user_top_Phrase mt-4">
+      <div className="mt-4 user_top_Phrase">
         <span className="text-white ">상담 후기를 남겨주세요.</span>
       </div>
-      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs shadow-2xl">
+      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md shadow-2xl">
         <article className="w-full pt-3">
           <h3 className="font-bold">상담 일정은 잘 지켜졌나요?</h3>
-          <ul className="mt-5 flex justify-around border-b-1 border-background-secondary pb-3">
+          <ul className="flex justify-around pb-3 mt-5 border-b-1 border-background-secondary">
             {Object.entries(ADHERENCE).map(([key, value]) => (
               <li
                 key={key}
@@ -110,7 +110,7 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
           <h3 className="font-bold ">
             상담 스타일은 어떠셨나요? <span>(최대 4개 선택 가능)</span>
           </h3>
-          <ul className="mt-3 flex flex-wrap justify-center gap-2 border-b-1 border-background-secondary pb-4">
+          <ul className="flex flex-wrap justify-center gap-2 pb-4 mt-3 border-b-1 border-background-secondary">
             {Object.entries(COUNSELING_STYLE).map(([key, value]) => (
               <li
                 key={key}
@@ -132,7 +132,7 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
             id=""
             rows={4}
             cols={50}
-            className="w-ful mt-4 rounded-md bg-background-secondary p-2"
+            className="p-2 mt-4 rounded-md w-ful bg-background-secondary"
             onChange={reviewChangeHanlder}
           ></textarea>
         </article>

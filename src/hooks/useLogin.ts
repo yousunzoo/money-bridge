@@ -5,7 +5,11 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { usePathname, useRouter } from "next/navigation";
 
-export const useLogin = (setNextStep: ((value: React.SetStateAction<boolean>) => void) | undefined) => {
+export const useLogin = (
+  setNextStep: ((value: React.SetStateAction<boolean>) => void) | undefined,
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setModalError: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
   const router = useRouter();
   const pathName = usePathname();
   const { setUser } = useUserStore();
@@ -26,6 +30,8 @@ export const useLogin = (setNextStep: ((value: React.SetStateAction<boolean>) =>
     },
     onError: (err: AxiosError) => {
       console.log(err);
+      setModalError(true);
+      setIsOpen(true);
     },
   });
 

@@ -31,3 +31,8 @@ export const resetPassword = async (user: IUser) => {
   const res = await instance.patch("/password", user);
   return res.data;
 };
+
+export const getCompanyList = async () => {
+  const res = await instance.get(`/companies?includeLogo=false`);
+  return res.data;
+};

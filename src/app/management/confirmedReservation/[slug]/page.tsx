@@ -80,7 +80,7 @@ function ConfirmedReservationPage({ params }: Props) {
       <div className="pb_top_Phrase">
         <span className="text-white ">상담이 확정되었습니다. 상담 일정을 확인해 주세요.</span>
       </div>
-      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"}>
+      <UserReservationItem buttonName={"고객 정보"} href={"/"} isRole={"USER"}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{phoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>

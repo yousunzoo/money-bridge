@@ -58,23 +58,23 @@ function Page() {
   console.log(informations);
   console.log(code);
 
-  switch (stepPath) {
-    case "authentication":
-      informations.email === "" ? redirect("/login") : "";
-      break;
-    case "password":
-      code === "" ? redirect("/login") : "";
-      break;
-    case "name":
-      informations.password === "" ? redirect("/login") : "";
-      break;
-    case "phoneNumber":
-      informations.name === "" ? redirect("/login") : "";
-      break;
-    case "agreements":
-      informations.phoneNumber === "" ? redirect("/login") : "";
-      break;
-  }
+  // switch (stepPath) {
+  //   case "authentication":
+  //     informations.email === "" ? redirect("/login") : "";
+  //     break;
+  //   case "password":
+  //     code === "" ? redirect("/login") : "";
+  //     break;
+  //   case "name":
+  //     informations.password === "" ? redirect("/login") : "";
+  //     break;
+  //   case "phoneNumber":
+  //     informations.name === "" ? redirect("/login") : "";
+  //     break;
+  //   case "agreements":
+  //     informations.phoneNumber === "" ? redirect("/login") : "";
+  //     break;
+  // }
 
   return (
     <>

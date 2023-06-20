@@ -29,7 +29,7 @@ function PropensityCard({ userPropensity }: IPropensityCardProps) {
         <div className="relative mb-2 h-1 w-full bg-background-normal">
           <div className={`${DOT_STYLE}`} />
         </div>
-        <p className="text-tiny">
+        <p className="text-xs">
           손실 위험도 : <span className="text-status-positive">{lossRisk}</span>
         </p>
       </div>
@@ -38,7 +38,7 @@ function PropensityCard({ userPropensity }: IPropensityCardProps) {
           <div className="relative mb-2 h-1 w-full bg-background-normal">
             <div className={`${DOT_STYLE}`} />
           </div>
-          <p className="text-tiny">
+          <p className="text-xs">
             수익 추구 : <span className="text-status-positive">{pursuit}</span>
           </p>
         </div>
@@ -48,7 +48,7 @@ function PropensityCard({ userPropensity }: IPropensityCardProps) {
           <div className="relative mb-2 h-1 w-full bg-background-normal">
             <div className={`${DOT_STYLE}`} />
           </div>
-          <p className="text-tiny">
+          <p className="text-xs">
             상품 위험도 : <span className="text-status-positive">{productRisk}</span>
           </p>
         </div>

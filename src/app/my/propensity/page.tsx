@@ -30,7 +30,7 @@ function PropensityPage() {
       {/* <PropensityChart /> */}
       <RiskGrades grade={userPropensity.grade} />
       <RecommendPBList list={list} />
-      <p className="mb-[130px] break-keep text-center text-tiny  leading-[18px] text-gray-heavy">
+      <p className="mb-[130px] break-keep text-center text-xs  leading-[18px] text-gray-heavy">
         제공되는 투자자성향 분석 결과는 투자자께서 제공하신 정보를 바탕으로 분석되었으며,
         <br />
         거래목적, 계약기간·기대이익·기대손실을 고려한 위험에 대한 태도, 금융상품에 대한 이해도,

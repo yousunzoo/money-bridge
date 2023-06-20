@@ -5,9 +5,8 @@ import Content from "@/components/pbdetailPage/Content";
 import Intro from "@/components/pbdetailPage/Intro";
 import authProfile from "@/mocks/hyeon17/PbDetail/Profile/authProfile.json";
 import profile from "@/mocks/hyeon17/PbDetail/Profile/profile.json";
-import { useRoleStore } from "@/store/roleStore";
+import { useUserStore } from "@/store/userStore";
 import About from "@/components/pbdetailPage/About";
-import FixedButton from "@/components/pbdetailPage/FixedButton";
 
 function PbDetailInfo() {
   const data = authProfile.data;
@@ -49,7 +48,7 @@ function PbDetailInfo() {
     branchLatitude: data.branchLatitude,
     branchLongitude: data.branchLongitude,
   };
-  const userData = useRoleStore();
+  const userData = useUserStore();
   const [role, setRole] = useState("");
 
   useEffect(() => {
@@ -57,14 +56,13 @@ function PbDetailInfo() {
   }, [userData]);
 
   return (
-    <div className="mb-28 flex w-full flex-col">
+    <div className="mb-24 flex w-full flex-col">
       <TopNav title="PB 상세프로필" hasBack={true} />
       <Intro introData={role === "" ? notLoginData : introData} role={role} />
       {role === "" ? null : (
         <>
           <Content contentData={contentData} />
           <About aboutData={aboutData} role={role} />
-          <FixedButton role={role} />
         </>
       )}
     </div>

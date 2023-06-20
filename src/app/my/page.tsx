@@ -23,7 +23,7 @@ function MyPage() {
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const id = e.target.dataset.id;
-    if (id === "secession") router.push("/my/secession");
+    if (id === "secession") router.push("/secession");
   };
 
   return (

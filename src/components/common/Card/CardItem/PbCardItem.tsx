@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
+import { useUserStore } from "@/store/userStore";
 
-function PbCardItem({ item, role }: any) {
+function PbCardItem({ item }: { item: any }) {
   const router = useRouter();
+  const userData = useUserStore();
   const [isBookmark, setIsBookmark] = useState(item.isBookmark);
 
   const bookMark = () => {
@@ -19,7 +21,7 @@ function PbCardItem({ item, role }: any) {
   };
 
   return (
-    <li className="card h-[200px] px-[20px] pt-[20px]">
+    <li className="card h-[200px] bg-white px-[20px] pt-[20px]">
       <div className="mb-[18px] flex">
         <Image
           src={item.profile}
@@ -29,7 +31,7 @@ function PbCardItem({ item, role }: any) {
           className="mr-[13px] h-[60px] w-[60px] rounded-full"
         />
         <div className="flex flex-1 flex-col">
-          <div className="mb-[6px] text-base font-bold">{item.pbName} PB</div>
+          <div className="mb-[6px] text-base font-bold">{item.name} PB</div>
           <div className="text-xs">
             {item.companyName}&nbsp;{item.branchName}
           </div>
@@ -39,14 +41,18 @@ function PbCardItem({ item, role }: any) {
             {item.career}년차
           </div>
         </div>
-        {role && (
+        {userData.user.role && (
           <button onClick={bookMark} className="flex-2 flex w-12 items-start justify-center pt-1">
-            {isBookmark ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
+            {item.isBookmark ? (
+              <Image src={bookmark_filled} alt="북마크 해제" />
+            ) : (
+              <Image src={bookmark} alt="북마크" />
+            )}
           </button>
         )}
       </div>
       <div className="flex h-[34px] items-center justify-center rounded-md bg-background-primary text-xs font-bold text-primary-normal">
-        "{item.intro}"
+        {item.msg ? `"${item.msg}"` : null}
       </div>
       <div className="mt-[13px] flex items-center text-sm">
         <div className="flex flex-1 text-[10px]">

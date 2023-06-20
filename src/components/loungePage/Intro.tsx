@@ -9,9 +9,9 @@ import Image from "next/image";
 import mylist from "/public/assets/images/icon/lounge_mylist.svg";
 import write from "/public/assets/images/icon/lounge_write.svg";
 
-function Intro({role}: any) {
+function Intro({ role }: { role: string }) {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const modalContents = {
     content: "로그인 후 북마크 저장이 가능합니다",
@@ -30,7 +30,7 @@ function Intro({role}: any) {
   };
 
   return (
-    <div className="flex h-[190px] items-center bg-secondary-heavy mx-[-16px] px-[16px]">
+    <header className="flex h-[190px] items-center bg-secondary-heavy mx-[-16px] px-[16px]">
       <div className="flex w-full flex-col">
         <div className="mb-1 ml-2 text-3xl font-bold text-white">Lounge</div>
         <div className="ml-2 text-xs text-white">
@@ -73,7 +73,7 @@ function Intro({role}: any) {
         )}
       </div>
       {isOpen && <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen} />}
-    </div>
+    </header>
   );
 }
 

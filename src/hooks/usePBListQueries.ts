@@ -1,8 +1,9 @@
 import { createQueryString } from "@/utils/createQueryString";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { MouseEvent } from "react";
 
 export const usePBListQueries = () => {
+  const pathName = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
 

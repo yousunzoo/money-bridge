@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, MouseEvent, SetStateAction } from "react";
 import { IPropensity, TSpeciality } from "./pblist";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 export interface IUserStep {
   hasDonePropensity: boolean;
@@ -117,4 +118,55 @@ export interface INoticeItem {
   content: string;
   date?: string;
   label?: string;
+}
+
+export interface IEditProfileFormProps {
+  existingProfile: {
+    company: string;
+    branchName: string;
+    career: number;
+    careers: ICareer[];
+    awards: IAward[];
+    speciality1: string;
+    speciality2: string;
+    cumulativeReturn: number;
+    maxDrawdown: number;
+    profitFactor: number;
+    averageProfit: number;
+    profile: string;
+    portfolio: string;
+    intro: string;
+    msg: string;
+  };
+}
+
+export interface ICareer {
+  id?: number;
+  content: string | undefined;
+  start: number | undefined;
+  end: number | undefined;
+}
+export interface IAward {
+  id?: number;
+  record: string | undefined;
+  awardYear: number | undefined;
+}
+
+export interface IAwardFormProps {
+  award: IAward;
+  index: number;
+  removeItems: (type: string, index: number) => void;
+  register: UseFormRegister<any>;
+}
+
+export interface ICareerFormProps {
+  career: ICareer;
+  index: number;
+  removeItems: (type: string, index: number) => void;
+  register: UseFormRegister<any>;
+}
+
+export interface ISelectSpecialityProps {
+  specialityData: string[];
+  handleToggleButtons: (e: MouseEvent<HTMLButtonElement>) => void;
 }

@@ -1,0 +1,21 @@
+{
+  "status": "200",
+  "msg": "ok",
+  "data": {
+    "company": "미래에셋",
+    "branchName": "용산점",
+    "career": 10,
+    "careers": [{ "content": "펀드매니져", "start": 2021, "end": 2022 }],
+    "awards": [{ "record": "투자대회 1등", "awardYear": 2016 }],
+    "speciality1": "채권",
+    "speciality2": "부동산",
+    "cumulativeReturn": 40.1,
+    "maxDrawdown": 101.11,
+    "profitFactor": 1.54,
+    "averageProfit": 42.2,
+    "profile": "profile.pdf",
+    "portfolio": "file.pdf",
+    "intro": "김피비입니다.",
+    "msg": "김피비입니다."
+  }
+}

@@ -1,10 +1,7 @@
 import Image from "next/image";
 import { ICompanyListProps } from "@/types/pblist";
 import { Carousel } from "antd";
-import React, { MouseEvent } from "react";
 import { chunkArray } from "@/utils/chunkArray";
-import { createQueryString } from "@/utils/createQueryString";
-import { useRouter, useSearchParams } from "next/navigation";
 import "@/styles/companyCarousel.css";
 import { usePBListQueries } from "@/hooks/usePBListQueries";
 

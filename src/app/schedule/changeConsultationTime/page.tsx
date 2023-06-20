@@ -13,7 +13,7 @@ function ChangeConsultationTimePage() {
 
   const [isOpenModal, setIsOpenModal] = useState({
     startModal: false,
-    endmodal: false,
+    endModal: false,
   });
   const [changeData, setChangeData] = useState({
     consultStart: data.consultStart,
@@ -38,7 +38,7 @@ function ChangeConsultationTimePage() {
   const endTimeSelect = (e: React.MouseEvent<HTMLElement>) => {
     setIsOpenModal({
       ...isOpenModal,
-      endmodal: !isOpenModal.endmodal,
+      endModal: !isOpenModal.endModal,
     });
     const target = e.target as HTMLLIElement;
 
@@ -70,7 +70,7 @@ function ChangeConsultationTimePage() {
   const endTimeButtonProps = {
     timeSelect: endTimeSelect,
     selectTime: changeData.consultEnd,
-    isOpenModal: isOpenModal.endmodal,
+    isOpenModal: isOpenModal.endModal,
   };
 
   return (

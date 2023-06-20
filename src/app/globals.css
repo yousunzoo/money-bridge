@@ -4,22 +4,23 @@
 
 @layer utilities {
   body {
-    background-color: #eee;
+    background-color: #f8f8f8;
     width: 100vw;
-    height: 100vh;
+    height: auto;
     letter-spacing: -0.6px;
     color: #242424;
   }
 
   main {
-    background-color: #fff;
+    background-color: #f8f8f8;
     min-width: 390px;
-    max-width: 425px;
+    max-width: 768px;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     margin: auto;
     padding: 0 16px;
-    overflow-y: scroll;
+    padding-top: 70px;
+    padding-bottom: 140px;
   }
 
   input[type="number"]::-webkit-inner-spin-button {
@@ -89,6 +90,7 @@
   .button_outlined {
     @apply flex h-[56px] w-full min-w-[358px] items-center justify-center rounded-md border-1 border-primary-normal font-bold text-primary-normal;
   }
+
   .button_small {
     @apply h-[56px] w-[110px] rounded-sm border-1 border-primary-normal bg-white font-bold;
   }
@@ -130,15 +132,17 @@
   }
 
   .popup .popup-button {
-    @apply rounded-sm bg-primary-normal text-white;
+    @apply h-[44px] rounded-md bg-primary-normal text-white;
   }
 
   .popup .cancel-button {
-    @apply w-1/2 rounded-sm border-1 border-black py-3;
+    @apply w-1/2 rounded-md border-1 border-black py-3;
   }
+
   .pb_top_Phrase {
     @apply mb-6 mt-4 h-8 w-full bg-primary-normal p-2 text-center text-xs;
   }
+
   .user_top_Phrase {
     @apply mb-6 mt-4 h-8 w-full bg-secondary-heavy p-2 text-center text-xs;
   }
@@ -150,17 +154,12 @@
   .propensity_circle {
     @apply absolute top-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 rounded-[5px] bg-primary-normal;
   }
-}
 
-.fixedButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 425px;
-  height: 50px;
-  position: fixed;
-  bottom: 50px;
-  background-color: #000;
-  color: #fff;
-  z-index: 10;
+  .input_button {
+    @apply absolute right-10 w-4 h-4 bg-[url('/assets/images/clear.svg')]
+  }
+
+  .input_status {
+    @apply absolute right-3
+  }
 }

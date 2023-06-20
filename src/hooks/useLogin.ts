@@ -1,5 +1,4 @@
 import { userLogin } from "@/app/apis/services/auth";
-import { IResponseLogin } from "@/types/login";
 import { setCookie } from "@/utils/cookies";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -10,13 +9,14 @@ export const useLogin = (setNextStep: ((value: React.SetStateAction<boolean>) =>
 
   const { mutate } = useMutation(userLogin, {
     onSuccess: data => {
+      console.log(data.data);
       if (data.data.data.code) {
         if (setNextStep) {
           setNextStep(true);
         }
       } else {
         setCookie("Authorization", data.headers.authorization);
-        alert("환영!");
+        alert(`${data.data.data.name}님 환영~`);
         router.push("/");
       }
     },

@@ -3,14 +3,21 @@ import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { usePathname } from "next/navigation";
+import { useResetPassword } from "@/hooks/useResetPassword";
+import { useQueryClient } from "@tanstack/react-query";
+import { IFindPassword } from "@/types/login";
 
 const yup_password = yup.string().min(8).max(15).required();
 
 function ResetPasswordForm() {
+  const pathName = usePathname();
   const [inputs, setInputs] = useState({
     first: "",
     second: "",
   });
+  const findPassword = useResetPassword();
+  const queryClient = useQueryClient();
 
   const schema = yup.object().shape({
     first: yup_password,
@@ -39,6 +46,12 @@ function ResetPasswordForm() {
       alert("공백있음");
       return;
     }
+    const currentPath = pathName.split("/")[1];
+    switch (currentPath) {
+      case "findPassword":
+        const data = queryClient.getQueryData(["findPassword"]) as IFindPassword;
+        findPassword({ id: data.data.id, password: inputs.first, role: pathName.split("/")[2].toUpperCase() });
+    }
   };
 
   errors.first?.type === "required" ? (errors.first = undefined) : "";
@@ -49,7 +62,7 @@ function ResetPasswordForm() {
 
   return (
     <div className="mt-6">
-      <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
+      <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-2.5">
           <h2 className="mb-4 text-xs leading-[18px]">기존과 다른 비밀번호를 입력해 주세요.</h2>
           <input

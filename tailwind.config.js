@@ -44,9 +44,9 @@ module.exports = {
       md: "0.75rem",
       lg: "1.125rem",
       xl: "1.25rem",
-      "2xl": "1rem",
+      "2xl": "1.3rem",
       "3xl": "1.5rem",
-      "full": "9999px",
+      "full": "50%",
     },
     borderWidth: {
       1: "1px",
@@ -56,6 +56,9 @@ module.exports = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      boxShadow: {
+        md: "0px 2px 8px rgba(0, 0, 0, 0.1)",
       },
     },
   },

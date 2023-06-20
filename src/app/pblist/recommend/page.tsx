@@ -14,7 +14,7 @@ function RecommendPage() {
           <br />
           제공해드릴 수 있는 PB입니다.
         </h3>
-        <p className="text-tiny">해당 추천은 투자성향 설문을 바탕으로 추천된 리스트입니다.</p>
+        <p className="text-xs">해당 추천은 투자성향 설문을 바탕으로 추천된 리스트입니다.</p>
         <PbCardList props={pblistData} />
       </section>
     </div>

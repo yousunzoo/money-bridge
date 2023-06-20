@@ -57,29 +57,29 @@ function JoinInformation({ type }: { type: JoinFormType }) {
     <>
       <p className="my-14 text-xl font-bold leading-7">{joinStepRenderer[type].title}</p>
       <p className="mb-2 text-xs leading-[18px]">{joinStepRenderer[type].sub}</p>
-      <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
+      <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
         <input
           type={`${type === JoinFormType.PHONENUMBER ? "number" : "text"}`}
           className={`form_input ${errors.text ? "warnning" : dirtyFields.text ? "entering" : ""} `}
           {...register("text")}
           value={value}
         />
+        <div className="h-[18px] pl-2">
+          <span className={`text-xs leading-[18px] ${errors.text ? "text-status-alert" : "text-status-positive"}`}>
+            {dirtyFields.text ? joinStepRenderer[type].validation : ""}
+          </span>
+        </div>
+        <button
+          type="submit"
+          className={`mt-[150px] h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"}`}
+          onClick={onSubmit}
+          disabled={!isValid}
+        >
+          <span className={`text-xl font-bold leading-7 ${isValid ? "text-white" : "text-gray-heavy"}`}>
+            {type === JoinFormType.EMAIL ? "인증코드 받기" : "다음"}
+          </span>
+        </button>
       </form>
-      <div className="h-[18px] pl-2">
-        <span className={`text-xs leading-[18px] ${errors.text ? "text-status-alert" : "text-status-positive"}`}>
-          {dirtyFields.text ? joinStepRenderer[type].validation : ""}
-        </span>
-      </div>
-      <button
-        type="submit"
-        className={`mt-[150px] h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"}`}
-        onClick={onSubmit}
-        disabled={!isValid}
-      >
-        <span className={`text-xl font-bold leading-7 ${isValid ? "text-white" : "text-gray-heavy"}`}>
-          {type === JoinFormType.EMAIL ? "인증코드 받기" : "다음"}
-        </span>
-      </button>
     </>
   );
 }

@@ -1,12 +1,6 @@
 import { IJoinInformation } from "@/types/join";
 import { instance } from "../axios";
-
-export interface IUser {
-  email: string;
-  password?: string;
-  role: string;
-  phoneNumber?: string;
-}
+import { IUser } from "@/types/login";
 
 export const userLogin = async (user: IUser) => {
   const res = await instance.post("/login", user);

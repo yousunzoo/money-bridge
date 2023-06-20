@@ -1,39 +1,18 @@
 import { Cookies } from "react-cookie";
 const cookies = new Cookies();
 
-export const getCookie = () => {
+export const getCookie = (key: string) => {
   try {
-    return cookies.get("accessToken");
+    return cookies.get(key);
   } catch (error) {
     console.error(error);
   }
 };
 
-export const setCookie = (token: string, user: IUser, option: ICookieSetOptions) => {
+export const setCookie = (key: string, data: string) => {
   try {
-    cookies.set("accessToken", token, option);
-    cookies.set("userData", user, option);
+    cookies.set(key, data);
   } catch (error) {
     console.error(error);
   }
 };
-
-interface IUser {
-  id: string;
-  username: string;
-  userId: string;
-  profileImg?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface ICookieSetOptions {
-  path?: string;
-  expires?: Date;
-  maxAge?: number;
-  domain?: string;
-  secure?: boolean;
-  httpOnly?: boolean;
-  sameSite?: boolean | "none" | "lax" | "strict";
-  encode?: (value: string) => string;
-}

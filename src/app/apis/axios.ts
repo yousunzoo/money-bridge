@@ -15,8 +15,8 @@ const createInstance = (ContentType: string) => {
 
   instance.interceptors.request.use(
     request => {
-      const token = getCookie();
-      if (token) request.headers["Authorization"] = `Bearer ${token}`;
+      const token = getCookie("Authorization");
+      if (token) request.headers["Authorization"] = `${token}`;
       return request;
     },
     (error: AxiosError) => {

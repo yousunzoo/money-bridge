@@ -11,15 +11,15 @@ function MyReservationStatus({ reservationCount }: IMyReservationStatusProps) {
         <ul className="flex justify-between">
           <li className={LI_STYLE}>
             <p className="mb-3 text-[18px]">{apply}</p>
-            <p className="text-tiny">예약 신청</p>
+            <p className="text-xs">예약 신청</p>
           </li>
           <li className={LI_STYLE}>
             <p className="mb-3 text-[18px]">{confirm}</p>
-            <p className="text-tiny">예약 확정</p>
+            <p className="text-xs">예약 확정</p>
           </li>
           <li className={LI_STYLE}>
             <p className="mb-3 text-[18px]">{complete}</p>
-            <p className="text-tiny">상담 완료</p>
+            <p className="text-xs">상담 완료</p>
           </li>
         </ul>
       </Link>

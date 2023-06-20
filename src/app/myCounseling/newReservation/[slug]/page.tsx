@@ -3,10 +3,11 @@ import UserReservationItem from "@/components/common/Card/CardItem/UserReservati
 import TopNav from "@/components/common/TopNav";
 import React from "react";
 import res from "../../../../mocks/kjun/managementReservations.json";
+import ConsultingHistoryCard from "../../../../components/common/ConsultingHistoryCard";
+import SingleButton from "@/components/common/SingleButton";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
-import DoubleButton from "@/components/common/DoubleButton";
 
 interface Props {
   params: {
@@ -47,14 +48,11 @@ function NewReservationPage({ params }: Props) {
     type,
   } = res.data.reservationList[0];
   // profileImage데이터는 api등록 후 UserReservationItem props 내려주고 코드 변경하기
-  const role = "PB";
-
-  const undoChangeClickHandler = () => {
-    console.log("변경/취소");
-  };
-
-  const confirmedClickHandler = () => {
-    console.log("상담확정");
+  const role = "USER";
+  const completionPhrase1 = "PB가 유선연락을 통해 일정과 장소를 확인해드립니다.";
+  const completionPhrase2 = "(영업일 1일 이내)";
+  const onClickhandler = () => {
+    console.log("click");
   };
 
   const historyCard = {
@@ -66,36 +64,38 @@ function NewReservationPage({ params }: Props) {
     goal,
     question,
     role,
+    completionPhrase1,
+    completionPhrase2,
   };
-  const scheduleSectionProps = { candidateTime1, candidateTime2, role, time };
+  const undoChangeClickHandler = () => {
+    console.log("변경/취소");
+  };
+
+  const scheduleSectionProps = { candidateTime1, candidateTime2, role };
   const locationSectionProps = { type, role, location, locationAddress };
   const noteSectionProps = { role, goal, question };
+
   return (
     <div>
       <TopNav title="신규예약" hasBack={true} />
-      <div className="pb_top_Phrase mt-4">
-        <span className="text-white ">투자자와 유선으로 상담 일정을 확정해주세요.</span>
+      <div className="user_top_Phrase mt-4">
+        <span className="text-white ">프라이빗 뱅커가 곧 유선으로 연락을 드립니다.</span>
       </div>
-      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"}>
+      <UserReservationItem buttonName="PB 정보" href={"/"} isRole={"PB"}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{phoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
+
       <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />
-        <div className="flex flex-col items-center pt-6 text-xs">
-          <p className="font-bold text-primary-normal">투자자와 유선연락을 통해 일정과 장소를 정하신 후</p>
-          <p className="text-primary-normal">예약을 확정하시면 투자자에게 상담 확정 알림이 전송됩니다.</p>
+        <div className="flex flex-col items-center py-6 text-xs">
+          <p className="font-bold text-primary-normal">PB가 유선연락을 통해 일정과 장소를 확인해드립니다.</p>
+          <p className="text-primary-normal">(영업일 1일 이내)</p>
         </div>
-        <DoubleButton
-          firstTitle={"변경/취소"}
-          secondTitle={"상담 완료"}
-          firstClickFunc={undoChangeClickHandler}
-          secondClickFunc={confirmedClickHandler}
-          role={"PB"}
-        />
+        <SingleButton title={"예약 변경/취소"} role={"USER"} ClickFunc={undoChangeClickHandler} />
       </section>
     </div>
   );

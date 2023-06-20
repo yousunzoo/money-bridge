@@ -140,11 +140,11 @@
   }
 
   .pb_top_Phrase {
-    @apply mb-6 mt-4 h-8 w-full bg-primary-normal p-2 text-center text-xs;
+    @apply mb-6 mt-4 w-full bg-primary-normal px-4 py-2 text-center text-xs;
   }
 
   .user_top_Phrase {
-    @apply mb-6 mt-4 h-8 w-full bg-secondary-heavy p-2 text-center text-xs;
+    @apply mb-6 mt-4 w-full bg-secondary-heavy px-4 py-2 text-center text-xs;
   }
 
   .propensity_circle {

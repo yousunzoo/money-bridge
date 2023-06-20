@@ -10,9 +10,9 @@ export interface CalendarModalProps {
 }
 
 export interface CounselingModalProps {
-  modalOpenHandler: () => void;
+  visitOpenHandler: () => void;
   type: string;
-  isOpenModal: boolean;
+  isOpenVisit: boolean;
   selectTypeHandler: (clickType: string) => void;
 }
 

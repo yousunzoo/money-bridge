@@ -66,12 +66,7 @@ function MyCounselingPage() {
           <ul className="flex flex-col gap-4">
             {selectData &&
               selectData.map(({ reservationId, name, createdAt, type }) => (
-                <UserReservationItem
-                  buttonName="정보 보기"
-                  key={reservationId}
-                  onClickhandler={onClickhandler}
-                  isRole={"pb"}
-                >
+                <UserReservationItem buttonName="정보 보기" key={reservationId} href="/" isRole={"pb"}>
                   <p className="font-bold">{name}</p>
                   <p className="text-xs ">{createdAt} </p>
                   <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"}</p>

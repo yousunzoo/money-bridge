@@ -16,7 +16,7 @@ export const usePasswordAuthentication = (
     onSuccess: data => {
       console.log(data);
       queryClient.setQueryData(["findPassword"], data);
-      setModalContent(data.data.id !== null);
+      setModalContent(data.data.id === null);
       setIsOpen(true);
       if (data.data.id) {
         setCode(data.data.code);

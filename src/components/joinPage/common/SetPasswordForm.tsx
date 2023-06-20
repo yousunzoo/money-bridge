@@ -1,12 +1,12 @@
 "use client";
-import React, { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import React, { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useJoinStore } from "@/store/joinStore";
 import { usePathname, useRouter } from "next/navigation";
 
-const yup_password = yup.string().min(8).max(15).required();
+const yup_password = yup.string().min(8).max(15).matches(/^\S+$/).required();
 
 function SetPasswordForm() {
   const [inputs, setInputs] = useState({
@@ -56,9 +56,7 @@ function SetPasswordForm() {
         <div className="mb-2.5">
           <input
             type="password"
-            className={`form_input ${errors.first || checkWhitespace(inputs.first) ? "warnning" : ""} ${
-              dirtyFields.first ? "entering" : ""
-            }`}
+            className={`form_input ${errors.first ? "warnning" : ""} ${dirtyFields.first ? "entering" : ""}`}
             {...register("first")}
             value={inputs.first}
           />
@@ -68,7 +66,7 @@ function SetPasswordForm() {
             </p>
             <p
               className={`text-xs leading-[18px] ${
-                checkWhitespace(inputs.first) ? "text-status-alert" : "text-status-positive"
+                inputs.first.includes(" ") ? "text-status-alert" : "text-status-positive"
               }`}
             >
               {dirtyFields.first ? "*공백없이 작성해 주세요." : ""}
@@ -90,13 +88,12 @@ function SetPasswordForm() {
           </div>
         </div>
         <button
-          type="submit"
           className={`mt-4 h-14 w-full rounded-[8px] ${
-            checkWhitespace(inputs.first) || checkWhitespace(inputs.second) || !isValid
+            !isValid
               ? "cursor-not-allowed bg-background-disabled text-gray-heavy"
               : "cursor-pointer bg-primary-normal text-white"
           }`}
-          disabled={checkWhitespace(inputs.first) || checkWhitespace(inputs.second) || !isValid}
+          disabled={!isValid}
         >
           <span className={`text-xl font-bold leading-7`}>확인</span>
         </button>
@@ -106,12 +103,3 @@ function SetPasswordForm() {
 }
 
 export default SetPasswordForm;
-
-const checkWhitespace = (str: string) => {
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === " ") {
-      return true;
-    }
-  }
-  return false;
-};

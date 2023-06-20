@@ -14,8 +14,6 @@ const yup_phone = yup
   .matches(/^[0-9]{10,11}$/i)
   .required();
 
-const _nextPath = ["email", "authentication", "password", "name", "phoneNumber", "agreements"];
-
 function JoinInformation({ type }: { type: JoinFormType }) {
   const [value, setValue] = useState("");
   const router = useRouter();
@@ -40,14 +38,20 @@ function JoinInformation({ type }: { type: JoinFormType }) {
   const onSubmit = () => {
     const joinType = pathName.split("/")[2];
     const currentPath = pathName.split("/")[3];
-    const pathIndex = _nextPath.indexOf(currentPath);
 
     setInformations(currentPath, value);
-    if (type === JoinFormType.EMAIL) {
-      authentication(value);
+    switch (type) {
+      case JoinFormType.EMAIL:
+        authentication(value);
+        router.push(`/join/${joinType}/authentication`);
+        break;
+      case JoinFormType.NAME:
+        router.push(`/join/${joinType}/phoneNumber`);
+        break;
+      case JoinFormType.PHONENUMBER:
+        router.push(`/join/${joinType}/${joinType === "user" ? "agreements" : "registerBusinessCard"}`);
+        break;
     }
-
-    router.push(`/join/${joinType}/${_nextPath[pathIndex + 1]}`);
   };
 
   errors.text?.type === "required" ? (errors.text = undefined) : "";

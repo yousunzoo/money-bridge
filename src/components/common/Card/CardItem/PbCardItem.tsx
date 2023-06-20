@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
-import { useRoleStore } from "@/store/roleStore";
+import { useUserStore } from "@/store/userStore";
 
-function PbCardItem({ item}: { item: any; }) {
+function PbCardItem({ item }: { item: any }) {
   const router = useRouter();
-  const userData = useRoleStore();
+  const userData = useUserStore();
   const [isBookmark, setIsBookmark] = useState(item.isBookmark);
 
   const bookMark = () => {

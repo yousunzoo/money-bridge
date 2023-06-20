@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, MouseEvent, useRef, useState } from "react";
+import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,6 +11,7 @@ import ButtonModal from "./ButtonModal";
 import Image from "next/image";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
+import { usePasswordAuthentication } from "@/hooks/usePasswordAuthentication";
 
 const yup_email = yup.string().required();
 const yup_password = yup.string().min(8).max(15).required();
@@ -31,15 +32,27 @@ function DoubleInputForm({
     second: "",
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [modalError, setModalError] = useState(false);
+
   const login = useLogin(setNextStep);
   const findEmail = useFindEmail(setIsOpen);
+  const authentication = usePasswordAuthentication(setModalError, setIsOpen);
   const inputType = type === InputFormType.LOGIN ? "password" : "text";
 
-  const modalContents = {
+  const password_modalContents_NotExist = {
     content: "사용자가 존재하지 않습니다.",
-    confirmText: "재입력",
+    confirmText: "확인",
     confirmFn: () => {
       setIsOpen(false);
+    },
+  };
+
+  const password_modalContents_Success = {
+    content: "인증코드가 발송되었습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+      router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
     },
   };
 
@@ -67,11 +80,6 @@ function DoubleInputForm({
   };
 
   const onSubmit = async () => {
-    if (!isValid) {
-      alert("양식을 확인해");
-      return;
-    }
-
     switch (type) {
       case InputFormType.LOGIN:
         login({ email: inputs.first, password: inputs.second, role: pathName.split("/")[2].toUpperCase() });
@@ -80,7 +88,7 @@ function DoubleInputForm({
         findEmail({ name: inputs.first, phoneNumber: inputs.second, role: pathName.split("/")[2].toUpperCase() });
         break;
       case InputFormType.FIND_PASSWORD:
-        router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
+        authentication({ name: inputs.first, email: inputs.second, role: pathName.split("/")[2].toUpperCase() });
         break;
     }
   };
@@ -152,7 +160,11 @@ function DoubleInputForm({
         </button>
       </form>
       {isOpen && (
-        <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen}>
+        <ButtonModal
+          modalContents={modalError ? password_modalContents_NotExist : password_modalContents_Success}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        >
           <h3>정보를 확인해 주세요.</h3>
         </ButtonModal>
       )}

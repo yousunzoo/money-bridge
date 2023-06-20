@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import dropDown from "/public/assets/images/dropDown.svg";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
-import CompanyList from "./CompanyList";
+import CompanyList from "./ModalCompanyList";
 
 function SelectCompany() {
   const [isOpen, setIsOpen] = useState(false);

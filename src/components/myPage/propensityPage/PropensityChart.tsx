@@ -23,7 +23,6 @@ ChartJS.register(
   BarController,
 );
 function PropensityChart({ propensity }: { propensity: string }) {
-  console.log(propensity);
   const backgroundColors = propensityChart.map(item => (item.name === propensity ? "#3A7391" : "#EBEBEB"));
   const dataLabels = propensityChart.map(item => {
     const color = item.name === propensity ? "#3A7391" : "#565656";
@@ -62,7 +61,7 @@ function PropensityChart({ propensity }: { propensity: string }) {
           title: () => {
             return "예금";
           },
-          label: context => {
+          label: (context: any) => {
             const label = context.raw;
             const nowPropensity = propensityChart.find(item => item.expectedReturn === label);
 

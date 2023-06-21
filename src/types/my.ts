@@ -1,6 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
 import { IPropensity, TSpeciality } from "./pblist";
 
+export interface IUserInfoProps {
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
 export interface IUserStep {
   hasDonePropensity: boolean;
   hasDoneBoardBookMark: boolean;
@@ -64,11 +68,11 @@ export interface IMyReservationStatusProps {
 
 export interface IBookmarkPreviewProps {
   boardBookmark: IBookmarkPreviewList;
-  userBookmark: IBookmarkPreviewList;
+  pbBookmark: IBookmarkPreviewList;
 }
 
 export interface IBookmarkPreviewCardProps {
-  type: "board" | "user";
+  type: "board" | "pb";
   bookmark: IBookmarkPreviewList;
 }
 

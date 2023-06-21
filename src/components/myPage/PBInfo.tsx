@@ -1,11 +1,15 @@
+import { getPBInfo } from "@/app/apis/services/pb";
 import { speciality } from "@/constants/pbListMenu";
-import { IPBInfoprops } from "@/types/my";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function PBInfo({ data }: IPBInfoprops) {
-  const { name, profile, branchName, msg, career, speciality1, speciality2, reserveCount, reviewCount } = data;
+function PBInfo() {
+  const { data, isLoading } = useQuery({ queryKey: ["getPBInfo"], queryFn: getPBInfo, staleTime: Infinity });
+
+  if (!data || isLoading) return;
+  const { name, profile, branchName, msg, career, speciality1, speciality2, reserveCount, reviewCount } = data.data;
   const pbSpeciality1 = speciality.find(item => item.id === speciality1)?.text;
   const pbSpeciality2 = speciality.find(item => item.id === speciality2)?.text;
 
@@ -19,7 +23,7 @@ function PBInfo({ data }: IPBInfoprops) {
       <article className="w-full rounded-md bg-white p-4 shadow-md">
         <div className="mb-6 flex">
           <div className="mr-4 h-[60px] w-[60px] overflow-hidden rounded-[30px]">
-            <Image src="/assets/images/profile.svg" width={60} height={60} alt={name} />
+            <Image src={profile} width={60} height={60} alt={name} />
           </div>
           <div>
             <p className="font-bold">{name} PB</p>

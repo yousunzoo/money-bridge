@@ -3,22 +3,35 @@
 import TopNav from "@/components/common/TopNav";
 import PBInfo from "@/components/myPage/PBInfo";
 import UserInfo from "@/components/myPage/UserInfo";
-import React, { MouseEvent } from "react";
-// import myPageData from "@/mocks/seon/userMy.json";
-import myPageData from "@/mocks/seon/pbMy.json";
+import { MouseEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/userStore";
+import ButtonModal from "@/components/common/ButtonModal";
 
 const LINK_STYLE = "flex items-center text-sm justify-between py-2 mb-2 pr-1";
 const BUTTON_STYLE = "gray-heavy text-xs underline decoration-gray-heavy decoration-1";
 const nextIcon = "/assets/images/nextIcon.svg";
+
 function MyPage() {
   const router = useRouter();
-  // const { role, name } = useRoleStore();
-  const user = { role: "pb", name: "홍김박" };
-  // role에 따라 마이페이지 API 요청
-  const userData = myPageData.data as any;
+  const { user } = useUserStore();
+  const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    if (!user.role) {
+      setIsOpen(true);
+    }
+  }, [user]);
+
+  const modalContents = {
+    content: "로그인이 필요한 페이지입니다.",
+    confirmText: "로그인으로 이동",
+    confirmFn: () => router.push("/login"),
+  };
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
@@ -26,14 +39,23 @@ function MyPage() {
     if (id === "secession") router.push("/secession");
   };
 
+  if (!mounted) return;
+
   return (
     <>
       <TopNav title="마이페이지" hasBack={true} />
-      {user.role === "user" ? <UserInfo data={userData} /> : <PBInfo data={userData} />}
+      {user.role === "USER" && <UserInfo setIsOpen={setIsOpen} />}
+      {user.role === "PB" && <PBInfo />}
       <section className="mb-10">
         <h3 className="mb-2 text-xl font-bold">나의 관리</h3>
         <ul>
-          {user.role === "user" && (
+          <li>
+            <Link href="/my/editInfo" className={LINK_STYLE}>
+              <span>개인 정보 설정</span>
+              <Image src={nextIcon} width={14} height={14} alt="개인 정보 설정 이동" />
+            </Link>
+          </li>
+          {user && user.role === "USER" && (
             <li>
               <Link href="/my/propensity" className={LINK_STYLE}>
                 <span>나의 투자 성향</span>
@@ -41,12 +63,6 @@ function MyPage() {
               </Link>
             </li>
           )}
-          <li>
-            <Link href="/my/editInfo" className={LINK_STYLE}>
-              <span>개인 정보 설정</span>
-              <Image src={nextIcon} width={14} height={14} alt="개인 정보 설정 이동" />
-            </Link>
-          </li>
         </ul>
       </section>
       <section className="mb-20">
@@ -60,8 +76,8 @@ function MyPage() {
           </li>
           <li>
             <Link href="/customerService/notice" className={LINK_STYLE}>
-              <span>개인 정보 설정</span>
-              <Image src={nextIcon} width={14} height={14} alt="개인 정보 설정 이동" />
+              <span>공지사항</span>
+              <Image src={nextIcon} width={14} height={14} alt="공지사항 이동" />
             </Link>
           </li>
         </ul>
@@ -77,6 +93,7 @@ function MyPage() {
           로그아웃
         </button>
       </section>
+      {isOpen && <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </>
   );
 }

@@ -1,13 +1,19 @@
-import { instance } from "../axios";
-import { useQuery } from "@tanstack/react-query";
+import { instance } from "@/app/apis/axios";
 
-export const useBookmarkPB = () => {
-  const queryKey = "/user/bookmarks/pb";
-  const queryFn = () =>
-    // todo: 헤더 붙이기
-    instance.get(queryKey).then(res => {
-      return res.data;
-    });
+export const userBookMarkPB = async (page:number) => {
+  try {
+    const res = await instance.get(`/user/bookmarks/pb?page=${page}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  return useQuery([queryKey], queryFn);
+export const userBookMarkContent = async (page: number) => {
+  try {
+    const res = await instance.get(`/auth/bookmarks/boards?page=${page}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
 };

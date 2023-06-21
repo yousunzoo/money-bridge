@@ -1,7 +1,7 @@
 "use client";
 import { getMyPropensity } from "@/app/apis/services/user";
 import TopNav from "@/components/common/TopNav";
-// import PropensityChart from "@/components/myPage/propensityPage/PropensityChart";
+import PropensityChart from "@/components/myPage/propensityPage/PropensityChart";
 import PropensityInfoCard from "@/components/myPage/propensityPage/PropensityInfoCard";
 import RecommendPBList from "@/components/myPage/propensityPage/RecommendPBList";
 import RiskGrades from "@/components/myPage/propensityPage/RiskGrades";
@@ -18,15 +18,17 @@ function PropensityPage() {
   const { data, isLoading } = useQuery({
     queryKey: ["myPropensity"],
     queryFn: getMyPropensity,
+    refetchOnWindowFocus: false,
   });
 
-  if (isLoading || data) return <>loading</>;
+  if (isLoading || !data) return <>loading</>;
   const { name, propensity, list } = data as IPropensityData;
   const userPropensity = propensity && propensityDetailedList[propensity];
   if (!userPropensity) {
     router.push("/analysis");
     return;
   }
+
   return (
     <>
       <TopNav title="나의 투자 성향 분석" hasBack={true} />
@@ -36,7 +38,7 @@ function PropensityPage() {
         <span className="text-primary-normal">{userPropensity.propensity}</span>입니다.
       </h2>
       {userPropensity && <PropensityInfoCard propensity={userPropensity.propensity} info={userPropensity.info} />}
-      {/* <PropensityChart /> */}
+      <PropensityChart propensity={userPropensity.propensity} />
       <RiskGrades grade={userPropensity.grade} />
       <RecommendPBList list={list} />
       <p className="mb-[130px] break-keep text-center text-xs  leading-[18px] text-gray-heavy">

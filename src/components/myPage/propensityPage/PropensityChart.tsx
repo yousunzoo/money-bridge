@@ -80,7 +80,7 @@ function PropensityChart({ propensity }: { propensity: string }) {
         grid: {
           display: false,
         },
-        afterDataLimits: scale => {
+        afterDataLimits: (scale: any) => {
           scale.max = scale.max * 1.1;
         },
         max: 10,
@@ -95,6 +95,7 @@ function PropensityChart({ propensity }: { propensity: string }) {
         투자성향 별 기대 수익
       </h3>
       <div className="w-full">
+        {/* @ts-ignore */}
         <Chart type="bar" data={data} options={options} />
       </div>
     </section>

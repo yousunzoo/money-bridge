@@ -112,7 +112,7 @@ export interface IAccordianItemProps {
 }
 
 export interface IAccordianListProps {
-  list: INoticeItem[];
+  type: "faq" | "notice";
 }
 export interface INoticeItem {
   id: number;

@@ -23,6 +23,7 @@ function MyPage() {
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [modalContents, setModalContents] = useState<IModalContents>({ content: "", confirmText: "" });
+
   useEffect(() => {
     setMounted(true);
     if (!user.role) {
@@ -103,7 +104,7 @@ function MyPage() {
         <Link href="/my/terms" className={BUTTON_STYLE}>
           서비스 약관
         </Link>
-        <Link href="/secession" className={BUTTON_STYLE}>
+        <Link href="/withdraw" className={BUTTON_STYLE}>
           탈퇴하기
         </Link>
         <button onClick={handleLogout} className={BUTTON_STYLE}>

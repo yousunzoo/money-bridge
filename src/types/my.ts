@@ -39,6 +39,11 @@ export interface IUserInfo {
   boardBookmark: IBookmarkPreviewList;
   userBookmark: IBookmarkPreviewList;
 }
+export interface IUserEditableInfo {
+  phoneNumber: string;
+  name: string;
+  email: string;
+}
 
 export interface IPBInfo {
   name: string;

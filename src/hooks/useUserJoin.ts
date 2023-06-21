@@ -4,7 +4,7 @@ import { useJoinStore } from "@/store/joinStore";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-export const useJoin = () => {
+export const useUserJoin = () => {
   const { resetInformations } = useJoinStore();
   const { resetCode } = useAuthenticationStore();
 

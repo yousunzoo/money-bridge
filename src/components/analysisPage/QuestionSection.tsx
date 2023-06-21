@@ -1,14 +1,17 @@
 import { useAnalysisStore } from "@/store/analysisStore";
 import { IQuestionSectionProps } from "@/types/analysis";
+import Image from "next/image";
+import editIcon from "/public/assets/images/editIcon.svg";
 import React, { MouseEvent, useEffect, useRef, useState } from "react";
 
 function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSectionProps) {
+  const { answers } = useAnalysisStore();
   const [isChoosable, setIsChoosable] = useState(true);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const questionRef = useRef<HTMLDivElement | null>(null);
+  const answerRef = useRef<HTMLDivElement | null>(null);
   const [answer, setAnswer] = useState<string | null>(null);
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current || !answerRef.current) return;
     if (!isChoosable && nowStep === 5) {
       sectionRef.current.classList.remove("h-screen");
 
@@ -16,13 +19,13 @@ function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSect
     }
     if (!isChoosable) {
       sectionRef.current.classList.remove("h-screen");
-      sectionRef.current.scrollIntoView({
+      answerRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
       return;
     }
-    if (nowStep !== 0 && isChoosable) {
+    if (answers[nowStep] && isChoosable) {
       sectionRef.current.classList.add("h-screen");
       sectionRef.current.scrollIntoView({
         behavior: "smooth",
@@ -46,7 +49,7 @@ function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSect
 
   return (
     <section ref={sectionRef} className="flex h-screen flex-col pb-10">
-      <div className={`${isChoosable ? "pt-12" : "pt-4"}`} ref={questionRef} />
+      <div className={`${isChoosable ? "pt-14" : "pt-4"}`} />
       {intro1 && isChoosable && <div className="text-lg mb-10 font-semibold">{intro2 && <p>{intro2}</p>}</div>}
       <div className="pb-5">
         <div>
@@ -61,12 +64,18 @@ function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSect
             ))}
         </div>
       </div>
-      {isChoosable && <div className="grow" />}
+      <div
+        className={`${isChoosable ? "grow" : answers[nowStep + 1] || nowStep === 5 ? "h-0" : "h-20"}`}
+        ref={answerRef}
+      />
       {!isChoosable && (
-        <div className="user_bubble flex gap-2">
-          {<p>{answer}</p>}
-          <button onClick={() => setIsChoosable(true)}>✏️</button>
-        </div>
+        <>
+          <div className="user_bubble flex gap-2">{<p>{answer}</p>}</div>
+          <button onClick={() => setIsChoosable(true)} className="mt-2 flex items-center gap-2 self-end text-xs">
+            <Image src={editIcon} width={16} height={16} alt="수정하기" />
+            <span>수정하기</span>
+          </button>
+        </>
       )}
     </section>
   );

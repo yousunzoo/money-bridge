@@ -11,3 +11,12 @@ export const useBookmarkPB = () => {
 
   return useQuery([queryKey], queryFn);
 };
+
+export const checkPropensity = async (propensity: number) => {
+  try {
+    const res = await instance.post("/user/propensity", propensity);
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};

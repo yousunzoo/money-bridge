@@ -1,18 +1,19 @@
 "use client";
 import QuestionSection from "@/components/analysisPage/QuestionSection";
+import TopNav from "@/components/common/TopNav";
 import analysisQuestions from "@/constants/propensityCheckQuestions.json";
+import { useCheckPropensity } from "@/hooks/useCheckPropensity";
 import { useAnalysisStore } from "@/store/analysisStore";
 import { IAnalysisQuestions } from "@/types/analysis";
 import { convertAnalysisAnswers } from "@/utils/convertAnswer";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 function AnalysisPage() {
   const questions: IAnalysisQuestions = analysisQuestions;
   const [step, setStep] = useState(0);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
-  const { answers, setAnswers, resetAnswers } = useAnalysisStore();
+  const { answers, setAnswers } = useAnalysisStore();
+  const registerPropensity = useCheckPropensity();
   const moveToNextStep = (nowStep: number, answer: string) => {
     setStep(nowStep + 1);
     setAnswers(nowStep, answer);
@@ -30,15 +31,13 @@ function AnalysisPage() {
 
   const handleSubmit = () => {
     const convertedAnswers = convertAnalysisAnswers(answers);
-    console.log(convertedAnswers);
-    // api 요청
-    router.replace("/analysis/complete");
-    resetAnswers();
+    registerPropensity(convertedAnswers);
   };
 
   return (
     <>
-      <div className={`${answers[5] && "pb-40"} pt-20`} ref={sectionRef}>
+      <TopNav title="투자 성향 알아보기" hasBack={true} />
+      <div className={`${answers[5] && "pb-40"} mx-auto max-w-[600px]`} ref={sectionRef}>
         <section className="flex flex-col gap-y-4">
           <div className="font-bold">
             <p>홍길동님,</p>

@@ -1,36 +1,44 @@
 import { useGetCompanyList } from "@/hooks/useGetCompanyList";
+import { ICompanyInput } from "@/types/join";
 import React, { Dispatch, MouseEvent, SetStateAction, useState } from "react";
 
-function CompanyList({
-  setCompany,
+function ModalCompanyList({
+  handleChangeCompany,
   handleCloseModal,
 }: {
-  setCompany: Dispatch<SetStateAction<string | null>>;
+  handleChangeCompany: (item: ICompanyInput) => void;
   handleCloseModal: () => void;
 }) {
-  const [selectedItem, setSelectedItem] = useState<string | null>("");
+  const [selectedItem, setSelectedItem] = useState<ICompanyInput>({
+    name: "",
+    id: 0,
+  });
   const getCompanyList = useGetCompanyList();
   console.log(getCompanyList.data?.data);
 
   const handleSelect = (e: MouseEvent<HTMLUListElement>) => {
     const liEl = e.target as HTMLLIElement;
-    setSelectedItem(liEl.textContent);
+    setSelectedItem({ name: liEl.textContent, id: Number(liEl.id) });
     liEl.classList.add("bg-background-secondary");
   };
 
   const handleSubmit = () => {
-    setCompany(selectedItem);
+    handleChangeCompany(selectedItem);
     handleCloseModal();
   };
 
   return (
     <div className="h-[472px] text-xl font-bold">
       <p className="mb-[116px]  leading-7">지점 찾기</p>
-      <ul className="flex h-[168px] flex-col overflow-y-scroll text-center" onClick={handleSelect}>
+      <ul
+        className="scroll_hidden -mx-4 flex h-[200px] flex-col overflow-y-scroll pr-px text-center"
+        onClick={handleSelect}
+      >
         {getCompanyList.data?.data.list.map(company => (
           <li
             key={company.id}
-            className={`cursor-pointer py-3.5 ${selectedItem === company.name && "bg-background-secondary"}`}
+            id={`${company.id}`}
+            className={`cursor-pointer py-3.5 ${selectedItem.name === company.name && "bg-background-secondary"}`}
           >
             {company.name}
           </li>
@@ -43,4 +51,4 @@ function CompanyList({
   );
 }
 
-export default CompanyList;
+export default ModalCompanyList;

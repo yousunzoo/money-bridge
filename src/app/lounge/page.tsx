@@ -2,40 +2,46 @@
 import React, { useEffect, useState } from "react";
 import Intro from "@/components/loungePage/Intro";
 import PbRecommend from "@/components/loungePage/PbRecommend";
-import All from "@/mocks/hyeon17/Lounge/all.json";
 import Content from "@/components/loungePage/Content";
 import { useUserStore } from "@/store/userStore";
 import TopNav from "@/components/common/TopNav";
-import { useLoungeBoard } from "@/app/apis/services/common";
-import { ListResponse } from "@/types/common";
-import { ContentCard } from "@/types/card";
+import { LoungeBoard, LoungeNew } from "@/app/apis/services/common";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
 function Lounge() {
   const userData = useUserStore();
   const [role, setRole] = useState<string>("");
   const [name, setName] = useState<string>("");
-  const [all, setAll] = useState(All);
-  const [NewAndHot, setNewAndHot] = useState<ListResponse<ContentCard> | undefined>();
-  const { data: res, error, isLoading, isSuccess } = useLoungeBoard();
+  const [All, setAll] = useState();
+  const [NewAndHot, setNewAndHot] = useState();
+  const { data: newandhot } = useQuery(["/lounge/board"], LoungeBoard);
+  const {
+    data: all,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+  } = useInfiniteQuery(["/boards"], ({ pageParam = 0 }) => LoungeNew(pageParam), {
+    getNextPageParam: lastPage => {
+      const result = lastPage?.data?.last === true ? undefined : lastPage?.data?.curPage + 1;
+      return result;
+    },
+  });
+
+
 
   useEffect(() => {
     setRole(userData.user.role);
     setName(userData.user.name);
   }, [userData]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      setNewAndHot(res);
-    }
-  }, [isSuccess, res]);
-
   return (
-    <div className="my-5 flex w-full flex-col">
+    <>
       <TopNav title="라운지" hasBack={true} />
       <Intro role={role} />
       {role === "USER" && <PbRecommend name={name} />}
-      <Content NewAndHot={NewAndHot} All={all} />
-    </div>
+      {/* <Content NewAndHot={newandhot} All={all} /> */}
+      <button onClick={() => fetchNextPage()}>fetchNextPage</button>
+    </>
   );
 }
 

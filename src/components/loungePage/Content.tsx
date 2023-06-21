@@ -4,25 +4,26 @@ import Link from "next/link";
 import MainCarousel from "@/components/common/Carousel/MainCarousel";
 import "@/styles/carousel.css";
 import "@/styles/lounge.css";
-import { ListResponse } from "@/types/common";
-import { ContentCard } from "@/types/card";
 
-function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | undefined; All: any }) {
-  const [all, setAll] = useState(All?.data?.list.slice(0, 2));
-  const [newData, setNewData] = useState<ContentCard[]>();
-  const [hotData, setHotData] = useState<ContentCard[]>();
+function Content({ NewAndHot, All }: { NewAndHot: any; All: any; }) {
+  const [all, setAll] = useState<any>();
+  const [newData, setNewData] = useState<any>();
+  const [hotData, setHotData] = useState<any>();
+  const [click, setClick] = useState<boolean>(false);
 
   useEffect(() => {
     if (NewAndHot) {
       setNewData(NewAndHot.data?.list?.slice(0, 2));
       setHotData(NewAndHot.data?.list?.slice(2, 4));
     }
-  }, [NewAndHot]);
+    if (All) {
+      setAll(All.data?.list?.slice(0, 2));
+    }
+  }, [NewAndHot, All]);
 
   const getAllContent = () => {
-    // setAll(All);
-    console.log("더보기 버튼 클릭");
-    //todo: api를 호출하여 데이터 더 불러오기
+    setAll(All?.data?.list);
+    setClick(true);
   };
 
   return (
@@ -34,7 +35,7 @@ function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | un
             <br />
             읽어보세요
           </div>
-          <Link href="/new" className="more flex-3">
+          <Link href="/lounge/new" className="more flex-3">
             더보기
           </Link>
         </div>
@@ -49,7 +50,7 @@ function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | un
             <br />
             인기 콘텐츠
           </div>
-          <Link href="/hot" className="more flex-3">
+          <Link href="/lounge/hot" className="more flex-3">
             더보기
           </Link>
         </div>
@@ -96,9 +97,11 @@ function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | un
             <br />
             한눈에 보세요
           </div>
-          <button onClick={getAllContent} className="more flex-3">
-            더보기
-          </button>
+          {!click && (
+            <button onClick={getAllContent} className="more flex-3">
+              더보기
+            </button>
+          )}
         </div>
         <div>
           <ContentCardList props={all} />

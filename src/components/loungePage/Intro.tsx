@@ -30,7 +30,7 @@ function Intro({ role }: { role: string }) {
   };
 
   return (
-    <header className="flex h-[190px] items-center bg-secondary-heavy mx-[-16px] px-[16px]">
+    <header className="mx-[-16px] flex h-[190px] items-center bg-secondary-heavy px-[16px]">
       <div className="flex w-full flex-col">
         <div className="mb-1 ml-2 text-3xl font-bold text-white">Lounge</div>
         <div className="ml-2 text-xs text-white">
@@ -41,13 +41,13 @@ function Intro({ role }: { role: string }) {
         {role === CommonROLE.PB ? (
           <div className="flex justify-end">
             <Link
-              href="/detail/content"
+              href={`/detail/content/`}
               className="mr-4 flex h-16 w-16 flex-col items-center justify-center rounded-md bg-secondary-light text-xs font-bold text-secondary-heavy"
             >
               <Image src={mylist} alt="내 글 목록" />내 글 목록
             </Link>
             <Link
-              href="/lounge/write"
+              href="/contents/write"
               className="mr-4 flex h-16 w-16 flex-col items-center justify-center rounded-md bg-secondary-light text-xs font-bold text-secondary-heavy"
             >
               <Image src={write} alt="작성하기" />

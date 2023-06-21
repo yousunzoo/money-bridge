@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function PbRecommend({ name }: any) {
   return (
-    <section className="card my-8 h-[214px] bg-primary-normal font-bold">
+    <article className="card my-8 h-[214px] bg-primary-normal font-bold">
       <div className="ml-4 mt-7">
         <div className="mb-1 text-xs text-white">맞춤 PB 추천</div>
         <div className="text-xl text-white">
@@ -12,13 +12,13 @@ function PbRecommend({ name }: any) {
           PB 매칭 결과가 도착했어요!
         </div>
         <Link
-          href="/analysis/complete"
-          className="ml-44 mt-10 flex h-11 w-[168px] items-center justify-center rounded-sm bg-white text-xs text-primary-normal"
+          href="/pblist/recommend"
+          className="ml-auto mr-8 mt-10 flex h-11 w-[168px] items-center justify-center rounded-sm bg-white text-xs text-primary-normal"
         >
           PB 매칭 결과 확인하기
         </Link>
       </div>
-    </section>
+    </article>
   );
 }
 

@@ -1,6 +1,5 @@
 import { Propensity } from "@/constants/enum";
 import { IUserInfoProps } from "@/types/my";
-import React, { Suspense } from "react";
 import StepProgress from "./StepProgress";
 import MyReservationStatus from "./MyReservationStatus";
 import BookmarkPreview from "./BookmarkPreview";
@@ -8,11 +7,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/app/apis/services/user";
 import { IPropensity } from "@/types/pblist";
 
-function UserInfo({ setIsOpen }: IUserInfoProps) {
+function UserInfo({ handleAuthorizationError }: IUserInfoProps) {
   const { data, isLoading, error } = useQuery({ queryKey: ["userInfo"], queryFn: getUserInfo, staleTime: Infinity });
 
   if (error) {
-    setIsOpen(true);
+    handleAuthorizationError();
     return;
   }
 

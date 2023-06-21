@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { IPropensity, TSpeciality } from "./pblist";
 
 export interface IUserInfoProps {
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  handleAuthorizationError: () => void;
 }
 
 export interface IUserStep {
@@ -30,12 +30,6 @@ export interface IBookmarkPreview {
   thumbnail: string;
 }
 
-export interface IUserInfoProps {
-  data: IUserInfo;
-}
-export interface IPBInfoprops {
-  data: IPBInfo;
-}
 export interface IUserInfo {
   id: number;
   name: string;

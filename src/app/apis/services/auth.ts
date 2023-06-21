@@ -31,3 +31,12 @@ export const resetPassword = async (user: IUser) => {
   const res = await instance.patch("/password", user);
   return res.data;
 };
+
+export const userLogout = async () => {
+  try {
+    const res = await instance.post("/auth/logout");
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.data.value);
+  }
+};

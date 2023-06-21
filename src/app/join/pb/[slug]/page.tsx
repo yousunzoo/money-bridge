@@ -11,6 +11,8 @@ import { useJoinStore } from "@/store/joinStore";
 import { redirect, usePathname } from "next/navigation";
 import React from "react";
 import SelectCompany from "@/components/joinPage/pb/SelectCompany";
+import EnterCareer from "@/components/joinPage/pb/EnterCareer";
+import PbComplete from "@/components/joinPage/pb/PbComplete";
 
 type Tstep =
   | "pbJoinGuide"
@@ -21,7 +23,9 @@ type Tstep =
   | "phoneNumber"
   | "registerBusinessCard"
   | "selectCompany"
-  | "agreements";
+  | "career"
+  | "agreements"
+  | "complete";
 
 const step = {
   pbJoinGuide: <PBJoinGuide />,
@@ -32,7 +36,9 @@ const step = {
   phoneNumber: <JoinInformation type={JoinFormType.PHONENUMBER} />,
   registerBusinessCard: <RegisterBusinessCard />,
   selectCompany: <SelectCompany />,
+  career: <EnterCareer />,
   agreements: <AgreeProvision />,
+  complete: <PbComplete />,
 };
 
 interface IRes {

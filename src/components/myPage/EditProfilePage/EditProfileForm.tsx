@@ -37,11 +37,21 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      ...existingProfile,
+      intro: existingProfile.intro,
+      msg: existingProfile.msg,
+      profile: existingProfile.profile,
+      portfolio: existingProfile.portfolio,
+      company: existingProfile.company,
+      branchName: existingProfile.branchName,
+      profitFactor: existingProfile.profitFactor,
+      maxDrawdown: existingProfile.maxDrawdown,
+      cumulativeReturn: existingProfile.cumulativeReturn,
+      averageProfit: existingProfile.averageProfit,
+      career: existingProfile.career,
     },
   });
 
-  const onSubmit = data => console.log(data);
+  const onSubmit = (data: any) => console.log(data);
 
   const profileVal = watch("profile");
   const portfolioVal = watch("portfolio");

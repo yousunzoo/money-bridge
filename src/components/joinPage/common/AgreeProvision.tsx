@@ -5,7 +5,8 @@ import openProvision from "/public/assets/images/openProvision.svg";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useJoinStore } from "@/store/joinStore";
-import { useJoin } from "@/hooks/useJoin";
+import { useUserJoin } from "@/hooks/useUserJoin";
+import { usePBJoin } from "@/hooks/usePBJoin";
 
 const required = [
   { id: 0, title: "머니브릿지 이용약관" },
@@ -22,7 +23,8 @@ function AgreeProvision() {
   const router = useRouter();
   const pathName = usePathname();
   const { informations, setInformations } = useJoinStore();
-  const join = useJoin();
+  const userJoin = useUserJoin();
+  const pbJoin = usePBJoin();
   const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>(required.concat(optional).map(() => false));
 
   const handleCheckboxClick = (key: number) => {
@@ -66,7 +68,7 @@ function AgreeProvision() {
 
     setInformations("agreements", data);
     const joinType = pathName.split("/")[2];
-    join({ joinType: joinType, joinData: informations });
+    joinType === "user" ? userJoin(informations) : pbJoin(informations);
     router.push(`/join/${joinType}/complete`);
   };
 

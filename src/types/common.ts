@@ -29,3 +29,13 @@ export interface User {
   role: string;
   name: string;
 }
+
+export interface IDataResponse<T> {
+  list: T[] | null;
+  totalElements?: number;
+  totalPages?: number;
+  curPage?: number;
+  first?: boolean;
+  last?: boolean;
+  empty?: boolean;
+}

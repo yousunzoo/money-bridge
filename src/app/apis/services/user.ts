@@ -38,3 +38,12 @@ export const getMyPropensity = async () => {
     throw new Error(error.response.data.status);
   }
 };
+
+export const getUserContents = async () => {
+  try {
+    const res = await instance.get("/user/main/board");
+    return res.data.data.list;
+  } catch (error) {
+    throw error;
+  }
+};

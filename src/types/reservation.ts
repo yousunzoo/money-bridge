@@ -27,7 +27,11 @@ export interface IPbStation {
   branchLatitude: number;
   branchLongitude: number;
 }
-export interface IConsultTime {
+export interface IPBInfo extends IPbStation {
+  pbName: string;
+}
+
+export interface IConsultInfo {
   consultEnd: string;
   consultStart: string;
   notice: string;
@@ -38,13 +42,19 @@ export interface IUserInfo {
   userPhoneNumber: string;
   userEmail: string;
 }
+
+export interface IReservationPageData {
+  consultInfo: IConsultInfo;
+  pbInfo: IPBInfo;
+  userInfo: IUserInfo;
+}
 export interface IBubbleSectionProps {
   step: 0 | 1 | 2 | 3 | 4 | 5;
   isOpen?: Boolean;
   moveToNextStep: (nowStep: number) => void;
   skipNextStep?: () => void;
   pbStation?: IPbStation;
-  consultTime?: IConsultTime;
+  consultTime?: IConsultInfo;
   handleOpenModal?: (nowStep: number) => void;
   userInfo?: IUserInfo;
 }
@@ -66,7 +76,7 @@ export interface ISelectTimeModalProps {
   nowStep: number;
   handleCloseModal: () => void;
   moveToNextStep: (nowStep: number) => void;
-  consultTime: IConsultTime;
+  consultTime: IConsultInfo;
 }
 export interface ISelectCalendarProps {
   handleSelect: (e: Dayjs) => void;
@@ -92,3 +102,5 @@ export interface IModalLayoutProps {
   children: ReactNode;
   handleCloseModal: () => void;
 }
+
+export type IUseGetReservationPageDataProps = () => { reservationData: IReservationPageData; loading: boolean };

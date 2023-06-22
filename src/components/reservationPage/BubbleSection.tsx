@@ -4,6 +4,7 @@ import { MouseEvent, useEffect, useRef, useState } from "react";
 import LocationCard from "../common/LocationCard";
 import { useReservationStore } from "@/store/reservationStore";
 import UserBubble from "./UserBubble/UserBubble";
+import LocationCopyButton from "../common/LocationCopyButton";
 function BubbleSection({
   step,
   isOpen,
@@ -109,14 +110,7 @@ function BubbleSection({
               <p className="font-bold text-primary-normal">{pbStation.branchName}</p>
               <div className="mb-4 flex w-full justify-between text-xs">
                 <p>{pbStation.branchAddress}</p>
-                <button
-                  // onClick={() => {
-                  //   handleCopyClipBoard(pbStation.branchAddress);
-                  // }}
-                  className="text-gray-heavy underline"
-                >
-                  주소 복사
-                </button>
+                <LocationCopyButton location={pbStation.branchAddress} />
               </div>
               <LocationCard latitude={pbStation.branchLatitude} longitude={pbStation.branchLongitude} />
             </div>

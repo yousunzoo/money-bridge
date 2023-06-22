@@ -1,27 +1,18 @@
 "use client";
 import BubbleSection from "@/components/reservationPage/BubbleSection";
 import { useEffect, useRef, useState } from "react";
-import reservationInfo from "@/mocks/seon/reservationInfo.json";
 import SelectTimeModal from "@/components/reservationPage/SelectTimeModal";
 import ForwardingModal from "@/components/reservationPage/ForwardingModal";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import EditProfileModal from "@/components/reservationPage/EditProfileModal";
 import { convertReservationAnswer } from "@/utils/convertAnswer";
 import { useReservationStore } from "@/store/reservationStore";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { getReservationData } from "../apis/services/user";
+import { useRouter } from "next/navigation";
+import { useGetReservationPageData } from "@/hooks/useGetReservationPageData";
 
 function ReservationPage() {
-  const params = useSearchParams().get("pbId");
-  console.log(params);
   const router = useRouter();
-  const { data } = useQuery({
-    queryKey: ["reservation", params],
-    queryFn: () => getReservationData(params as string),
-    enabled: !!params,
-  });
-
+  const { reservationData, loading } = useGetReservationPageData();
   const { answers, resetAnswers } = useReservationStore();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
@@ -64,13 +55,8 @@ function ReservationPage() {
     }
   }, [isChecked]);
 
-  if (!params) {
-    router.push("/lounge");
-    return;
-  }
-  if (!data) return;
-
-  const { pbInfo, pbStation, consultInfo, userInfo } = data;
+  if (loading || !reservationData) return null;
+  const { userInfo, pbInfo, consultInfo } = reservationData;
   return (
     <>
       <div className="w-full py-6 pb-40" ref={sectionRef}>

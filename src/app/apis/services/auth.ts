@@ -67,3 +67,49 @@ export const getCompanyLocation = async (companyId: number, keyword: string) => 
   const res = await instance.get(`/branch?companyId=${companyId}&keyword=${keyword}`);
   return res.data;
 };
+
+export const userLogout = async () => {
+  try {
+    const res = await instance.post("/auth/logout");
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.data.value);
+  }
+};
+
+export const userWithdraw = async (password: string) => {
+  const data = { password };
+  try {
+    const res = await instance.delete("/auth/account", { data });
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.data);
+  }
+};
+
+export const userCheckPassword = async (password: string) => {
+  try {
+    const res = await instance.post("/auth/password", { password });
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.data);
+  }
+};
+
+export const getMyInfo = async () => {
+  try {
+    const res = await instance.get("/auth/myinfo");
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.data);
+  }
+};
+
+export const editMyInfo = async (data: { [key: string]: string }) => {
+  try {
+    const res = await instance.patch("/auth/myinfo", data);
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.data);
+  }
+};

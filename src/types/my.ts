@@ -1,6 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
 import { IPropensity, TSpeciality } from "./pblist";
 
+export interface IUserInfoProps {
+  handleAuthorizationError: () => void;
+}
+
 export interface IUserStep {
   hasDonePropensity: boolean;
   hasDoneBoardBookMark: boolean;
@@ -26,12 +30,6 @@ export interface IBookmarkPreview {
   thumbnail: string;
 }
 
-export interface IUserInfoProps {
-  data: IUserInfo;
-}
-export interface IPBInfoprops {
-  data: IPBInfo;
-}
 export interface IUserInfo {
   id: number;
   name: string;
@@ -40,6 +38,11 @@ export interface IUserInfo {
   reservationCount: IReservationCount;
   boardBookmark: IBookmarkPreviewList;
   userBookmark: IBookmarkPreviewList;
+}
+export interface IUserEditableInfo {
+  phoneNumber: string;
+  name: string;
+  email: string;
 }
 
 export interface IPBInfo {
@@ -64,11 +67,11 @@ export interface IMyReservationStatusProps {
 
 export interface IBookmarkPreviewProps {
   boardBookmark: IBookmarkPreviewList;
-  userBookmark: IBookmarkPreviewList;
+  pbBookmark: IBookmarkPreviewList;
 }
 
 export interface IBookmarkPreviewCardProps {
-  type: "board" | "user";
+  type: "board" | "pb";
   bookmark: IBookmarkPreviewList;
 }
 
@@ -109,7 +112,7 @@ export interface IAccordianItemProps {
 }
 
 export interface IAccordianListProps {
-  list: INoticeItem[];
+  type: "faq" | "notice";
 }
 export interface INoticeItem {
   id: number;

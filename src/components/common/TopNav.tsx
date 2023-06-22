@@ -3,7 +3,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import arrayBack from "/public/assets/images/arrayBack.svg";
-import logo from "/public/assets/images/moneybridgelogo.png";
+import logo from "/public/assets/images/logo.png";
 import { useGeoLocation } from "@/hooks/useGeoLaction";
 import arrowDown from "/public/assets/images/arrowDown.svg";
 import SelectLocationModal from "../mainPage/SelectLocationModal";

@@ -1,16 +1,18 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export interface ButtonModalProps {
-  modalContents: {
-    content: string;
-    confirmText: string;
-    cancelText?: string;
-    confirmFn?: () => any;
-    cancelFn?: () => any;
-  };
+  modalContents: IModalContents;
   children?: ReactNode;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface IModalContents {
+  content: string;
+  confirmText: string;
+  cancelText?: string;
+  confirmFn?: () => any;
+  cancelFn?: () => any;
 }
 export interface ReviewCardProps {
   profileImage: string;

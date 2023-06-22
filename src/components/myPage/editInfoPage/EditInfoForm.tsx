@@ -25,9 +25,6 @@ function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
     e.preventDefault();
     const value = String(getValues("inputValue"));
     onSubmit({ [type]: value });
-    // // mutate 전화번호 수정 api요청, 리턴값에 따라 state 처리
-    // setIsUser(true);
-    // // setIsOpen(true);
   };
   return (
     <>
@@ -38,7 +35,7 @@ function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
             <input
               className={`form_input pr-3 ${errors.inputValue ? "warnning" : ""} ${isDirty ? "entering" : ""}`}
               {...register("inputValue")}
-              placeholder="비밀번호를 입력해주세요"
+              placeholder={type === "name" ? "이름을 입력해주세요" : "비밀번호를 입력해주세요"}
             />
           </div>
           {isDirty && type === "phoneNumber" && (

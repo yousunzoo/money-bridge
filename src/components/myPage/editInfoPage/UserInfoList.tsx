@@ -1,8 +1,17 @@
+import { getMyInfo } from "@/app/apis/services/auth";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function UserInfoList({ userInfo }: { userInfo: { name: string; phoneNumber: string; email: string } }) {
+function UserInfoList() {
+  const { data: userInfo, isLoading } = useQuery({
+    queryKey: ["getMyInfo"],
+    queryFn: getMyInfo,
+  });
+
+  if (!userInfo || isLoading) return;
+
   const { name, phoneNumber, email } = userInfo;
   const convertedPhoneNumber = phoneNumber.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
   return (

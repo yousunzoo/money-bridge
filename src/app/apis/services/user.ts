@@ -1,11 +1,20 @@
 import { instance } from "@/app/apis/axios";
 
-export const userBookMarkPB = async (page:number) => {
+export const BookMarkPB = async (page: number) => {
   try {
-    const res = await instance.get(`/user/bookmarks/pb?page=${page}`);
-    return res.data;
-  } catch (error) {
-    console.log(error);
+    const res = await instance.get("/user/bookmarks/pb", { params: { page } });
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
+  }
+};
+
+export const BookMarkContent = async (page: number) => {
+  try {
+    const res = await instance.get("/auth/bookmarks/boards", { params: { page } });
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
   }
 };
 

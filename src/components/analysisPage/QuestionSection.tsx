@@ -25,7 +25,7 @@ function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSect
       });
       return;
     }
-    if (answers[nowStep] && isChoosable) {
+    if (answers[nowStep as 0 | 1 | 2 | 3 | 4 | 5] && isChoosable) {
       sectionRef.current.classList.add("h-screen");
       sectionRef.current.scrollIntoView({
         behavior: "smooth",
@@ -65,7 +65,9 @@ function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSect
         </div>
       </div>
       <div
-        className={`${isChoosable ? "grow" : answers[nowStep + 1] || nowStep === 5 ? "h-0" : "h-20"}`}
+        className={`${
+          isChoosable ? "grow" : answers[(nowStep + 1) as 1 | 2 | 3 | 4 | 5] || nowStep === 5 ? "h-0" : "h-20"
+        }`}
         ref={answerRef}
       />
       {!isChoosable && (

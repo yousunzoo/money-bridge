@@ -10,7 +10,7 @@ export interface IQuestion {
 }
 
 export interface IQuestionSectionProps {
-  nowStep: 0 | 1 | 2 | 3 | 4 | 5;
+  nowStep: number;
   nowQuestion: IQuestion;
   moveToNextStep: (nowStep: number, answer: string) => void;
 }

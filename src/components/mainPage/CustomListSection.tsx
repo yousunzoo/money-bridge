@@ -1,6 +1,12 @@
+"use client";
 import React from "react";
 import PbCardItem from "../common/Card/CardItem/PbCardItem";
 import ContentCardItem from "../common/Card/CardItem/ContentCardItem";
+import { useUserStore } from "@/store/userStore";
+import { getContents } from "@/app/apis/services/common";
+import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { getUserContents } from "@/app/apis/services/user";
 const data = [
   {
     id: 1,
@@ -23,7 +29,31 @@ const data = [
     msg: "자신있는 투자 전문가 이미자입니다.",
   },
 ];
+
+interface BoardListProps {
+  career: number;
+  companyLogo: string;
+  id: number;
+  isBookmark: boolean;
+  msg: string;
+  pbName: string;
+  tag1: string;
+  tag2: string;
+  title: string;
+}
 function CustomListSection() {
+  const {
+    user: { role },
+  } = useUserStore();
+
+  const queryOptions = role === "USER" ? ["userBoard"] : ["noBoard"];
+
+  const {
+    data: boardList,
+    error,
+    isLoading,
+  } = useQuery<BoardListProps[], AxiosError>(queryOptions, role === "USER" ? getUserContents : getContents);
+
   return (
     <section className="relative w-full mt-3 ">
       <h3 className="text-xl font-bold">
@@ -31,11 +61,12 @@ function CustomListSection() {
         <br /> 실제 PB의 투자 정보
       </h3>
       <ul className="flex flex-wrap items-center justify-between py-4">
-        {data.map(item => (
-          <>
-            <ContentCardItem item={item} />
-          </>
-        ))}
+        {boardList &&
+          boardList.map(item => (
+            <>
+              <ContentCardItem item={item} />
+            </>
+          ))}
       </ul>
     </section>
   );

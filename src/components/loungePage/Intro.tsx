@@ -30,7 +30,7 @@ function Intro({ role }: { role: string }) {
   };
 
   return (
-    <header className="mx-[-16px] flex h-[190px] items-center bg-secondary-heavy px-[16px]">
+    <div className="mx-[-16px] flex h-[190px] items-center bg-secondary-heavy px-[16px]">
       <div className="flex w-full flex-col">
         <div className="mb-1 ml-2 text-3xl font-bold text-white">Lounge</div>
         <div className="ml-2 text-xs text-white">
@@ -73,7 +73,7 @@ function Intro({ role }: { role: string }) {
         )}
       </div>
       {isOpen && <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen} />}
-    </header>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 "use client";
 import TopNav from "@/components/common/TopNav";
-import ButtonToFind from "@/components/loginPage/ButtonToAccountSetting";
+import ButtonToAccountSetting from "@/components/loginPage/ButtonToAccountSetting";
 import DoubleInputForm from "@/components/common/DoubleInputForm";
 import KeepLoginButton from "@/components/loginPage/KeepLoginButton";
 import { InputFormType } from "@/constants/enum";
@@ -24,7 +24,7 @@ function Login() {
             </p>
             <DoubleInputForm type={InputFormType.LOGIN} setNextStep={setNextStep} />
             <KeepLoginButton />
-            <ButtonToFind />
+            <ButtonToAccountSetting />
           </>
         )}
       </div>

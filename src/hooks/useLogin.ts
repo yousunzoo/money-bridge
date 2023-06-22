@@ -16,14 +16,14 @@ export const useLogin = (
 
   const { mutate } = useMutation(userLogin, {
     onSuccess: data => {
-      console.log(data.data);
+      console.log(data);
       if (data.data.data.code) {
         if (setNextStep) {
           setNextStep(true);
         }
       } else {
         setCookie("Authorization", data.headers.authorization);
-        setUser(pathName.split("/")[2].toUpperCase(), data.data.data.name);
+        setUser(pathName.split("/")[2].toUpperCase(), data.data.data.name, data.data.data.id);
         alert(`${data.data.data.name}님 환영~`);
         router.push("/");
       }

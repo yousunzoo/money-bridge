@@ -4,21 +4,16 @@ import UserInfoList from "@/components/myPage/editInfoPage/UserInfoList";
 import CheckPassword from "@/components/myPage/editInfoPage/CheckPassword";
 import userInfo from "@/mocks/seon/userInfo.json";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 function EditInfoPage() {
-  // api 연결 시 해당 부분은 QueryClient에서 가져옴
-  // 인증 거치고 status 200 일때 isUser = true
-  // 데이터가 있고 status 400 일때 isUser = false, error modal
-  const [isUser, setIsUser] = useState(false);
+  const queryClient = useQueryClient();
+  const [isUser, setIsUser] = useState<boolean>(queryClient.getQueryData(["isPwChecked"]) || false);
 
   return (
     <>
       <TopNav title="개인 정보 수정" />
-      {userInfo.data && isUser ? (
-        <UserInfoList userInfo={userInfo.data} />
-      ) : (
-        <CheckPassword type="check" setIsUser={setIsUser} />
-      )}
+      {userInfo.data && isUser ? <UserInfoList /> : <CheckPassword type="check" setIsUser={setIsUser} />}
     </>
   );
 }

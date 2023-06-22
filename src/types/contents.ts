@@ -1,4 +1,4 @@
-export interface ContentsInfo {
+export interface IContentsInfo {
   id: number;
   thumbnail: string;
   tag1: string;
@@ -12,10 +12,10 @@ export interface ContentsInfo {
   speciality2: string | null;
   career: number;
   content: string;
-  reply: Reply[];
+  reply: IReply[];
 }
 
-export interface Reply {
+export interface IReply {
   id: number;
   name: string;
   profile: string;
@@ -24,7 +24,7 @@ export interface Reply {
   parentId: number | null;
 }
 
-export interface ContentsSave {
+export interface IContentsSave {
   title: string;
   content: string;
   tag1: string;
@@ -32,7 +32,7 @@ export interface ContentsSave {
   thumbnail: string;
 }
 
-export interface TempList {
+export interface ITempList {
   id: number;
   title: string;
   content: string;
@@ -40,7 +40,7 @@ export interface TempList {
   updatedAt: string | null;
 }
 
-export interface Temp {
+export interface ITemp {
   title: string;
   content: string;
   tag1: string;
@@ -49,7 +49,7 @@ export interface Temp {
   status: string;
 }
 
-export interface TempSave {
+export interface ITempSave {
   title: string;
   content: string;
   tag1: string;

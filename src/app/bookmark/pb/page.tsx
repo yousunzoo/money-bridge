@@ -2,16 +2,22 @@
 import React from "react";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
 import BookMark from "@/components/bookmarkPage/BookMark";
-import { userBookMarkPB } from "@/app/apis/services/user";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { BookMarkPB } from "@/app/apis/services/user";
+import { useQuery } from "@tanstack/react-query";
+import { IDataResponse } from "@/types/common";
+import { IPbCard } from "@/types/card";
 
 function PbBookMark() {
-  const { data: res } = useInfiniteQuery(["/user/bookmarks/pb"], ({ pageParam = 0 }) => userBookMarkPB(pageParam));
+  const { data: res } = useQuery<IDataResponse<IPbCard>>(["/user/bookmarks/pb"], () => BookMarkPB(0));
 
   return (
     <div className="mb-10">
       <BookMark />
-      {res?.list ? <PbCardList props={res} /> : <div className="flex justify-center">북마크 한 콘텐츠 없음</div>}
+      {res?.list ? (
+        <PbCardList queryKey={"/user/bookmarks/pb"} api={BookMarkPB} />
+      ) : (
+        <div className="flex justify-center">북마크 한 콘텐츠 없음</div>
+      )}
     </div>
   );
 }

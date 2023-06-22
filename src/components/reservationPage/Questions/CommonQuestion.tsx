@@ -1,19 +1,8 @@
+import React, { useState } from "react";
 import { IBubbleSectionProps, IQuestions } from "@/types/reservation";
-import reservationQuestions from "@/constants/reservationQuestions.json";
-import { MouseEvent, useEffect, useRef, useState } from "react";
-import LocationCard from "../common/LocationCard";
-import { useReservationStore } from "@/store/reservationStore";
-import UserBubble from "./UserBubble/UserBubble";
-function BubbleSection({
-  step,
-  isOpen,
-  pbStation,
-  consultTime,
-  userInfo,
-  handleOpenModal,
-  skipNextStep,
-  moveToNextStep,
-}: IBubbleSectionProps) {
+import UserBubble from "../UserBubble/UserBubble";
+
+function CommonQuestion({ step, isOpen, handleOpenModal, moveToNextStep }: IBubbleSectionProps) {
   const questions: IQuestions = reservationQuestions;
 
   const { question, intro1, intro2, options } = questions[step];
@@ -162,4 +151,4 @@ function BubbleSection({
   );
 }
 
-export default BubbleSection;
+export default CommonQuestion;

@@ -11,3 +11,12 @@ export const useBookmarkPB = () => {
 
   return useQuery([queryKey], queryFn);
 };
+
+export const getReservationData = async (pbId: string) => {
+  try {
+    const res = await instance.get(`/user/reservation/base/${pbId}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
+  }
+};

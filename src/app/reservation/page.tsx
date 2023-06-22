@@ -8,17 +8,26 @@ import ModalLayout from "@/components/reservationPage/ModalLayout";
 import EditProfileModal from "@/components/reservationPage/EditProfileModal";
 import { convertReservationAnswer } from "@/utils/convertAnswer";
 import { useReservationStore } from "@/store/reservationStore";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getReservationData } from "../apis/services/user";
 
 function ReservationPage() {
-  const { pbName, pbStation, consultTime, userInfo } = reservationInfo.data;
+  const params = useSearchParams().get("pbId");
+  console.log(params);
+  const router = useRouter();
+  const { data } = useQuery({
+    queryKey: ["reservation", params],
+    queryFn: () => getReservationData(params as string),
+    enabled: !!params,
+  });
+
   const { answers, resetAnswers } = useReservationStore();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>({});
   const [isPhoneConsult, setIsPhoneConsult] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
 
   const handleOpenModal = (nowStep: number) => {
     setStep(nowStep);
@@ -54,6 +63,14 @@ function ReservationPage() {
       });
     }
   }, [isChecked]);
+
+  if (!params) {
+    router.push("/lounge");
+    return;
+  }
+  if (!data) return;
+
+  const { pbInfo, pbStation, consultInfo, userInfo } = data;
   return (
     <>
       <div className="w-full py-6 pb-40" ref={sectionRef}>
@@ -69,7 +86,7 @@ function ReservationPage() {
                 <p>
                   {userInfo.userName}님,
                   <br />
-                  {pbName} PB님과 찐하고 담백한 상담하기 위해
+                  {pbInfo.pbName} PB님과 찐하고 담백한 상담하기 위해
                   <br />
                   저와 함께 예약을 시작해볼까요?
                 </p>
@@ -83,7 +100,7 @@ function ReservationPage() {
         <BubbleSection step={0} moveToNextStep={moveToNextStep} />
         {isChecked[0] && <BubbleSection step={1} moveToNextStep={moveToNextStep} skipNextStep={skipNextStep} />}
         {isChecked[1] && !isPhoneConsult && (
-          <BubbleSection step={2} moveToNextStep={moveToNextStep} pbStation={pbStation} />
+          <BubbleSection step={2} moveToNextStep={moveToNextStep} pbStation={pbInfo} />
         )}
         {(isChecked[2] || isPhoneConsult) && (
           <BubbleSection
@@ -91,7 +108,7 @@ function ReservationPage() {
             isOpen={isOpen}
             handleOpenModal={handleOpenModal}
             moveToNextStep={moveToNextStep}
-            consultTime={consultTime}
+            consultTime={consultInfo}
           />
         )}
         {isChecked[3] && (
@@ -119,7 +136,7 @@ function ReservationPage() {
               nowStep={3}
               moveToNextStep={moveToNextStep}
               handleCloseModal={handleCloseModal}
-              consultTime={consultTime}
+              consultTime={consultInfo}
             />
           )}
           {step === 4 && (

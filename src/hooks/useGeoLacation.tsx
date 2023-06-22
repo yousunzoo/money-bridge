@@ -31,6 +31,4 @@ export const useGeoLocation = () => {
     const data = await getLocationName({ latitude, longitude });
     setLocation(data);
   };
-
-  return null;
 };

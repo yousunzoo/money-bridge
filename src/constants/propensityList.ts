@@ -83,9 +83,9 @@ export const riskRating = [
 ];
 
 export const propensityChart = [
-  { name: "안정형", volatility: 0.5 },
-  { name: "안정추구형", volatility: 5 },
-  { name: "위험중립형", volatility: 10 },
-  { name: "적극형", volatility: 15 },
-  { name: "공격형", volatility: 24 },
+  { name: "안전형", expectedReturn: 2, range: "+1%~2%" },
+  { name: "안전추구형", expectedReturn: 3, range: "+1%~3%" },
+  { name: "위험중립형", expectedReturn: 5, range: "+3%~5%" },
+  { name: "적극형", expectedReturn: 7, range: "+5%~7%" },
+  { name: "공격형", expectedReturn: 10, range: "+7%~10%" },
 ];

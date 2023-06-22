@@ -49,4 +49,4 @@ export interface IPropensityCardProps {
   userPropensity: IPropensity;
 }
 
-export type IPropensity = "CONSERVATIVE" | "CAUTIOUS" | "BALANCED" | "AGGRESSIVE" | "SPECULATIVE" | null;
+export type IPropensity = "CONSERVATIVE" | "CAUTIOUS" | "BALANCED" | "AGGRESSIVE" | "SPECULATIVE";

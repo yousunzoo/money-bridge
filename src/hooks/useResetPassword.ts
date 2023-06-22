@@ -9,7 +9,6 @@ export const useResetPassword = () => {
   const { mutate } = useMutation(resetPassword, {
     onSuccess: data => {
       console.log(data);
-      router.push("/login");
     },
     onError: (err: AxiosError) => {
       console.log(err);

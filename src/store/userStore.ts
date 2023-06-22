@@ -5,16 +5,17 @@ interface RoleState {
   user: {
     role: string;
     name: string;
+    id: number | null;
   };
-  setUser: (role: string, name: string) => void;
+  setUser: (role: string, name: string, id: number) => void;
   resetUser: () => void;
 }
-const initialState = { role: "", name: "" };
+const initialState = { role: "", name: "", id: null };
 const userStore = create(
   persist<RoleState>(
     set => ({
       user: initialState,
-      setUser: (role, name) => set(state => ({ ...state, user: { role, name } })),
+      setUser: (role, name, id) => set(state => ({ ...state, user: { role, name, id } })),
       resetUser: () => set({ user: initialState }),
     }),
     {

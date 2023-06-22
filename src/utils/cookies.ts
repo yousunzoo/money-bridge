@@ -16,3 +16,11 @@ export const setCookie = (key: string, data: string) => {
     console.error(error);
   }
 };
+
+export const removeCookie = (key: string) => {
+  try {
+    return cookies.remove(key);
+  } catch (error) {
+    console.error(error);
+  }
+};

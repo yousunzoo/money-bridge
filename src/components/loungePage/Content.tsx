@@ -8,14 +8,15 @@ import { useQuery } from "@tanstack/react-query";
 import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import { IContentCard } from "@/types/card";
+import { IDataResponse } from "@/types/common";
 
 function Content() {
-  const { data: All } = useQuery(["/boards"], () => LoungeNew(0));
-  const { data: NewAndHot } = useQuery(["/lounge/board"], LoungeBoard);
-  const [all, setAll] = useState<IContentCard>();
-  const [newData, setNewData] = useState <IContentCard>();
-  const [hotData, setHotData] = useState<IContentCard>();
-  const [click, setClick] = useState<boolean>(false);
+  const { data: All } = useQuery<IDataResponse<IContentCard>>(["/boards"], () => LoungeNew(0));
+  const { data: NewAndHot } = useQuery<IDataResponse<IContentCard>>(["/lounge/board"], LoungeBoard);
+  const [all, setAll] = useState<IContentCard[]>();
+  const [newData, setNewData] = useState<IContentCard[]>();
+  const [hotData, setHotData] = useState<IContentCard[]>();
+  const [isClick, setIsClick] = useState<boolean>(false);
 
   useEffect(() => {
     if (NewAndHot) {
@@ -39,7 +40,7 @@ function Content() {
             더보기
           </Link>
         </div>
-        {newData?.map((item: any) => (
+        {newData?.map((item: IContentCard) => (
           <ContentCardItem key={item.id} item={item} />
         ))}
       </div>
@@ -54,7 +55,7 @@ function Content() {
             더보기
           </Link>
         </div>
-        {hotData?.map((item: any) => (
+        {hotData?.map((item: IContentCard) => (
           <ContentCardItem key={item.id} item={item} />
         ))}
       </div>
@@ -97,16 +98,16 @@ function Content() {
             <br />
             한눈에 보세요
           </div>
-          {!click && (
-            <button onClick={() => setClick(true)} className="more flex-3">
+          {!isClick && (
+            <button onClick={() => setIsClick(true)} className="more flex-3">
               더보기
             </button>
           )}
         </div>
-        {click ? (
+        {isClick ? (
           <ContentCardList queryKey={"/boards"} api={LoungeNew} />
         ) : (
-          all?.map((item: any) => <ContentCardItem key={item.id} item={item} />)
+          all?.map((item: IContentCard) => <ContentCardItem key={item.id} item={item} />)
         )}
       </div>
     </>

@@ -30,8 +30,8 @@ function AnalysisPage() {
   }, [step]);
 
   const handleSubmit = () => {
-    const convertedAnswers = convertAnalysisAnswers(answers);
-    registerPropensity(convertedAnswers);
+    const score = convertAnalysisAnswers(answers);
+    registerPropensity(score);
   };
 
   return (

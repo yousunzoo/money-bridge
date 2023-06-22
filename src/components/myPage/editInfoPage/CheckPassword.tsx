@@ -1,21 +1,28 @@
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ButtonModal from "@/components/common/ButtonModal";
 import { useRouter } from "next/navigation";
 import { ButtonModalProps } from "@/types/common";
+import { useWithdraw } from "@/hooks/useWithdraw";
+import { useCheckPassword } from "@/hooks/useCheckPassword";
 
 const yup_password = yup.string().min(8).max(15).matches(/^\S+$/).required();
+const checkBlank = (value: string) => {
+  return value.includes(" ");
+};
 
 function CheckPassword({
   type,
   setIsUser,
 }: {
-  type: "check" | "secession";
+  type: "check" | "withdraw";
   setIsUser?: Dispatch<SetStateAction<boolean>>;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { withdraw, IsWithdrawed, withdrawError } = useWithdraw();
+  const { checkPassword, isChecked, isNotChecked } = useCheckPassword();
   const [modalContents, setModalContents] = useState<ButtonModalProps["modalContents"]>({
     content: "",
     confirmText: "",
@@ -35,18 +42,41 @@ function CheckPassword({
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const password = getValues("password");
-    // mutate 함수로 비밀번호 확인, 리턴값에 따라 state 처리
-    if (setIsUser) {
+    // 비밀번호 확인
+    if (type === "check") {
+      checkPassword(password);
+      return;
+    }
+
+    // 회원 탈퇴
+    if (type === "withdraw") {
+      withdraw(password);
+      return;
+    }
+  };
+
+  useEffect(() => {
+    if (IsWithdrawed) {
+      setIsOpen(true);
+      setModalContents({
+        content: "탈퇴가 완료되었습니다.",
+        confirmText: "확인",
+        confirmFn: () => router.replace("/"),
+      });
+      return;
+    }
+    if (isChecked && setIsUser) {
       setIsUser(true);
       return;
     }
-    setIsOpen(true);
-    setModalContents({ content: "탈퇴가 완료되었습니다.", confirmText: "확인", confirmFn: () => router.replace("/") });
-
-    // 에러 처리
-    // setModalContents({ content: "비밀번호가 일치하지 않습니다.", confirmText: "확인" });
-    // setIsOpen(true);
-  };
+    if (withdrawError || isNotChecked) {
+      setIsOpen(true);
+      setModalContents({
+        content: "비밀번호가 일치하지 않습니다. 다시 시도해주세요.",
+        confirmText: "확인",
+      });
+    }
+  }, [IsWithdrawed, withdrawError, isChecked, isNotChecked]);
   return (
     <>
       <h3 className="mb-12 text-xl font-bold">
@@ -63,11 +93,18 @@ function CheckPassword({
             placeholder="비밀번호를 입력해주세요"
           />
           {isDirty && (
-            <p className={`pt-1 text-xs ${errors.password ? "text-status-alert" : "text-status-positive"}`}>
-              *영문(대소문자), 숫자 포함하여 8자 이상으로 작성해 주세요.
-              <br />
-              *공백없이 작성해 주세요.
-            </p>
+            <>
+              <p className={`pt-1 text-xs ${errors.password ? "text-status-alert" : "text-status-positive"}`}>
+                *영문(대소문자), 숫자 포함하여 8자 이상으로 작성해 주세요.
+              </p>
+              <p
+                className={`pt-1 text-xs ${
+                  checkBlank(getValues("password")) ? "text-status-alert" : "text-status-positive"
+                }`}
+              >
+                *공백없이 작성해 주세요.
+              </p>
+            </>
           )}
         </div>
         <button className={`button ${!isValid && "inactive"}`} disabled={!isValid}>

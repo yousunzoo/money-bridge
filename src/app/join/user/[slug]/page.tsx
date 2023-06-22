@@ -41,7 +41,7 @@ const checkRedirect = (pathName: string) => {
   }
 
   const path2 = pathName.split("/")[2];
-  if (type.includes(path2)) {
+  if (path2 === "user") {
     res.res2 = true;
   }
 

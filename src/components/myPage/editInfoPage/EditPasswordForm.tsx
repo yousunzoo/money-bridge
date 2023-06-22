@@ -3,9 +3,7 @@ import ResetPassword from "@/components/findPasswordPage/ResetPassword";
 import React, { useState } from "react";
 import CheckUserEmail from "./CheckUserEmail";
 
-function EditPasswordForm() {
-  // queryClient에서 유저 이메일 값 받음
-  const email = "yousunzoo@naver.com";
+function EditPasswordForm({ email }: { email: string }) {
   const [isUserEmail, setIsUserEmail] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 

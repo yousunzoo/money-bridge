@@ -12,6 +12,15 @@ export const useBookmarkPB = () => {
   return useQuery([queryKey], queryFn);
 };
 
+export const checkPropensity = async (score: number) => {
+  try {
+    const res = await instance.post("/user/propensity", { score });
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const getUserInfo = async () => {
   try {
     const res = await instance.get("/user/mypage");

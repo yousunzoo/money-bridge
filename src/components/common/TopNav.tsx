@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import arrayBack from "/public/assets/images/arrayBack.svg";
 import logo from "/public/assets/images/logo.png";
-import { useGeoLocation } from "@/hooks/useGeoLaction";
+import { useGeoLocation } from "@/hooks/useGeoLacation";
 import arrowDown from "/public/assets/images/arrowDown.svg";
 import SelectLocationModal from "../mainPage/SelectLocationModal";
 import { useLocationStore } from "@/store/location";
@@ -30,6 +30,14 @@ function TopNav({
   const modalOpenHandler = () => {
     setIsOpenModal(!isOpenModal);
   };
+
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <>

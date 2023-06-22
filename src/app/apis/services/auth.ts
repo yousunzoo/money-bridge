@@ -113,3 +113,13 @@ export const editMyInfo = async (data: { [key: string]: string }) => {
     throw new Error(error.response.data.data);
   }
 };
+
+export const getLoginedUserInfo = async () => {
+  try {
+    const res = await instance.get("/auth/account");
+    return res.data.data;
+  } catch (error: any) {
+    const response = error.response.data;
+    throw new Error(response);
+  }
+};

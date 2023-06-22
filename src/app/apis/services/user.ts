@@ -9,11 +9,29 @@ export const userBookMarkPB = async (page:number) => {
   }
 };
 
-export const userBookMarkContent = async (page: number) => {
+export const checkPropensity = async (score: number) => {
   try {
-    const res = await instance.get(`/auth/bookmarks/boards?page=${page}`);
+    const res = await instance.post("/user/propensity", { score });
     return res.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const getUserInfo = async () => {
+  try {
+    const res = await instance.get("/user/mypage");
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.status);
+  }
+};
+
+export const getMyPropensity = async () => {
+  try {
+    const res = await instance.get("/user/mypage/list/pb");
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.status);
   }
 };

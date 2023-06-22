@@ -34,12 +34,12 @@ function DoubleInputForm({
   const [isOpen, setIsOpen] = useState(false);
   const [modalError, setModalError] = useState(false);
 
-  const login = useLogin(setNextStep);
+  const login = useLogin(setNextStep, setIsOpen, setModalError);
   const findEmail = useFindEmail(setIsOpen);
   const authentication = usePasswordAuthentication(setModalError, setIsOpen);
   const inputType = type === InputFormType.LOGIN ? "password" : "text";
 
-  const password_modalContents_NotExist = {
+  const modalContents_NotExist = {
     content: "사용자가 존재하지 않습니다.",
     confirmText: "확인",
     confirmFn: () => {
@@ -47,7 +47,7 @@ function DoubleInputForm({
     },
   };
 
-  const password_modalContents_Success = {
+  const modalContents_Success = {
     content: "인증코드가 발송되었습니다.",
     confirmText: "확인",
     confirmFn: () => {
@@ -161,11 +161,11 @@ function DoubleInputForm({
       </form>
       {isOpen && (
         <ButtonModal
-          modalContents={modalError ? password_modalContents_NotExist : password_modalContents_Success}
+          modalContents={modalError ? modalContents_NotExist : modalContents_Success}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         >
-          <h3>정보를 확인해 주세요.</h3>
+          <p>정보를 확인해 주세요.</p>
         </ButtonModal>
       )}
     </div>

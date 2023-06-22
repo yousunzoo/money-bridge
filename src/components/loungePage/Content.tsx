@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from "react";
-import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import Link from "next/link";
 import MainCarousel from "@/components/common/Carousel/MainCarousel";
 import "@/styles/carousel.css";
 import "@/styles/lounge.css";
+import { LoungeBoard, LoungeNew } from "@/app/apis/services/common";
+import { useQuery } from "@tanstack/react-query";
+import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
+import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
+import { IContentCard } from "@/types/card";
 
-function Content({ NewAndHot, All }: { NewAndHot: any; All: any; }) {
-  const [all, setAll] = useState<any>();
-  const [newData, setNewData] = useState<any>();
-  const [hotData, setHotData] = useState<any>();
+function Content() {
+  const { data: All } = useQuery(["/boards"], () => LoungeNew(0));
+  const { data: NewAndHot } = useQuery(["/lounge/board"], LoungeBoard);
+  const [all, setAll] = useState<IContentCard>();
+  const [newData, setNewData] = useState <IContentCard>();
+  const [hotData, setHotData] = useState<IContentCard>();
   const [click, setClick] = useState<boolean>(false);
 
   useEffect(() => {
     if (NewAndHot) {
-      setNewData(NewAndHot.data?.list?.slice(0, 2));
-      setHotData(NewAndHot.data?.list?.slice(2, 4));
+      setNewData(NewAndHot.list?.slice(0, 2));
+      setHotData(NewAndHot.list?.slice(2, 4));
     }
     if (All) {
-      setAll(All.data?.list?.slice(0, 2));
+      setAll(All.list?.slice(0, 2));
     }
   }, [NewAndHot, All]);
-
-  const getAllContent = () => {
-    setAll(All?.data?.list);
-    setClick(true);
-  };
-
   return (
-    <article className="flex flex-col">
+    <>
       <div>
         <div className="header">
           <div className="section">
@@ -39,9 +39,9 @@ function Content({ NewAndHot, All }: { NewAndHot: any; All: any; }) {
             더보기
           </Link>
         </div>
-        <div>
-          <ContentCardList props={newData} />
-        </div>
+        {newData?.map((item: any) => (
+          <ContentCardItem key={item.id} item={item} />
+        ))}
       </div>
       <div>
         <div className="header">
@@ -54,9 +54,9 @@ function Content({ NewAndHot, All }: { NewAndHot: any; All: any; }) {
             더보기
           </Link>
         </div>
-        <div>
-          <ContentCardList props={hotData} />
-        </div>
+        {hotData?.map((item: any) => (
+          <ContentCardItem key={item.id} item={item} />
+        ))}
       </div>
       <MainCarousel className="my-11 h-[235px] text-white">
         <div className="pb_banner bg-primary-light">
@@ -98,16 +98,18 @@ function Content({ NewAndHot, All }: { NewAndHot: any; All: any; }) {
             한눈에 보세요
           </div>
           {!click && (
-            <button onClick={getAllContent} className="more flex-3">
+            <button onClick={() => setClick(true)} className="more flex-3">
               더보기
             </button>
           )}
         </div>
-        <div>
-          <ContentCardList props={all} />
-        </div>
+        {click ? (
+          <ContentCardList queryKey={"/boards"} api={LoungeNew} />
+        ) : (
+          all?.map((item: any) => <ContentCardItem key={item.id} item={item} />)
+        )}
       </div>
-    </article>
+    </>
   );
 }
 

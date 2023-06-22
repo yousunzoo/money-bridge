@@ -19,7 +19,7 @@ function PbCardItem({ item }: { item: any }) {
   const goToDetail = () => {
     router.push("/detail/info");
   };
-
+  console.log(item);
   return (
     <li className="card h-[200px] bg-white px-[20px] pt-[20px]">
       <div className="mb-[18px] flex">

@@ -13,10 +13,10 @@ function SecessionPage() {
     <>
       <TopNav title="탈퇴하기" hasBack={true} />
       {didAgree ? (
-        <CheckPassword type="secession" />
+        <CheckPassword type="withdraw" />
       ) : (
         <>
-          <div className="card mb-12 p-4">
+          <div className="card mb-12 bg-white p-4">
             <p className="text-center text-xl font-bold">
               저희 서비스를 이용해주셔서
               <br />

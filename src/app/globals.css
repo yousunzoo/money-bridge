@@ -55,7 +55,11 @@
   }
 
   .input_authentication {
-    @apply w-full min-w-[302px] rounded-sm border-1 border-background-secondary px-3 py-2;
+    @apply w-full min-w-[302px] max-w-[425px] rounded-sm border-1 border-background-secondary px-3 py-2;
+  }
+
+  .input_authentication:focus-visible {
+    @apply outline-none;
   }
 
   .entering {
@@ -161,5 +165,9 @@
 
   .input_status {
     @apply absolute right-3
+  }
+
+  .scroll_hidden::-webkit-scrollbar {
+    display: none;
   }
 }

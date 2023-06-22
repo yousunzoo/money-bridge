@@ -19,7 +19,7 @@ function Page() {
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
   return (
     <>
-      <TopNav title="이메일 찾기" hasBack backGroundWhite />
+      <TopNav title={`${pathName.split("/")[2] === "user" ? "유저" : "PB"} 이메일 찾기`} hasBack backGroundWhite />
       {step[path]}
     </>
   );

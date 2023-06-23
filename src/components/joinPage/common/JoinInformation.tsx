@@ -3,10 +3,13 @@ import { yup_email, yup_name, yup_phone } from "@/constants/yupSchema";
 import { useAuthentication } from "@/hooks/useAuthentication";
 import { useJoinStore } from "@/store/joinStore";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import alert from "/public/assets/images/alert.svg";
+import correct from "/public/assets/images/correct.svg";
 
 function JoinInformation({ type }: { type: JoinFormType }) {
   const [value, setValue] = useState("");
@@ -27,6 +30,12 @@ function JoinInformation({ type }: { type: JoinFormType }) {
 
   const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
     setValue(e.target.value);
+  };
+
+  const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const button = e.target as HTMLButtonElement;
+    setValue("");
   };
 
   const onSubmit = () => {
@@ -56,12 +65,20 @@ function JoinInformation({ type }: { type: JoinFormType }) {
       <p className="my-14 text-xl font-bold leading-7">{joinStepRenderer[type].title}</p>
       <p className="mb-2 text-xs leading-[18px]">{joinStepRenderer[type].sub}</p>
       <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
-        <input
-          type={`${type === JoinFormType.PHONENUMBER ? "number" : "text"}`}
-          className={`form_input ${errors.text ? "warnning" : dirtyFields.text ? "entering" : ""} `}
-          {...register("text")}
-          value={value}
-        />
+        <div className="relative flex items-center">
+          <input
+            type={`${type === JoinFormType.PHONENUMBER ? "number" : "text"}`}
+            className={`form_input ${errors.text ? "warnning" : dirtyFields.text ? "entering" : ""} `}
+            {...register("text")}
+            value={value}
+          />
+          {dirtyFields.text && (
+            <>
+              <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+              <Image src={errors.text ? alert : correct} alt="input_status" className="input_status" />
+            </>
+          )}
+        </div>
         <div className="h-[18px] pl-2">
           <span className={`text-xs leading-[18px] ${errors.text ? "text-status-alert" : "text-status-positive"}`}>
             {dirtyFields.text ? joinStepRenderer[type].validation : ""}

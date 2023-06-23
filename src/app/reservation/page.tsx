@@ -1,7 +1,6 @@
 "use client";
 import BubbleSection from "@/components/reservationPage/BubbleSection";
 import { useEffect, useRef, useState } from "react";
-import reservationInfo from "@/mocks/seon/reservationInfo.json";
 import SelectTimeModal from "@/components/reservationPage/SelectTimeModal";
 import ForwardingModal from "@/components/reservationPage/ForwardingModal";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
@@ -9,16 +8,18 @@ import EditProfileModal from "@/components/reservationPage/EditProfileModal";
 import { convertReservationAnswer } from "@/utils/convertAnswer";
 import { useReservationStore } from "@/store/reservationStore";
 import { useRouter } from "next/navigation";
+import { useGetReservationPageData } from "@/hooks/useGetReservationPageData";
 
 function ReservationPage() {
-  const { pbName, pbStation, consultTime, userInfo } = reservationInfo.data;
+  const router = useRouter();
+  const { reservationData, loading } = useGetReservationPageData();
   const { answers, resetAnswers } = useReservationStore();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
-  const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>({});
   const [isPhoneConsult, setIsPhoneConsult] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
+
+  const { userInfo, pbInfo, consultInfo } = reservationData;
 
   const handleOpenModal = (nowStep: number) => {
     setStep(nowStep);
@@ -32,7 +33,6 @@ function ReservationPage() {
       setIsPhoneConsult(false);
     }
     setStep(nowStep + 1);
-    setIsChecked({ ...isChecked, [nowStep]: true });
   };
   const skipNextStep = () => {
     setIsPhoneConsult(true);
@@ -45,20 +45,41 @@ function ReservationPage() {
     resetAnswers();
   };
 
+  const stepModals = {
+    3: (
+      <SelectTimeModal
+        nowStep={3}
+        moveToNextStep={moveToNextStep}
+        handleCloseModal={handleCloseModal}
+        consultTime={consultInfo}
+      />
+    ),
+    4: <ForwardingModal nowStep={4} moveToNextStep={moveToNextStep} handleCloseModal={handleCloseModal} />,
+    5: (
+      <EditProfileModal
+        userInfo={userInfo}
+        nowStep={5}
+        moveToNextStep={moveToNextStep}
+        handleCloseModal={handleCloseModal}
+      />
+    ),
+  };
   useEffect(() => {
     if (!sectionRef.current) return;
-    if (isChecked[5]) {
+    if (answers[5]) {
       sectionRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
-  }, [isChecked]);
+  }, [answers]);
+
+  if (loading || !reservationData) return null;
   return (
     <>
       <div className="w-full py-6 pb-40" ref={sectionRef}>
         <section className="mb-4 flex flex-col gap-y-4">
-          {isChecked[5] ? (
+          {answers[5] ? (
             <div className="text-lg font-semibold">
               <p>{userInfo.userName}님의 상담 예약 응답이에요.</p>
               <p>PB님께 잘 전달해 드릴게요.</p>
@@ -69,7 +90,7 @@ function ReservationPage() {
                 <p>
                   {userInfo.userName}님,
                   <br />
-                  {pbName} PB님과 찐하고 담백한 상담하기 위해
+                  {pbInfo.pbName} PB님과 찐하고 담백한 상담하기 위해
                   <br />
                   저와 함께 예약을 시작해볼까요?
                 </p>
@@ -81,23 +102,21 @@ function ReservationPage() {
           )}
         </section>
         <BubbleSection step={0} moveToNextStep={moveToNextStep} />
-        {isChecked[0] && <BubbleSection step={1} moveToNextStep={moveToNextStep} skipNextStep={skipNextStep} />}
-        {isChecked[1] && !isPhoneConsult && (
-          <BubbleSection step={2} moveToNextStep={moveToNextStep} pbStation={pbStation} />
-        )}
-        {(isChecked[2] || isPhoneConsult) && (
+        {answers[0] && <BubbleSection step={1} moveToNextStep={moveToNextStep} skipNextStep={skipNextStep} />}
+        {answers[1] && !isPhoneConsult && <BubbleSection step={2} moveToNextStep={moveToNextStep} pbStation={pbInfo} />}
+        {(answers[2] || isPhoneConsult) && (
           <BubbleSection
             step={3}
             isOpen={isOpen}
             handleOpenModal={handleOpenModal}
             moveToNextStep={moveToNextStep}
-            consultTime={consultTime}
+            consultTime={consultInfo}
           />
         )}
-        {isChecked[3] && (
+        {answers[3] && (
           <BubbleSection step={4} isOpen={isOpen} handleOpenModal={handleOpenModal} moveToNextStep={moveToNextStep} />
         )}
-        {isChecked[4] && (
+        {answers[4] && (
           <BubbleSection
             step={5}
             isOpen={isOpen}
@@ -106,34 +125,14 @@ function ReservationPage() {
             userInfo={userInfo}
           />
         )}
-        {isChecked[5] && (
+        {answers[5] && (
           <button onClick={handleSubmit} className="button_fixed">
             등록하기
           </button>
         )}
       </div>
-      {isOpen && (
-        <ModalLayout handleCloseModal={handleCloseModal}>
-          {step === 3 && (
-            <SelectTimeModal
-              nowStep={3}
-              moveToNextStep={moveToNextStep}
-              handleCloseModal={handleCloseModal}
-              consultTime={consultTime}
-            />
-          )}
-          {step === 4 && (
-            <ForwardingModal nowStep={4} moveToNextStep={moveToNextStep} handleCloseModal={handleCloseModal} />
-          )}
-          {step === 5 && (
-            <EditProfileModal
-              userInfo={userInfo}
-              nowStep={5}
-              moveToNextStep={moveToNextStep}
-              handleCloseModal={handleCloseModal}
-            />
-          )}
-        </ModalLayout>
+      {(step === 3 || step === 4 || step === 5) && isOpen && (
+        <ModalLayout handleCloseModal={handleCloseModal}>{stepModals[step]}</ModalLayout>
       )}
     </>
   );

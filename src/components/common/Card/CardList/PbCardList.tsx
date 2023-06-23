@@ -1,61 +1,36 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useMemo } from "react";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
-import { PbCard } from "@/types/card";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 
-function PbCardList({ props }: { props: any; }) {
-  const dataList = props?.data ? props.data.list : props;
-  const data = props?.data ? props.data : props;
-  const [isLastPage, setIsLastPage] = useState<boolean>(data?.last);
-  const observerRef = useRef<HTMLDivElement | null>(null);
+function PbCardList({ queryKey, api }: { queryKey: string; api: any }) {
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
+    [queryKey],
+    ({ pageParam = 0 }) => {
+      return api(pageParam);
+    },
+    {
+      getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),
+    },
+  );
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(handleObserver, {
-      root: null,
-      rootMargin: "0px",
-      threshold: 1.0,
-    });
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+  const list = useMemo(() => (data ? (data.pages || []).flatMap(data => data.list) : []), [data]);
+  const ref = useIntersectionObserver(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    if (hasNextPage && !isFetching) {
+      fetchNextPage();
     }
-
-    return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
-      }
-    };
-  }, []);
-
-  const handleObserver: IntersectionObserverCallback = entries => {
-    const target = entries[0];
-    // todo: api완성되면 api의 last를 사용하기
-    if (target.isIntersecting && !isLastPage) {
-      loadMoreItems();
-    }
-  };
-
-  const loadMoreItems = () => {
-    const startIndex = dataList?.length;
-    const endIndex = startIndex + 10;
-    // const newItems = dataList?.slice(startIndex, endIndex);
-    // 다음 페이지를 부르게 하기
-    // setItems((prevItems: any) => [...prevItems, ...newItems]);
-
-    // 현재 페이지가 마지막 페이지인지 확인
-    if (data?.curPage === data?.totalPages - 1) {
-      setIsLastPage(true);
-    }
-  };
+  });
 
   return (
     <>
       <ul>
-        {dataList?.map((item: PbCard) => (
+        {list?.map((item: any) => (
           <PbCardItem key={item.id} item={item} />
         ))}
       </ul>
-      {!isLastPage && <div ref={observerRef} style={{ height: "1px" }}></div>}
+      {hasNextPage && <div ref={ref} className="h-1" />}
     </>
   );
 }

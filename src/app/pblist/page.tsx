@@ -32,7 +32,7 @@ function PBListPage() {
       </Link>
       <PBMenu companyList={companyList} />
       <SortTab />
-      <PbCardList props={pbListData} />
+      {/* <PbCardList props={pbListData} /> */}
     </div>
   );
 }

@@ -9,7 +9,7 @@ function ReservationCompletePage() {
     router.back();
   };
   return (
-    <section className="flex h-full w-full flex-col py-[100px]">
+    <section className="flex h-[100%] w-full flex-col py-[100px]">
       <div>
         <p className="mb-6 text-3xl font-bold">
           홍길동님의
@@ -23,7 +23,7 @@ function ReservationCompletePage() {
         </p>
         <p>확정까지 평균 소요 시간 : 10분~30분</p>
       </div>
-      <button onClick={handleClick} className="mt-auto h-[56px] w-full rounded-lg bg-black text-white">
+      <button onClick={handleClick} className="mt-[50px] h-[56px] w-full rounded-lg bg-black text-white">
         완료
       </button>
     </section>

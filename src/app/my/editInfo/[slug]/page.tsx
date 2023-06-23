@@ -23,7 +23,8 @@ function EditPage({ params }: { params: { slug: string } }) {
   const { mutate } = useMutation(editMyInfo, {
     onSuccess: () => {
       setIsOpen(true);
-      const content = (nowPath === "name" ? "이름이" : "비밀번호가") + " 변경되었습니다.";
+      const content =
+        (nowPath === "name" ? "이름이" : nowPath === "phoneNumber" ? "전화번호가" : "비밀번호가") + " 변경되었습니다.";
       setModalContents({
         ...modalContents,
         content,
@@ -46,6 +47,7 @@ function EditPage({ params }: { params: { slug: string } }) {
       return;
     }
   }, []);
+
   const { email } = data as IUserEditableInfo;
   const handleSubmit = (data: { [key: string]: string }) => {
     mutate(data);

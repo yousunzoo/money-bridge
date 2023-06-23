@@ -101,7 +101,7 @@ export const getMyInfo = async () => {
     const res = await instance.get("/auth/myinfo");
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.data);
+    throw new Error(error.response);
   }
 };
 
@@ -111,5 +111,15 @@ export const editMyInfo = async (data: { [key: string]: string }) => {
     return res.data.data;
   } catch (error: any) {
     throw new Error(error.response.data.data);
+  }
+};
+
+export const getLoginedUserInfo = async () => {
+  try {
+    const res = await instance.get("/auth/account");
+    return res.data.data;
+  } catch (error: any) {
+    const response = error.response.data;
+    throw new Error(response);
   }
 };

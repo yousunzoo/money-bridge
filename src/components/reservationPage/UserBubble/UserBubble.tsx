@@ -1,18 +1,23 @@
-import React, { Dispatch, SetStateAction } from "react";
-import CandidateTime from "../CandidateTime";
+import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
+import CandidateTime from "../Modals/CandidateTime";
 import editIcon from "/public/assets/images/editIcon.svg";
 import Image from "next/image";
 import { IAnswers } from "@/types/reservation";
 
 export interface IUserBubbleProps {
+  answerRef: MutableRefObject<HTMLDivElement | null>;
   step: 0 | 1 | 2 | 3 | 4 | 5;
   answers: IAnswers;
   setIsChoosable: Dispatch<SetStateAction<boolean>>;
 }
-function UserBubble({ step, answers, setIsChoosable }: IUserBubbleProps) {
+function UserBubble({ answerRef, step, answers, setIsChoosable }: IUserBubbleProps) {
+  const didAnswer = step === 3 && answers[3]?.candidateTime1 ? true : answers[step] ? true : false;
+  const margin = answers[(step + 1) as 1 | 2 | 3 | 4 | 5] ? "" : "mt-16";
   return (
     <>
-      <div className="user_bubble flex gap-2">
+      {!didAnswer && <div className="grow" />}
+      <div ref={answerRef} />
+      <div className={`user_bubble flex gap-2 ${didAnswer && margin}`}>
         {step === 3 && answers[3] && <CandidateTime candidates={answers[3]} />}
         {step === 5 && answers[5] && <p>맞습니다</p>}
         {step !== 3 && step !== 5 && answers[step] && <p>{answers[step]}</p>}

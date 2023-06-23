@@ -124,23 +124,25 @@ export interface INoticeItem {
 }
 
 export interface IEditProfileFormProps {
-  existingProfile: {
-    company: string;
-    branchName: string;
-    career: number;
-    careers: ICareer[];
-    awards: IAward[];
-    speciality1: string;
-    speciality2: string;
-    cumulativeReturn: number;
-    maxDrawdown: number;
-    profitFactor: number;
-    averageProfit: number;
-    profile: string;
-    portfolio: string;
-    intro: string;
-    msg: string;
-  };
+  existingProfile: IPBMyProfile;
+}
+
+export interface IPBMyProfile {
+  company: string;
+  branchName: string;
+  career: number;
+  careers: ICareer[];
+  awards: IAward[];
+  speciality1: string;
+  speciality2: string;
+  cumulativeReturn: number;
+  maxDrawdown: number;
+  profitFactor: number;
+  averageProfit: number;
+  profile: string;
+  portfolio: string;
+  intro: string;
+  msg: string;
 }
 
 export interface ICareer {

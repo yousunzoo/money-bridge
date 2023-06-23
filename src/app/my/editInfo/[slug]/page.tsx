@@ -6,6 +6,7 @@ import EditPasswordForm from "@/components/myPage/editInfoPage/EditPasswordForm"
 import { ButtonModalProps } from "@/types/common";
 import { IUserEditableInfo } from "@/types/my";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -32,7 +33,8 @@ function EditPage({ params }: { params: { slug: string } }) {
       });
       queryClient.refetchQueries(["getMyInfo"]);
     },
-    onError: () => {
+    onError: (error: AxiosError) => {
+      console.log(error);
       setIsOpen(true);
       setModalContents({
         content: "알 수 없는 에러가 발생했습니다. 다시 시도해주세요.",

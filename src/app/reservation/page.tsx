@@ -16,9 +16,10 @@ function ReservationPage() {
   const { answers, resetAnswers } = useReservationStore();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
-  const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>({});
   const [isPhoneConsult, setIsPhoneConsult] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  const { userInfo, pbInfo, consultInfo } = reservationData;
 
   const handleOpenModal = (nowStep: number) => {
     setStep(nowStep);
@@ -32,7 +33,6 @@ function ReservationPage() {
       setIsPhoneConsult(false);
     }
     setStep(nowStep + 1);
-    setIsChecked({ ...isChecked, [nowStep]: true });
   };
   const skipNextStep = () => {
     setIsPhoneConsult(true);
@@ -45,23 +45,41 @@ function ReservationPage() {
     resetAnswers();
   };
 
+  const stepModals = {
+    3: (
+      <SelectTimeModal
+        nowStep={3}
+        moveToNextStep={moveToNextStep}
+        handleCloseModal={handleCloseModal}
+        consultTime={consultInfo}
+      />
+    ),
+    4: <ForwardingModal nowStep={4} moveToNextStep={moveToNextStep} handleCloseModal={handleCloseModal} />,
+    5: (
+      <EditProfileModal
+        userInfo={userInfo}
+        nowStep={5}
+        moveToNextStep={moveToNextStep}
+        handleCloseModal={handleCloseModal}
+      />
+    ),
+  };
   useEffect(() => {
     if (!sectionRef.current) return;
-    if (isChecked[5]) {
+    if (answers[5]) {
       sectionRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
-  }, [isChecked]);
+  }, [answers]);
 
   if (loading || !reservationData) return null;
-  const { userInfo, pbInfo, consultInfo } = reservationData;
   return (
     <>
       <div className="w-full py-6 pb-40" ref={sectionRef}>
         <section className="mb-4 flex flex-col gap-y-4">
-          {isChecked[5] ? (
+          {answers[5] ? (
             <div className="text-lg font-semibold">
               <p>{userInfo.userName}님의 상담 예약 응답이에요.</p>
               <p>PB님께 잘 전달해 드릴게요.</p>
@@ -84,11 +102,9 @@ function ReservationPage() {
           )}
         </section>
         <BubbleSection step={0} moveToNextStep={moveToNextStep} />
-        {isChecked[0] && <BubbleSection step={1} moveToNextStep={moveToNextStep} skipNextStep={skipNextStep} />}
-        {isChecked[1] && !isPhoneConsult && (
-          <BubbleSection step={2} moveToNextStep={moveToNextStep} pbStation={pbInfo} />
-        )}
-        {(isChecked[2] || isPhoneConsult) && (
+        {answers[0] && <BubbleSection step={1} moveToNextStep={moveToNextStep} skipNextStep={skipNextStep} />}
+        {answers[1] && !isPhoneConsult && <BubbleSection step={2} moveToNextStep={moveToNextStep} pbStation={pbInfo} />}
+        {(answers[2] || isPhoneConsult) && (
           <BubbleSection
             step={3}
             isOpen={isOpen}
@@ -97,10 +113,10 @@ function ReservationPage() {
             consultTime={consultInfo}
           />
         )}
-        {isChecked[3] && (
+        {answers[3] && (
           <BubbleSection step={4} isOpen={isOpen} handleOpenModal={handleOpenModal} moveToNextStep={moveToNextStep} />
         )}
-        {isChecked[4] && (
+        {answers[4] && (
           <BubbleSection
             step={5}
             isOpen={isOpen}
@@ -109,34 +125,14 @@ function ReservationPage() {
             userInfo={userInfo}
           />
         )}
-        {isChecked[5] && (
+        {answers[5] && (
           <button onClick={handleSubmit} className="button_fixed">
             등록하기
           </button>
         )}
       </div>
-      {isOpen && (
-        <ModalLayout handleCloseModal={handleCloseModal}>
-          {step === 3 && (
-            <SelectTimeModal
-              nowStep={3}
-              moveToNextStep={moveToNextStep}
-              handleCloseModal={handleCloseModal}
-              consultTime={consultInfo}
-            />
-          )}
-          {step === 4 && (
-            <ForwardingModal nowStep={4} moveToNextStep={moveToNextStep} handleCloseModal={handleCloseModal} />
-          )}
-          {step === 5 && (
-            <EditProfileModal
-              userInfo={userInfo}
-              nowStep={5}
-              moveToNextStep={moveToNextStep}
-              handleCloseModal={handleCloseModal}
-            />
-          )}
-        </ModalLayout>
+      {(step === 3 || step === 4 || step === 5) && isOpen && (
+        <ModalLayout handleCloseModal={handleCloseModal}>{stepModals[step]}</ModalLayout>
       )}
     </>
   );

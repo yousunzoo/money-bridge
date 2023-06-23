@@ -3,14 +3,14 @@ import QuestionSection from "@/components/analysisPage/QuestionSection";
 import TopNav from "@/components/common/TopNav";
 import analysisQuestions from "@/constants/propensityCheckQuestions.json";
 import { useCheckPropensity } from "@/hooks/useCheckPropensity";
-import { useGetLoginedUserInfo } from "@/hooks/useGetReservationPageData";
+import { useGetReservationPageData } from "@/hooks/useGetReservationPageData";
 import { useAnalysisStore } from "@/store/analysisStore";
 import { IAnalysisQuestions } from "@/types/analysis";
 import { convertAnalysisAnswers } from "@/utils/convertAnswer";
 import { useEffect, useRef, useState } from "react";
 
 function AnalysisPage() {
-  const { data } = useGetLoginedUserInfo();
+  const { reservationData } = useGetReservationPageData();
   const questions: IAnalysisQuestions = analysisQuestions;
   const [step, setStep] = useState(0);
   const sectionRef = useRef<HTMLDivElement | null>(null);

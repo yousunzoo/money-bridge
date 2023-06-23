@@ -99,7 +99,7 @@ export const userCheckPassword = async (password: string) => {
 export const getMyInfo = async () => {
   try {
     const res = await instance.get("/auth/myinfo");
-    return res.data;
+    return res.data.data;
   } catch (error: any) {
     throw new Error(error.response);
   }

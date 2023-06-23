@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import { IBubbleSectionProps, IQuestions } from "@/types/reservation";
 import UserBubble from "../UserBubble/UserBubble";
+import reservationQuestions from "@/constants/reservationQuestions.json";
+import { useReservationStore } from "@/store/reservationStore";
+import LocationCard from "@/components/common/LocationCard";
 
 function CommonQuestion({ step, isOpen, handleOpenModal, moveToNextStep }: IBubbleSectionProps) {
   const questions: IQuestions = reservationQuestions;
@@ -12,48 +15,15 @@ function CommonQuestion({ step, isOpen, handleOpenModal, moveToNextStep }: IBubb
   const questionRef = useRef<HTMLDivElement | null>(null);
   const { answers, setAnswers } = useReservationStore();
 
-  const editedInfo = userInfo ? (isChoosable ? userInfo : answers[5]) : null;
-
   const handleClick = (e: MouseEvent<HTMLButtonElement>, option: string) => {
-    const { textContent } = e.target as HTMLElement;
-    if (step === 3) {
-      if (!handleOpenModal) return;
-      handleOpenModal(step);
-      return;
-    }
-
-    if (textContent === "네(작성하기)" || textContent === "틀립니다(정보 수정)") {
-      if (!handleOpenModal) return;
-      handleOpenModal(step);
-      return;
-    }
-
     setIsChoosable(false);
-
-    if (textContent === "맞습니다") {
-      if (!editedInfo) return;
-      setAnswers(step, editedInfo);
-      moveToNextStep(step);
-      return;
-    }
     setAnswers(step, option);
-
-    if (textContent === "언제 어디든 쉽고 빠르게 전화 상담") {
-      if (!skipNextStep) return;
-      skipNextStep();
-      return;
-    }
     moveToNextStep(step);
     return;
   };
 
   useEffect(() => {
     if (!sectionRef.current) return;
-    if (!isChoosable && step === 5) {
-      sectionRef.current.classList.remove("h-screen");
-
-      return;
-    }
     if (!isChoosable) {
       sectionRef.current.classList.remove("h-screen");
       sectionRef.current.scrollIntoView({
@@ -88,7 +58,7 @@ function CommonQuestion({ step, isOpen, handleOpenModal, moveToNextStep }: IBubb
         </div>
       )}
 
-      <div className="pb-5">
+      {/* <div className="pb-5">
         <div>
           <p className="text-lg font-bold">{question}</p>
         </div>
@@ -142,11 +112,11 @@ function CommonQuestion({ step, isOpen, handleOpenModal, moveToNextStep }: IBubb
               </button>
             ))}
         </div>
-      </div>
+      </div> */}
       {!answers[step] && <div className="grow" />}
-      {answers[step] && !isChoosable && (
+      {/* {answers[step] && !isChoosable && (
         <UserBubble step={step} answers={answers[step]} setIsChoosable={setIsChoosable} />
-      )}
+      )} */}
     </section>
   );
 }

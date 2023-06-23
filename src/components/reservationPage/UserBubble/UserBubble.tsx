@@ -1,9 +1,15 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import CandidateTime from "../CandidateTime";
 import editIcon from "/public/assets/images/editIcon.svg";
 import Image from "next/image";
+import { IAnswers } from "@/types/reservation";
 
-function UserBubble({ step, answers, setIsChoosable }) {
+export interface IUserBubbleProps {
+  step: 0 | 1 | 2 | 3 | 4 | 5;
+  answers: IAnswers;
+  setIsChoosable: Dispatch<SetStateAction<boolean>>;
+}
+function UserBubble({ step, answers, setIsChoosable }: IUserBubbleProps) {
   return (
     <>
       <div className="user_bubble flex gap-2">

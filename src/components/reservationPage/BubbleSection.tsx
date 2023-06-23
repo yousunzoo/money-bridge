@@ -149,9 +149,9 @@ function BubbleSection({
         </div>
       </div>
       {!answers[step] && <div className="grow" />}
-      {answers[step] && !isChoosable && (
+      {/* {answers[step] && !isChoosable && (
         <UserBubble step={step} answers={answers[step]} setIsChoosable={setIsChoosable} />
-      )}
+      )} */}
     </section>
   );
 }

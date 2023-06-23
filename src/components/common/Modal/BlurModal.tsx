@@ -7,16 +7,23 @@ function BlurModal() {
   const pathname = usePathname();
 
   return (
-    <div className="z-20 fixed top-[40px] flex h-full w-[425px] flex-col bg-transparent bg-gradient-to-b from-transparent to-black">
-      <div className="mb-16 mt-[430px] flex h-full w-full flex-col items-center">
-        <div className="flex h-24 w-full items-center justify-center text-white">
-          {pathname === "/detail" ? (
-            <>회원가입 하고 프라이빗 뱅커의 프로필과 포트폴리오를 확인하세요</>
+    <div className="custom-gradient fixed top-[40px] flex h-full min-w-[768px] flex-col">
+      <div className="mb-16 mt-[430px] flex h-full w-full flex-col items-center text-base font-bold text-white">
+        <div className="mb-[31px] flex w-full items-center justify-center">
+          {pathname === "/detail/info" ? (
+            <div className="flex items-center justify-center text-center">
+              회원가입 하고
+              <br />
+              프라이빗 뱅커의 프로필과 포트폴리오를 확인하세요
+            </div>
           ) : (
-            <>회원가입 후 프라이빗 뱅커의 콘텐츠를 읽어보실 수 있습니다.</>
+            <div className="flex items-center justify-center text-center">
+              회원가입 후<br />
+              프라이빗 뱅커의 콘텐츠를 읽어보실 수 있습니다.
+            </div>
           )}
         </div>
-        <Link className="h-16 w-56 bg-white" href="/join">
+        <Link className="flex h-[52px] w-[195px] items-center justify-center rounded-md bg-primary-normal" href="/join">
           회원가입
         </Link>
       </div>

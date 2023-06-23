@@ -11,17 +11,7 @@ import { useLocationStore } from "@/store/location";
 
 const logoPath = ["/", "/lounge"];
 
-function TopNav({
-  title,
-  hasBack,
-  path = "",
-  backGroundWhite,
-}: {
-  title: string;
-  hasBack?: boolean;
-  path?: string;
-  backGroundWhite?: boolean;
-}) {
+function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: boolean; backGroundWhite?: boolean }) {
   const router = useRouter();
   const currentPath = usePathname();
   const current = useGeoLocation();
@@ -48,7 +38,7 @@ function TopNav({
       >
         <div className="flex min-w-[100px] justify-self-start">
           {logoPath.includes(currentPath) && (
-            <div className="flex text-base cursor-pointer font-bol" onClick={modalOpenHandler}>
+            <div className="font-bol flex cursor-pointer text-base" onClick={modalOpenHandler}>
               {locations.location ? locations.location : <span>위치 선택</span>}
               <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />
             </div>
@@ -66,7 +56,9 @@ function TopNav({
         ) : (
           <span className="justify-self-center text-center font-bold leading-[22px]">{title}</span>
         )}
-        <div className="flex min-w-[100px] justify-self-end"></div>
+        <div className="flex min-w-[100px] justify-self-end">
+          {logoPath.includes(currentPath) && <button onClick={() => router.push("/login")}>로그인/회원가입</button>}
+        </div>
       </div>
       {isOpenModal && <SelectLocationModal setIsOpenModal={setIsOpenModal} />}
     </>

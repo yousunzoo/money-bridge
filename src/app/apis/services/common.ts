@@ -1,37 +1,37 @@
 import { instance } from "@/app/apis/axios";
 
-export const LoungeBoard = async () => {
+export const getLoungeBoard = async () => {
   try {
     const res = await instance.get("/lounge/board");
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data);
+    throw new Error(error.response);
   }
 };
 
-export const LoungeHot = async (page: number) => {
+export const getLoungeHot = async (page: number) => {
   try {
     const res = await instance.get("/boards/hot", { params: { page } });
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data);
+    throw new Error(error.response);
   }
 };
 
-export const LoungeNew = async (page: number) => {
+export const getLoungeNew = async (page: number) => {
   try {
     const res = await instance.get("/boards", { params: { page } });
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data);
+    throw new Error(error.response);
   }
 };
 
-export const ContentsId = async (id: any) => {
+export const getContentsId = async (id: any) => {
   try {
     const res = await instance.get(`/board/${id}`);
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data);
+    throw new Error(error.response);
   }
 };

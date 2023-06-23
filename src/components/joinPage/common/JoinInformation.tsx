@@ -49,7 +49,7 @@ function JoinInformation({ type }: { type: JoinFormType }) {
         router.push(`/join/${joinType}/phoneNumber`);
         break;
       case JoinFormType.PHONENUMBER:
-        router.push(`/join/${joinType}/${joinType === "user" ? "agreements" : "registerBusinessCard"}`);
+        router.push(`/join/${joinType}/${joinType === "user" ? "agreements" : "selectCompany"}`);
         break;
     }
   };

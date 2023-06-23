@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
 import BookMark from "@/components/bookmarkPage/BookMark";
 import { getBookMarkPB } from "@/app/apis/services/user";
@@ -8,7 +8,9 @@ import { IDataResponse } from "@/types/common";
 import { IPbCard } from "@/types/card";
 
 function PbBookMark() {
-  const { data: res } = useQuery<IDataResponse<IPbCard>>(["/user/bookmarks/pb"], () => getBookMarkPB(0));
+  const { data: res} = useQuery<IDataResponse<IPbCard>>(["/user/bookmarks/pb"], () => getBookMarkPB(0));
+
+
 
   return (
     <div className="mb-10">

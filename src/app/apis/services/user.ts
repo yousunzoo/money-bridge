@@ -64,3 +64,39 @@ export const reserve = async (data: { pbId: number; answers: IConvertedAnswers }
     throw new Error(error.response.data.status);
   }
 };
+
+export const postBookMarkPB = async (id: number) => {
+  try {
+    const res = await instance.post(`/user/bookmark/${id}`);
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error.response);
+  }
+};
+
+export const deleteBookMarkPB = async (id: number) => {
+  try {
+    const res = await instance.delete(`/user/bookmark/${id}`);
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error.response);
+  }
+};
+
+export const postBookMarkContent = async (id: number) => {
+  try {
+    const res = await instance.post(`/auth/bookmark/board/${id}`);
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error.response);
+  }
+};
+
+export const deleteBookMarkContent = async (id: number) => {
+  try {
+    const res = await instance.delete(`auth/bookmark/board/${id}`);
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error.response);
+  }
+};

@@ -7,13 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/app/apis/services/user";
 import { IPropensity } from "@/types/pblist";
 
-function UserInfo({ handleAuthorizationError }: IUserInfoProps) {
+function UserInfo() {
   const { data, isLoading, error } = useQuery({ queryKey: ["userInfo"], queryFn: getUserInfo, staleTime: Infinity });
-
-  if (error) {
-    handleAuthorizationError();
-    return;
-  }
 
   if (!data || isLoading) return;
 

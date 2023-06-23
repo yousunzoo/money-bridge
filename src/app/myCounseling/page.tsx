@@ -30,9 +30,6 @@ function MyCounselingPage() {
   const complate = pocessData.data.COMPLETE;
   const cpmfirm = pocessData.data.CONFIRM;
   const withdraw = pocessData.data.WITHDRAW;
-  const onClickhandler = () => {
-    console.log("click");
-  };
 
   useEffect(() => {
     switch (isProcess) {
@@ -57,21 +54,16 @@ function MyCounselingPage() {
       <UserConsultationStatus {...data} />
       <ProcessList setIsProcess={setIsProcess} role={"user"} />
 
-      <div className="w-full h-2 my-8 bg-background-secondary"></div>
+      <div className="my-8 h-2 w-full bg-background-secondary"></div>
 
-      <div className="justify-start w-full">
+      <div className="w-full justify-start">
         <div>
-          <h3 className="pl-1 text-lg font-bold">{`${PROCESS_NAME[isProcess]} ${selectData?.length}건`}</h3>
-          <p className="pl-1 my-1 mb-6 text-sm">프라이빗 뱅커가 곧 유선으로 연락을 드립니다.</p>
+          <h3 className="text-lg pl-1 font-bold">{`${PROCESS_NAME[isProcess]} ${selectData?.length}건`}</h3>
+          <p className="my-1 mb-6 pl-1 text-sm">프라이빗 뱅커가 곧 유선으로 연락을 드립니다.</p>
           <ul className="flex flex-col gap-4">
             {selectData &&
               selectData.map(({ reservationId, name, createdAt, type }) => (
-                <UserReservationItem
-                  buttonName="정보 보기"
-                  key={reservationId}
-                  onClickhandler={onClickhandler}
-                  isRole={"pb"}
-                >
+                <UserReservationItem buttonName="정보 보기" key={reservationId} href={"/"} isRole={"pb"}>
                   <p className="font-bold">{name}</p>
                   <p className="text-xs ">{createdAt} </p>
                   <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"}</p>

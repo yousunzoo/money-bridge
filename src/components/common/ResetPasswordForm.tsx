@@ -3,19 +3,38 @@ import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { usePathname, useRouter } from "next/navigation";
+import { useResetPassword } from "@/hooks/useResetPassword";
+import { useQueryClient } from "@tanstack/react-query";
+import { IFindPassword } from "@/types/login";
+import ButtonModal from "./ButtonModal";
 
-const yup_password = yup.string().min(8).max(15).required();
+const yup_password = yup.string().min(8).max(15).matches(/^\S+$/).required();
 
 function ResetPasswordForm() {
+  const router = useRouter();
+  const pathName = usePathname();
   const [inputs, setInputs] = useState({
     first: "",
     second: "",
   });
+  const [isOpen, setIsOpen] = useState(false);
+  const findPassword = useResetPassword();
+  const queryClient = useQueryClient();
 
   const schema = yup.object().shape({
     first: yup_password,
     second: yup.string().oneOf([yup.ref("first")]),
   });
+
+  const modalContents = {
+    content: "비밀번호가 재설정 되었습니다.",
+    confirmText: "로그인",
+    confirmFn: () => {
+      setIsOpen(false);
+      router.push("/login");
+    },
+  };
 
   const {
     register,
@@ -32,12 +51,12 @@ function ResetPasswordForm() {
   };
 
   const onSubmit = () => {
-    if (!isValid) {
-      alert("양식을 확인해");
-      return;
-    } else if (checkWhitespace(inputs.first) || checkWhitespace(inputs.second)) {
-      alert("공백있음");
-      return;
+    const currentPath = pathName.split("/")[1];
+    switch (currentPath) {
+      case "findPassword":
+        const data = queryClient.getQueryData(["findPassword"]) as IFindPassword;
+        findPassword({ id: data.data.id, password: inputs.first, role: pathName.split("/")[2].toUpperCase() });
+        setIsOpen(true);
     }
   };
 
@@ -49,14 +68,12 @@ function ResetPasswordForm() {
 
   return (
     <div className="mt-6">
-      <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
+      <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
         <div className="mb-2.5">
           <h2 className="mb-4 text-xs leading-[18px]">기존과 다른 비밀번호를 입력해 주세요.</h2>
           <input
             type="password"
-            className={`form_input ${errors.first || checkWhitespace(inputs.first) ? "warnning" : ""} ${
-              dirtyFields.first ? "entering" : ""
-            }`}
+            className={`form_input ${errors.first ? "warnning" : ""} ${dirtyFields.first ? "entering" : ""}`}
             {...register("first")}
             value={inputs.first}
           />
@@ -66,7 +83,7 @@ function ResetPasswordForm() {
             </p>
             <p
               className={`text-xs leading-[18px] ${
-                checkWhitespace(inputs.first) ? "text-status-alert" : "text-status-positive"
+                inputs.first.includes(" ") ? "text-status-alert" : "text-status-positive"
               }`}
             >
               {dirtyFields.first ? "*공백없이 작성해 주세요." : ""}
@@ -87,9 +104,7 @@ function ResetPasswordForm() {
             </span>
           </div>
         </div>
-        {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
-          type="button"
           className={`mt-4 h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"} ${
             isValid ? "cursor-pointer" : "cursor-not-allowed"
           }`}
@@ -99,17 +114,13 @@ function ResetPasswordForm() {
           <span className={`text-xl font-bold leading-7 ${isValid ? "text-white" : "text-gray-heavy"}`}>확인</span>
         </button>
       </form>
+      {isOpen && (
+        <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen}>
+          <p>로그인 후 MONEY BRIDGE를 이용해주세요.</p>
+        </ButtonModal>
+      )}
     </div>
   );
 }
 
 export default ResetPasswordForm;
-
-const checkWhitespace = (str: string) => {
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === " ") {
-      return true;
-    }
-  }
-  return false;
-};

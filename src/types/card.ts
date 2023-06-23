@@ -1,4 +1,4 @@
-export interface ContentCard {
+export interface IContentCard {
   id: number;
   title: string;
   pbName: string;
@@ -10,7 +10,7 @@ export interface ContentCard {
   isBookmark?: boolean;
 }
 
-export interface PbCard {
+export interface IPbCard {
   id: number;
   profile: string;
   name: string;
@@ -26,4 +26,3 @@ export interface PbCard {
   branchLat?: number;
   branchLon?: number;
 }
-

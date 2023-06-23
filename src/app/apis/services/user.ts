@@ -1,13 +1,55 @@
-import { instance } from "../axios";
-import { useQuery } from "@tanstack/react-query";
+import { instance } from "@/app/apis/axios";
 
-export const useBookmarkPB = () => {
-  const queryKey = "/user/bookmarks/pb";
-  const queryFn = () =>
-    // todo: 헤더 붙이기
-    instance.get(queryKey).then(res => {
-      return res.data;
-    });
+export const BookMarkPB = async (page: number) => {
+  try {
+    const res = await instance.get("/user/bookmarks/pb", { params: { page } });
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
+  }
+};
 
-  return useQuery([queryKey], queryFn);
+export const BookMarkContent = async (page: number) => {
+  try {
+    const res = await instance.get("/auth/bookmarks/boards", { params: { page } });
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
+  }
+};
+
+export const getReservationData = async (pbId: string) => {
+  try {
+    const res = await instance.get(`/user/reservation/base/${pbId}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
+  }
+};
+
+export const checkPropensity = async (score: number) => {
+  try {
+    const res = await instance.post("/user/propensity", { score });
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const getUserInfo = async () => {
+  try {
+    const res = await instance.get("/user/mypage");
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.status);
+  }
+};
+
+export const getMyPropensity = async () => {
+  try {
+    const res = await instance.get("/user/mypage/list/pb");
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.status);
+  }
 };

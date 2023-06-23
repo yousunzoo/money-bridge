@@ -1,6 +1,20 @@
-import Test from "@/components/Test";
+import TopNav from "@/components/common/TopNav";
+import CarouselBanner from "@/components/mainPage/CarouselBanner";
+import CustomListSection from "@/components/mainPage/CustomListSection";
+import PbListSection from "@/components/mainPage/PbListSection";
+import SearchLocation from "@/components/mainPage/SearchLocation";
+import SpecialtySection from "@/components/mainPage/SpecialtySection";
+import StockFirmSection from "@/components/mainPage/StockFirmSection";
 
 export default async function Home() {
-  console.log("hi");
-  return <></>;
+  return (
+    <div>
+      <TopNav title={"메인페이지"} />
+      <CarouselBanner />
+      <PbListSection />
+      <SpecialtySection />
+      <CustomListSection />
+      <StockFirmSection />
+    </div>
+  );
 }

@@ -49,9 +49,6 @@ function CanceledConsultationPage({ params }: Props) {
   } = res.data.reservationList[0];
   // profileImage데이터는 api등록 후 UserReservationItem props 내려주고 코드 변경하기
   const role = "PB";
-  const customerInfoClickHandler = () => {
-    console.log("고객정보페이지 이동");
-  };
 
   const checkClickHandler = () => {
     console.log("확인");
@@ -80,7 +77,7 @@ function CanceledConsultationPage({ params }: Props) {
         <span className="text-white ">취소된 상담입니다.</span>
       </div>
 
-      <UserReservationItem buttonName="고객 정보" onClickhandler={customerInfoClickHandler} isRole={"USER"}>
+      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{"취소된 상담"}</p>
       </UserReservationItem>

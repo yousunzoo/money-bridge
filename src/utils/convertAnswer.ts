@@ -55,9 +55,12 @@ export const convertReservationAnswer = (answers: IAnswers) => {
 export const convertAnalysisAnswers = (answers: IAnalysisAnswers) => {
   const questions: IAnalysisQuestions = propensityQuestions;
   const answersArr = Object.values(answers);
-  const convertedAnswers = answersArr.map((answer, index) => {
-    const ansIndex = questions[index].options.indexOf(answer);
-    return scoreArr[index][ansIndex];
-  });
-  return convertedAnswers;
+
+  const ScoreSummation = answersArr.reduce((acc, value, index) => {
+    const ansIndex = questions[index].options.indexOf(value);
+
+    return acc + scoreArr[index][ansIndex];
+  }, 0);
+
+  return ScoreSummation;
 };

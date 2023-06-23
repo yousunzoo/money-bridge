@@ -3,8 +3,8 @@ import reservationQuestions from "@/constants/reservationQuestions.json";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import LocationCard from "../common/LocationCard";
 import { useReservationStore } from "@/store/reservationStore";
-import CandidateTime from "./CandidateTime";
-
+import UserBubble from "./UserBubble/UserBubble";
+import LocationCopyButton from "../common/LocationCopyButton";
 function BubbleSection({
   step,
   isOpen,
@@ -110,14 +110,7 @@ function BubbleSection({
               <p className="font-bold text-primary-normal">{pbStation.branchName}</p>
               <div className="mb-4 flex w-full justify-between text-xs">
                 <p>{pbStation.branchAddress}</p>
-                <button
-                  // onClick={() => {
-                  //   handleCopyClipBoard(pbStation.branchAddress);
-                  // }}
-                  className="text-gray-heavy underline"
-                >
-                  주소 복사
-                </button>
+                <LocationCopyButton location={pbStation.branchAddress} />
               </div>
               <LocationCard latitude={pbStation.branchLatitude} longitude={pbStation.branchLongitude} />
             </div>
@@ -156,14 +149,9 @@ function BubbleSection({
         </div>
       </div>
       {!answers[step] && <div className="grow" />}
-      {answers[step] && !isChoosable && (
-        <div className="user_bubble flex gap-2">
-          {step === 3 && answers[3] && <CandidateTime candidates={answers[3]} />}
-          {step === 5 && answers[5] && <p>맞습니다</p>}
-          {step !== 3 && step !== 5 && answers[step] && <p>{answers[step]}</p>}
-          <button onClick={() => setIsChoosable(true)}>✏️</button>
-        </div>
-      )}
+      {/* {answers[step] && !isChoosable && (
+        <UserBubble step={step} answers={answers[step]} setIsChoosable={setIsChoosable} />
+      )} */}
     </section>
   );
 }

@@ -5,7 +5,7 @@ import Content from "@/components/pbdetailPage/Content";
 import Intro from "@/components/pbdetailPage/Intro";
 import authProfile from "@/mocks/hyeon17/PbDetail/Profile/authProfile.json";
 import profile from "@/mocks/hyeon17/PbDetail/Profile/profile.json";
-import { useRoleStore } from "@/store/roleStore";
+import { useUserStore } from "@/store/userStore";
 import About from "@/components/pbdetailPage/About";
 
 function PbDetailInfo() {
@@ -48,7 +48,7 @@ function PbDetailInfo() {
     branchLatitude: data.branchLatitude,
     branchLongitude: data.branchLongitude,
   };
-  const userData = useRoleStore();
+  const userData = useUserStore();
   const [role, setRole] = useState("");
 
   useEffect(() => {

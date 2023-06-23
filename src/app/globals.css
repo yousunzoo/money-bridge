@@ -5,7 +5,6 @@
 @layer utilities {
   body {
     background-color: #f8f8f8;
-    width: 100vw;
     height: auto;
     letter-spacing: -0.6px;
     color: #242424;
@@ -55,7 +54,11 @@
   }
 
   .input_authentication {
-    @apply w-full min-w-[302px] rounded-sm border-1 border-background-secondary px-3 py-2;
+    @apply w-full min-w-[302px] max-w-[425px] rounded-sm border-1 border-background-secondary px-3 py-2;
+  }
+
+  .input_authentication:focus-visible {
+    @apply outline-none;
   }
 
   .entering {
@@ -120,7 +123,7 @@
   }
 
   .card {
-    @apply mx-auto my-4 flex w-full flex-col rounded-md shadow-md;
+    @apply mx-auto my-2 flex w-full flex-col rounded-md shadow-md;
   }
 
   .popup {
@@ -140,11 +143,11 @@
   }
 
   .pb_top_Phrase {
-    @apply mb-6 mt-4 h-8 w-full bg-primary-normal p-2 text-center text-xs;
+    @apply mb-6 mt-4 w-full bg-primary-normal px-4 py-2 text-center text-xs;
   }
 
   .user_top_Phrase {
-    @apply mb-6 mt-4 h-8 w-full bg-secondary-heavy p-2 text-center text-xs;
+    @apply mb-6 mt-4 w-full bg-secondary-heavy px-4 py-2 text-center text-xs;
   }
 
   .propensity_circle {
@@ -172,5 +175,8 @@
 
   .edit_input::placeholder {
     @apply text-placeholder;
+  }
+  .scroll_hidden::-webkit-scrollbar {
+    display: none;
   }
 }

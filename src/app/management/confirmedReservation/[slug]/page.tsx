@@ -50,9 +50,6 @@ function ConfirmedReservationPage({ params }: Props) {
   // profileImage데이터는 api등록 후 UserReservationItem props 내려주고 코드 변경하기
   const role = "PB";
 
-  const customerInfoClickHandler = () => {
-    console.log("고객정보페이지 이동");
-  };
   const undoChangeClickHandler = () => {
     console.log("변경/취소");
   };
@@ -83,12 +80,12 @@ function ConfirmedReservationPage({ params }: Props) {
       <div className="pb_top_Phrase">
         <span className="text-white ">상담이 확정되었습니다. 상담 일정을 확인해 주세요.</span>
       </div>
-      <UserReservationItem buttonName="고객 정보" onClickhandler={customerInfoClickHandler} isRole={"USER"}>
+      <UserReservationItem buttonName={"고객 정보"} href={"/"} isRole={"USER"}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{phoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />

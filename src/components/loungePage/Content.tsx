@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from "react";
-import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import Link from "next/link";
 import MainCarousel from "@/components/common/Carousel/MainCarousel";
 import "@/styles/carousel.css";
 import "@/styles/lounge.css";
-import { ListResponse } from "@/types/common";
-import { ContentCard } from "@/types/card";
+import { LoungeBoard, LoungeNew } from "@/app/apis/services/common";
+import { useQuery } from "@tanstack/react-query";
+import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
+import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
+import { IContentCard } from "@/types/card";
+import { IDataResponse } from "@/types/common";
 
-function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | undefined; All: any }) {
-  const [all, setAll] = useState(All?.data?.list.slice(0, 2));
-  const [newData, setNewData] = useState<ContentCard[]>();
-  const [hotData, setHotData] = useState<ContentCard[]>();
+function Content() {
+  const { data: All } = useQuery<IDataResponse<IContentCard>>(["/boards"], () => LoungeNew(0));
+  const { data: NewAndHot } = useQuery<IDataResponse<IContentCard>>(["/lounge/board"], LoungeBoard);
+  const [all, setAll] = useState<IContentCard[]>();
+  const [newData, setNewData] = useState<IContentCard[]>();
+  const [hotData, setHotData] = useState<IContentCard[]>();
+  const [isClick, setIsClick] = useState<boolean>(false);
 
   useEffect(() => {
     if (NewAndHot) {
-      setNewData(NewAndHot.data?.list?.slice(0, 2));
-      setHotData(NewAndHot.data?.list?.slice(2, 4));
+      setNewData(NewAndHot.list?.slice(0, 2));
+      setHotData(NewAndHot.list?.slice(2, 4));
     }
-  }, [NewAndHot]);
-
-  const getAllContent = () => {
-    // setAll(All);
-    console.log("더보기 버튼 클릭");
-    //todo: api를 호출하여 데이터 더 불러오기
-  };
-
+    if (All) {
+      setAll(All.list?.slice(0, 2));
+    }
+  }, [NewAndHot, All]);
   return (
-    <article className="flex flex-col">
+    <>
       <div>
         <div className="header">
           <div className="section">
@@ -34,13 +36,13 @@ function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | un
             <br />
             읽어보세요
           </div>
-          <Link href="/new" className="more flex-3">
+          <Link href="/lounge/new" className="more flex-3">
             더보기
           </Link>
         </div>
-        <div>
-          <ContentCardList props={newData} />
-        </div>
+        {newData?.map((item: IContentCard) => (
+          <ContentCardItem key={item.id} item={item} />
+        ))}
       </div>
       <div>
         <div className="header">
@@ -49,13 +51,13 @@ function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | un
             <br />
             인기 콘텐츠
           </div>
-          <Link href="/hot" className="more flex-3">
+          <Link href="/lounge/hot" className="more flex-3">
             더보기
           </Link>
         </div>
-        <div>
-          <ContentCardList props={hotData} />
-        </div>
+        {hotData?.map((item: IContentCard) => (
+          <ContentCardItem key={item.id} item={item} />
+        ))}
       </div>
       <MainCarousel className="my-11 h-[235px] text-white">
         <div className="pb_banner bg-primary-light">
@@ -96,15 +98,19 @@ function Content({ NewAndHot, All }: { NewAndHot: ListResponse<ContentCard> | un
             <br />
             한눈에 보세요
           </div>
-          <button onClick={getAllContent} className="more flex-3">
-            더보기
-          </button>
+          {!isClick && (
+            <button onClick={() => setIsClick(true)} className="more flex-3">
+              더보기
+            </button>
+          )}
         </div>
-        <div>
-          <ContentCardList props={all} />
-        </div>
+        {isClick ? (
+          <ContentCardList queryKey={"/boards"} api={LoungeNew} />
+        ) : (
+          all?.map((item: IContentCard) => <ContentCardItem key={item.id} item={item} />)
+        )}
       </div>
-    </article>
+    </>
   );
 }
 

@@ -154,7 +154,7 @@ function About({ aboutData, role }: any) {
           <br />
           함께 만나보세요
         </div>
-        <PbCardList props={sameData} />
+        {/* <PbCardList props={sameData} /> */}
       </div>
       <button className="button_fixed" onClick={() => goToPage()}>
         {text}

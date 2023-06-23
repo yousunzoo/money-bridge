@@ -10,14 +10,15 @@
     @apply ml-6 mt-[33px] text-2xl font-bold;
   }
   .link {
-    @apply ml-[250px] mt-[87px] flex text-sm font-bold text-white underline decoration-1 hover:text-white hover:underline;
+    @apply mr-5 mt-[87px] flex justify-end text-sm font-bold text-white underline decoration-1 hover:text-white hover:underline;
   }
 }
-.ant-carousel{
+.ant-carousel {
   margin: 0 -16px;
 }
 .ant-carousel .slick-dots-top {
-  margin-left: 320px;
+  width: 70px;
+  margin-left: auto;
 }
 
 .ant-carousel .slick-dots-top li,

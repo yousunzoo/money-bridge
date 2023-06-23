@@ -74,7 +74,6 @@ function DoubleInputForm({
   };
 
   const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(inputs.first, dirtyFields.first);
     e.preventDefault();
     const button = e.target as HTMLButtonElement;
     const inputEl = button.previousElementSibling as HTMLInputElement;
@@ -102,8 +101,6 @@ function DoubleInputForm({
   errors.first?.type === "min" ? (errors.first.ref?.value === "" ? (errors.first = undefined) : "") : "";
   errors.second?.type === "required" ? (errors.second = undefined) : "";
   errors.second?.type === "min" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
-
-  console.log(inputs.first, dirtyFields.first);
 
   return (
     <div className="mt-6">

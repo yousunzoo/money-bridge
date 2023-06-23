@@ -3,7 +3,7 @@ import reservationQuestions from "@/constants/reservationQuestions.json";
 import propensityQuestions from "@/constants/propensityCheckQuestions.json";
 import { IAnswers, IQuestions } from "@/types/reservation";
 import { ReservationGoal, ReservationType, ReservationLocationType } from "@/constants/enum";
-import { IAnalysisAnswers, IAnalysisQuestions, IValidateConvertedAnswers } from "@/types/analysis";
+import { IAnalysisAnswers, IAnalysisQuestions } from "@/types/analysis";
 
 const reservationGoal = [
   ReservationGoal.PROFIT,

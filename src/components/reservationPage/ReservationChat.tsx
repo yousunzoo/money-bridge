@@ -9,7 +9,7 @@ import CheckInfoQuestion from "./Questions/CheckInfoQuestion";
 import CheckMemoQuestion from "./Questions/CheckMemoQuestion";
 import PurposeQuestion from "./Questions/PurposeQuestion";
 import TypeQuestion from "./Questions/TypeQuestion";
-import ModalLayout from "./Modals/ModalLayout";
+import ModalLayout from "./ModalLayout";
 import ForwardingModal from "./Modals/ForwardingModal";
 import EditProfileModal from "./Modals/EditProfileModal";
 import { useMutation } from "@tanstack/react-query";

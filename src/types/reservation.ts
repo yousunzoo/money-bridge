@@ -133,4 +133,4 @@ export interface IModalLayoutProps {
   handleCloseModal: () => void;
 }
 
-export type IUseGetReservationPageDataProps = () => { reservationData: IReservationPageData; loading: boolean };
+export type IUseGetReservationPageDataProps = () => { reservationData: IReservationData; loading: boolean };

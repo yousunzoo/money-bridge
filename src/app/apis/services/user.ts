@@ -1,4 +1,5 @@
 import { instance } from "@/app/apis/axios";
+import { IConvertedAnswers } from "@/types/analysis";
 
 export const getBookMarkPB = async (page: number) => {
   try {
@@ -48,6 +49,16 @@ export const getUserInfo = async () => {
 export const getMyPropensity = async () => {
   try {
     const res = await instance.get("/user/mypage/list/pb");
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.status);
+  }
+};
+
+export const reserve = async (data: { pbId: number; answers: IConvertedAnswers }) => {
+  const { pbId, answers } = data;
+  try {
+    const res = await instance.post(`/user/reservation/${pbId}`, answers);
     return res.data.data;
   } catch (error: any) {
     throw new Error(error.response.data.status);

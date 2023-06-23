@@ -6,13 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function PBInfo({ handleAuthorizationError }: IUserInfoProps) {
+function PBInfo() {
   const { data, isLoading, error } = useQuery({ queryKey: ["getPBInfo"], queryFn: getPBInfo, staleTime: Infinity });
-
-  if (error) {
-    handleAuthorizationError();
-    return;
-  }
 
   if (!data || isLoading) return;
   const { name, profile, branchName, msg, career, speciality1, speciality2, reserveCount, reviewCount } = data.data;

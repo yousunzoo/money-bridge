@@ -10,7 +10,7 @@ export const useGetReservationPageData: IUseGetReservationPageDataProps = () => 
   const params = useSearchParams().get("pbId");
 
   const { isLoading: userLoading, isSuccess: isLogined } = useQuery({
-    queryKey: ["loginedUser"],
+    queryKey: ["loginedUserInfo"],
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });

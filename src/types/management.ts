@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 export interface CalendarModalProps {
   calendarOpenHandler: () => void;
@@ -36,4 +36,5 @@ export interface TimeModalProps {
   handleTimeSelect: (time: string) => void;
   timeSelectClick: () => void;
   isDisabled: boolean;
+  setIsDisabled: Dispatch<SetStateAction<boolean>>;
 }

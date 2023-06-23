@@ -34,7 +34,7 @@ function PbDetailContent() {
     <div className="mb-32">
       <TopNav title="PB 상세프로필" hasBack={true} />
       <Intro introData={introData} role={role} />
-      <ContentCardList props={ContentData} />
+      {/* <ContentCardList props={ContentData} /> */}
     </div>
   );
 }

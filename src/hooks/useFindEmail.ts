@@ -3,7 +3,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { usePathname, useRouter } from "next/navigation";
 
-export const useFindEmail = (setIsOpen: ((value: React.SetStateAction<boolean>) => void) | undefined) => {
+export const useFindEmail = (
+  setModalError: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
   const router = useRouter();
   const pathName = usePathname();
   const queryClient = useQueryClient();
@@ -15,6 +18,7 @@ export const useFindEmail = (setIsOpen: ((value: React.SetStateAction<boolean>) 
       if (data.data[0].email) {
         router.push(`/findEmail/${pathName.split("/")[2]}/informationCheck`);
       } else {
+        setModalError(true);
         if (setIsOpen) setIsOpen(true);
       }
     },

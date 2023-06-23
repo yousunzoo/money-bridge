@@ -3,17 +3,18 @@ import React, { useEffect, useState }  from "react";
 import Intro from "@/components/loungePage/Intro";
 import PbRecommend from "@/components/loungePage/PbRecommend";
 import Content from "@/components/loungePage/Content";
-import { useUserStore } from "@/store/userStore";
 import TopNav from "@/components/common/TopNav";
+import { useQuery } from "@tanstack/react-query";
+import { getLoginedUserInfo } from "@/app/apis/services/auth";
 
 function Lounge() {
-  const userData = useUserStore();
+  const { data: userData } = useQuery(["/auth/account"], getLoginedUserInfo);
   const [role, setRole] = useState<string>("");
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
-    setRole(userData.user.role);
-    setName(userData.user.name);
+    setRole(userData?.role);
+    setName(userData?.name);
   }, [userData]);
 
   return (

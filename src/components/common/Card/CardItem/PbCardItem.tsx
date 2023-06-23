@@ -4,30 +4,36 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
-import { useUserStore } from "@/store/userStore";
+import { useQuery } from "@tanstack/react-query";
+import { getLoginedUserInfo } from "@/app/apis/services/auth";
+import { postBookMarkPB, deleteBookMarkPB } from "@/app/apis/services/user";
 
 function PbCardItem({ item }: { item: any }) {
+  const { data: userData } = useQuery(["/auth/account"], getLoginedUserInfo);
   const router = useRouter();
-  const userData = useUserStore();
+
   const [isBookmark, setIsBookmark] = useState(item.isBookmark);
 
   const bookMark = () => {
-    setIsBookmark(!isBookmark);
-    // 북마크 여부에 따라 추가, 삭제 api호출
+    if (isBookmark) {
+      deleteBookMarkPB(item.id);
+    } else {
+      postBookMarkPB(item.id);
+    }
   };
 
   const goToDetail = () => {
     router.push("/detail/info");
   };
-  console.log(item);
+
   return (
     <li className="card h-[200px] bg-white px-[20px] pt-[20px]">
       <div className="mb-[18px] flex">
         <Image
           src={item.profile}
           alt="프로필"
-          width={0}
-          height={0}
+          width={60}
+          height={60}
           className="mr-[13px] h-[60px] w-[60px] rounded-full"
         />
         <div className="flex flex-1 flex-col">
@@ -41,9 +47,9 @@ function PbCardItem({ item }: { item: any }) {
             {item.career}년차
           </div>
         </div>
-        {userData.user.role && (
+        {userData?.role && (
           <button onClick={bookMark} className="flex-2 flex w-12 items-start justify-center pt-1">
-            {item.isBookmark ? (
+            {isBookmark ? (
               <Image src={bookmark_filled} alt="북마크 해제" />
             ) : (
               <Image src={bookmark} alt="북마크" />

@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 export const useLogout = () => {
   const { mutate } = useMutation(userLogout, {
     onSuccess: data => {
-      console.log(data.data);
       removeCookie("Authorization");
       removeCookie("refreshToken");
       redirect("/");

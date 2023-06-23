@@ -23,3 +23,15 @@ export interface IAnalysisAnswers {
   4: string | null;
   5: string | null;
 }
+
+export interface IConvertedAnswers {
+  candidateTime1: string;
+  candidateTime2: string;
+  goal: "PROFIT" | "RISK" | "TAX" | "PRESERVATION";
+  locationType: "BRANCH" | "CALL" | null;
+  question: string | null;
+  reservationType: "VISIT" | "CALL";
+  userEmail: string;
+  userName: string;
+  userPhoneNumber: string;
+}

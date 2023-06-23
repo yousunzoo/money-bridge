@@ -5,8 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useJoinStore } from "@/store/joinStore";
 import { usePathname, useRouter } from "next/navigation";
-
-const yup_password = yup.string().min(8).max(15).matches(/^\S+$/).required();
+import { yup_password } from "@/constants/yupSchema";
 
 function SetPasswordForm() {
   const [inputs, setInputs] = useState({

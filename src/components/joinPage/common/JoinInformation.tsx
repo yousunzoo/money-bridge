@@ -1,4 +1,5 @@
 import { JoinFormType } from "@/constants/enum";
+import { yup_email, yup_name, yup_phone } from "@/constants/yupSchema";
 import { useAuthentication } from "@/hooks/useAuthentication";
 import { useJoinStore } from "@/store/joinStore";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,13 +7,6 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-
-const yup_email = yup.string().email().required();
-const yup_name = yup.string().min(2).max(10).required();
-const yup_phone = yup
-  .string()
-  .matches(/^[0-9]{10,11}$/i)
-  .required();
 
 function JoinInformation({ type }: { type: JoinFormType }) {
   const [value, setValue] = useState("");

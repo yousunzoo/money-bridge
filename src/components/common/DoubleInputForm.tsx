@@ -12,11 +12,7 @@ import Image from "next/image";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
 import { usePasswordAuthentication } from "@/hooks/usePasswordAuthentication";
-
-const yup_email = yup.string().required();
-const yup_password = yup.string().min(8).max(15).required();
-const yup_name = yup.string().min(2).max(10).required();
-const yup_phone = yup.string().min(10).max(11).required();
+import { yup_email, yup_name, yup_password, yup_phone } from "@/constants/yupSchema";
 
 function DoubleInputForm({
   type,
@@ -35,8 +31,8 @@ function DoubleInputForm({
   const [modalError, setModalError] = useState(false);
 
   const login = useLogin(setNextStep, setIsOpen, setModalError);
-  const findEmail = useFindEmail(setIsOpen);
-  const authentication = usePasswordAuthentication(setModalError, setIsOpen);
+  const authentication = usePasswordAuthentication(setIsOpen, setModalError);
+  const findEmail = useFindEmail(setIsOpen, setModalError);
   const inputType = type === InputFormType.LOGIN ? "password" : "text";
 
   const modalContents_NotExist = {
@@ -52,7 +48,9 @@ function DoubleInputForm({
     confirmText: "확인",
     confirmFn: () => {
       setIsOpen(false);
-      router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
+      if (type === InputFormType.FIND_PASSWORD) {
+        router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
+      }
     },
   };
 
@@ -76,7 +74,14 @@ function DoubleInputForm({
   };
 
   const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log(inputs.first, dirtyFields.first);
     e.preventDefault();
+    const button = e.target as HTMLButtonElement;
+    const inputEl = button.previousElementSibling as HTMLInputElement;
+    setInputs({
+      first: inputEl.name === "first" ? "" : inputs.first,
+      second: inputEl.name === "second" ? "" : inputs.second,
+    });
   };
 
   const onSubmit = async () => {
@@ -97,6 +102,8 @@ function DoubleInputForm({
   errors.first?.type === "min" ? (errors.first.ref?.value === "" ? (errors.first = undefined) : "") : "";
   errors.second?.type === "required" ? (errors.second = undefined) : "";
   errors.second?.type === "min" ? (errors.second.ref?.value === "" ? (errors.second = undefined) : "") : "";
+
+  console.log(inputs.first, dirtyFields.first);
 
   return (
     <div className="mt-6">

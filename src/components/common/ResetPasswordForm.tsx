@@ -8,8 +8,7 @@ import { useResetPassword } from "@/hooks/useResetPassword";
 import { useQueryClient } from "@tanstack/react-query";
 import { IFindPassword } from "@/types/login";
 import ButtonModal from "./ButtonModal";
-
-const yup_password = yup.string().min(8).max(15).matches(/^\S+$/).required();
+import { yup_password } from "@/constants/yupSchema";
 
 function ResetPasswordForm() {
   const router = useRouter();

@@ -4,9 +4,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-const yup_phone = yup.string().min(10).max(11).required();
-const yup_name = yup.string().min(2).max(10).required();
+import { yup_name, yup_phone } from "@/constants/yupSchema";
 
 function EditProfileModal({ nowStep, moveToNextStep, handleCloseModal, userInfo }: IEditProfileModalProps) {
   const { userName, userEmail, userPhoneNumber } = userInfo;

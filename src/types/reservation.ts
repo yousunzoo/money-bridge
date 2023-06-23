@@ -11,7 +11,10 @@ export interface IQuestion {
   intro2?: string;
   options: string[];
 }
-
+export interface IReservationChatProps {
+  reservationData: IReservationData;
+  pbId: number;
+}
 export interface IAnswers {
   0: string | null;
   1: string | null;
@@ -36,27 +39,53 @@ export interface IConsultInfo {
   consultStart: string;
   notice: string;
 }
-
+export interface ILoginedUserInfo {
+  name: string;
+  phoneNumber: string;
+  email: string;
+}
 export interface IUserInfo {
   userName: string;
   userPhoneNumber: string;
   userEmail: string;
 }
 
-export interface IReservationPageData {
+export interface IReservationData {
   consultInfo: IConsultInfo;
   pbInfo: IPBInfo;
   userInfo: IUserInfo;
 }
-export interface IBubbleSectionProps {
-  step: 0 | 1 | 2 | 3 | 4 | 5;
-  isOpen?: Boolean;
+export interface IPurposeQuestionProps {
   moveToNextStep: (nowStep: number) => void;
-  skipNextStep?: () => void;
-  pbStation?: IPbStation;
-  consultTime?: IConsultInfo;
-  handleOpenModal?: (nowStep: number) => void;
-  userInfo?: IUserInfo;
+}
+
+export interface ITypeQuestionProps {
+  moveToNextStep: (nowStep: number) => void;
+  skipNextStep: () => void;
+}
+
+export interface ITimeSelectQuestionProps {
+  consultTime: IConsultInfo;
+  handleOpenModal: (nowStep: number) => void;
+  isOpen: boolean;
+}
+
+export interface ILocationQuestionProps {
+  moveToNextStep: (nowStep: number) => void;
+  pbStation: IPbStation;
+}
+
+export interface ICheckQuestionProps {
+  moveToNextStep: (nowStep: number) => void;
+  handleOpenModal: (nowStep: number) => void;
+  userInfo: IUserInfo;
+  isOpen: boolean;
+}
+
+export interface ICheckMemoQuestion {
+  isOpen: boolean;
+  moveToNextStep: (nowStep: number) => void;
+  handleOpenModal: (nowStep: number) => void;
 }
 
 export interface ICandidateTimes {
@@ -84,6 +113,7 @@ export interface ISelectCalendarProps {
 }
 
 export interface ITimeSelectProps {
+  setIsDisabled: Dispatch<SetStateAction<boolean>>;
   selectedDate: string;
   selectOptions: {
     am: string[];

@@ -1,8 +1,9 @@
+import { IConvertedAnswers } from "./../types/analysis";
 import reservationQuestions from "@/constants/reservationQuestions.json";
 import propensityQuestions from "@/constants/propensityCheckQuestions.json";
 import { IAnswers, IQuestions } from "@/types/reservation";
 import { ReservationGoal, ReservationType, ReservationLocationType } from "@/constants/enum";
-import { IAnalysisAnswers, IAnalysisQuestions } from "@/types/analysis";
+import { IAnalysisAnswers, IAnalysisQuestions, IValidateConvertedAnswers } from "@/types/analysis";
 
 const reservationGoal = [
   ReservationGoal.PROFIT,
@@ -21,7 +22,8 @@ const scoreArr = [
   [5, 4, 3, 2],
   [5, 4, 2, 1],
 ];
-export const convertReservationAnswer = (answers: IAnswers) => {
+
+export const convertReservationAnswer = (answers: IAnswers): IConvertedAnswers => {
   const questions: IQuestions = reservationQuestions;
   const answersArr = Object.values(answers);
   const OptionsArr = [reservationGoal, reservationType, reservationLocationType];
@@ -39,7 +41,7 @@ export const convertReservationAnswer = (answers: IAnswers) => {
   });
 
   const arrangedAnswers = {
-    goal1: convertedAnswers[0],
+    goal: convertedAnswers[0],
     reservationType: convertedAnswers[1],
     locationType: convertedAnswers[2],
     candidateTime1: convertedAnswers[3].candidateTime1,
@@ -50,6 +52,12 @@ export const convertReservationAnswer = (answers: IAnswers) => {
     userEmail: convertedAnswers[5].userEmail,
   };
   return arrangedAnswers;
+};
+
+export const validateReservationAnswers = (answers: IAnswers) => {
+  if (!answers[5]) return false;
+  const convertedAnswers = convertReservationAnswer(answers);
+  return convertedAnswers.reservationType === "VISIT" && convertedAnswers.locationType === null ? false : true;
 };
 
 export const convertAnalysisAnswers = (answers: IAnalysisAnswers) => {

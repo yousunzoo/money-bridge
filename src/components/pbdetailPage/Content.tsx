@@ -1,17 +1,14 @@
-import React, { useState } from "react";
-import portfolio from "@/mocks/hyeon17/PbDetail/portfolio.json";
+import React from "react";
+import { getPbPortfolio } from "@/app/apis/services/pb";
+import { useQuery } from "@tanstack/react-query";
 import "@/styles/pb.css";
+import { speciality } from "@/components/joinPage/pb/EnterCareer";
 
 function Content({ contentData }: any) {
-  const { name, intro, speciality1, speciality2, career, award } = contentData;
-  const portfolioData = portfolio.data;
-  const { cumulativeReturn, maxDrawdown, profitFactor, averageProfit, file } = portfolioData;
-  const [introValue, setIntroValue] = useState(intro);
-  const [speciality1Value, setSpeciality1Value] = useState(speciality1);
-  const [speciality2Value, setSpeciality2Value] = useState(speciality2);
-  const [careerValue, setCareerValue] = useState(career);
-  const [awardValue, setAwardValue] = useState(award);
-  const [fileValue, setFileValue] = useState(file);
+  const { id, name, intro, speciality1, speciality2, career, award } = contentData;
+  const { data: portfolio } = useQuery([`/auth/portfolio/${id}`], () => getPbPortfolio(id));
+  const portfolioData = portfolio?.data;
+  const { cumulativeReturn, maxDrawdown, profitFactor, averageProfit, file, pbId } = portfolioData || {};
 
   const download = () => {
     const link = document.createElement("a");
@@ -21,22 +18,33 @@ function Content({ contentData }: any) {
   };
 
   return (
-    <article>
+    <>
       <div className="mb-7">
         <div className="header">한 줄 소개</div>
         <div className="flex h-[111px] items-center justify-center rounded-md bg-background-secondary px-[22px] py-6 text-xs">
-          "{introValue}"
+          "{intro}"
         </div>
       </div>
       <div className="mb-7">
         <div className="header">전문분야 </div>
-        <div>{speciality1Value}</div>
-        <div>{speciality2Value}</div>
+        <ul className="flex w-full flex-wrap gap-3">
+          {speciality.map((item, idx) => (
+            <li
+              key={idx}
+              id={item.id}
+              className={`chip ${item.id === speciality1 ? "selected" : ""} ${
+                item.id === speciality2 ? "selected" : ""
+              }`}
+            >
+              {item.name}
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className={`mb-${awardValue ? "7" : "[68px]"}`}>
+      <div className={`mb-${award ? "7" : "[68px]"}`}>
         <div className="header">경력</div>
         <ul className="flex flex-col">
-          {careerValue?.map((item: any) => (
+          {career?.map((item: any) => (
             <li key={item.id} className="flex text-xs">
               <div>{item.start}&nbsp;-</div>
               <div>&nbsp;{item.end}</div>
@@ -45,11 +53,11 @@ function Content({ contentData }: any) {
           ))}
         </ul>
       </div>
-      {awardValue ? (
+      {award?.length > 0 && (
         <div className="mb-[68px]">
           <div className="header">수상내역</div>
           <ul className="flex flex-col">
-            {awardValue.map((item: any) => (
+            {award.map((item: any) => (
               <li key={item.id} className="flex text-xs">
                 <div>{item.year}&nbsp;&nbsp;</div>
                 <div>{item.record}</div>
@@ -57,7 +65,7 @@ function Content({ contentData }: any) {
             ))}
           </ul>
         </div>
-      ) : null}
+      )}
       <div className="mb-11">
         <div className="info_header">
           {name}PB의 포트폴리오를
@@ -66,35 +74,35 @@ function Content({ contentData }: any) {
         </div>
         <div className="flex justify-between px-3 font-bold">
           <div className="portfolio">
-            <div className="card portfolio_number">{cumulativeReturn}%</div>
+            <div className="card portfolio_number">{cumulativeReturn ? cumulativeReturn : 0}%</div>
             <div className="portfolio_text">누적 수익률</div>
           </div>
           <div className="portfolio">
-            <div className="card portfolio_number">{maxDrawdown}%</div>
+            <div className="card portfolio_number">{maxDrawdown ? maxDrawdown : 0}%</div>
             <div className="portfolio_text">최대 자본인하율</div>
           </div>
           <div className="portfolio">
-            <div className="card portfolio_number">{averageProfit}%</div>
+            <div className="card portfolio_number">{averageProfit ? averageProfit : 0}%</div>
             <div className="portfolio_text">평균 손익률</div>
           </div>
           <div className="portfolio">
-            <div className="card portfolio_number">{profitFactor}:1</div>
+            <div className="card portfolio_number">{profitFactor ? profitFactor : 0}:1</div>
             <div className="portfolio_text">Profit Factor</div>
           </div>
         </div>
       </div>
       <div className="mb-[95px]">
-        <div className="header">포트폴리오 다운로드</div>
+        <div className="header mb-[18px] font-bold">포트폴리오 다운로드</div>
         <div className="flex">
           <div className="mr-1 flex h-12 w-full items-center rounded-md bg-white pl-4 text-placeholder">
-            {fileValue}
+            {file ? file : "없음"}
           </div>
           <button onClick={() => download} className="h-12 w-[100px] rounded-md bg-primary-normal text-white">
             다운로드
           </button>
         </div>
       </div>
-    </article>
+    </>
   );
 }
 

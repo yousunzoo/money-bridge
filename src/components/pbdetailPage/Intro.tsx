@@ -3,7 +3,7 @@ import Image from "next/image";
 import BlurModal from "@/components/common/Modal/BlurModal";
 import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";
-import useBookMark from "@/hooks/useBookMark";
+import usePbBookMark from "@/hooks/usePbBookMark";
 import useShare from "@/hooks/useShare";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
@@ -12,6 +12,7 @@ import PbContentButton from "@/components/pbdetailPage/PbContentButton";
 
 function Intro({ introData, role }: { introData: any; role: any }) {
   const {
+    id,
     profile,
     name,
     isBookmarked,
@@ -25,11 +26,12 @@ function Intro({ introData, role }: { introData: any; role: any }) {
   } = introData;
   const pathname = usePathname();
   const router = useRouter();
-  const base = "http://localhost:3000";
+  const base = "https://money-bridge.vercel.app";
   const urlToCopy = base + pathname;
-  const { isBookmark, isBookmarkOpen, setIsBookmarkOpen, bookMarkHandler, bookMarkContents } = useBookMark(
+  const { isBookmark, isBookmarkOpen, setIsBookmarkOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
     isBookmarked,
     "/bookmark/pb",
+    id,
   );
   const {
     isShare,
@@ -50,14 +52,20 @@ function Intro({ introData, role }: { introData: any; role: any }) {
   return (
     <header>
       <div className="relative">
-        <button onClick={goToCompany} className="absolute h-[42px] w-[112px]">
-          {companyLogo}
-        </button>
+        <Image
+          src={companyLogo}
+          alt="증권사 로고"
+          width={112}
+          height={42}
+          className="absolute left-[19px] z-10 h-[42px] w-[112px] cursor-pointer object-cover"
+          onClick={goToCompany}
+        />
+
         <div className="absolute h-full w-full bg-gradient-to-t from-black from-0%"></div>
         <div className="absolute bottom-[74px] left-[19px] h-[70px] w-[285px] text-[26px] text-white">{msg}</div>
-        <Image src={profile} alt="프로필 이미지" width={0} height={0} sizes="100vw" className="h-[390px] w-full" />
+        <Image src={profile} alt="프로필 이미지" width={0} height={390} sizes="100vw" className="h-[390px] w-full" />
       </div>
-      {role === "" ? (
+      {!role ? (
         <BlurModal />
       ) : (
         <div className="flex flex-col items-center">
@@ -78,15 +86,19 @@ function Intro({ introData, role }: { introData: any; role: any }) {
           </div>
           <div className="mb-5 flex w-full justify-end">
             <button onClick={shareHandler} className="flex w-9 justify-end">
-              <Image src={share} alt="공유하기" />
+              <Image src={share} alt="공유하기" width={0} height={0} />
             </button>
             <button onClick={bookMarkHandler} className="flex w-9 justify-end">
-              {isBookmark ? <Image src={bookmark_filled} alt="북마크 활성화" /> : <Image src={bookmark} alt="북마크" />}
+              {isBookmarked ? (
+                <Image src={bookmark_filled} alt="북마크 활성화" width={0} height={0} />
+              ) : (
+                <Image src={bookmark} alt="북마크" width={0} height={0} />
+              )}
             </button>
           </div>
           <PbContentButton
-            path1="/detail/info"
-            path2="/detail/content"
+            path1={`/detail/info/${id}`}
+            path2={`/detail/content/${id}`}
             text1="PB정보"
             text2="콘텐츠"
             mainStyle="mb-6 flex h-[52px] w-full items-center border-[1px] border-solid border-primary-normal text-base font-bold"

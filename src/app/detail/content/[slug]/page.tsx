@@ -1,13 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Intro from "@/components/pbdetailPage/Intro";
-import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
-import ContentData from "@/mocks/hyeon17/PbDetail/boards.json";
 import TopNav from "@/components/common/TopNav";
 import authProfile from "@/mocks/hyeon17/PbDetail/Profile/authProfile.json";
-import { useUserStore } from "@/store/userStore";
+import { getLoginedUserInfo } from "@/app/apis/services/auth";
+import { useQuery } from "@tanstack/react-query";
+import { getPbContent } from "@/app/apis/services/pb";
+import { usePathname } from "next/navigation";
+import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 
 function PbDetailContent() {
+  const pathname = usePathname();
+  const id = Number(pathname.split("/").pop());
+  const { data: userData } = useQuery(["/auth/account"], getLoginedUserInfo);
+
   const data = authProfile.data;
   const introData = {
     id: data.id,
@@ -22,19 +28,17 @@ function PbDetailContent() {
     reviewCount: data.reviewCount,
   };
 
-  // 테스트를 위해 넣어놓은 코드
-  const userData = useUserStore();
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState<string>("");
 
   useEffect(() => {
-    setRole(userData.user.role);
+    setRole(userData?.role);
   }, [userData]);
 
   return (
     <div className="mb-32">
       <TopNav title="PB 상세프로필" hasBack={true} />
       <Intro introData={introData} role={role} />
-      {/* <ContentCardList props={ContentData} /> */}
+      <ContentCardList queryKey={`/auth/boards/${id}`} api={getPbContent} id={id} />
     </div>
   );
 }

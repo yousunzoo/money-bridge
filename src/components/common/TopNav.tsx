@@ -44,8 +44,8 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
             </div>
           )}
           {hasBack && (
-            <button onClick={() => router.back()}>
-              <Image src={arrayBack} alt="Back" />
+            <button className="flex h-6 w-6 items-center justify-center" onClick={() => router.back()}>
+              <Image src={arrayBack} alt="Back" height={24} />
             </button>
           )}
         </div>

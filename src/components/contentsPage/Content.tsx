@@ -4,7 +4,7 @@ import React from "react";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 import share from "/public/assets/images/icon/share.svg";
-import useBookMark from "@/hooks/useBookMark";
+import useContentBookMark from "@/hooks/useContentBookMark";
 import useShare from "@/hooks/useShare";
 import { usePathname } from "next/navigation";
 import ButtonModal from "@/components/common/ButtonModal";
@@ -14,14 +14,15 @@ import user_profile from "/public/assets/images/profile.svg";
 import "@/styles/content.css";
 
 function Content({ contentData }: { contentData: any }) {
-  const { thumbnail, title, content, createdAt, tag1, tag2, pdId, name, isBookmarked, profile } = contentData;
+  const { id, thumbnail, title, content, createdAt, tag1, tag2, pdId, name, isBookmarked, profile } = contentData;
   const pathname = usePathname();
-  const base = "http://localhost:3000";
+  const base = "https://money-bridge.vercel.app";
   const urlToCopy = base + pathname;
 
-  const { isBookmark, isBookmarkOpen, setIsBookmarkOpen, bookMarkHandler, bookMarkContents } = useBookMark(
+  const { isBookmark, isBookmarkOpen, setIsBookmarkOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
+    id,
   );
 
   const {
@@ -76,11 +77,12 @@ function Content({ contentData }: { contentData: any }) {
         </div>
         <div className="mb-[103px] p-4 text-sm">{content}</div>
       </div>
-      <Download
+      {/* <Download
+      //첨부파일 수정
         file={thumbnail}
         title="첨부파일 다운로드"
         style="ml-1 h-12 w-[100px] rounded-md bg-secondary-heavy text-white"
-      />
+      /> */}
       {isShareOpen && isShare && (
         <ButtonModal modalContents={shareContents} isOpen={isShareOpen} setIsOpen={setIsShareOpen} />
       )}

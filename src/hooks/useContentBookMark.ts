@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { setBookMarkContent, deleteBookMarkContent } from "@/app/apis/services/auth";
 
-const useBookMark = (isBookmarked: any, link: any) => {
+const useContentBookMark = (isBookmarked: any, link: any, id: any) => {
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkOpen, setIsBookmarkOpen] = useState(false);
   const router = useRouter();
+  
 
   const bookMarkHandler = () => {
     setIsBookmarkOpen(true);
-    setIsBookmark(!isBookmark);
-    // 북마크 여부에 따라 추가, 삭제 api호출
+    if (isBookmarked) {
+      setIsBookmark(false);
+      setBookMarkContent(id);
+    } else {
+      setIsBookmark(true);
+      deleteBookMarkContent(id);
+    }
   };
 
   const bookMarkContents = {
@@ -28,4 +35,4 @@ const useBookMark = (isBookmarked: any, link: any) => {
   return { isBookmark, isBookmarkOpen, setIsBookmarkOpen, bookMarkHandler, bookMarkContents };
 };
 
-export default useBookMark;
+export default useContentBookMark;

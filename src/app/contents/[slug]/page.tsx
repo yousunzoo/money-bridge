@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Poster from "@/components/contentsPage/Poster";
 import TopNav from "@/components/common/TopNav";
 import Content from "@/components/contentsPage/Content";
@@ -14,10 +14,14 @@ function ContentsDetail() {
   const pathname = usePathname();
   const id = Number(pathname.split("/").pop());
   const { data: res } = useQuery([`/board/${id}`], () => ContentsId(id));
+  const [poster, setPoster] = useState();
+  const [profile, setProfile] = useState();
+  const [comment, setComment] = useState();
 
   const userData = useUserStore();
-  const boardData = res?.data;
+  const boardData = res;
   const ContentData = {
+    id: boardData?.id,
     thumbnail: boardData?.thumbnail,
     title: boardData?.title,
     content: boardData?.content,
@@ -30,14 +34,26 @@ function ContentsDetail() {
     profile: boardData?.profile,
   };
 
+  useEffect(() => {
+    setPoster(res?.thumbnail);
+  }, [res?.thumbnail]);
+
+  useEffect(() => {
+    setProfile(ContentData.profile);
+  }, [ContentData.profile]);
+
+  useEffect(() => {
+    setComment(res?.reply);
+  }, [res?.reply]);
+
   return (
     <>
       <TopNav title="콘텐츠" hasBack={true} />
-      <Poster img={res?.data.thumbnail} />
+      {poster && <Poster img={res?.thumbnail} />}
       {userData.user.role ? (
         <>
-          <Content contentData={ContentData} />
-          <Comments commentData={res?.data.reply} />
+          {profile && <Content contentData={ContentData} />}
+          {comment && <Comments commentData={res?.reply} />}
         </>
       ) : (
         <BlurModal />

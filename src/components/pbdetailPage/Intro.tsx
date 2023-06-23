@@ -3,7 +3,7 @@ import Image from "next/image";
 import BlurModal from "@/components/common/Modal/BlurModal";
 import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";
-import useBookMark from "@/hooks/useBookMark";
+import useBookMark from "@/hooks/useContentBookMark";
 import useShare from "@/hooks/useShare";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";

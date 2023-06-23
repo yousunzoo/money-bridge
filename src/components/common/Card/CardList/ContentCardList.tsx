@@ -4,11 +4,11 @@ import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 
-function ContentCardList({ queryKey, api }: { queryKey: string; api: any }) {
+function ContentCardList({ queryKey, api ,id}: { queryKey: string; api: any; id?:number }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
     ({ pageParam = 0 }) => {
-      return api(pageParam);
+      return api(id, pageParam);
     },
     {
       getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),

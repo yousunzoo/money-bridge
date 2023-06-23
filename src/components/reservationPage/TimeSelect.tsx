@@ -46,7 +46,7 @@ function TimeSelect({ setIsDisabled, selectOptions, selectedDate, handleTimeSele
               onClick={() => {
                 handleButtonClick(time);
               }}
-              disabled={isToday && disabledOptions.pm.includes(time)}
+              disabled={isToday && disabledOptions.am.includes(time)}
               key={time}
             >
               {time}

@@ -1,5 +1,4 @@
 "use client";
-
 import TopNav from "@/components/common/TopNav";
 import { useState } from "react";
 import ManagementCalendar from "../../components/schedulePage/Calendar";
@@ -9,12 +8,15 @@ import Image from "next/image";
 import InfoModal from "@/components/schedulePage/InfoModal";
 import DayScheduleList from "@/components/schedulePage/DayScheduleList";
 import ConsultationTimeCard from "@/components/schedulePage/ConsultationTimeCard";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getConsultTime, getScheduleInfo } from "../apis/services/pb";
 import { AxiosError } from "axios";
 import { ConsultationTimeCardProps, DayScheduleListProps } from "@/types/schedule";
 import dayjs from "dayjs";
 import ErrorModal from "@/components/common/ErrorModal";
+import { ILoginedUserInfo } from "@/types/reservation";
+import { getLoginedUserInfo } from "../apis/services/auth";
+import { redirect } from "next/navigation";
 
 function SchedulePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +24,15 @@ function SchedulePage() {
   const [clickDate, setClickDate] = useState({
     year: dayjs().year(),
     month: dayjs().month() + 1,
+  });
+  const {
+    data: userInfo,
+    isLoading: userLoading,
+    isSuccess: isLogined,
+  } = useQuery<ILoginedUserInfo, AxiosError>({
+    queryKey: ["loginedUserInfo"],
+    queryFn: getLoginedUserInfo,
+    refetchOnWindowFocus: false,
   });
 
   const {
@@ -40,7 +51,6 @@ function SchedulePage() {
       retry: false, // 오류 발생 시 재시도하지 않음
     },
   );
-
   const {
     data: consultTime,
     isError: consultError,
@@ -53,6 +63,7 @@ function SchedulePage() {
 
   const clickDayList = schedule?.filter(item => item.day === clickDay);
 
+  isLogined && userInfo.role !== "PB" && redirect("/");
   if (scheduleError || consultError) return <ErrorModal isError={true} />;
   return (
     <div className="relative flex flex-col items-center">

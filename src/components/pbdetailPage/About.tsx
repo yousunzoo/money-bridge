@@ -13,8 +13,10 @@ import LocationCopyButton from "@/components/common/LocationCopyButton";
 import { getSamePb, getPbReviewRecent, getReviewStyle } from "@/app/apis/services/pb";
 import { useQuery } from "@tanstack/react-query";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
+import { getLoginedUserInfo } from "@/app/apis/services/auth";
+import { getMyId } from "@/utils/pbMyId";
 
-function About({ aboutData, role }: any) {
+function About({ aboutData }: { aboutData: any }) {
   const { id, name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
   const { data: review } = useQuery([`/review/style/${id}`], () => getReviewStyle(id));
   const reviewData = review?.data;
@@ -25,6 +27,7 @@ function About({ aboutData, role }: any) {
   const pbReviewData = PbReview?.data;
   const router = useRouter();
   const pathname = usePathname();
+  const { data: userData } = useQuery(["/auth/account"], getLoginedUserInfo);
 
   const styleCase = (style: string): { style: ConsultationStyle; image: string } => {
     switch (style) {
@@ -51,27 +54,26 @@ function About({ aboutData, role }: any) {
   };
 
   const goToPage = () => {
-    if (role === CommonROLE.USER) {
+    if (userData?.role === CommonROLE.USER) {
       router.push("/reservation");
-    } else if (role === CommonROLE.PB) {
-      if (pathname === "/detail/info") {
+    } else if (userData?.role === CommonROLE.PB) {
+      if (pathname === `/detail/info/${getMyId(userData, id)}`) {
         router.push("/detail/edit");
-      }
-      if (pathname === "/detail/content") {
-        router.push("/lounge/write");
+      } else {
+        router.push("/reservation");
       }
     }
   };
 
   let text;
-  if (role === CommonROLE.USER) {
+
+  if (userData?.role === CommonROLE.USER) {
     text = "상담 신청하기";
-  } else if (role === CommonROLE.PB) {
-    if (pathname === "/detail/info") {
+  } else if (userData?.role === CommonROLE.PB) {
+    if (pathname === `/detail/info/${getMyId(userData, id)}`) {
       text = "프로필 수정하기";
-    }
-    if (pathname === "/detail/content") {
-      text = "콘텐츠 작성하기";
+    } else {
+      text = "상담 신청하기";
     }
   }
 
@@ -125,7 +127,7 @@ function About({ aboutData, role }: any) {
             </Link>
           )}
         </div>
-        {pbRecentData?.length>0 && (
+        {pbRecentData?.length > 0 && (
           <ul>
             <Carousel autoplay draggable={true}>
               {pbRecentData.list.map((item: any) => (

@@ -47,7 +47,7 @@ function TopNav({
         }`}
       >
         <div className="flex min-w-[100px] justify-self-start">
-          {(logoPath.includes(currentPath) || currentPath.includes("pblist")) && (
+          {(logoPath.includes(currentPath) || currentPath === "/pblist") && (
             <div className="font-bol flex cursor-pointer text-base" onClick={modalOpenHandler}>
               {locations.location ? locations.location : <span>위치 선택</span>}
               <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />

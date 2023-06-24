@@ -50,7 +50,6 @@ export const useGetFilteredPBlist = () => {
       staleTime: 100000,
     },
   );
-  console.log(pbListData);
 
   useEffect(() => {
     if (company) {

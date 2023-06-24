@@ -5,7 +5,7 @@ import { useGetFilteredPBlist } from "@/hooks/useGetFilteredPBList";
 
 function FilteredPbCardList() {
   const { pbListData, fetchNextPage, hasNextPage, isFetching } = useGetFilteredPBlist();
-  console.log(pbListData);
+
   const list = useMemo(
     () => (pbListData ? (pbListData.pages || []).flatMap(pbListData => pbListData.list) : []),
     [pbListData],

@@ -1,5 +1,6 @@
 import { instance } from "@/app/apis/axios";
 import { IConvertedAnswers } from "@/types/analysis";
+import { AxiosError } from "axios";
 
 export const BookMarkPB = async (page: number) => {
   try {
@@ -62,5 +63,14 @@ export const reserve = async (data: { pbId: number; answers: IConvertedAnswers }
     return res.data.data;
   } catch (error: any) {
     throw new Error(error.response.data.status);
+  }
+};
+
+export const getRecommendedPBList = async (page: number) => {
+  try {
+    const res = await instance.get("user/list/pb", { params: { page } });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
   }
 };

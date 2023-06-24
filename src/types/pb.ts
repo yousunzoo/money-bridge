@@ -9,7 +9,7 @@ export interface IloginProfile {
   profile: string;
   msg: string;
   name: string;
-  isBookmarked: boolean;
+  isBookmarkeded: boolean;
   companyId: number;
   companyName: string;
   companyLogo: string;

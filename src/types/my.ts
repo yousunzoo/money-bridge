@@ -92,7 +92,7 @@ export interface IPBCard {
   specialty2: IPropensity;
   reserveCount: number;
   reviewCount: number;
-  isBookmark: boolean;
+  isBookmarked: boolean;
 }
 
 export interface IPropensityInfoCardProps {

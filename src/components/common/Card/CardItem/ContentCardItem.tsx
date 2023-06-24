@@ -11,16 +11,16 @@ import { postBookMarkContent, deleteBookMarkContent } from "@/app/apis/services/
 function ContentCardItem({ item }: { item: any }) {
   const { data: userData } = useQuery(["/auth/account"], getLoginedUserInfo);
   const router = useRouter();
-  const [isBookmark, setIsBookmark] = useState(item.isBookmark);
+  const [isBookmarked, setisBookmarked] = useState(item.isBookmarked);
 
   const bookMark = (event: any) => {
     event.stopPropagation();
-    if (isBookmark) {
+    if (isBookmarked) {
       deleteBookMarkContent(item.id);
-      setIsBookmark(false);
+      setisBookmarked(false);
     } else {
       postBookMarkContent(item.id);
-      setIsBookmark(true);
+      setisBookmarked(true);
     }
   };
   const goTOLounge = () => {
@@ -39,12 +39,12 @@ function ContentCardItem({ item }: { item: any }) {
           </div>
           {userData?.role && (
             <button onClick={bookMark} className="flex-3 flex w-12 items-center justify-center">
-              {isBookmark ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
+              {isBookmarked ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
             </button>
           )}
         </div>
         <div className="mt-20 flex">
-          <div className="flex h-[31px] flex-col text-[10px] flex-1">
+          <div className="flex h-[31px] flex-1 flex-col text-[10px]">
             <div className="flex">
               <p className="font-bold">{item.pbName}PB</p>&nbsp;| {item.career}년차
             </div>

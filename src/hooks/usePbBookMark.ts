@@ -2,20 +2,18 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { postBookMarkPB, deleteBookMarkPB } from "@/app/apis/services/user";
 
-
-const usePbBookMark = (isBookmarked: boolean, link: string, id: number) => {
-  
-  const [isBookmark, setIsBookmark] = useState(isBookmarked);
-  const [isBookmarkOpen, setIsBookmarkOpen] = useState(false);
+const usePbBookMark = (isBookmarkeded: boolean, link: string, id: number) => {
+  const [isBookmarked, setisBookmarked] = useState(isBookmarkeded);
+  const [isBookmarkedOpen, setisBookmarkedOpen] = useState(false);
   const router = useRouter();
 
   const bookMarkHandler = () => {
-    setIsBookmarkOpen(true);
-    if (isBookmark) {
-      setIsBookmark(false);
+    setisBookmarkedOpen(true);
+    if (isBookmarked) {
+      setisBookmarked(false);
       deleteBookMarkPB(id);
     } else {
-      setIsBookmark(true);
+      setisBookmarked(true);
       postBookMarkPB(id);
     }
   };
@@ -25,15 +23,15 @@ const usePbBookMark = (isBookmarked: boolean, link: string, id: number) => {
     confirmText: "확인",
     cancelText: "북마크 바로가기",
     confirmFn: () => {
-      setIsBookmarkOpen(false);
+      setisBookmarkedOpen(false);
     },
     cancelFn: () => {
       router.push(link);
-      setIsBookmarkOpen(false);
+      setisBookmarkedOpen(false);
     },
   };
 
-  return { isBookmark, isBookmarkOpen, setIsBookmarkOpen, bookMarkHandler, bookMarkContents };
+  return { isBookmarked, isBookmarkedOpen, setisBookmarkedOpen, bookMarkHandler, bookMarkContents };
 };
 
 export default usePbBookMark;

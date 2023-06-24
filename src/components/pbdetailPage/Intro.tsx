@@ -15,7 +15,7 @@ function Intro({ introData, role }: { introData: any; role: any }) {
     id,
     profile,
     name,
-    isBookmarked,
+    isBookmarkeded,
     branchName,
     msg,
     companyId,
@@ -28,8 +28,8 @@ function Intro({ introData, role }: { introData: any; role: any }) {
   const router = useRouter();
   const base = "https://money-bridge.vercel.app";
   const urlToCopy = base + pathname;
-  const { isBookmark, isBookmarkOpen, setIsBookmarkOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
-    isBookmarked,
+  const { isBookmarked, isBookmarkedOpen, setisBookmarkedOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
+    isBookmarkeded,
     "/bookmark/pb",
     id,
   );
@@ -89,7 +89,7 @@ function Intro({ introData, role }: { introData: any; role: any }) {
               <Image src={share} alt="공유하기" width={0} height={0} />
             </button>
             <button onClick={bookMarkHandler} className="flex w-9 justify-end">
-              {isBookmarked ? (
+              {isBookmarkeded ? (
                 <Image src={bookmark_filled} alt="북마크 활성화" width={0} height={0} />
               ) : (
                 <Image src={bookmark} alt="북마크" width={0} height={0} />
@@ -113,8 +113,8 @@ function Intro({ introData, role }: { introData: any; role: any }) {
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
       )}
-      {isBookmarkOpen && isBookmark && (
-        <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkOpen} setIsOpen={setIsBookmarkOpen} />
+      {isBookmarkedOpen && isBookmarked && (
+        <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setisBookmarkedOpen} />
       )}
     </header>
   );

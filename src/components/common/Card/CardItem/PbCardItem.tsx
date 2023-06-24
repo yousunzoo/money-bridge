@@ -12,10 +12,10 @@ function PbCardItem({ item }: { item: any }) {
   const { data: userData } = useQuery(["/auth/account"], getLoginedUserInfo);
   const router = useRouter();
 
-  const [isBookmark, setIsBookmark] = useState(item.isBookmark);
+  const [isBookmarked, setisBookmarked] = useState(item.isBookmarked);
 
   const bookMark = () => {
-    if (isBookmark) {
+    if (isBookmarked) {
       deleteBookMarkPB(item.id);
     } else {
       postBookMarkPB(item.id);
@@ -49,11 +49,7 @@ function PbCardItem({ item }: { item: any }) {
         </div>
         {userData?.role && (
           <button onClick={bookMark} className="flex-2 flex w-12 items-start justify-center pt-1">
-            {isBookmark ? (
-              <Image src={bookmark_filled} alt="북마크 해제" />
-            ) : (
-              <Image src={bookmark} alt="북마크" />
-            )}
+            {isBookmarked ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
           </button>
         )}
       </div>

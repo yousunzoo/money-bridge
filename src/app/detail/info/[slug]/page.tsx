@@ -27,7 +27,7 @@ function PbDetailInfo() {
     id: data?.id,
     profile: data?.profile,
     name: data?.name,
-    isBookmarked: data?.isBookmarked,
+    isBookmarkeded: data?.isBookmarkeded,
     branchName: data?.branchName,
     msg: data?.msg,
     companyId: data?.companyId,

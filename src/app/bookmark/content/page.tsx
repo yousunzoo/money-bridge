@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from "react";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import BookMark from "@/components/bookmarkPage/BookMark";
@@ -13,7 +13,7 @@ function ContentBookMark() {
   return (
     <div className="mb-10">
       <BookMark />
-      {res?.list ? (
+      {res !== null ? (
         <ContentCardList queryKey={"/auth/bookmarks/boards"} api={getBookMarkContent} />
       ) : (
         <div className="flex justify-center">북마크 한 콘텐츠 없음</div>

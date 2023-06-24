@@ -14,6 +14,7 @@ import { getConsultTime, getScheduleInfo } from "../apis/services/pb";
 import { AxiosError } from "axios";
 import { ConsultationTimeCardProps, DayScheduleListProps } from "@/types/schedule";
 import dayjs from "dayjs";
+import ErrorModal from "@/components/common/ErrorModal";
 
 function SchedulePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,14 +37,15 @@ function SchedulePage() {
       }),
     {
       cacheTime: 0,
+      retry: false, // 오류 발생 시 재시도하지 않음
     },
   );
 
   const {
     data: consultTime,
-    isError,
+    isError: consultError,
     isLoading,
-  } = useQuery<ConsultationTimeCardProps, AxiosError>(["consultTime"], getConsultTime, { staleTime: Infinity });
+  } = useQuery<ConsultationTimeCardProps, AxiosError>(["consultTime"], getConsultTime);
 
   const onClickHandler = () => {
     setIsOpen(!isOpen);
@@ -51,8 +53,7 @@ function SchedulePage() {
 
   const clickDayList = schedule?.filter(item => item.day === clickDay);
 
-  console.log(scheduleError);
-
+  if (scheduleError || consultError) return <ErrorModal isError={true} />;
   return (
     <div className="relative flex flex-col items-center">
       <Image

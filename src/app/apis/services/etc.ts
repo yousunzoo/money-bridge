@@ -1,5 +1,6 @@
 import { getCookie } from "@/utils/cookies";
 import { instance } from "../axios";
+import { AxiosError } from "axios";
 
 export const getFAQs = async (curPage: number) => {
   try {
@@ -22,9 +23,17 @@ export const getNotices = async (curPage: number) => {
 export const reissueToken = async () => {
   try {
     const res = await instance.post("/reissue");
-    console.log(getCookie("refreshToken"));
     return res;
   } catch (error: any) {
     throw new Error(error.response.data);
+  }
+};
+
+export const getCompanyListwithLogo = async () => {
+  try {
+    const res = await instance.get("/companies?includeLogo=true");
+    return res.data.data.list;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
   }
 };

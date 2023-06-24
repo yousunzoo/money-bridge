@@ -3,6 +3,7 @@ import { MouseEvent } from "react";
 export interface ICompanyListProps {
   companyList: ICompanyList;
   nowCompany: string;
+  handleIDClick: (e: MouseEvent<HTMLLIElement>) => void;
 }
 
 export interface ISpecialityListProps {

@@ -4,7 +4,7 @@ import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 
-function ContentCardList({ queryKey, api ,id}: { queryKey: string; api: any; id?:number }) {
+function ContentCardList({ queryKey, api, id }: { queryKey: string; api: any; id?: number }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
     ({ pageParam = 0 }) => {
@@ -26,7 +26,7 @@ function ContentCardList({ queryKey, api ,id}: { queryKey: string; api: any; id?
   return (
     <>
       <ul>
-        {list ? (
+        {list.length > 0 ? (
           list.map((item: any) => <ContentCardItem key={item.id} item={item} />)
         ) : (
           <li className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">

@@ -66,11 +66,11 @@ function PbDetailInfo() {
   return (
     <div className="mb-24 flex w-full flex-col">
       <TopNav title="PB 상세프로필" hasBack={true} />
-      <Intro introData={role === "" ? notLoginData : introData} role={role} />
+      <Intro introData={role ? introData : notLoginData} role={role} />
       {role && (
         <>
           <Content contentData={contentData} />
-          <About aboutData={aboutData} role={role} />
+          <About aboutData={aboutData} />
         </>
       )}
     </div>

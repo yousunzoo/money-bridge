@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider, Hydrate } from "@tanstack/react-query
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PropsWithChildren, useState } from "react";
 import { getUserInfo } from "./apis/services/user";
+import { getLoginedUserInfo } from "./apis/services/auth";
 
 export default function ReactQueryProvider({ children }: PropsWithChildren) {
   const [queryClient] = useState(() => new QueryClient());
@@ -19,7 +20,11 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
       },
     },
   });
-
+  queryClient.prefetchQuery({
+    queryKey: ["loginedUserInfo"],
+    queryFn: getLoginedUserInfo,
+    staleTime: Infinity,
+  });
   return (
     <QueryClientProvider client={queryClient}>
       {children}

@@ -25,7 +25,7 @@ export const getReservationData = async (pbId: string) => {
     const res = await instance.get(`/user/reservation/base/${pbId}`);
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -34,7 +34,7 @@ export const checkPropensity = async (score: number) => {
     const res = await instance.post("/user/propensity", { score });
     return res.data;
   } catch (error: any) {
-    throw new Error(error);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -43,7 +43,7 @@ export const getUserInfo = async () => {
     const res = await instance.get("/user/mypage");
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.status);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -52,7 +52,7 @@ export const getMyPropensity = async () => {
     const res = await instance.get("/user/mypage/list/pb");
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.status);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -62,7 +62,7 @@ export const reserve = async (data: { pbId: number; answers: IConvertedAnswers }
     const res = await instance.post(`/user/reservation/${pbId}`, answers);
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.status);
+    throw new AxiosError(error.response.data);
   }
 };
 

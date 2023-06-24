@@ -1,8 +1,5 @@
-import { speciality } from "@/constants/pbListMenu";
-import { getCookie } from "@/utils/cookies";
 import { instance } from "../axios";
 import { AxiosError } from "axios";
-import { ISpeciality } from "@/types/join";
 import { IPBListParams, IPBListRequest } from "@/types/pblist";
 
 export const getFAQs = async (curPage: number) => {
@@ -10,7 +7,7 @@ export const getFAQs = async (curPage: number) => {
     const res = await instance.get("/FAQ", { params: { curPage } });
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -19,7 +16,7 @@ export const getNotices = async (curPage: number) => {
     const res = await instance.get("/notices", { params: { curPage } });
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -28,7 +25,7 @@ export const reissueToken = async () => {
     const res = await instance.post("/reissue");
     return res;
   } catch (error: any) {
-    throw new Error(error.response.data);
+    throw new AxiosError(error.response.data);
   }
 };
 

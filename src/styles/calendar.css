@@ -76,9 +76,9 @@
   font-weight: bold;
   font-size: 16px;
 }
-.ant-picker-cell-today {
+.ant-picker-calendar-date-today {
   .ant-picker-calendar-date-value {
-    color: red !important;
+    color: #3a7391 !important;
     font-weight: 800;
   }
 }

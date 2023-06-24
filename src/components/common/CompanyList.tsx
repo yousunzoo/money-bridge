@@ -20,9 +20,9 @@ function CompanyList({ companyList, nowCompany, handleIDClick }: ICompanyListPro
               <li
                 data-id={company.id}
                 onClick={handleIDClick}
-                className={`${LI_STYLE} ${
-                  company.id == Number(nowCompany) && "bg-primary-normal font-bold text-white"
-                } ${company.name === "전체보기" && "!justify-center"}`}
+                className={`${LI_STYLE} ${company.id == nowCompany && "bg-primary-normal font-bold text-white"} ${
+                  company.name === "전체보기" && "!justify-center"
+                }`}
                 key={company.id}
               >
                 {company.logo && <Image src={company.logo} alt={company.name} width={30} height={30} />}

@@ -20,9 +20,9 @@ function ContentCardItem({ item }: { item: any }) {
   };
 
   return (
-    <li className="h-56 bg-white cursor-pointer card" onClick={goTOLounge}>
+    <li className="card h-56 cursor-pointer bg-white" onClick={goTOLounge}>
       <div className="px-[17px]">
-        <div className="flex mt-7">
+        <div className="mt-7 flex">
           <div className="flex-1">
             <div className="mb-1 text-[8px]">
               {item.tag1}&nbsp;&nbsp;•&nbsp;&nbsp;{item.tag2}
@@ -30,7 +30,7 @@ function ContentCardItem({ item }: { item: any }) {
             <div className="text-2xl font-bold">{item.title}</div>
           </div>
           {userData.user.role && (
-            <button onClick={bookMark} className="flex items-center justify-center w-12 flex-3">
+            <button onClick={bookMark} className="flex-3 flex w-12 items-center justify-center">
               {item.isBookmark ? (
                 <Image src={bookmark_filled} alt="북마크 해제" />
               ) : (
@@ -39,7 +39,7 @@ function ContentCardItem({ item }: { item: any }) {
             </button>
           )}
         </div>
-        <div className="flex mt-20">
+        <div className="mt-20 flex">
           <div className="flex h-[31px] flex-col text-[10px]">
             <div className="flex">
               <p className="font-bold">{item.pbName}PB</p>&nbsp;| {item.career}년차

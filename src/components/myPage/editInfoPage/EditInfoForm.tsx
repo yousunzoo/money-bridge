@@ -20,15 +20,10 @@ function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
 
   const {
     register,
-    setValue,
     getValues,
+    reset,
     formState: { errors, isValid, isDirty, dirtyFields },
   } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
-
-  const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setValue("inputValue", "");
-  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,7 +46,7 @@ function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
               />
               {isDirty && (
                 <>
-                  <button className="input_button" type="reset" tabIndex={-1}></button>
+                  <button className="input_button" onClick={() => reset()} tabIndex={-1}></button>
                   <Image src={errors.inputValue ? alert : correct} alt="input_status" className="input_status" />
                 </>
               )}

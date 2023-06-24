@@ -71,9 +71,9 @@ export const getCompanyLocation = async (companyId: number, keyword: string) => 
 export const userLogout = async () => {
   try {
     const res = await instance.post("/auth/logout");
-    return res.data;
+    return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.data.value);
+    throw new Error(error.response.data);
   }
 };
 

@@ -1,5 +1,6 @@
 import { ConsultationTimeCardProps } from "@/types/schedule";
 import { instance } from "../axios";
+import { AxiosError } from "axios";
 
 export const getPBInfo = async () => {
   try {
@@ -30,9 +31,10 @@ export const getScheduleInfo = async ({ year, month }: GetScheduleInfoProps) => 
 export const getConsultTime = async () => {
   try {
     const res = await instance.get("/pb/consultTime");
-
     return res.data.data;
-  } catch (error) {}
+  } catch (error: any) {
+    new AxiosError(error.response.data);
+  }
 };
 
 export interface ConsultTimeProps {
@@ -47,7 +49,8 @@ export const updateConsultTime = async ({ consultStart, consultEnd, consultNotic
       consultEnd,
       consultNotice,
     });
-
     return res;
-  } catch (error) {}
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
 };

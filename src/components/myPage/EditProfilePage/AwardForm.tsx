@@ -1,8 +1,8 @@
 import Image from "next/image";
 import minusIcon from "/public/assets/images/minusCircle.svg";
-import { IAwardFormProps } from "@/types/my";
+import { IAwardFormProps } from "@/types/editProfile";
 
-function AwardForm({ award, index, removeItems, register }: IAwardFormProps) {
+function AwardForm({ award, removeItems, register }: IAwardFormProps) {
   const { record, awardYear, id } = award;
   const handleClick = () => {
     if (!id) return;

@@ -1,8 +1,8 @@
-import { ICareerFormProps } from "@/types/my";
+import { ICareerFormProps } from "@/types/editProfile";
 import minusIcon from "/public/assets/images/minusCircle.svg";
 
 import Image from "next/image";
-function CareerForm({ career, removeItems, register, index }: ICareerFormProps) {
+function CareerForm({ career, removeItems, register }: ICareerFormProps) {
   const { content, start, end, id } = career;
 
   const handleClick = () => {

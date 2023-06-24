@@ -1,5 +1,5 @@
 import { speciality } from "@/constants/pbListMenu";
-import { ISelectSpecialityProps } from "@/types/my";
+import { ISelectSpecialityProps } from "@/types/editProfile";
 
 function SelectSpeciality({ specialityData, handleToggleButtons }: ISelectSpecialityProps) {
   const specialityList = speciality.filter(item => item.id !== "ALL");

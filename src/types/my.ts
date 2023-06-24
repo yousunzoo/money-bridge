@@ -129,6 +129,7 @@ export interface IEditProfileFormProps {
 
 export interface IPBMyProfile {
   company: string;
+  companyId: number;
   branchName: string;
   career: number;
   careers: ICareer[];
@@ -152,26 +153,7 @@ export interface ICareer {
   end: number | undefined;
 }
 export interface IAward {
-  id?: number;
+  id?: string;
   record: string | undefined;
   awardYear: number | undefined;
-}
-
-export interface IAwardFormProps {
-  award: IAward;
-  index: number;
-  removeItems: (type: string, index: number) => void;
-  register: UseFormRegister<any>;
-}
-
-export interface ICareerFormProps {
-  career: ICareer;
-  index: number;
-  removeItems: (type: string, index: number) => void;
-  register: UseFormRegister<any>;
-}
-
-export interface ISelectSpecialityProps {
-  specialityData: string[];
-  handleToggleButtons: (id: string) => void;
 }

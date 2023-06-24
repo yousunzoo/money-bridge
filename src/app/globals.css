@@ -119,7 +119,7 @@
   }
 
   .modal {
-    @apply fixed bottom-[80px] left-1/2 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 rounded-t-md bg-white px-4 py-8;
+    @apply fixed bottom-[70px] left-1/2 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 rounded-t-md bg-white px-4 py-8;
   }
 
   .card {

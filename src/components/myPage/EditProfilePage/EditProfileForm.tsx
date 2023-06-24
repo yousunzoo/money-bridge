@@ -1,23 +1,23 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
-import ModalLayout from "@/components/reservationPage/ModalLayout";
 import { IEditProfileFormProps } from "@/types/my";
-import { MouseEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import AddIcon from "/public/assets/images/addCircle.svg";
-import CareerForm from "./CareerForm";
-import Image from "next/image";
-import AwardsForm from "./AwardForm";
-import SelectSpeciality from "./SelectSpeciality";
-import ModalCompanyList from "@/components/joinPage/pb/ModalCompanyList";
-import { ICompanyInput, ISpeciality } from "@/types/join";
-import ModalCompanyLocation from "@/components/joinPage/pb/ModalCompanyLocation";
+import { ICompanyInput } from "@/types/join";
+import ProfileInput from "./formSections/ProfileInput";
+import CompanyInput from "./formSections/CompanyInput";
+import CareerInput from "./formSections/CareerInput";
+import CareersInput from "./formSections/CareersInput";
+import AwardsInput from "./formSections/AwardsInput";
+import SpecialityInput from "./formSections/SpecialityInput";
+import FigureInput from "./formSections/FigureInput";
+import PortfolioInput from "./formSections/PortfolioInput";
+import IntroInput from "./formSections/IntroInput";
+import MsgInput from "./formSections/MsgInput";
 
 function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [company, setCompany] = useState({ id: 0, name: "" });
-  const [location, setLocation] = useState<{ id: number; name: string }>();
-  const [modalType, setModalType] = useState<"location" | "company" | null>(null);
+  const [company, setCompany] = useState({ id: existingProfile.companyId, name: existingProfile.company });
+  const [location, setLocation] = useState<{ id: number; name: string }>({ id: 0, name: existingProfile.branchName });
   const [filePreviews, setFilePreviews] = useState({
     profile: existingProfile.profile,
     portfolio: existingProfile.portfolio,
@@ -35,6 +35,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   const [speciality, setSpeciality] = useState(
     [existingProfile.speciality1, existingProfile.speciality2].filter(item => item !== null),
   );
+
   const {
     watch,
     getValues,
@@ -64,18 +65,6 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   const profileVal = watch("profile");
   const portfolioVal = watch("portfolio");
 
-  const handleOpenCompanyModal = () => {
-    setIsOpen(true);
-    setModalType("company");
-  };
-
-  const handleOpenLocationModal = () => {
-    setIsOpen(true);
-    setModalType("location");
-  };
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
   const handleChangeCompany = (item: ICompanyInput) => {
     setValue("company", item.name);
     setCompany({ ...item });
@@ -89,9 +78,9 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
     setAwards([...awards, { id: uuidv4(), record: undefined, awardYear: undefined }]);
   };
 
-  const removeItems = (type: string, index: number) => {
+  const removeItems = (type: string, nowId: string) => {
     const array = type === "career" ? ([...careers] as []) : ([...awards] as []);
-    const sortedArr = array.filter(({ id }) => id !== index);
+    const sortedArr = array.filter(({ id }) => id !== nowId);
 
     if (type === "career") {
       setCareers(sortedArr);
@@ -118,237 +107,45 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
     if (profileVal && !(typeof profileVal === "string")) {
       const file = profileVal[0] as File;
       setFilePreviews({ ...filePreviews, profile: file.name });
+      return;
     }
     if (portfolioVal && !(typeof portfolioVal === "string")) {
       const file = portfolioVal[0] as File;
       setFilePreviews({ ...filePreviews, portfolio: file.name });
+      return;
     }
-    if (!profileVal) setFilePreviews({ ...filePreviews, profile: "" });
+    if (!profileVal) {
+      setFilePreviews({ ...filePreviews, profile: "" });
+      return;
+    }
     if (!portfolioVal) setFilePreviews({ ...filePreviews, portfolio: "" });
   }, [profileVal, portfolioVal]);
 
   useEffect(() => {
-    if (company.name !== existingProfile.branchName) {
-      setValue("branchName", "");
-    }
-  }, [company]);
+    const branch = location?.name ? location.name : "";
+    setValue("branchName", branch);
+  }, [company, location]);
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <section className="mb-10">
-          <div className="mb-4 flex items-center justify-between">
-            <p className="text-xl font-bold">프로필 이미지 업로드</p>
-            <div>
-              <button
-                onClick={() => removeFile("profile")}
-                type="button"
-                className="mr-2 rounded-[8px] bg-primary-normal px-4 py-2 text-xs font-bold text-white shadow-md"
-              >
-                삭제
-              </button>
-              <label
-                className="cursor-pointer rounded-[8px] bg-white px-5 py-2 text-xs font-bold text-primary-normal shadow-md"
-                htmlFor="profile"
-              >
-                이미지 찾기
-              </label>
-              <input className="hidden" type="file" accept="image/*" id="profile" {...register("profile")} />
-            </div>
-          </div>
-          <p
-            className={`rounded-md bg-white p-4 shadow-sm ${
-              filePreviews.profile ? "text-gray-heavy" : "text-placeholder"
-            }`}
-          >
-            {filePreviews.profile ? filePreviews.profile : "이미지를 등록해주세요"}
-          </p>
-        </section>
-        <section className="mb-8">
-          <p className="mb-4 text-xl font-bold">증권사를 선택해주세요.</p>
-          <label htmlFor="company" className="edit_input">
-            <button className="w-full text-left" onClick={handleOpenCompanyModal}>
-              {getValues("company")}
-            </button>
-            <input className="hidden" name="company" />
-          </label>
-        </section>
-        <section className="mb-10">
-          <p className="mb-4 text-xl font-bold">지점을 입력해주세요.</p>
-          <div className="flex justify-between">
-            <label
-              htmlFor="branchName"
-              className={`edit_input flex-1 ${!getValues("branchName") && "text-placeholder"}`}
-            >
-              {getValues("branchName") ? getValues("branchName") : "지점명"}
-              <input className="hidden" name="branchName" />
-            </label>
-            <button
-              type="button"
-              onClick={handleOpenLocationModal}
-              className="ml-3 w-[110px] rounded-sm border-1 border-primary-normal bg-white py-4 font-bold text-primary-normal"
-            >
-              지점 찾기
-            </button>
-          </div>
-        </section>
-        <section className="mb-10">
-          <p className="mb-4 text-xl font-bold">총 경력을 입력해주세요.</p>
-          <div className="flex items-center">
-            <input
-              className="edit_input flex-1"
-              type="number"
-              max={100}
-              placeholder="햇수를 입력해주세요."
-              defaultValue={getValues("career")}
-            />
-            <span className="ml-4 w-[110px] text-xl font-bold">년</span>
-          </div>
-        </section>
-        <section className="mb-10">
-          <div className="mb-3 flex items-center justify-between">
-            <p className="text-xl font-bold">세부 경력을 입력해주세요.</p>
-            <button type="button" onClick={addCareers}>
-              <Image src={AddIcon} alt="경력 추가하기" width={36} height={36} />
-            </button>
-          </div>
-          <p className="mb-4 text-xs">재직 중일 시 퇴사에 현재 연도를 입력해주세요.</p>
-          <ul className="px-4">
-            {careers.map((item, index) => (
-              <CareerForm key={item.id} register={register} index={index} removeItems={removeItems} career={item} />
-            ))}
-          </ul>
-        </section>
-        <section className="mb-10">
-          <div className="mb-4 flex items-center justify-between">
-            <p className="text-xl font-bold">수상 내역을 입력해주세요.</p>
-            <button type="button" onClick={addAwards}>
-              <Image src={AddIcon} alt="수상 내역 추가하기" width={36} height={36} />
-            </button>
-          </div>
-          <p className="mb-4 text-xs">*입력을 안하면 공백으로 보여집니다.</p>
-          <ul className="px-4">
-            {awards.map((item, index) => (
-              <AwardsForm key={item.id} register={register} removeItems={removeItems} award={item} index={index} />
-            ))}
-          </ul>
-        </section>
-        <section className="mb-10">
-          <p className="mb-4 text-xl font-bold">전문분야를 선택해주세요.</p>
-          <p className="mb-4 text-xs">2개까지 중복선택이 가능합니다.</p>
-          <SelectSpeciality specialityData={speciality} handleToggleButtons={handleToggleButtons} />
-        </section>
-        <section className="mb-10">
-          <p className="mb-4 text-xl font-bold">실적을 입력해주세요.</p>
-          <p className="mb-4 text-xs">소수점 2자리 까지의 숫자로만 입력해주세요.</p>
-          <ul className="rounded-sm bg-white p-4 shadow-md">
-            <li className="mb-3 flex items-center">
-              <input
-                className="edit_input"
-                type="number"
-                placeholder="누적 수익률을 입력해주세요."
-                name="cumulativeReturn"
-                defaultValue={getValues("cumulativeReturn")}
-              />
-              <span className="ml-4 w-[100px] text-xl font-bold">%</span>
-            </li>
-            <li className="mb-3 flex items-center">
-              <input
-                className="edit_input"
-                type="number"
-                placeholder="최대 자본인하율을 입력해주세요."
-                name="maxDrawdown"
-                defaultValue={getValues("maxDrawdown")}
-              />
-              <span className="ml-4 w-[100px] text-xl font-bold">%</span>
-            </li>
-            <li className="mb-3 flex items-center">
-              <input
-                className="edit_input"
-                type="number"
-                placeholder="평균 손익률을 입력해주세요."
-                name="averageProfit"
-                defaultValue={getValues("averageProfit")}
-              />
-              <span className="ml-4 w-[100px] text-xl font-bold">%</span>
-            </li>
-            <li className="mb-3 flex items-center">
-              <input
-                className="edit_input"
-                type="number"
-                placeholder="Profit Factor를 입력해주세요."
-                name="profitFactor"
-                defaultValue={getValues("profitFactor")}
-              />
-              <span className="ml-4 w-[100px] text-xl font-bold">: 1</span>
-            </li>
-          </ul>
-        </section>
-        <section className="mb-10">
-          <div className="mb-4 flex items-center justify-between">
-            <p className="text-xl font-bold">포트폴리오 파일 업로드</p>
-            <div>
-              <button
-                onClick={() => removeFile("portfolio")}
-                type="button"
-                className="mr-2 rounded-[8px] bg-primary-normal px-4 py-2 text-xs font-bold text-white shadow-md"
-              >
-                삭제
-              </button>
-              <label
-                className="cursor-pointer rounded-[8px] bg-white px-5 py-2 text-xs font-bold text-primary-normal shadow-md"
-                htmlFor="portfolio"
-              >
-                파일 찾기
-              </label>
-              <input className="hidden" type="file" id="portfolio" {...register("portfolio")} />
-            </div>
-          </div>
-          <p
-            className={`rounded-md bg-white p-4 shadow-sm ${
-              filePreviews.portfolio ? "text-gray-heavy" : "text-placeholder"
-            }`}
-          >
-            {filePreviews.portfolio ? filePreviews.portfolio : "파일을 등록해주세요"}
-          </p>
-        </section>
-        <section className="mb-10">
-          <p className="mb-4 text-xl font-bold">한 줄 소개를 작성해 주세요.</p>
-          <textarea
-            className="edit_input mb-2 resize-none"
-            placeholder="나를 한 줄로 표현해보세요."
-            name="intro"
-            defaultValue={getValues("intro")}
-            maxLength={100}
-          />
-          <p className="mr-2 text-right text-xs">{getValues("intro").length}/100</p>
-        </section>
-        <section className="mb-10">
-          <p className="mb-4 text-xl font-bold">프로필 제목을 작성해 주세요.</p>
-          <textarea
-            className="edit_input mb-2 resize-none"
-            placeholder="프로필 제목을 작성해주세요."
-            name="msg"
-            defaultValue={getValues("msg")}
-            maxLength={20}
-          />
-          <p className="mr-2 text-right text-xs">{getValues("msg").length}/100</p>
-        </section>
+        <ProfileInput register={register} removeFile={removeFile} profile={filePreviews.profile} />
+        <CompanyInput
+          getValues={getValues}
+          handleChangeCompany={handleChangeCompany}
+          companyId={company.id}
+          setLocation={setLocation}
+        />
+        <CareerInput register={register} defaultValue={getValues("career")} />
+        <CareersInput register={register} removeItems={removeItems} careers={careers} addCareers={addCareers} />
+        <AwardsInput register={register} removeItems={removeItems} awards={awards} addAwards={addAwards} />
+        <SpecialityInput speciality={speciality} handleToggleButtons={handleToggleButtons} />
+        <FigureInput register={register} getValues={getValues} />
+        <PortfolioInput register={register} removeFile={removeFile} portfolio={filePreviews.portfolio} />
+        <IntroInput register={register} intro={getValues("intro")} />
+        <MsgInput register={register} msg={getValues("msg")} />
         <button className="button_fixed">등록 완료</button>
       </form>
-      {isOpen && (
-        <ModalLayout handleCloseModal={() => setIsOpen(false)}>
-          {modalType === "company" ? (
-            <ModalCompanyList handleChangeCompany={handleChangeCompany} handleCloseModal={handleCloseModal} />
-          ) : (
-            <ModalCompanyLocation
-              companyId={company.id}
-              setLocation={setLocation}
-              handleCloseModal={handleCloseModal}
-            />
-          )}
-        </ModalLayout>
-      )}
     </>
   );
 }

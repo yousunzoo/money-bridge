@@ -51,10 +51,12 @@ function SchedulePage() {
 
   const clickDayList = schedule?.filter(item => item.day === clickDay);
 
+  console.log(scheduleError);
+
   return (
     <div className="relative flex flex-col items-center">
       <Image
-        className="absolute z-10 cursor-pointer right-7 top-6 "
+        className="absolute right-7 top-6 z-10 cursor-pointer "
         src={question}
         alt={question}
         width={20}

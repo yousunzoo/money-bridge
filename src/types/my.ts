@@ -173,5 +173,5 @@ export interface ICareerFormProps {
 
 export interface ISelectSpecialityProps {
   specialityData: string[];
-  handleToggleButtons: (e: MouseEvent<HTMLButtonElement>) => void;
+  handleToggleButtons: (id: string) => void;
 }

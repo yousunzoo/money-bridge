@@ -9,9 +9,15 @@ import CareerForm from "./CareerForm";
 import Image from "next/image";
 import AwardsForm from "./AwardForm";
 import SelectSpeciality from "./SelectSpeciality";
+import ModalCompanyList from "@/components/joinPage/pb/ModalCompanyList";
+import { ICompanyInput, ISpeciality } from "@/types/join";
+import ModalCompanyLocation from "@/components/joinPage/pb/ModalCompanyLocation";
 
 function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [company, setCompany] = useState({ id: 0, name: "" });
+  const [location, setLocation] = useState<{ id: number; name: string }>();
+  const [modalType, setModalType] = useState<"location" | "company" | null>(null);
   const [filePreviews, setFilePreviews] = useState({
     profile: existingProfile.profile,
     portfolio: existingProfile.portfolio,
@@ -26,7 +32,9 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
       return { ...award, id: uuidv4() };
     }),
   );
-  const [speciality, setSpeciality] = useState([existingProfile.speciality1, existingProfile.speciality2]);
+  const [speciality, setSpeciality] = useState(
+    [existingProfile.speciality1, existingProfile.speciality2].filter(item => item !== null),
+  );
   const {
     watch,
     getValues,
@@ -55,9 +63,24 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
 
   const profileVal = watch("profile");
   const portfolioVal = watch("portfolio");
+
+  const handleOpenCompanyModal = () => {
+    setIsOpen(true);
+    setModalType("company");
+  };
+
+  const handleOpenLocationModal = () => {
+    setIsOpen(true);
+    setModalType("location");
+  };
   const handleCloseModal = () => {
     setIsOpen(false);
   };
+  const handleChangeCompany = (item: ICompanyInput) => {
+    setValue("company", item.name);
+    setCompany({ ...item });
+  };
+
   const addCareers = () => {
     setCareers([...careers, { id: uuidv4(), content: undefined, start: undefined, end: undefined }]);
   };
@@ -82,15 +105,13 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
     type === "profile" ? setValue("profile", "") : setValue("portfolio", "");
   };
 
-  const handleToggleButtons = (e: MouseEvent<HTMLButtonElement>) => {
-    const { textContent } = e.target as HTMLButtonElement;
-    if (!textContent) return;
-    if (speciality.includes(textContent)) {
-      setSpeciality(speciality.filter(item => item !== textContent));
+  const handleToggleButtons = (id: string) => {
+    if (speciality.includes(id)) {
+      setSpeciality(speciality.filter(item => item !== id));
       return;
     }
     if (speciality.length === 2) return;
-    setSpeciality([...speciality, textContent]);
+    setSpeciality([...speciality, id]);
   };
 
   useEffect(() => {
@@ -105,6 +126,12 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
     if (!profileVal) setFilePreviews({ ...filePreviews, profile: "" });
     if (!portfolioVal) setFilePreviews({ ...filePreviews, portfolio: "" });
   }, [profileVal, portfolioVal]);
+
+  useEffect(() => {
+    if (company.name !== existingProfile.branchName) {
+      setValue("branchName", "");
+    }
+  }, [company]);
 
   return (
     <>
@@ -140,19 +167,25 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
         <section className="mb-8">
           <p className="mb-4 text-xl font-bold">증권사를 선택해주세요.</p>
           <label htmlFor="company" className="edit_input">
-            {getValues("company")}
+            <button className="w-full text-left" onClick={handleOpenCompanyModal}>
+              {getValues("company")}
+            </button>
             <input className="hidden" name="company" />
           </label>
         </section>
         <section className="mb-10">
           <p className="mb-4 text-xl font-bold">지점을 입력해주세요.</p>
           <div className="flex justify-between">
-            <label htmlFor="branchName" className="edit_input flex-1">
-              {getValues("branchName")}
+            <label
+              htmlFor="branchName"
+              className={`edit_input flex-1 ${!getValues("branchName") && "text-placeholder"}`}
+            >
+              {getValues("branchName") ? getValues("branchName") : "지점명"}
               <input className="hidden" name="branchName" />
             </label>
             <button
               type="button"
+              onClick={handleOpenLocationModal}
               className="ml-3 w-[110px] rounded-sm border-1 border-primary-normal bg-white py-4 font-bold text-primary-normal"
             >
               지점 찾기
@@ -304,8 +337,16 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
         <button className="button_fixed">등록 완료</button>
       </form>
       {isOpen && (
-        <ModalLayout handleCloseModal={handleCloseModal}>
-          <h3 className="text-xl font-bold">지점 찾기</h3>
+        <ModalLayout handleCloseModal={() => setIsOpen(false)}>
+          {modalType === "company" ? (
+            <ModalCompanyList handleChangeCompany={handleChangeCompany} handleCloseModal={handleCloseModal} />
+          ) : (
+            <ModalCompanyLocation
+              companyId={company.id}
+              setLocation={setLocation}
+              handleCloseModal={handleCloseModal}
+            />
+          )}
         </ModalLayout>
       )}
     </>

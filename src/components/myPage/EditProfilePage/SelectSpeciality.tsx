@@ -6,10 +6,16 @@ function SelectSpeciality({ specialityData, handleToggleButtons }: ISelectSpecia
   return (
     <ul className="flex flex-wrap gap-4">
       {specialityList.map(item => {
-        const isActive = specialityData.includes(item.text);
+        const isActive = specialityData.includes(item.id);
         return (
           <li key={item.id}>
-            <button type="button" onClick={handleToggleButtons} className={`chip ${isActive && "selected"}`}>
+            <button
+              type="button"
+              onClick={() => {
+                handleToggleButtons(item.id);
+              }}
+              className={`chip ${isActive && "selected"}`}
+            >
               {item.text}
             </button>
           </li>

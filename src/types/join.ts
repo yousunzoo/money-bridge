@@ -55,7 +55,7 @@ interface ICompanyLocationListData {
 }
 
 export interface ICompanyInput {
-  name: string | null;
+  name: string;
   id: number;
 }
 

@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -9,14 +9,15 @@ import { useQueryClient } from "@tanstack/react-query";
 import { IFindPassword } from "@/types/login";
 import ButtonModal from "./ButtonModal";
 import { yup_password } from "@/constants/yupSchema";
+import Image from "next/image";
+import alert from "/public/assets/images/alert.svg";
+import correct from "/public/assets/images/correct.svg";
+
+type Tinput = "first" | "second";
 
 function ResetPasswordForm() {
   const router = useRouter();
   const pathName = usePathname();
-  const [inputs, setInputs] = useState({
-    first: "",
-    second: "",
-  });
   const [isOpen, setIsOpen] = useState(false);
   const findPassword = useResetPassword();
   const queryClient = useQueryClient();
@@ -39,14 +40,15 @@ function ResetPasswordForm() {
     register,
     handleSubmit,
     formState: { errors, isValid, dirtyFields },
+    resetField,
+    getValues,
   } = useForm({ mode: "onChange", resolver: yupResolver(schema), defaultValues: { first: "", second: "" } });
 
-  const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
-    const { value, name } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
+  const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const button = e.target as HTMLButtonElement;
+    const inputEl = button.previousElementSibling as HTMLInputElement;
+    resetField(inputEl.name as Tinput, { defaultValue: "" });
   };
 
   const onSubmit = () => {
@@ -54,7 +56,7 @@ function ResetPasswordForm() {
     switch (currentPath) {
       case "findPassword":
         const data = queryClient.getQueryData(["findPassword"]) as IFindPassword;
-        findPassword({ id: data.data.id, password: inputs.first, role: pathName.split("/")[2].toUpperCase() });
+        findPassword({ id: data.data.id, password: getValues("first"), role: pathName.split("/")[2].toUpperCase() });
         setIsOpen(true);
     }
   };
@@ -67,22 +69,29 @@ function ResetPasswordForm() {
 
   return (
     <div className="mt-6">
-      <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-2.5">
           <h2 className="mb-4 text-xs leading-[18px]">기존과 다른 비밀번호를 입력해 주세요.</h2>
-          <input
-            type="password"
-            className={`form_input ${errors.first ? "warnning" : ""} ${dirtyFields.first ? "entering" : ""}`}
-            {...register("first")}
-            value={inputs.first}
-          />
+          <div className="relative flex items-center">
+            <input
+              type="password"
+              className={`form_input ${errors.first ? "warnning" : ""} ${dirtyFields.first ? "entering" : ""}`}
+              {...register("first")}
+            />
+            {dirtyFields.first && (
+              <>
+                <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <Image src={errors.first ? alert : correct} alt="input_status" className="input_status" />
+              </>
+            )}
+          </div>
           <div className="mt-0.5 h-[18px] pl-2">
             <p className={`text-xs leading-[18px] ${errors.first ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.first ? "*영문(대소문자), 숫자 포함하여 8자 이상으로 작성해 주세요." : ""}
             </p>
             <p
               className={`text-xs leading-[18px] ${
-                inputs.first.includes(" ") ? "text-status-alert" : "text-status-positive"
+                getValues("first").includes(" ") ? "text-status-alert" : "text-status-positive"
               }`}
             >
               {dirtyFields.first ? "*공백없이 작성해 주세요." : ""}
@@ -91,12 +100,19 @@ function ResetPasswordForm() {
         </div>
         <div className="mb-2.5">
           <h2 className="mb-4 mt-6 text-xs leading-[18px]">다시 한 번 입력해 주세요</h2>
-          <input
-            type="password"
-            className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
-            {...register("second")}
-            value={inputs.second}
-          />
+          <div className="relative flex items-center">
+            <input
+              type="password"
+              className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
+              {...register("second")}
+            />
+            {dirtyFields.second && (
+              <>
+                <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <Image src={errors.second ? alert : correct} alt="input_status" className="input_status" />
+              </>
+            )}
+          </div>
           <div className="h-[18px] pl-2">
             <span className={`text-xs leading-[18px] ${errors.second ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.second ? "동일한 비밀번호를 입력해 주세요" : ""}

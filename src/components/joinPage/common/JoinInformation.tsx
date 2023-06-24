@@ -5,14 +5,12 @@ import { useJoinStore } from "@/store/joinStore";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
 
 function JoinInformation({ type }: { type: JoinFormType }) {
-  const [value, setValue] = useState("");
   const router = useRouter();
   const pathName = usePathname();
   const authentication = useAuthentication();
@@ -26,26 +24,18 @@ function JoinInformation({ type }: { type: JoinFormType }) {
     register,
     handleSubmit,
     formState: { errors, isValid, dirtyFields },
+    getValues,
+    reset,
   } = useForm({ mode: "onChange", resolver: yupResolver(schema), defaultValues: { text: "" } });
-
-  const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
-    setValue(e.target.value);
-  };
-
-  const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const button = e.target as HTMLButtonElement;
-    setValue("");
-  };
 
   const onSubmit = () => {
     const joinType = pathName.split("/")[2];
     const currentPath = pathName.split("/")[3];
 
-    setInformations(currentPath, value);
+    setInformations(currentPath, getValues("text"));
     switch (type) {
       case JoinFormType.EMAIL:
-        authentication(value);
+        authentication(getValues("text"));
         router.push(`/join/${joinType}/authentication`);
         break;
       case JoinFormType.NAME:
@@ -64,17 +54,16 @@ function JoinInformation({ type }: { type: JoinFormType }) {
     <>
       <p className="my-14 text-xl font-bold leading-7">{joinStepRenderer[type].title}</p>
       <p className="mb-2 text-xs leading-[18px]">{joinStepRenderer[type].sub}</p>
-      <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative flex items-center">
           <input
             type={`${type === JoinFormType.PHONENUMBER ? "number" : "text"}`}
             className={`form_input ${errors.text ? "warnning" : dirtyFields.text ? "entering" : ""} `}
             {...register("text")}
-            value={value}
           />
           {dirtyFields.text && (
             <>
-              <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+              <button className="input_button" tabIndex={-1} onClick={() => reset()}></button>
               <Image src={errors.text ? alert : correct} alt="input_status" className="input_status" />
             </>
           )}

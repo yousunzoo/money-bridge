@@ -7,12 +7,25 @@ import { getConsultTime, updateConsultTime } from "@/app/apis/services/pb";
 import { AxiosError } from "axios";
 import { ConsultationTimeCardProps } from "@/types/schedule";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import ErrorModal from "@/components/common/ErrorModal";
+import { ILoginedUserInfo } from "@/types/reservation";
+import { getLoginedUserInfo } from "@/app/apis/services/auth";
 
 function ChangeTimePage() {
   const queryClient = useQueryClient();
   const router = useRouter();
+
+  const {
+    data: userInfo,
+    isLoading: userLoading,
+    isSuccess: isLogined,
+  } = useQuery<ILoginedUserInfo, AxiosError>({
+    queryKey: ["loginedUserInfo"],
+    queryFn: getLoginedUserInfo,
+    refetchOnWindowFocus: false,
+  });
+
   const {
     data: consultTime,
     isError: consultError,
@@ -101,6 +114,7 @@ function ChangeTimePage() {
     isOpenModal: isOpenModal.endModal,
   };
 
+  isLogined && userInfo.role !== "PB" && redirect("/");
   if (consultError) return <ErrorModal isError={true} path={"/schedule"} />;
 
   return (

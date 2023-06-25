@@ -32,7 +32,6 @@ function PropensityChart({ propensity }: { propensity: string }) {
     };
   });
 
-  console.log(backgroundColors);
   const data = {
     labels: propensityChart.map(item => item.name),
     datasets: [

@@ -1,18 +1,18 @@
 import { getCookie } from "@/utils/cookies";
 import { instance } from "../axios";
 
-export const getFAQs = async (curPage: number) => {
+export const getFAQs = async (page: number) => {
   try {
-    const res = await instance.get("/FAQ", { params: { curPage } });
+    const res = await instance.get("/FAQ", { params: { page } });
     return res.data.data;
   } catch (error: any) {
     throw new Error(error.response.data);
   }
 };
 
-export const getNotices = async (curPage: number) => {
+export const getNotices = async (page: number) => {
   try {
-    const res = await instance.get("/notices", { params: { curPage } });
+    const res = await instance.get("/notices", { params: { page } });
     return res.data.data;
   } catch (error: any) {
     throw new Error(error.response.data);

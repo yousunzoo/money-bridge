@@ -1,3 +1,4 @@
+import { CoordinateProps } from "@/types/location";
 import { instance } from "@/app/apis/axios";
 
 export const LoungeBoard = async () => {
@@ -17,6 +18,8 @@ export const LoungeHot = async (page: number) => {
     throw new Error(error.response.data);
   }
 };
+import { PbListSectionPorps } from "@/types/main";
+import { AxiosError } from "axios";
 
 export const LoungeNew = async (page: number) => {
   try {
@@ -33,5 +36,28 @@ export const ContentsId = async (id: any) => {
     return res.data.data;
   } catch (error: any) {
     throw new Error(error.response.data);
+  }
+};
+
+export const getSuggestionPB = async ({ latitude, longitude }: CoordinateProps): Promise<PbListSectionPorps[]> => {
+  try {
+    const res = await instance.get("/main/pb", {
+      params: {
+        latitude,
+        longitude,
+      },
+    });
+    return res.data.data.list;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const getContents = async () => {
+  try {
+    const res = await instance.get("/main/board");
+    return res.data.data.list;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
   }
 };

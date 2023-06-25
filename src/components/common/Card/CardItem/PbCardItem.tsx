@@ -24,7 +24,7 @@ function PbCardItem({ item }: { item: any }) {
     <li className="card h-[200px] bg-white px-[20px] pt-[20px]">
       <div className="mb-[18px] flex">
         <Image
-          src={item.profile}
+          src={item.profile !== "person.png" ? item.profile : "/assets/images/profile.svg"}
           alt="프로필"
           width={0}
           height={0}

@@ -43,6 +43,7 @@ export interface ILoginedUserInfo {
   id: number;
   name: string;
   role: string;
+  propensity: string | null;
 }
 export interface IUserInfo {
   userName: string;

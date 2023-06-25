@@ -3,16 +3,17 @@ import Link from "next/link";
 import MainCarousel from "@/components/common/Carousel/MainCarousel";
 import "@/styles/carousel.css";
 import "@/styles/lounge.css";
-import { LoungeBoard, LoungeNew } from "@/app/apis/services/common";
+import { getLoungeBoard, getLoungeNew } from "@/app/apis/services/common";
 import { useQuery } from "@tanstack/react-query";
 import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import { IContentCard } from "@/types/card";
-import { IDataResponse } from "@/types/common";
+import { IListResponse } from "@/types/common";
+import { AxiosError } from "axios";
 
 function Content() {
-  const { data: All } = useQuery<IDataResponse<IContentCard>>(["/boards"], () => LoungeNew(0));
-  const { data: NewAndHot } = useQuery<IDataResponse<IContentCard>>(["/lounge/board"], LoungeBoard);
+  const { data: All } = useQuery<IListResponse<IContentCard>, AxiosError>(["/boards"], () => getLoungeNew(0));
+  const { data: NewAndHot } = useQuery<IListResponse<IContentCard>, AxiosError>(["/lounge/board"], getLoungeBoard);
   const [all, setAll] = useState<IContentCard[]>();
   const [newData, setNewData] = useState<IContentCard[]>();
   const [hotData, setHotData] = useState<IContentCard[]>();
@@ -27,6 +28,7 @@ function Content() {
       setAll(All.list?.slice(0, 2));
     }
   }, [NewAndHot, All]);
+  
   return (
     <>
       <div>
@@ -40,9 +42,11 @@ function Content() {
             더보기
           </Link>
         </div>
-        {newData?.map((item: IContentCard) => (
-          <ContentCardItem key={item.id} item={item} />
-        ))}
+        <ul>
+          {newData?.map((item: IContentCard) => (
+            <ContentCardItem key={item.id} item={item} />
+          ))}
+        </ul>
       </div>
       <div>
         <div className="header">
@@ -55,9 +59,11 @@ function Content() {
             더보기
           </Link>
         </div>
-        {hotData?.map((item: IContentCard) => (
-          <ContentCardItem key={item.id} item={item} />
-        ))}
+        <ul>
+          {hotData?.map((item: IContentCard) => (
+            <ContentCardItem key={item.id} item={item} />
+          ))}
+        </ul>
       </div>
       <MainCarousel className="my-11 h-[235px] text-white">
         <div className="pb_banner bg-primary-light">
@@ -105,7 +111,7 @@ function Content() {
           )}
         </div>
         {isClick ? (
-          <ContentCardList queryKey={"/boards"} api={LoungeNew} />
+          <ContentCardList queryKey={"/boards"} api={getLoungeNew} />
         ) : (
           all?.map((item: IContentCard) => <ContentCardItem key={item.id} item={item} />)
         )}

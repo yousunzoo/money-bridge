@@ -3,7 +3,6 @@ export interface IProfile {
   msg: string;
   companyLogo: string;
 }
-
 export interface IloginProfile {
   id: number;
   profile: string;
@@ -26,6 +25,40 @@ export interface IloginProfile {
   award: IAward[];
 }
 
+export interface IIntroData {
+  id: number;
+  profile: string;
+  name: string;
+  isBookmarked: boolean;
+  branchName: string;
+  msg: string;
+  companyId: number;
+  companyName: string;
+  companyLogo: string;
+  reserveCount: number;
+  reviewCount: number;
+}
+
+export interface IContentData {
+  id: number;
+  intro: string;
+  name: string;
+  speciality1: string;
+  speciality2: string;
+  career: ICareer[];
+  award: IAward[];
+}
+
+export interface IAboutData {
+  name: string;
+  id: number;
+  branchAddress: string;
+  branchName: string;
+  companyName: string;
+  branchLatitude: number;
+  branchLongitude: number;
+}
+
 export interface ICareer {
   id: number;
   start: number;
@@ -40,7 +73,6 @@ export interface IAward {
 }
 
 export interface IPortfolio {
-  pbId: number;
   cumulativeReturn: number;
   maxDrawdown: number;
   profitFactor: number;

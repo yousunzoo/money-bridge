@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import TopNav from "@/components/common/TopNav";
-import { LoungeHot as Hot } from "@/app/apis/services/common";
+import { getLoungeHot as Hot } from "@/app/apis/services/common";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 
 function LoungeHot() {

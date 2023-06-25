@@ -219,14 +219,14 @@ function ChangeReservationPage({ params }: Props) {
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">예약일자를 확정지어야 상담예약이 확정됩니다.</span>
       </div>
-      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"}>
+      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"} profileImage="/">
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{phoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
-      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
+      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
         <ScheduleSection {...scheduleSectionProps} />
-        <section className="my-4 flex justify-between border-b-1 pb-4">
+        <section className="flex justify-between pb-4 my-4 border-b-1">
           <h3 className="font-bold">상담 일정이 변경되셨나요?</h3>
           <button
             onClick={calendarOpenHandler}
@@ -236,7 +236,7 @@ function ChangeReservationPage({ params }: Props) {
           </button>
         </section>
 
-        <section className="mb-4 flex flex-col border-b-1 pb-4">
+        <section className="flex flex-col pb-4 mb-4 border-b-1">
           <CounselingModal {...counselingModal} />
           <LocationChangeModal {...locationChangeModalProps} />
         </section>

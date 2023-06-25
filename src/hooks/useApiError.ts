@@ -1,6 +1,6 @@
 "use client";
 import { IModalContents } from "@/types/common";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 interface ErrorProps {
@@ -11,7 +11,6 @@ interface ErrorProps {
 
 const ERROR_MESSAGES: { [key: number]: string } = {
   400: "일시적인 문제가 발생했습니다. 다시 시도해주세요.",
-  401: "일시적인 문제가 발생했습니다. 다시 시도해주세요.",
   403: "권한이 없습니다. 다시 시도해주세요.",
   404: "일시적인 문제가 발생했습니다. 다시 시도해주세요.",
   500: "일시적인 문제가 발생했습니다. 다시 시도해주세요.",
@@ -30,7 +29,7 @@ const useApiError = () => {
       setModalContents({
         content: ERROR_MESSAGES[status],
         confirmText: "확인",
-        confirmFn: () => router.refresh(),
+        confirmFn: () => redirect("/"),
       });
       setIsOpen(true);
     }

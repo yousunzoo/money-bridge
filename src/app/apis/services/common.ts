@@ -27,7 +27,7 @@ export const getLoungeNew = async (page: number) => {
   }
 };
 
-export const getContentsId = async (id: any) => {
+export const getContentsId = async (id: number) => {
   try {
     const res = await instance.get(`/board/${id}`);
     return res.data.data;

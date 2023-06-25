@@ -74,7 +74,9 @@ function EditProfileModal({ nowStep, moveToNextStep, handleCloseModal, userInfo 
             <p className="text-gray-400 w-full text-right text-xs leading-3">*이메일은 수정이 불가합니다.</p>
           </div>
         </div>
-        <button className="button mt-16">저장하기</button>
+        <button disabled={!isValid} className={`button mt-16 ${!isValid && "inactive"}`}>
+          저장하기
+        </button>
       </form>
     </>
   );

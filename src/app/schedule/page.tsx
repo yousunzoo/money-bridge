@@ -14,9 +14,9 @@ import { AxiosError } from "axios";
 import { ConsultationTimeCardProps, DayScheduleListProps } from "@/types/schedule";
 import dayjs from "dayjs";
 import ErrorModal from "@/components/common/ErrorModal";
-import { ILoginedUserInfo } from "@/types/reservation";
 import { getLoginedUserInfo } from "../apis/services/auth";
 import { redirect } from "next/navigation";
+import { ILoginedUserInfo } from "@/types/common";
 
 function SchedulePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +68,7 @@ function SchedulePage() {
   return (
     <div className="relative flex flex-col items-center">
       <Image
-        className="absolute right-7 top-6 z-10 cursor-pointer "
+        className="absolute z-10 cursor-pointer right-7 top-6 "
         src={question}
         alt={question}
         width={20}

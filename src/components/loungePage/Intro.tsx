@@ -9,7 +9,7 @@ import Image from "next/image";
 import mylist from "/public/assets/images/icon/lounge_mylist.svg";
 import write from "/public/assets/images/icon/lounge_write.svg";
 
-function Intro({ role }: { role: string }) {
+function Intro({ role }: { role: string | undefined }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -22,10 +22,10 @@ function Intro({ role }: { role: string }) {
   };
 
   const goToBookMark = () => {
-    if (role === "") {
-      setIsOpen(true);
-    } else {
+    if (role) {
       router.push("/bookmark/content");
+    } else {
+      setIsOpen(true);
     }
   };
 

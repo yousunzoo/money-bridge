@@ -1,28 +1,59 @@
 "use client";
 import TopNav from "@/components/common/TopNav";
 import React, { useEffect, useState } from "react";
-import TimePickerButton from "@/components/schedulePage/changeConsultationTimePage/TimePickerButton";
+import TimePickerButton from "@/components/schedulePage/changeTimePage/TimePickerButton";
 import DoubleButton from "@/components/common/DoubleButton";
+import { getConsultTime, updateConsultTime } from "@/app/apis/services/pb";
+import { AxiosError } from "axios";
+import { ConsultationTimeCardProps } from "@/types/schedule";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { redirect, useRouter } from "next/navigation";
+import ErrorModal from "@/components/common/ErrorModal";
+import { getLoginedUserInfo } from "@/app/apis/services/auth";
+import { ILoginedUserInfo } from "@/types/common";
 
-function ChangeConsultationTimePage() {
-  const data = {
-    consultStart: "09:00:00",
-    consultEnd: "18:00:00",
-    consultNotice: "월요일 불가능합니다",
-  };
+function ChangeTimePage() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const {
+    data: userInfo,
+    isLoading: userLoading,
+    isSuccess: isLogined,
+  } = useQuery<ILoginedUserInfo, AxiosError>({
+    queryKey: ["loginedUserInfo"],
+    queryFn: getLoginedUserInfo,
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: consultTime,
+    isError: consultError,
+    isLoading: consultLoading,
+  } = useQuery<ConsultationTimeCardProps, AxiosError>({
+    queryKey: ["consultTime"],
+    queryFn: getConsultTime,
+  });
+
+  const { mutate } = useMutation(updateConsultTime, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["consultTime"]);
+      router.back();
+    },
+  });
 
   const [isOpenModal, setIsOpenModal] = useState({
     startModal: false,
     endModal: false,
   });
+
   const [changeData, setChangeData] = useState({
-    consultStart: data.consultStart,
-    consultEnd: data.consultEnd,
+    consultStart: consultTime?.consultStart,
+    consultEnd: consultTime?.consultEnd,
     consultNotice: "",
   });
-  useEffect(() => {
-    console.log(changeData);
-  }, [changeData]);
+
+  useEffect(() => {}, [changeData]);
   const startTimeSelect = (e: React.MouseEvent<HTMLElement>) => {
     setIsOpenModal({
       ...isOpenModal,
@@ -49,17 +80,27 @@ function ChangeConsultationTimePage() {
   };
 
   const noticeChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setChangeData({
-      ...changeData,
-      consultNotice: e.target.value,
-    });
+    const inputValue = e.target.value.slice(0, 100);
+    if (inputValue.length <= 100) {
+      e.target.value = inputValue;
+      setChangeData({
+        ...changeData,
+        consultNotice: inputValue,
+      });
+    } else {
+      e.preventDefault();
+    }
   };
 
   const cancelChangeHandler = () => {
-    console.log("변경 취소");
+    router.back();
   };
   const changeCompleteHandler = () => {
-    console.log("변경 완료");
+    mutate({
+      consultStart: changeData.consultStart,
+      consultEnd: changeData.consultEnd,
+      consultNotice: changeData.consultNotice,
+    });
   };
 
   const startTimeButtonProps = {
@@ -72,6 +113,9 @@ function ChangeConsultationTimePage() {
     selectTime: changeData.consultEnd,
     isOpenModal: isOpenModal.endModal,
   };
+
+  isLogined && userInfo.role !== "PB" && redirect("/");
+  if (consultError) return <ErrorModal isError={true} path={"/schedule"} />;
 
   return (
     <div>
@@ -121,4 +165,4 @@ function ChangeConsultationTimePage() {
   );
 }
 
-export default ChangeConsultationTimePage;
+export default ChangeTimePage;

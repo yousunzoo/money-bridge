@@ -1,12 +1,13 @@
 import { getLoginedUserInfo, userLogout } from "@/app/apis/services/auth";
-import { IModalContents } from "@/types/common";
+import { ILoginedUserInfo, IModalContents } from "@/types/common";
 import { removeCookie } from "@/utils/cookies";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Axios, AxiosError } from "axios";
 
-export const useMyPageCheck = () => {
+export const useMyPageCheck = (enabled: boolean) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -17,14 +18,15 @@ export const useMyPageCheck = () => {
     data: loginedUserInfo,
     isLoading: userLoading,
     isSuccess: isLogined,
-  } = useQuery({
+  } = useQuery<unknown, AxiosError, ILoginedUserInfo>({
     queryKey: ["loginedUserInfo"],
     queryFn: getLoginedUserInfo,
     retry: 1,
     refetchOnWindowFocus: false,
+    enabled: enabled,
   });
 
-  const { mutate: logout } = useMutation(userLogout, {
+  const { mutate: logout } = useMutation<unknown, AxiosError>(userLogout, {
     onSuccess: () => {
       router.replace("/");
       removeCookie("Authorization");
@@ -46,6 +48,7 @@ export const useMyPageCheck = () => {
   };
 
   useEffect(() => {
+    if (!enabled) return;
     if (!userLoading && !isLogined) {
       redirect("/login");
     }

@@ -2,6 +2,8 @@ import { ICheckMemoQuestion } from "@/types/reservation";
 import { useReservationStore } from "@/store/reservationStore";
 import UserBubble from "../UserBubble/UserBubble";
 import { useSetQuestions } from "@/hooks/useSetQuestions";
+import highlight from "/public/assets/images/highlight.svg";
+import Image from "next/image";
 
 function CheckMemoQuestion({ isOpen, handleOpenModal, moveToNextStep }: ICheckMemoQuestion) {
   const { nowQuestion, isChoosable, setIsChoosable, sectionRef, answerRef } = useSetQuestions(4, isOpen);
@@ -22,19 +24,19 @@ function CheckMemoQuestion({ isOpen, handleOpenModal, moveToNextStep }: ICheckMe
 
   return (
     <section ref={sectionRef} className="flex h-screen flex-col pb-10">
-      <div className={`${isChoosable ? "pt-12" : "pt-4"}`} />
+      {isChoosable && <Image className="mb-2" src={highlight} alt="highlight" width={24} height={24} />}
       {intro1 && isChoosable && (
-        <div className="text-lg mb-10 font-semibold">
+        <div className="text-lg mb-4 break-keep font-semibold">
           <p>{intro1}</p>
           {intro2 && <p>{intro2}</p>}
         </div>
       )}
 
-      <div className="pb-5">
+      <div className="pb-4">
         <div>
           <p className="text-lg font-bold">{question}</p>
         </div>
-        <div className="mt-5 flex flex-col gap-4">
+        <div className="mt-4 flex flex-col gap-4">
           {isChoosable &&
             options.map((option, idx) => (
               <button onClick={() => handleClick(option)} className="option" key={idx}>

@@ -1,26 +1,26 @@
 "use client";
-import React, { useEffect, useState }  from "react";
+import React from "react";
 import Intro from "@/components/loungePage/Intro";
 import PbRecommend from "@/components/loungePage/PbRecommend";
 import Content from "@/components/loungePage/Content";
-import { useUserStore } from "@/store/userStore";
 import TopNav from "@/components/common/TopNav";
+import { useQuery } from "@tanstack/react-query";
+import { getLoginedUserInfo } from "@/app/apis/services/auth";
+import { ILoginedUserInfo } from "@/types/common";
+import { AxiosError } from "axios";
 
 function Lounge() {
-  const userData = useUserStore();
-  const [role, setRole] = useState<string>("");
-  const [name, setName] = useState<string>("");
-
-  useEffect(() => {
-    setRole(userData.user.role);
-    setName(userData.user.name);
-  }, [userData]);
+  const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
+    queryKey: ["/auth/account"],
+    queryFn: getLoginedUserInfo,
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <>
       <TopNav title="라운지" hasBack={true} />
-      <Intro role={role} />
-      {role === "USER" && <PbRecommend name={name} />}
+      <Intro role={userData?.role} />
+      {userData?.role === "USER" && <PbRecommend name={userData?.name} />}
       <Content />
     </>
   );

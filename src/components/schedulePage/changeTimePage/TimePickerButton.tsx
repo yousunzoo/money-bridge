@@ -4,8 +4,8 @@ import arrowbutton from "/public/assets/images/selectArrow.svg";
 
 interface TimePickerButton {
   timeSelect: (e: React.MouseEvent<HTMLElement>) => void;
-  selectTime: string;
-  isOpenModal: boolean;
+  selectTime?: string;
+  isOpenModal?: boolean;
 }
 
 function TimePickerButton({ timeSelect, selectTime, isOpenModal }: TimePickerButton) {

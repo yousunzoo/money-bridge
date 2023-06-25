@@ -26,12 +26,12 @@ function SpecialtySection() {
   return (
     <section className="relative w-full mt-3 chart">
       <h3 className="text-xl font-bold">
-      관심 있는 분야의 전문가를 <br /> 찾아보세요
+        관심 있는 분야의 전문가를 <br /> 찾아보세요
       </h3>
       <ul className="flex flex-wrap items-center justify-between gap-4 py-4">
         {SPECIALTY_LIST.map(specialty => (
           <li key={specialty.key} className="mt-4 flex h-[68px] w-[68px] flex-col justify-center">
-            <Link href={"/"} className="flex flex-col items-center justify-center">
+            <Link href={`/pblist?speciality=${specialty.key}`} className="flex flex-col items-center justify-center">
               <div className="p-2 bg-white rounded-md shadow-md">
                 <Image src={specialty.src} alt={"KOREAN_STOCK"} width={54} height={54} />
               </div>

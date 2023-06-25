@@ -3,17 +3,22 @@ import { getPbPortfolio } from "@/app/apis/services/pb";
 import { useQuery } from "@tanstack/react-query";
 import "@/styles/pb.css";
 import { speciality } from "@/components/joinPage/pb/EnterCareer";
+import { AxiosError } from "axios";
+import { IDataResponse } from "@/types/common";
+import { IContentData, IPortfolio } from "@/types/pb";
 
-function Content({ contentData }: any) {
+function Content({ contentData }: { contentData: IContentData }) {
   const { id, name, intro, speciality1, speciality2, career, award } = contentData;
-  const { data: portfolio } = useQuery([`/auth/portfolio/${id}`], () => getPbPortfolio(id));
+  const { data: portfolio } = useQuery<IDataResponse<IPortfolio>, AxiosError>([`/auth/portfolio/${id}`], () =>
+    getPbPortfolio(id),
+  );
   const portfolioData = portfolio?.data;
-  const { cumulativeReturn, maxDrawdown, profitFactor, averageProfit, file, pbId } = portfolioData || {};
+  const { cumulativeReturn, maxDrawdown, profitFactor, averageProfit, file} = portfolioData||{};
 
   const download = () => {
     const link = document.createElement("a");
-    link.href = file;
-    link.download = "portfolio.pdf";
+    link.href = file || "";
+    link.download = file || "";
     link.click();
   };
 
@@ -53,7 +58,7 @@ function Content({ contentData }: any) {
           ))}
         </ul>
       </div>
-      {award?.length > 0 && (
+      {award && award?.length > 0 && (
         <div className="mb-[68px]">
           <div className="header">수상내역</div>
           <ul className="flex flex-col">

@@ -8,70 +8,42 @@ import { getPbNotLogin, getPbProfile } from "@/app/apis/services/pb";
 import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
+import { ILoginedUserInfo } from "@/types/reservation";
+import { AxiosError } from "axios";
+import { IloginProfile, IProfile } from "@/types/pb";
+import { IDataResponse } from "@/types/common";
+import Profile from "@/components/pbdetailPage/Profile";
 
 function PbDetailInfo() {
-  const pathname = usePathname();
-  const id = Number(pathname.split("/").pop());
-  const { data: profile } = useQuery([`/profile/${id}`], () => getPbNotLogin(id));
-  const { data: authProfile } = useQuery([`/auth/profile/${id}`], () => getPbProfile(id));
-  const { data: userData } = useQuery(["/auth/account"], getLoginedUserInfo);
+  const pathname: string = usePathname();
+  const id: number = Number(pathname.split("/").pop());
+  const { data: profile } = useQuery<IDataResponse<IProfile>, AxiosError>([`/profile/${id}`], () => getPbNotLogin(id));
+  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>([`/auth/profile/${id}`], () =>
+    getPbProfile(id),
+  );
+  const { data: userData, isLoading } = useQuery<ILoginedUserInfo, AxiosError>({
+    queryKey: ["/auth/account"],
+    queryFn: getLoginedUserInfo,
+    refetchOnWindowFocus: false,
+  });
 
-  const data = authProfile?.data;
-  const profileData = profile?.data;
-  const notLoginData = {
-    companyLogo: profileData?.companyLogo,
-    profile: profileData?.profile,
-    msg: profileData?.msg,
-  };
-  const introData = {
-    id: data?.id,
-    profile: data?.profile,
-    name: data?.name,
-    isBookmarkeded: data?.isBookmarkeded,
-    branchName: data?.branchName,
-    msg: data?.msg,
-    companyId: data?.companyId,
-    companyName: data?.companyName,
-    companyLogo: data?.companyLogo,
-    reserveCount: data?.reserveCount,
-    reviewCount: data?.reviewCount,
-  };
-
-  const contentData = {
-    id: data?.id,
-    intro: data?.intro,
-    name: data?.name,
-    speciality1: data?.speciality1,
-    speciality2: data?.speciality2,
-    career: data?.career,
-    award: data?.award,
-  };
-
-  const aboutData = {
-    name: data?.name,
-    id: data?.id,
-    branchAddress: data?.branchAddress,
-    branchName: data?.branchName,
-    companyName: data?.companyName,
-    branchLatitude: data?.branchLatitude,
-    branchLongitude: data?.branchLongitude,
-  };
-
-  const [role, setRole] = useState("");
-
+  const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => {
-    setRole(userData?.role);
-  }, [userData]);
+    if (!isLoading) setMounted(true);
+  }, [isLoading]);
+  if (!profile?.data || (!mounted && !authProfile?.data)) return null
 
   return (
     <div className="mb-24 flex w-full flex-col">
       <TopNav title="PB 상세프로필" hasBack={true} />
-      <Intro introData={role ? introData : notLoginData} role={role} />
-      {role && (
+      {userData && authProfile?.data ? (
         <>
-          <Content contentData={contentData} />
-          <About aboutData={aboutData} />
+          <Intro introData={authProfile?.data} />
+          <Content contentData={authProfile?.data} />
+          <About aboutData={authProfile?.data} role={userData?.role} Id={userData?.id} />
         </>
+      ) : (
+        <Profile notLoginData={profile?.data} />
       )}
     </div>
   );

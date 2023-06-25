@@ -1,6 +1,7 @@
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { getReservationData } from "@/app/apis/services/user";
-import { ILoginedUserInfo, IReservationData, IUseGetReservationPageDataProps } from "@/types/reservation";
+import { ILoginedUserInfo } from "@/types/common";
+import { IReservationData } from "@/types/reservation";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { redirect, useSearchParams } from "next/navigation";

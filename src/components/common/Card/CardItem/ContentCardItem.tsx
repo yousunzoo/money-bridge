@@ -1,19 +1,26 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 import { useQuery } from "@tanstack/react-query";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { postBookMarkContent, deleteBookMarkContent } from "@/app/apis/services/user";
+import { IContentCard } from "@/types/card";
+import { ILoginedUserInfo } from "@/types/reservation";
+import { AxiosError } from "axios";
 
-function ContentCardItem({ item }: { item: any }) {
-  const { data: userData } = useQuery(["/auth/account"], getLoginedUserInfo);
+function ContentCardItem({ item }: { item: IContentCard }) {
+  const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
+    queryKey: ["/auth/account"],
+    queryFn: getLoginedUserInfo,
+    refetchOnWindowFocus: false,
+  });
   const router = useRouter();
-  const [isBookmarked, setisBookmarked] = useState(item.isBookmarked);
+  const [isBookmarked, setisBookmarked] = useState<boolean | undefined>(item.isBookmarked);
 
-  const bookMark = (event: any) => {
+  const bookMark = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     if (isBookmarked) {
       deleteBookMarkContent(item.id);
@@ -23,6 +30,7 @@ function ContentCardItem({ item }: { item: any }) {
       setisBookmarked(true);
     }
   };
+
   const goTOLounge = () => {
     router.push("/lounge/content");
   };

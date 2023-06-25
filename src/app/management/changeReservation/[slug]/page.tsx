@@ -195,6 +195,7 @@ function ChangeReservationPage({ params }: Props) {
     handleTimeSelect,
     timeSelectClick,
     isDisabled,
+    setIsDisabled,
   };
   const counselingModal = {
     visitOpenHandler,

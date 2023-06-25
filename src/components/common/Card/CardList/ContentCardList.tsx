@@ -3,12 +3,17 @@ import React, { useMemo } from "react";
 import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
+import { IContentCard } from "@/types/card";
 
-function ContentCardList({ queryKey, api }: { queryKey: string; api: any }) {
+function ContentCardList({ queryKey, api, id }: { queryKey: string; api: any; id?: number }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
     ({ pageParam = 0 }) => {
-      return api(pageParam);
+      if (id) {
+        return api(id, pageParam);
+      } else {
+        return api(pageParam);
+      }
     },
     {
       getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),
@@ -26,8 +31,8 @@ function ContentCardList({ queryKey, api }: { queryKey: string; api: any }) {
   return (
     <>
       <ul>
-        {list ? (
-          list.map((item: any) => <ContentCardItem key={item.id} item={item} />)
+        {list.length > 0 ? (
+          list.map((item: IContentCard) => <ContentCardItem key={item.id} item={item} />)
         ) : (
           <li className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">
             작성한 콘텐츠가 없습니다

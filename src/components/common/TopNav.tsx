@@ -42,13 +42,13 @@ function TopNav({
   return (
     <>
       <div
-        className={`fixed left-1/2 top-0 z-10 flex h-10 w-full min-w-[390px] max-w-[768px] -translate-x-1/2 items-center justify-around px-4 ${
+        className={`fixed left-1/2 top-0 z-20 flex h-10 w-full min-w-[390px] max-w-[768px] -translate-x-1/2 items-center justify-around px-4 ${
           backGroundWhite ? "bg-white" : "bg-background-primary"
         }`}
       >
         <div className="flex min-w-[100px] justify-self-start">
-          {logoPath.includes(currentPath) && (
-            <div className="flex text-base cursor-pointer font-bol" onClick={modalOpenHandler}>
+          {(logoPath.includes(currentPath) || currentPath === "/pblist") && (
+            <div className="font-bol flex cursor-pointer text-base" onClick={modalOpenHandler}>
               {locations.location ? locations.location : <span>위치 선택</span>}
               <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />
             </div>

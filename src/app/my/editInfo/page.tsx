@@ -12,7 +12,7 @@ function EditInfoPage() {
 
   return (
     <>
-      <TopNav title="개인 정보 수정" />
+      <TopNav title="개인 정보 수정" hasBack={true} />
       {userInfo.data && isUser ? <UserInfoList /> : <CheckPassword type="check" setIsUser={setIsUser} />}
     </>
   );

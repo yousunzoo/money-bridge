@@ -29,7 +29,7 @@ function StockFirmSection() {
                 <li
                   data-id={company.id}
                   onClick={handleIDClick}
-                  className={`${LI_STYLE}${company.name === "전체보기" && "!justify-center"}`}
+                  className={`${LI_STYLE} ${company.name === "전체보기" && "!justify-center"}`}
                   key={company.id}
                 >
                   {company.logo && <Image src={profile} alt={company.name} width={24} height={24} />}

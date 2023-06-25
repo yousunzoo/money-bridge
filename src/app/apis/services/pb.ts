@@ -19,14 +19,20 @@ export const getConsultationStatus = async () => {
   }
 };
 
-export const getConsultationList = async (type: string) => {
+interface ConsultationListPorps {
+  type: string;
+  page: number;
+}
+
+export const getConsultationList = async ({ type, page }: ConsultationListPorps) => {
   try {
     const res = await instance.get("pb/management/reservations", {
       params: {
+        page,
         type,
       },
     });
-    return res.data.data.list;
+    return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
   }

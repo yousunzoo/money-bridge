@@ -40,11 +40,10 @@ export interface IConsultInfo {
   consultStart: string;
   notice: string;
 }
-export interface ILoginedUserInfo {
-  id: number;
+export interface INowLoginedUserInfo {
   name: string;
-  role: "PB" | "USER";
-  propensity: IPropensity;
+  phoneNumber: string;
+  email: string;
 }
 export interface IUserInfo {
   userName: string;

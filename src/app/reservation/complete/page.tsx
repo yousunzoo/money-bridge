@@ -1,7 +1,7 @@
 "use client";
 
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
-import { ILoginedUserInfo } from "@/types/reservation";
+import { ILoginedUserInfo } from "@/types/common";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { redirect, useRouter } from "next/navigation";

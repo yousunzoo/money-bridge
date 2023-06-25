@@ -7,12 +7,12 @@ import ConsultationScheduleSection from "@/components/common/ConsultationSchedul
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
 import DoubleButton from "@/components/common/DoubleButton";
-
-interface Props {
-  params: {
-    slug: string;
-  };
-}
+import { useQuery } from "@tanstack/react-query";
+import { ILoginedUserInfo } from "@/types/reservation";
+import { AxiosError } from "axios";
+import { getLoginedUserInfo } from "@/app/apis/services/auth";
+import { redirect } from "next/navigation";
+import { getReservationInfo } from "@/app/apis/services/pb";
 
 interface ReservationData {
   pbId: number;
@@ -28,25 +28,40 @@ interface ReservationData {
   goal: string;
   question: string;
   type: string;
+  consultEnd: string;
+  consultStart: string;
+  email: string;
+  notice: string;
+  reviewCheck: boolean;
+  userId: number;
 }
 
-function NewReservationPage({ params }: Props) {
-  const {
-    pbId,
-    profileImage,
-    name,
-    phoneNumber,
-    reservationId,
-    candidateTime1,
-    candidateTime2,
-    time,
-    location,
-    locationAddress,
-    goal,
-    question,
-    type,
-  } = res.data.reservationList[0];
+function NewReservationPage({ params: { slug } }: { params: { slug: number } }) {
   // profileImage데이터는 api등록 후 UserReservationItem props 내려주고 코드 변경하기
+  const {
+    data: userInfo,
+    isLoading: userLoading,
+    isSuccess: isLogined,
+  } = useQuery<ILoginedUserInfo, AxiosError>({
+    queryKey: ["loginedUserInfo"],
+    queryFn: getLoginedUserInfo,
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: reservationInfo,
+    isLoading: reservationLoading,
+    isError: reservationError,
+  } = useQuery<ReservationData, AxiosError>({
+    queryKey: ["getReservationInfo", slug],
+    queryFn: () =>
+      getReservationInfo({
+        id: slug,
+      }),
+  });
+
+  console.log(reservationInfo);
+
   const role = "PB";
 
   const undoChangeClickHandler = () => {
@@ -57,31 +72,30 @@ function NewReservationPage({ params }: Props) {
     console.log("상담확정");
   };
 
-  const historyCard = {
-    candidateTime1,
-    candidateTime2,
-    type,
-    location,
-    locationAddress,
-    goal,
-    question,
-    role,
-  };
+  if (reservationInfo === undefined) return;
+  const { candidateTime1, name, phoneNumber, candidateTime2, time, type, location, locationAddress, goal, question } =
+    reservationInfo;
+
+  const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+
   const scheduleSectionProps = { candidateTime1, candidateTime2, role, time };
   const locationSectionProps = { type, role, location, locationAddress };
   const noteSectionProps = { role, goal, question };
+
+  isLogined && userInfo.role !== "PB" && redirect("/");
+
   return (
     <div>
       <TopNav title="신규예약" hasBack={true} />
-      <div className="pb_top_Phrase mt-4">
+      <div className="mt-4 pb_top_Phrase">
         <span className="text-white ">투자자와 유선으로 상담 일정을 확정해주세요.</span>
       </div>
       <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"}>
         <p className="font-bold">{name}</p>
-        <p className="text-xs ">{phoneNumber}</p>
+        <p className="text-xs ">{formattedPhoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
-      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
+      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />
@@ -91,7 +105,7 @@ function NewReservationPage({ params }: Props) {
         </div>
         <DoubleButton
           firstTitle={"변경/취소"}
-          secondTitle={"상담 완료"}
+          secondTitle={"상담 확정"}
           firstClickFunc={undoChangeClickHandler}
           secondClickFunc={confirmedClickHandler}
           role={"PB"}

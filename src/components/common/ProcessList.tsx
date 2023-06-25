@@ -24,7 +24,7 @@ function ProcessList({ role }: { role: string }) {
   };
 
   return (
-    <ul className="mt-8 flex w-full justify-start gap-2 ">
+    <ul className="flex justify-start w-full gap-2 mt-8 ">
       {LINKS.map(item => (
         <Link
           href={`/management?process=${item.href}`}

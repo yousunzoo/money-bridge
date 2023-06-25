@@ -44,7 +44,7 @@ function ModalCompanyLocation({
   const handleSelect = (e: MouseEvent<HTMLUListElement>) => {
     const target = e.target as HTMLLIElement;
     console.log(target);
-    setLocation({ name: target.textContent, id: Number(target.id) });
+    setLocation({ name: target.innerText, id: Number(target.id) });
     handleCloseModal();
   };
 

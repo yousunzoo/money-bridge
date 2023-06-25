@@ -1,6 +1,6 @@
 import { useGetCompanyList } from "@/hooks/useGetCompanyList";
 import { ICompanyInput } from "@/types/join";
-import React, { Dispatch, MouseEvent, SetStateAction, useState } from "react";
+import React, { MouseEvent, useState } from "react";
 
 function ModalCompanyList({
   handleChangeCompany,
@@ -18,7 +18,7 @@ function ModalCompanyList({
 
   const handleSelect = (e: MouseEvent<HTMLUListElement>) => {
     const liEl = e.target as HTMLLIElement;
-    setSelectedItem({ name: liEl.textContent, id: Number(liEl.id) });
+    setSelectedItem({ name: liEl.innerText, id: Number(liEl.id) });
     liEl.classList.add("bg-background-secondary");
   };
 

@@ -42,6 +42,7 @@ export interface IConsultInfo {
 }
 export interface INowLoginedUserInfo {
   name: string;
+  email: string;
   propensity: string;
 }
 export interface IUserInfo {

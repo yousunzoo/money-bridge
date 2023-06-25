@@ -6,8 +6,8 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { redirect } from "next/navigation";
-import { ILoginedUserInfo } from "@/types/reservation";
 import { AxiosError } from "axios";
+import { ILoginedUserInfo } from "@/types/common";
 
 function AnalysisCompletePage() {
   const { data, isError } = useQuery<ILoginedUserInfo, AxiosError>(["loginedUserInfo"], getLoginedUserInfo);

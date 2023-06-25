@@ -42,7 +42,7 @@ function TopNav({
   return (
     <>
       <div
-        className={`fixed left-1/2 top-0 z-10 flex h-10 w-full min-w-[390px] max-w-[768px] -translate-x-1/2 items-center justify-around px-4 ${
+        className={`fixed left-1/2 top-0 z-20 flex h-10 w-full min-w-[390px] max-w-[768px] -translate-x-1/2 items-center justify-around px-4 ${
           backGroundWhite ? "bg-white" : "bg-background-primary"
         }`}
       >

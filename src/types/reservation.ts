@@ -40,18 +40,16 @@ export interface IConsultInfo {
   consultStart: string;
   notice: string;
 }
-export interface ILoginedUserInfo {
-  id: number;
+export interface INowLoginedUserInfo {
   name: string;
-  role: "PB" | "USER";
-  propensity: IPropensity;
+  email: string;
+  propensity: string;
 }
 export interface IUserInfo {
   name: string;
   phoneNumber: string;
   email: string;
 }
-
 export interface IReservationData {
   consultInfo: IConsultInfo;
   pbInfo: IPBInfo;

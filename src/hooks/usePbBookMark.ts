@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { postBookMarkContent, deleteBookMarkContent } from "@/app/apis/services/user";
+import { postBookMarkPB, deleteBookMarkPB } from "@/app/apis/services/user";
 
-const useBookMark = (isBookmarked: boolean, link: string, id: number) => {
+const usePbBookMark = (isBookmarked: boolean, link: string, id: number) => {
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
   const router = useRouter();
@@ -11,10 +11,10 @@ const useBookMark = (isBookmarked: boolean, link: string, id: number) => {
     setIsBookmarkedOpen(true);
     if (isBookmarked) {
       setIsBookmark(false);
-      deleteBookMarkContent(id);
+      deleteBookMarkPB(id);
     } else {
       setIsBookmark(true);
-      postBookMarkContent(id);
+      postBookMarkPB(id);
     }
   };
 
@@ -34,4 +34,4 @@ const useBookMark = (isBookmarked: boolean, link: string, id: number) => {
   return { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents };
 };
 
-export default useBookMark;
+export default usePbBookMark;

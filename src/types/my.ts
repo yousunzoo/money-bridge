@@ -1,6 +1,6 @@
-import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { IPropensity, TSpeciality } from "./pblist";
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { IPbCard } from "@/types/card";
 
 export interface IUserInfoProps {
   handleAuthorizationError: () => void;
@@ -79,21 +79,7 @@ export interface IBookmarkPreviewCardProps {
 export interface IPropensityData {
   name: string;
   propensity: IPropensity;
-  list: IPBCard[];
-}
-
-export interface IPBCard {
-  id: number;
-  profile: string;
-  name: string;
-  branchName: string;
-  msg: string;
-  career: number;
-  specialty1: IPropensity;
-  specialty2: IPropensity;
-  reserveCount: number;
-  reviewCount: number;
-  isBookmark: boolean;
+  list: IPbCard[];
 }
 
 export interface IPropensityInfoCardProps {

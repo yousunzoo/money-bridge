@@ -6,8 +6,8 @@ import { IAward } from "./my";
 export interface IEditProfileFormValues {
   intro: string;
   msg: string;
-  profile: string;
-  portfolio: string;
+  profile: string | FileList;
+  portfolio: string | FileList;
   company: string;
   companyId: number;
   branchName: string;
@@ -19,12 +19,14 @@ export interface IEditProfileFormValues {
 }
 
 export interface IProfileInputProps {
+  errors: FieldErrors<IEditProfileFormValues>;
   register: UseFormRegister<IEditProfileFormValues>;
   removeFile: (type: string) => void;
   profile: string;
 }
 
 export interface IPortfolioInputProps {
+  errors: FieldErrors<IEditProfileFormValues>;
   register: UseFormRegister<IEditProfileFormValues>;
   removeFile: (type: string) => void;
   portfolio: string;

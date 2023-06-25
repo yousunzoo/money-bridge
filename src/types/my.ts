@@ -126,8 +126,8 @@ export interface IPBMyProfile {
   maxDrawdown: number;
   profitFactor: number;
   averageProfit: number;
-  profile: string;
-  portfolio: string;
+  profile: string | FileList;
+  portfolio: string | FileList;
   intro: string;
   msg: string;
 }

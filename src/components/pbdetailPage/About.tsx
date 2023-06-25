@@ -1,63 +1,48 @@
 import React from "react";
 import Carousel from "antd/lib/carousel";
 import "@/styles/defaultCarousel.css";
-import { ConsultationStyle } from "@/constants/enum";
 import LocationCard from "@/components/common/LocationCard";
 import Image from "next/image";
 import Link from "next/link";
-import PbReview from "@/mocks/hyeon17/PbDetail/Review/pbreview.json";
 import "@/styles/pb.css";
 import { useRouter, usePathname } from "next/navigation";
 import { CommonROLE } from "@/constants/enum";
 import LocationCopyButton from "@/components/common/LocationCopyButton";
-import { getSamePb, getPbReviewRecent, getReviewStyle } from "@/app/apis/services/pb";
+import { getSamePb, getPbReviewRecent, getReviewStyle, getPbReview } from "@/app/apis/services/pb";
 import { useQuery } from "@tanstack/react-query";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
-import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { getMyId } from "@/utils/pbMyId";
+import { styleCase } from "@/utils/ConsultationStyle";
+import PbReviewItem from "@/components/pbdetailPage/pbreviewPage/PbReviewItem";
+import { AxiosError } from "axios";
+import { IAboutData, IPbReview, IReviewStyles, ISamePB } from "@/types/pb";
+import { IDataResponse, IListResponse } from "@/types/common";
 
-function About({ aboutData }: { aboutData: any }) {
+function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; Id: number }) {
   const { id, name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
-  const { data: review } = useQuery([`/review/style/${id}`], () => getReviewStyle(id));
+  const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>([`/review/style/${id}`], () =>
+    getReviewStyle(id),
+  );
   const reviewData = review?.data;
-  const { data: same } = useQuery([`/auth/${id}/same`], () => getSamePb(id));
-  const sameData = same?.data.list;
-  const { data: PbRecentReview } = useQuery([`/reviews/${id}`], () => getPbReviewRecent(1));
-  const pbRecentData = PbRecentReview?.data;
-  const pbReviewData = PbReview?.data;
+  const { data: same } = useQuery<IListResponse<ISamePB>, AxiosError>([`/auth/${id}/same`], () => getSamePb(id));
+  const sameData = same?.list;
+  const { data: PbRecentReview } = useQuery<IListResponse<IPbReview>, AxiosError>([`/reviews/${id}`], () =>
+    getPbReviewRecent(id),
+  );
+  const pbRecentData = PbRecentReview?.list;
+  const { data: PbReview } = useQuery<IDataResponse<IPbReview>, AxiosError>([`auth/reviews/${id}`], () =>
+    getPbReview(id, 0),
+  );
+  const pbReviewData = PbReview;
   const router = useRouter();
-  const pathname = usePathname();
-  const { data: userData } = useQuery(["/auth/account"], getLoginedUserInfo);
-
-  const styleCase = (style: string): { style: ConsultationStyle; image: string } => {
-    switch (style) {
-      case "METICULOUS":
-        return { style: ConsultationStyle.METICULOUS, image: "/assets/images/counselingStyle/METICULOUS.svg" };
-      case "FAST":
-        return { style: ConsultationStyle.FAST, image: "/assets/images/counselingStyle/FAST.svg" };
-      case "KIND":
-        return { style: ConsultationStyle.KIND, image: "/assets/images/counselingStyle/KIND.svg" };
-      case "PROFESSIONAL":
-        return {
-          style: ConsultationStyle.PROFESSIONAL,
-          image: "/assets/images/counselingStyle/PROFESSIONAL.svg",
-        };
-      case "HONEST":
-        return { style: ConsultationStyle.HONEST, image: "/assets/images/counselingStyle/HONEST.svg" };
-      case "PRAGMATIC":
-        return { style: ConsultationStyle.PRAGMATIC, image: "/assets/images/counselingStyle/PRAGMATIC.svg" };
-      case "DIRECTIONAL":
-        return { style: ConsultationStyle.DIRECTIONAL, image: "/assets/images/counselingStyle/DIRECTIONAL.svg" };
-      default:
-        return { style: ConsultationStyle.null, image: "" };
-    }
-  };
+  const pathname: string = usePathname();
+  const myId: number = getMyId(role, Id, id);
 
   const goToPage = () => {
-    if (userData?.role === CommonROLE.USER) {
+    if (role === CommonROLE.USER) {
       router.push("/reservation");
-    } else if (userData?.role === CommonROLE.PB) {
-      if (pathname === `/detail/info/${getMyId(userData, id)}`) {
+    } else if (role === CommonROLE.PB) {
+      if (pathname === `/detail/info/${myId}`) {
         router.push("/detail/edit");
       } else {
         router.push("/reservation");
@@ -66,19 +51,18 @@ function About({ aboutData }: { aboutData: any }) {
   };
 
   let text;
-
-  if (userData?.role === CommonROLE.USER) {
+  if (role === CommonROLE.USER) {
     text = "상담 신청하기";
-  } else if (userData?.role === CommonROLE.PB) {
-    if (pathname === `/detail/info/${getMyId(userData, id)}`) {
+  } else if (role === CommonROLE.PB) {
+    if (pathname === `/detail/info/${myId}`) {
       text = "프로필 수정하기";
     } else {
       text = "상담 신청하기";
     }
   }
-
+  if (!reviewData || !sameData ) return null;
   return (
-    <article>
+    <div>
       <div className="info_header">
         투자자 님들의
         <br />
@@ -91,60 +75,54 @@ function About({ aboutData }: { aboutData: any }) {
         <div className="mx-auto flex w-full justify-between px-[51px]">
           <div className="review_section">
             <Image
-              src={styleCase(reviewData?.style1)?.image}
-              alt={styleCase(reviewData?.style1)?.style}
+              src={styleCase(reviewData.style1).image}
+              alt={styleCase(reviewData.style1).style}
               width={56}
               height={56}
+              className="h-[56px] w-[56px]"
             />
-            <div className="review_text">{styleCase(reviewData?.style1)?.style}</div>
+            <div className="review_text">{styleCase(reviewData.style1).style}</div>
           </div>
           <div className="review_section">
             <Image
-              src={styleCase(reviewData?.style2)?.image}
-              alt={styleCase(reviewData?.style2)?.style}
+              src={styleCase(reviewData.style2).image}
+              alt={styleCase(reviewData.style2).style}
               width={56}
               height={56}
+              className="h-[56px] w-[56px]"
             />
-            <div className="review_text">{styleCase(reviewData?.style2)?.style}</div>
+            <div className="review_text">{styleCase(reviewData.style2).style}</div>
           </div>
           <div className="review_section">
             <Image
-              src={styleCase(reviewData?.style3)?.image}
-              alt={styleCase(reviewData?.style3)?.style}
+              src={styleCase(reviewData.style3).image}
+              alt={styleCase(reviewData.style3).style}
               width={56}
               height={56}
+              className="h-[56px] w-[56px]"
             />
-            <div className="review_text">{styleCase(reviewData?.style3)?.style}</div>
+            <div className="review_text">{styleCase(reviewData.style3).style}</div>
           </div>
         </div>
       </div>
       <div className="mb-20">
         <div className="flex w-full items-center">
-          <div className="w-full text-xs font-bold">후기 {pbReviewData ? pbReviewData.totalElements : 0}건</div>
-          {pbReviewData && (
-            <Link href="/detail/review" className="flex w-full justify-end text-sm underline">
-              전체보기
-            </Link>
+          {pbReviewData && pbReviewData.data && (
+            <>
+              <div className="w-full text-xs font-bold">
+                후기 {pbReviewData.totalElements ? pbReviewData.totalElements : 0}건
+              </div>
+              <Link href={`/detail/review/${id}`} className="flex w-full justify-end text-sm underline">
+                전체보기
+              </Link>
+            </>
           )}
         </div>
-        {pbRecentData?.length > 0 && (
+        {pbRecentData && pbRecentData.length > 0 && (
           <ul>
             <Carousel autoplay draggable={true}>
-              {pbRecentData.list.map((item: any) => (
-                <li className="card h-[188px] p-[15px]" key={item.reviewId}>
-                  <div className="mb-[9px] flex items-end">
-                    <div className="mr-2 text-sm font-bold">{item.userName}님</div>
-                    <div className="text-xs">{item.createdAt}</div>
-                  </div>
-                  <div className="h-[90px] rounded-md bg-background-secondary p-3.5 text-xs">{item.content}</div>
-                  <ul className="mt-3 flex">
-                    {item.list.map((styles: any, idx: number) => (
-                      <li key={idx} className="mr-[7px]">
-                        {styles.style}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
+              {pbRecentData?.map((item: any) => (
+                <PbReviewItem key={item.reviewId} item={item} />
               ))}
             </Carousel>
           </ul>
@@ -158,10 +136,10 @@ function About({ aboutData }: { aboutData: any }) {
           </div>
           <div className="flex text-xs">
             <div className="flex-1">{branchAddress}</div>
-            <LocationCopyButton location={branchAddress} />
+            <LocationCopyButton location={branchAddress || ""} />
           </div>
           <div className="mt-4 h-[140px]">
-            <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
+            <LocationCard latitude={branchLatitude || 0} longitude={branchLongitude || 0} />
           </div>
         </div>
       </div>
@@ -180,7 +158,7 @@ function About({ aboutData }: { aboutData: any }) {
       <button className="button_fixed" onClick={() => goToPage()}>
         {text}
       </button>
-    </article>
+    </div>
   );
 }
 

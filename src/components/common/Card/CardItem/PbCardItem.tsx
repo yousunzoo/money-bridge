@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { postBookMarkPB, deleteBookMarkPB } from "@/app/apis/services/user";
 import { IPbCard } from "@/types/card";
-import { ILoginedUserInfo } from "@/types/reservation";
+import { ILoginedUserInfo } from "@/types/common";
 import { AxiosError } from "axios";
 
 function PbCardItem({ item }: { item: IPbCard }) {
@@ -65,7 +65,7 @@ function PbCardItem({ item }: { item: IPbCard }) {
                 className="h-[25px] w-[24px]"
               />
             ) : (
-              <Image src={bookmark} alt="북마크" width={24} height={25} priority className="w-[24px] h-[25px]"/>
+              <Image src={bookmark} alt="북마크" width={24} height={25} priority className="h-[25px] w-[24px]" />
             )}
           </button>
         )}

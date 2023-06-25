@@ -8,7 +8,7 @@ import { getPbNotLogin, getPbProfile } from "@/app/apis/services/pb";
 import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
-import { ILoginedUserInfo } from "@/types/reservation";
+import { ILoginedUserInfo } from "@/types/common";
 import { AxiosError } from "axios";
 import { IloginProfile, IProfile } from "@/types/pb";
 import { IDataResponse } from "@/types/common";
@@ -31,7 +31,7 @@ function PbDetailInfo() {
   useEffect(() => {
     if (!isLoading) setMounted(true);
   }, [isLoading]);
-  if (!profile?.data || (!mounted && !authProfile?.data)) return null
+  if (!profile?.data || (!mounted && !authProfile?.data)) return null;
 
   return (
     <div className="mb-24 flex w-full flex-col">

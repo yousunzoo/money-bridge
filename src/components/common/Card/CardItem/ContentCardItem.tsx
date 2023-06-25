@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { postBookMarkContent, deleteBookMarkContent } from "@/app/apis/services/user";
 import { IContentCard } from "@/types/card";
-import { ILoginedUserInfo } from "@/types/reservation";
+import { ILoginedUserInfo } from "@/types/common";
 import { AxiosError } from "axios";
 
 function ContentCardItem({ item }: { item: IContentCard }) {

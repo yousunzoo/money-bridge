@@ -8,7 +8,7 @@ import { getPbContent, getPbProfile } from "@/app/apis/services/pb";
 import { useRouter, usePathname } from "next/navigation";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import { getMyId } from "@/utils/pbMyId";
-import { ILoginedUserInfo } from "@/types/reservation";
+import { ILoginedUserInfo } from "@/types/common";
 import { AxiosError } from "axios";
 import { IloginProfile } from "@/types/pb";
 import { IDataResponse } from "@/types/common";

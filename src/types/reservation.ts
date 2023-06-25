@@ -1,5 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { Dayjs } from "dayjs";
+import { IPropensity } from "./pblist";
 
 export interface IQuestions {
   [key: number]: IQuestion;
@@ -40,9 +41,10 @@ export interface IConsultInfo {
   notice: string;
 }
 export interface ILoginedUserInfo {
+  id: number;
   name: string;
-  phoneNumber: string;
-  email: string;
+  role: "PB" | "USER";
+  propensity: IPropensity;
 }
 export interface IUserInfo {
   userName: string;

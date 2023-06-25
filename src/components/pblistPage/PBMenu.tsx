@@ -1,16 +1,22 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { MouseEvent } from "react";
 import SpecialityList from "./SpecialityList";
 import CompanyList from "../common/CompanyList";
-import { createQueryString } from "@/utils/createQueryString";
-import { ICompanyList } from "@/types/pblist";
 import { usePBListQueries } from "@/hooks/usePBListQueries";
+import { useQuery } from "@tanstack/react-query";
+import { getCompanyListwithLogo } from "@/app/apis/services/etc";
+import { ICompanyList } from "@/types/pblist";
+import { AxiosError } from "axios";
 
 const BUTTON_STYLE = "w-1/2 rounded-t-md bg-white py-4 shadow-md box-border";
-function PBMenu({ companyList }: { companyList: ICompanyList }) {
+function PBMenu() {
+  const { data: companyList, isLoading } = useQuery<ICompanyList, AxiosError>(["companyList"], getCompanyListwithLogo, {
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  });
   const { handleTypeClick, handleIDClick, company, speciality } = usePBListQueries();
 
+  if (isLoading) return null;
   return (
     <nav className="mb-8">
       <div onClick={handleTypeClick}>
@@ -23,7 +29,9 @@ function PBMenu({ companyList }: { companyList: ICompanyList }) {
       </div>
       <div className="h-[190px] w-full rounded-b-md bg-white px-3 py-4">
         {speciality && <SpecialityList nowSpeciality={speciality} handleIDClick={handleIDClick} />}
-        {company && <CompanyList companyList={companyList} nowCompany={company} />}
+        {company && companyList && (
+          <CompanyList companyList={companyList} nowCompany={company} handleIDClick={handleIDClick} />
+        )}
       </div>
     </nav>
   );

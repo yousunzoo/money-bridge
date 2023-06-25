@@ -1,6 +1,8 @@
 import { ITypeQuestionProps } from "@/types/reservation";
 import { useSetQuestions } from "@/hooks/useSetQuestions";
 import UserBubble from "../UserBubble/UserBubble";
+import highlight from "/public/assets/images/highlight.svg";
+import Image from "next/image";
 
 function TypeQuestion({ skipNextStep, moveToNextStep }: ITypeQuestionProps) {
   const { nowQuestion, isChoosable, setIsChoosable, sectionRef, answerRef, answers, setAnswers } = useSetQuestions(1);
@@ -20,19 +22,17 @@ function TypeQuestion({ skipNextStep, moveToNextStep }: ITypeQuestionProps) {
 
   return (
     <section ref={sectionRef} className="flex h-screen flex-col pb-10">
-      <div className={`${isChoosable ? "pt-12" : "pt-4"}`} />
+      {isChoosable && <Image className="mb-2" src={highlight} alt="highlight" width={24} height={24} />}
       {intro1 && isChoosable && (
-        <div className="text-lg mb-10 font-semibold">
+        <div className="text-lg mb-4 font-semibold">
           <p>{intro1}</p>
           {intro2 && <p>{intro2}</p>}
         </div>
       )}
 
-      <div className="pb-5">
-        <div>
-          <p className="text-lg font-bold">{question}</p>
-        </div>
-        <div className="mt-5 flex flex-col gap-4">
+      <div className="pb-4">
+        <p className="text-lg font-bold">{question}</p>
+        <div className="mt-4 flex flex-col gap-4">
           {isChoosable &&
             options.map(option => (
               <button onClick={() => handleClick(option)} className="option" key={option}>

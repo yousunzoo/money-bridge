@@ -6,7 +6,7 @@ import EditInfoForm from "@/components/myPage/editInfoPage/EditInfoForm";
 import EditPasswordForm from "@/components/myPage/editInfoPage/EditPasswordForm";
 import { ButtonModalProps } from "@/types/common";
 import { IUserEditableInfo } from "@/types/my";
-import { ILoginedUserInfo, IUserInfo } from "@/types/reservation";
+import { ILoginedUserInfo } from "@/types/reservation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,7 @@ function EditPage({ params }: { params: { slug: string } }) {
     content: "",
     confirmText: "확인",
   });
-  const { data, isLoading } = useQuery<unknown, AxiosError, IUserInfo>(["myInfo"], getMyInfo);
+  const { data, isLoading } = useQuery<unknown, AxiosError, ILoginedUserInfo>(["myInfo"], getMyInfo);
 
   const { mutate } = useMutation(editMyInfo, {
     onSuccess: () => {

@@ -1,18 +1,18 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import TopNav from "@/components/common/TopNav";
-import React from "react";
-import res from "../../../../mocks/kjun/managementReservations.json";
-import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
+import React, { useEffect, useState } from "react";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
 import DoubleButton from "@/components/common/DoubleButton";
-import { useQuery } from "@tanstack/react-query";
-import { ILoginedUserInfo } from "@/types/reservation";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
-import { redirect } from "next/navigation";
-import { getReservationInfo } from "@/app/apis/services/pb";
+import { redirect, useRouter } from "next/navigation";
+import { changeReservation, confirmedReservation, getReservationInfo } from "@/app/apis/services/pb";
+import { ILoginedUserInfo } from "@/types/common";
+import ErrorModal from "@/components/common/ErrorModal";
+import ScheduleSection from "@/components/managementPage/changeReservationPage/ScheduleSection";
 
 interface ReservationData {
   pbId: number;
@@ -37,7 +37,9 @@ interface ReservationData {
 }
 
 function NewReservationPage({ params: { slug } }: { params: { slug: number } }) {
-  // profileImage데이터는 api등록 후 UserReservationItem props 내려주고 코드 변경하기
+  const router = useRouter();
+  const [isSelectSchedule, setIsSelectSchedule] = useState(true);
+  const [timeState, setTimeState] = useState("");
   const {
     data: userInfo,
     isLoading: userLoading,
@@ -48,6 +50,9 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
     refetchOnWindowFocus: false,
   });
 
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
   const {
     data: reservationInfo,
     isLoading: reservationLoading,
@@ -60,29 +65,65 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
       }),
   });
 
-  console.log(reservationInfo);
+  const { mutate } = useMutation(confirmedReservation, {
+    onSuccess: () => {},
+  });
 
-  const role = "PB";
+  // 상담 희망 일정(1순위, 2순위) 선택 버튼
+  const selectTimeHandler = (clickTime: string) => {
+    setIsSelectSchedule(!isSelectSchedule);
+    setTimeState(clickTime);
+  };
 
   const undoChangeClickHandler = () => {
-    console.log("변경/취소");
+    router.push(`/management/changeReservation/${slug}`);
   };
 
   const confirmedClickHandler = () => {
-    console.log("상담확정");
+    mutate({
+      id: slug,
+      time: timeState,
+    });
   };
 
-  if (reservationInfo === undefined) return;
-  const { candidateTime1, name, phoneNumber, candidateTime2, time, type, location, locationAddress, goal, question } =
-    reservationInfo;
+  useEffect(() => {
+    if (reservationInfo) {
+      setTimeState(reservationInfo.candidateTime1);
+    }
+  }, [reservationInfo]);
 
+  if (reservationInfo === undefined) return null;
+
+  const {
+    candidateTime1,
+    name,
+    phoneNumber,
+    candidateTime2,
+    type,
+    location,
+    locationAddress,
+    goal,
+    question,
+    profileImage,
+  } = reservationInfo;
+
+  if (!userInfo) return;
+  const role = userInfo?.role;
   const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
-  const scheduleSectionProps = { candidateTime1, candidateTime2, role, time };
+  const scheduleSectionProps = {
+    candidateTime1,
+    candidateTime2,
+    isSelectSchedule,
+    selectTimeHandler,
+  };
   const locationSectionProps = { type, role, location, locationAddress };
   const noteSectionProps = { role, goal, question };
 
-  isLogined && userInfo.role !== "PB" && redirect("/");
+  if (userInfo?.role !== "PB")
+    return <ErrorModal isError={true} path={"/"} content={"권한이 없습니다. 다시 시도해주세요."} />;
+  if (reservationError)
+    return <ErrorModal isError={true} path={"/"} content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."} />;
 
   return (
     <div>
@@ -90,13 +131,16 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
       <div className="mt-4 pb_top_Phrase">
         <span className="text-white ">투자자와 유선으로 상담 일정을 확정해주세요.</span>
       </div>
-      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"}>
+      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"} profileImage={profileImage}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{formattedPhoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
-        <ConsultationScheduleSection {...scheduleSectionProps} />
+      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md ">
+        <section className="w-full pb-4 my-4 border-b-1">
+          <ScheduleSection {...scheduleSectionProps} />
+        </section>
+
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />
         <div className="flex flex-col items-center pt-6 text-xs">
@@ -105,7 +149,7 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
         </div>
         <DoubleButton
           firstTitle={"변경/취소"}
-          secondTitle={"상담 확정"}
+          secondTitle={"예약 확정"}
           firstClickFunc={undoChangeClickHandler}
           secondClickFunc={confirmedClickHandler}
           role={"PB"}

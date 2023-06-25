@@ -19,6 +19,7 @@ export const LoungeHot = async (page: number) => {
   }
 };
 import { PbListSectionPorps } from "@/types/main";
+import { AxiosError } from "axios";
 
 export const LoungeNew = async (page: number) => {
   try {
@@ -47,8 +48,8 @@ export const getSuggestionPB = async ({ latitude, longitude }: CoordinateProps):
       },
     });
     return res.data.data.list;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -56,7 +57,7 @@ export const getContents = async () => {
   try {
     const res = await instance.get("/main/board");
     return res.data.data.list;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
   }
 };

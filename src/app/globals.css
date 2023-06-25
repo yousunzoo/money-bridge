@@ -99,7 +99,7 @@
   }
 
   .info_card {
-    @apply w-full rounded-xl border-1 border-primary-normal p-4;
+    @apply w-full rounded-xl border-1 border-primary-normal bg-white p-4;
   }
 
   .button_cancel {

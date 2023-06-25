@@ -1,4 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
+import { IPropensity } from "./pblist";
 
 export interface ButtonModalProps {
   modalContents: IModalContents;
@@ -43,4 +44,11 @@ export interface IDataResponse<T> {
   first?: boolean;
   last?: boolean;
   empty?: boolean;
+}
+
+export interface ILoginedUserInfo {
+  id: number;
+  role: "USER" | "PB";
+  name: string;
+  propensity: IPropensity;
 }

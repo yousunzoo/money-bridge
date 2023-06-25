@@ -3,16 +3,24 @@ import QuestionSection from "@/components/analysisPage/QuestionSection";
 import TopNav from "@/components/common/TopNav";
 import analysisQuestions from "@/constants/propensityCheckQuestions.json";
 import { useCheckPropensity } from "@/hooks/useCheckPropensity";
-import { useGetReservationPageData } from "@/hooks/useGetReservationPageData";
 import { useAnalysisStore } from "@/store/analysisStore";
 import { IAnalysisQuestions } from "@/types/analysis";
 import { convertAnalysisAnswers } from "@/utils/convertAnswer";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-
+import { getLoginedUserInfo } from "../apis/services/auth";
+import { ILoginedUserInfo } from "@/types/reservation";
+import { AxiosError } from "axios";
+import highlight from "/public/assets/images/highlight.svg";
+import Image from "next/image";
 function AnalysisPage() {
-  const { reservationData } = useGetReservationPageData();
   const questions: IAnalysisQuestions = analysisQuestions;
   const [step, setStep] = useState(0);
+  const {
+    data: userData,
+    isLoading,
+    isError,
+  } = useQuery<ILoginedUserInfo, AxiosError>(["loginedUserInfo"], getLoginedUserInfo);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const { answers, setAnswers } = useAnalysisStore();
   const registerPropensity = useCheckPropensity();
@@ -39,13 +47,23 @@ function AnalysisPage() {
   return (
     <>
       <TopNav title="투자 성향 알아보기" hasBack={true} />
-      <div className={`${answers[5] && "pb-40"} mx-auto max-w-[600px]`} ref={sectionRef}>
+      <div className={`${answers[5] && "pb-40 pt-10"} mx-auto max-w-[600px]`} ref={sectionRef}>
         <section className="flex flex-col gap-y-4">
           <div className="font-bold">
-            <p>홍길동님,</p>
-            <p>MONEY BRIDGE에 오신 것을 환영합니다!</p>
-            <p>단 1분 만에 나의 투자 성향을 분석할 수 있어요.</p>
-            <p>저와 함께 작성해볼까요?</p>
+            <Image src={highlight} className="mb-2" alt="highlight" width={24} height={24} />
+            {answers[5] ? (
+              <>
+                <p>{userData?.name}의 투자 성향 응답이에요.</p>
+                <p>MONEY BRIDGE 에서 잘 분석해 드릴게요.</p>
+              </>
+            ) : (
+              <>
+                <p>{userData?.name}님,</p>
+                <p>MONEY BRIDGE에 오신 것을 환영합니다!</p>
+                <p>단 1분 만에 나의 투자 성향을 분석할 수 있어요.</p>
+                <p>저와 함께 작성해볼까요?</p>
+              </>
+            )}
           </div>
           <div className="user_bubble">
             <p>네! 좋아요</p>

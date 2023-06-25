@@ -1,15 +1,19 @@
 "use client";
-import { editMyInfo } from "@/app/apis/services/auth";
+import { editMyInfo, getLoginedUserInfo, getMyInfo } from "@/app/apis/services/auth";
 import ButtonModal from "@/components/common/ButtonModal";
+import TopNav from "@/components/common/TopNav";
 import EditInfoForm from "@/components/myPage/editInfoPage/EditInfoForm";
 import EditPasswordForm from "@/components/myPage/editInfoPage/EditPasswordForm";
 import { ButtonModalProps } from "@/types/common";
 import { IUserEditableInfo } from "@/types/my";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ILoginedUserInfo } from "@/types/reservation";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function EditPage({ params }: { params: { slug: string } }) {
+  const queryClient = useQueryClient();
   const nowPath = params.slug as "password" | "name" | "phoneNumber";
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +21,7 @@ function EditPage({ params }: { params: { slug: string } }) {
     content: "",
     confirmText: "확인",
   });
-  const queryClient = useQueryClient();
-  const data = queryClient.getQueryData(["getMyInfo"]);
+  const { data, isLoading } = useQuery<unknown, AxiosError, ILoginedUserInfo>(["myInfo"], getMyInfo);
 
   const { mutate } = useMutation(editMyInfo, {
     onSuccess: () => {
@@ -30,7 +33,7 @@ function EditPage({ params }: { params: { slug: string } }) {
         content,
         confirmFn: () => router.back(),
       });
-      queryClient.refetchQueries(["getMyInfo"]);
+      queryClient.refetchQueries(["loginedUserInfo"]);
     },
     onError: () => {
       setIsOpen(true);
@@ -48,7 +51,6 @@ function EditPage({ params }: { params: { slug: string } }) {
     }
   }, []);
 
-  const { email } = data as IUserEditableInfo;
   const handleSubmit = (data: { [key: string]: string }) => {
     mutate(data);
   };
@@ -58,15 +60,17 @@ function EditPage({ params }: { params: { slug: string } }) {
     isOpen,
     setIsOpen,
   };
+
   const category = {
-    password: <EditPasswordForm email={email} />,
+    password: <EditPasswordForm email={data ? data?.email : ""} />,
     name: <EditInfoForm type={nowPath} onSubmit={handleSubmit} />,
     phoneNumber: <EditInfoForm type={nowPath} onSubmit={handleSubmit} />,
   };
 
   return (
     <>
-      {category[nowPath]}
+      <TopNav title="개인 정보 설정" hasBack={true} />
+      {!isLoading && category[nowPath]}
       {isOpen && <ButtonModal {...modalProps} />}
     </>
   );

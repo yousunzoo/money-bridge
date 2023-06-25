@@ -47,9 +47,9 @@ export interface ILoginedUserInfo {
   propensity: IPropensity;
 }
 export interface IUserInfo {
-  userName: string;
-  userPhoneNumber: string;
-  userEmail: string;
+  name: string;
+  phoneNumber: string;
+  email: string;
 }
 
 export interface IReservationData {

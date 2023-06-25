@@ -25,9 +25,6 @@ export const reissueToken = async () => {
     const res = await instance.post("/reissue");
     return res;
   } catch (error: any) {
-<<<<<<< HEAD
-    throw new Error(error.response.data.status);
-=======
     throw new AxiosError(error.response.data);
   }
 };
@@ -59,6 +56,5 @@ export const getPBList = async (data: IPBListRequest, page: number) => {
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
->>>>>>> 323bb4a1210ce6c1f42dda85d6441723001b1f2b
   }
 };

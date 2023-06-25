@@ -38,3 +38,12 @@ export interface TimeModalProps {
   isDisabled: boolean;
   setIsDisabled: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface ConsultationStatue {
+  applyCount?: number;
+  isNewApply?: boolean;
+  confirmCount?: number;
+  isNewConfirm?: boolean;
+  completeCount?: number;
+  isNewComplete?: boolean;
+}

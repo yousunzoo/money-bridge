@@ -25,13 +25,18 @@ export interface ReviewCardItemProps extends ReviewCardProps {
   reviewId: number;
 }
 
-export interface User {
-  role: string;
-  name: string;
+export interface IListResponse<T> {
+  list: T[];
+  totalElements?: number;
+  totalPages?: number;
+  curPage?: number;
+  first?: boolean;
+  last?: boolean;
+  empty?: boolean;
 }
 
 export interface IDataResponse<T> {
-  list: T[] | null;
+  data: T;
   totalElements?: number;
   totalPages?: number;
   curPage?: number;

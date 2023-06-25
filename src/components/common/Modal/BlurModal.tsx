@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 function BlurModal() {
-  const pathname = usePathname();
+  const pathname:string = usePathname();
 
   return (
     <div className="custom-gradient fixed top-[40px] flex h-full min-w-[768px] flex-col">

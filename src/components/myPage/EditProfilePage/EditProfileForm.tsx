@@ -19,8 +19,8 @@ import { useEditProfile } from "@/hooks/useEditProfile";
 function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   const editProfile = useEditProfile();
   const [filePreviews, setFilePreviews] = useState({
-    profile: existingProfile.profile,
-    portfolio: existingProfile.portfolio,
+    profile: existingProfile.profile as string,
+    portfolio: existingProfile.portfolio as string,
   });
   const [files, setFiles] = useState<{ [key: string]: File | null }>({
     profile: null,
@@ -133,7 +133,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ProfileInput register={register} removeFile={removeFile} profile={filePreviews.profile} />
+        <ProfileInput errors={errors} register={register} removeFile={removeFile} profile={filePreviews.profile} />
         <CompanyInput getValues={getValues} setValue={setValue} />
         <CareerInput errors={errors} register={register} defaultValue={getValues("career")} />
         <CareersInput
@@ -152,7 +152,12 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
         />
         <SpecialityInput speciality={speciality} handleToggleButtons={handleToggleButtons} />
         <FigureInput errors={errors} register={register} getValues={getValues} />
-        <PortfolioInput register={register} removeFile={removeFile} portfolio={filePreviews.portfolio} />
+        <PortfolioInput
+          errors={errors}
+          register={register}
+          removeFile={removeFile}
+          portfolio={filePreviews.portfolio}
+        />
         <IntroInput register={register} intro={getValues("intro")} />
         <MsgInput register={register} msg={getValues("msg")} />
         <button className="button_fixed">등록 완료</button>

@@ -1,10 +1,11 @@
 import { IProfileInputProps } from "@/types/editProfile";
-
-function ProfileInput({ register, removeFile, profile }: IProfileInputProps) {
+import { validateFileSize } from "@/utils/validateFileSize";
+function ProfileInput({ errors, register, removeFile, profile }: IProfileInputProps) {
   return (
     <section className="mb-10">
       <div className="mb-4 flex items-center justify-between">
         <p className="text-xl font-bold">프로필 이미지 업로드</p>
+        <p className={`${errors["profile"] && "text-status-error"}`}>파일 크기는 100MB 이하여야 합니다.</p>
         <div>
           <button
             onClick={() => removeFile("profile")}
@@ -19,7 +20,13 @@ function ProfileInput({ register, removeFile, profile }: IProfileInputProps) {
           >
             이미지 찾기
           </label>
-          <input className="hidden" type="file" accept="image/*" id="profile" {...register("profile")} />
+          <input
+            className="hidden"
+            type="file"
+            accept="image/*"
+            id="profile"
+            {...register("profile", { validate: validateFileSize })}
+          />
         </div>
       </div>
       <p

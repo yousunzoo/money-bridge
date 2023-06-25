@@ -1,11 +1,13 @@
 import { IPortfolioInputProps } from "@/types/editProfile";
+import { validateFileSize } from "@/utils/validateFileSize";
 import React from "react";
 
-function PortfolioInput({ register, removeFile, portfolio }: IPortfolioInputProps) {
+function PortfolioInput({ errors, register, removeFile, portfolio }: IPortfolioInputProps) {
   return (
     <section className="mb-10">
       <div className="mb-4 flex items-center justify-between">
         <p className="text-xl font-bold">포트폴리오 파일 업로드</p>
+        <p className={`${errors["portfolio"] && "text-status-error"}`}>파일 크기는 100MB 이하여야 합니다.</p>
         <div>
           <button
             onClick={() => removeFile("portfolio")}
@@ -20,7 +22,13 @@ function PortfolioInput({ register, removeFile, portfolio }: IPortfolioInputProp
           >
             파일 찾기
           </label>
-          <input className="hidden" type="file" accept=".pdf" id="portfolio" {...register("portfolio")} />
+          <input
+            className="hidden"
+            type="file"
+            accept=".pdf"
+            id="portfolio"
+            {...(register("portfolio"), { validate: validateFileSize })}
+          />
         </div>
       </div>
       <p className={`rounded-md bg-white p-4 shadow-sm ${portfolio ? "text-gray-heavy" : "text-placeholder"}`}>

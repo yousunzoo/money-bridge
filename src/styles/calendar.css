@@ -1,6 +1,4 @@
 .ant-picker-calendar {
-  width: 358px;
-  margin: 24px;
   padding: 20px 16px 10px;
   border-radius: 30px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 10px 12px rgba(0, 0, 0, 0.1);
@@ -78,13 +76,10 @@
   font-weight: bold;
   font-size: 16px;
 }
-.ant-picker-cell-today {
+.ant-picker-calendar-date-today {
   .ant-picker-calendar-date-value {
-    color: #fff !important;
-    height: 24px;
-    width: 24px;
-    background-color: black;
-    border-radius: 100%;
+    color: #3a7391 !important;
+    font-weight: 800;
   }
 }
 .ant-picker-cell-selected {

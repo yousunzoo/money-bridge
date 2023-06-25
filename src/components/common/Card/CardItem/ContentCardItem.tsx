@@ -36,11 +36,11 @@ function ContentCardItem({ item }: { item: IContentCard }) {
   };
 
   return (
-    <li className="card h-56 cursor-pointer bg-white" onClick={goTOLounge}>
-      <div className="px-[17px]">
-        <div className="mt-7 flex">
-          <div className="flex-1">
-            <div className="mb-1 text-[8px]">
+    <li className="h-56 p-6 bg-white cursor-pointer card" onClick={goTOLounge}>
+      <div className="flex flex-col justify-between h-full">
+        <div className="flex justify-between">
+          <div className="flex flex-col ">
+            <div className="text-base ">
               {item.tag1}&nbsp;&nbsp;•&nbsp;&nbsp;{item.tag2}
             </div>
             <div className="text-2xl font-bold">{item.title}</div>

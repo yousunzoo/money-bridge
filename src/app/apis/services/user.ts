@@ -110,3 +110,12 @@ export const deleteBookMarkContent = async (id: number) => {
     throw new Error(error.response);
   }
 };
+
+export const getUserContents = async () => {
+  try {
+    const res = await instance.get("/user/main/board");
+    return res.data.data.list;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -136,10 +136,10 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
           </div>
           <div className="flex text-xs">
             <div className="flex-1">{branchAddress}</div>
-            <LocationCopyButton location={branchAddress || ""} />
+            <LocationCopyButton location={branchAddress} />
           </div>
           <div className="mt-4 h-[140px]">
-            <LocationCard latitude={branchLatitude || 0} longitude={branchLongitude || 0} />
+            <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
           </div>
         </div>
       </div>

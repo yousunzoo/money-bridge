@@ -38,13 +38,9 @@ export const getConsultationList = async ({ type, page }: ConsultationListPorps)
   }
 };
 
-export const getReservationInfo = async (id: number) => {
+export const getReservationInfo = async ({ id }: { id: number }) => {
   try {
-    const res = await instance.get("/pb/reservation", {
-      params: {
-        id,
-      },
-    });
+    const res = await instance.get(`/pb/reservation/${id}`);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);

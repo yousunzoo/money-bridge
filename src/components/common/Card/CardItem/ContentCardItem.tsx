@@ -18,16 +18,16 @@ function ContentCardItem({ item }: { item: IContentCard }) {
     refetchOnWindowFocus: false,
   });
   const router = useRouter();
-  const [isBookmarked, setisBookmarked] = useState<boolean | undefined>(item.isBookmarked);
+  const [isBookmarked, setIsBookmarked] = useState<boolean | undefined>(item.isBookmarked);
 
   const bookMark = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     if (isBookmarked) {
       deleteBookMarkContent(item.id);
-      setisBookmarked(false);
+      setIsBookmarked(false);
     } else {
       postBookMarkContent(item.id);
-      setisBookmarked(true);
+      setIsBookmarked(true);
     }
   };
 

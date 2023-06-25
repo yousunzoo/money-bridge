@@ -46,9 +46,9 @@ export interface INowLoginedUserInfo {
   email: string;
 }
 export interface IUserInfo {
-  name: string;
-  phoneNumber: string;
-  email: string;
+  userName: string;
+  userPhoneNumber: string;
+  userEmail: string;
 }
 export interface IReservationData {
   consultInfo: IConsultInfo;

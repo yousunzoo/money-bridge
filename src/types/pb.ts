@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IProfile {
   profile: string;
   msg: string;
@@ -131,4 +133,12 @@ export interface IReviewStyles {
   style1: string;
   style2: string;
   style3: string;
+}
+
+export interface UserReservationItemProps {
+  children: ReactNode;
+  buttonName: string;
+  href: string;
+  isRole: string;
+  profileImage: string;
 }

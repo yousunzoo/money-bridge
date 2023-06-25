@@ -8,11 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import { IContentCard } from "@/types/card";
-import { IDataResponse } from "@/types/common";
+import { IListResponse } from "@/types/common";
+import { AxiosError } from "axios";
 
 function Content() {
-  const { data: All } = useQuery<IDataResponse<IContentCard>>(["/boards"], () => getLoungeNew(0));
-  const { data: NewAndHot } = useQuery<IDataResponse<IContentCard>>(["/lounge/board"], getLoungeBoard);
+  const { data: All } = useQuery<IListResponse<IContentCard>, AxiosError>(["/boards"], () => getLoungeNew(0));
+  const { data: NewAndHot } = useQuery<IListResponse<IContentCard>, AxiosError>(["/lounge/board"], getLoungeBoard);
   const [all, setAll] = useState<IContentCard[]>();
   const [newData, setNewData] = useState<IContentCard[]>();
   const [hotData, setHotData] = useState<IContentCard[]>();
@@ -27,6 +28,7 @@ function Content() {
       setAll(All.list?.slice(0, 2));
     }
   }, [NewAndHot, All]);
+  
   return (
     <>
       <div>

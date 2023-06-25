@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import { IEditProfileFormProps } from "@/types/my";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { ICompanyInput } from "@/types/join";
 import ProfileInput from "./formSections/ProfileInput";
 import CompanyInput from "./formSections/CompanyInput";
 import CareerInput from "./formSections/CareerInput";
@@ -14,13 +13,18 @@ import FigureInput from "./formSections/FigureInput";
 import PortfolioInput from "./formSections/PortfolioInput";
 import IntroInput from "./formSections/IntroInput";
 import MsgInput from "./formSections/MsgInput";
+import { convertEditFormData } from "@/utils/convertEditFormData";
+import { useEditProfile } from "@/hooks/useEditProfile";
 
 function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
-  const [company, setCompany] = useState({ id: existingProfile.companyId, name: existingProfile.company });
-  const [location, setLocation] = useState<{ id: number; name: string }>({ id: 0, name: existingProfile.branchName });
+  const editProfile = useEditProfile();
   const [filePreviews, setFilePreviews] = useState({
     profile: existingProfile.profile,
     portfolio: existingProfile.portfolio,
+  });
+  const [files, setFiles] = useState<{ [key: string]: File | null }>({
+    profile: null,
+    portfolio: null,
   });
   const [careers, setCareers] = useState(
     existingProfile.careers.map(career => {
@@ -42,7 +46,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
     handleSubmit,
     setValue,
     register,
-    formState: { errors, isValid, dirtyFields },
+    formState: { errors },
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -51,6 +55,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
       profile: existingProfile.profile,
       portfolio: existingProfile.portfolio,
       company: existingProfile.company,
+      companyId: existingProfile.companyId,
       branchName: existingProfile.branchName,
       profitFactor: existingProfile.profitFactor,
       maxDrawdown: existingProfile.maxDrawdown,
@@ -60,15 +65,8 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
     },
   });
 
-  const onSubmit = (data: any) => console.log(data);
-
   const profileVal = watch("profile");
   const portfolioVal = watch("portfolio");
-
-  const handleChangeCompany = (item: ICompanyInput) => {
-    setValue("company", item.name);
-    setCompany({ ...item });
-  };
 
   const addCareers = () => {
     setCareers([...careers, { id: uuidv4(), content: undefined, start: undefined, end: undefined }]);
@@ -103,44 +101,57 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
     setSpeciality([...speciality, id]);
   };
 
+  const onSubmit = (data: { [key: string]: unknown }) => {
+    const formData = convertEditFormData(data, speciality, files);
+    editProfile(formData);
+  };
+
   useEffect(() => {
     if (profileVal && !(typeof profileVal === "string")) {
       const file = profileVal[0] as File;
       setFilePreviews({ ...filePreviews, profile: file.name });
+      setFiles({ ...files, profile: file });
       return;
     }
     if (portfolioVal && !(typeof portfolioVal === "string")) {
       const file = portfolioVal[0] as File;
       setFilePreviews({ ...filePreviews, portfolio: file.name });
+      setFiles({ ...files, portfolio: file });
       return;
     }
     if (!profileVal) {
       setFilePreviews({ ...filePreviews, profile: "" });
+      setFiles({ ...files, profile: null });
       return;
     }
-    if (!portfolioVal) setFilePreviews({ ...filePreviews, portfolio: "" });
+    if (!portfolioVal) {
+      setFilePreviews({ ...filePreviews, portfolio: "" });
+      setFiles({ ...files, portfolio: null });
+    }
   }, [profileVal, portfolioVal]);
-
-  useEffect(() => {
-    const branch = location?.name ? location.name : "";
-    setValue("branchName", branch);
-  }, [company, location]);
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ProfileInput register={register} removeFile={removeFile} profile={filePreviews.profile} />
-        <CompanyInput
-          getValues={getValues}
-          handleChangeCompany={handleChangeCompany}
-          companyId={company.id}
-          setLocation={setLocation}
+        <CompanyInput getValues={getValues} setValue={setValue} />
+        <CareerInput errors={errors} register={register} defaultValue={getValues("career")} />
+        <CareersInput
+          errors={errors}
+          register={register}
+          removeItems={removeItems}
+          careers={careers}
+          addCareers={addCareers}
         />
-        <CareerInput register={register} defaultValue={getValues("career")} />
-        <CareersInput register={register} removeItems={removeItems} careers={careers} addCareers={addCareers} />
-        <AwardsInput register={register} removeItems={removeItems} awards={awards} addAwards={addAwards} />
+        <AwardsInput
+          errors={errors}
+          register={register}
+          removeItems={removeItems}
+          awards={awards}
+          addAwards={addAwards}
+        />
         <SpecialityInput speciality={speciality} handleToggleButtons={handleToggleButtons} />
-        <FigureInput register={register} getValues={getValues} />
+        <FigureInput errors={errors} register={register} getValues={getValues} />
         <PortfolioInput register={register} removeFile={removeFile} portfolio={filePreviews.portfolio} />
         <IntroInput register={register} intro={getValues("intro")} />
         <MsgInput register={register} msg={getValues("msg")} />

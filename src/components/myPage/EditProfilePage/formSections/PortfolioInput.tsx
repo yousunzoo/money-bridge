@@ -20,7 +20,7 @@ function PortfolioInput({ register, removeFile, portfolio }: IPortfolioInputProp
           >
             파일 찾기
           </label>
-          <input className="hidden" type="file" id="portfolio" {...register("portfolio")} />
+          <input className="hidden" type="file" accept=".pdf" id="portfolio" {...register("portfolio")} />
         </div>
       </div>
       <p className={`rounded-md bg-white p-4 shadow-sm ${portfolio ? "text-gray-heavy" : "text-placeholder"}`}>

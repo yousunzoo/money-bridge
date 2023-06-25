@@ -22,7 +22,11 @@ function ProfileInput({ register, removeFile, profile }: IProfileInputProps) {
           <input className="hidden" type="file" accept="image/*" id="profile" {...register("profile")} />
         </div>
       </div>
-      <p className={`rounded-md bg-white p-4 shadow-sm ${profile ? "text-gray-heavy" : "text-placeholder"}`}>
+      <p
+        className={`text-ellipsis rounded-md bg-white p-4 shadow-sm ${
+          profile ? "text-gray-heavy" : "text-placeholder"
+        }`}
+      >
         {profile ? profile : "이미지를 등록해주세요"}
       </p>
     </section>

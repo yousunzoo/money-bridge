@@ -2,16 +2,23 @@ import ModalCompanyList from "@/components/joinPage/pb/ModalCompanyList";
 import ModalCompanyLocation from "@/components/joinPage/pb/ModalCompanyLocation";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import { ICompanyInputProps } from "@/types/editProfile";
-import { useState } from "react";
+import { ICompanyInput } from "@/types/join";
+import { useEffect, useState } from "react";
 
-function CompanyInput({ getValues, handleChangeCompany, companyId, setLocation }: ICompanyInputProps) {
+function CompanyInput({ getValues, setValue }: ICompanyInputProps) {
+  const [company, setCompany] = useState({ id: getValues("companyId"), name: getValues("company") });
+  const [location, setLocation] = useState<{ id: number; name: string }>({ id: 0, name: getValues("branchName") });
+
   const [isOpen, setIsOpen] = useState(false);
   const [modalType, setModalType] = useState<"location" | "company" | null>(null);
   const handleOpenCompanyModal = () => {
     setIsOpen(true);
     setModalType("company");
   };
-
+  const handleChangeCompany = (item: ICompanyInput) => {
+    setValue("company", item.name);
+    setCompany({ ...item });
+  };
   const handleOpenLocationModal = () => {
     setIsOpen(true);
     setModalType("location");
@@ -19,6 +26,11 @@ function CompanyInput({ getValues, handleChangeCompany, companyId, setLocation }
   const handleCloseModal = () => {
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    const branch = location?.name ? location.name : "";
+    setValue("branchName", branch);
+  }, [company, location]);
 
   return (
     <>
@@ -52,7 +64,11 @@ function CompanyInput({ getValues, handleChangeCompany, companyId, setLocation }
           {modalType === "company" ? (
             <ModalCompanyList handleChangeCompany={handleChangeCompany} handleCloseModal={handleCloseModal} />
           ) : (
-            <ModalCompanyLocation companyId={companyId} setLocation={setLocation} handleCloseModal={handleCloseModal} />
+            <ModalCompanyLocation
+              companyId={company.id}
+              setLocation={setLocation}
+              handleCloseModal={handleCloseModal}
+            />
           )}
         </ModalLayout>
       )}

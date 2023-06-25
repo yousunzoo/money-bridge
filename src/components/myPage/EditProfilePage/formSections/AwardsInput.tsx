@@ -4,7 +4,7 @@ import React from "react";
 import AwardForm from "../AwardForm";
 import { IAwardsInputProps } from "@/types/editProfile";
 
-function AwardsInput({ addAwards, awards, register, removeItems }: IAwardsInputProps) {
+function AwardsInput({ errors, addAwards, awards, register, removeItems }: IAwardsInputProps) {
   return (
     <section className="mb-10">
       <div className="mb-4 flex items-center justify-between">
@@ -16,7 +16,7 @@ function AwardsInput({ addAwards, awards, register, removeItems }: IAwardsInputP
       <p className="mb-4 text-xs">*입력을 안하면 공백으로 보여집니다.</p>
       <ul className="px-4">
         {awards.map(item => (
-          <AwardForm key={item.id} register={register} removeItems={removeItems} award={item} />
+          <AwardForm key={item.id} errors={errors} register={register} removeItems={removeItems} award={item} />
         ))}
       </ul>
     </section>

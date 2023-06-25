@@ -1,4 +1,4 @@
-import { UseFormGetValues, UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormGetValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { ICompanyInput, ISpeciality } from "./join";
 import { Dispatch, SetStateAction } from "react";
 import { IAward } from "./my";
@@ -9,6 +9,7 @@ export interface IEditProfileFormValues {
   profile: string;
   portfolio: string;
   company: string;
+  companyId: number;
   branchName: string;
   profitFactor: number;
   maxDrawdown: number;
@@ -31,13 +32,12 @@ export interface IPortfolioInputProps {
 
 export interface ICompanyInputProps {
   getValues: UseFormGetValues<IEditProfileFormValues>;
-  handleChangeCompany: (item: ICompanyInput) => void;
-  companyId: number;
-  setLocation: Dispatch<SetStateAction<ICompanyInput>>;
+  setValue: UseFormSetValue<IEditProfileFormValues>;
 }
 
 export interface ICareerInputProps {
   defaultValue: number;
+  errors: FieldErrors<IEditProfileFormValues>;
   register: UseFormRegister<IEditProfileFormValues>;
 }
 
@@ -46,9 +46,11 @@ export interface ICareersInputProps {
   removeItems: (type: string, nowId: string) => void;
   careers: ICareer[];
   addCareers: () => void;
+  errors: FieldErrors<IEditProfileFormValues>;
 }
 
 export interface IAwardsInputProps {
+  errors: FieldErrors<IEditProfileFormValues>;
   register: UseFormRegister<IEditProfileFormValues>;
   removeItems: (type: string, nowId: string) => void;
   awards: IAward[];
@@ -69,6 +71,7 @@ export interface ICareer {
 export interface IFigureInputProps {
   register: UseFormRegister<IEditProfileFormValues>;
   getValues: UseFormGetValues<IEditProfileFormValues>;
+  errors: FieldErrors<IEditProfileFormValues>;
 }
 
 export interface IIntroInputProps {
@@ -82,12 +85,14 @@ export interface IMsgInputProps {
 }
 export interface IAwardFormProps {
   award: IAward;
+  errors: FieldErrors<IEditProfileFormValues | { [key: string]: unknown }>;
   removeItems: (type: string, nowId: string) => void;
   register: UseFormRegister<any>;
 }
 
 export interface ICareerFormProps {
   career: ICareer;
+  errors: FieldErrors<IEditProfileFormValues | { [key: string]: unknown }>;
   removeItems: (type: string, nowId: string) => void;
   register: UseFormRegister<any>;
 }

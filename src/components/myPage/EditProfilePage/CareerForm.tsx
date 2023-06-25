@@ -2,9 +2,8 @@ import { ICareerFormProps } from "@/types/editProfile";
 import minusIcon from "/public/assets/images/minusCircle.svg";
 
 import Image from "next/image";
-function CareerForm({ career, removeItems, register }: ICareerFormProps) {
+function CareerForm({ errors, career, removeItems, register }: ICareerFormProps) {
   const { content, start, end, id } = career;
-
   const handleClick = () => {
     if (!id) return;
     removeItems("career", id);
@@ -15,23 +14,25 @@ function CareerForm({ career, removeItems, register }: ICareerFormProps) {
         <Image src={minusIcon} alt="삭제" width={28} height={28} />
       </button>
       <input
-        className="edit_input mb-4 flex-1"
+        className={`edit_input mb-4 flex-1 ${errors[`careers-${id}-content`] && "warnning"}`}
         placeholder="경력을 작성해주세요."
         defaultValue={content}
-        required
-        {...register(`careers-${id}-content`)}
+        {...register(`careers-${id}-content`, {
+          required: true,
+        })}
       />
       <div className="flex items-center justify-between gap-4">
         <div className="relative w-1/2">
           <p className="text-sm">입사</p>
           <input
             type="number"
-            className="mt-2 w-full rounded-md border-1 border-button-inactive px-4 py-3 shadow-sm"
+            className={`edit_input mt-2 ${errors[`careers-${id}-start`] && "warnning"}`}
             placeholder="입사년도"
             defaultValue={start}
-            required
-            pattern="[0-9]{4}"
-            {...register(`careers-${id}-start`)}
+            {...register(`careers-${id}-start`, {
+              required: true,
+              pattern: /^[12]\d{3}$/,
+            })}
           />
         </div>
         <p className="pt-8">~</p>
@@ -39,12 +40,13 @@ function CareerForm({ career, removeItems, register }: ICareerFormProps) {
           <p className="text-sm">퇴사</p>
           <input
             type="number"
-            className="mt-2 w-full rounded-md border-1 border-button-inactive px-4 py-3 shadow-sm"
+            className={`edit_input mt-2 ${errors[`careers-${id}-end`] && "warnning"}`}
             placeholder="퇴사년도"
             defaultValue={end}
-            pattern="[0-9]{4}"
-            required
-            {...register(`careers-${id}-end`)}
+            {...register(`careers-${id}-end`, {
+              required: true,
+              pattern: /^[12]\d{3}$/,
+            })}
           />
         </div>
       </div>

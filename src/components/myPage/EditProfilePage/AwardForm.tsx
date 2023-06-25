@@ -2,7 +2,7 @@ import Image from "next/image";
 import minusIcon from "/public/assets/images/minusCircle.svg";
 import { IAwardFormProps } from "@/types/editProfile";
 
-function AwardForm({ award, removeItems, register }: IAwardFormProps) {
+function AwardForm({ errors, award, removeItems, register }: IAwardFormProps) {
   const { record, awardYear, id } = award;
   const handleClick = () => {
     if (!id) return;
@@ -14,23 +14,26 @@ function AwardForm({ award, removeItems, register }: IAwardFormProps) {
         <Image src={minusIcon} alt="삭제" width={28} height={28} />
       </button>
       <input
-        className="edit_input mb-4 flex-1"
+        className={`edit_input mb-4 flex-1 ${errors[`award-${id}-content`] && "warnning"}`}
         placeholder="수상 내역을 작성해주세요."
         defaultValue={record}
-        required
-        {...register(`award-${id}-content`)}
+        {...register(`award-${id}-content`, {
+          required: true,
+        })}
       />
       <div className="flex items-center justify-between gap-4 pr-8">
         <div className="relative w-1/2">
-          <p className="text-sm">수상년도</p>
+          <p className="mb-2 text-sm">수상년도</p>
           <input
             type="number"
-            className="mt-2 w-full rounded-md border-1 border-button-inactive px-4 py-3 shadow-sm"
+            className={`edit_input ${errors[`award-${id}-awardYear`] && "warnning"}`}
             placeholder="수상년도"
             defaultValue={awardYear}
-            required
             pattern="[0-9]{4}"
-            {...register(`award-${id}-awardYear`)}
+            {...register(`award-${id}-awardYear`, {
+              required: true,
+              pattern: /^[12]\d{3}$/,
+            })}
           />
         </div>
       </div>

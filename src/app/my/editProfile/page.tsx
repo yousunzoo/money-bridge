@@ -9,11 +9,7 @@ import { IPBMyProfile } from "@/types/my";
 import { redirect } from "next/navigation";
 
 function EditProfilePage() {
-  const {
-    data: pbProfile,
-    isLoading,
-    isError,
-  } = useQuery<any, AxiosError, IPBMyProfile>(["PBMyProfile"], getPBMyProfile);
+  const { data: pbProfile, isError } = useQuery<any, AxiosError, IPBMyProfile>(["PBMyProfile"], getPBMyProfile);
   if (isError) {
     redirect("/");
   }

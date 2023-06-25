@@ -1,11 +1,11 @@
 import { getPBList } from "@/app/apis/services/etc";
 import { useLocationStore } from "@/store/location";
 import { ISpeciality } from "@/types/join";
-import { IPBCard } from "@/types/my";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IPbCard } from "@/types/card";
 
 export interface IParams {
   sort: "distance" | "career";
@@ -15,7 +15,7 @@ export interface IParams {
 }
 
 export interface IPBListData {
-  list: IPBCard[];
+  list: IPbCard[];
   totalElements: number;
   totalPages: number;
   curPage: number;

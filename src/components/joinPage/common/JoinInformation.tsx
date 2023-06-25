@@ -63,7 +63,7 @@ function JoinInformation({ type }: { type: JoinFormType }) {
           />
           {dirtyFields.text && (
             <>
-              <button className="input_button" tabIndex={-1} onClick={() => reset()}></button>
+              <button type="button" className="input_button" tabIndex={-1} onClick={() => reset()}></button>
               <Image src={errors.text ? alert : correct} alt="input_status" className="input_status" />
             </>
           )}
@@ -74,7 +74,6 @@ function JoinInformation({ type }: { type: JoinFormType }) {
           </span>
         </div>
         <button
-          type="submit"
           className={`mt-[150px] h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"}`}
           onClick={onSubmit}
           disabled={!isValid}

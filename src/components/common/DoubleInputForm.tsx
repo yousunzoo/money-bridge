@@ -113,7 +113,7 @@ function DoubleInputForm({
             />
             {dirtyFields.first && (
               <>
-                <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <button type="button" className="input_button" tabIndex={-1} onClick={handleClear}></button>
                 <Image src={errors.first ? alert : correct} alt="input_status" className="input_status" />
               </>
             )}
@@ -134,7 +134,7 @@ function DoubleInputForm({
             />
             {dirtyFields.second && (
               <>
-                <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <button type="button" className="input_button" tabIndex={-1} onClick={handleClear}></button>
                 <Image src={errors.second ? alert : correct} alt="input_status" className="input_status" />
               </>
             )}
@@ -146,7 +146,6 @@ function DoubleInputForm({
           </div>
         </div>
         <button
-          type="submit"
           className={`mt-4 h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"} ${
             isValid ? "cursor-pointer" : "cursor-not-allowed"
           }`}

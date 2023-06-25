@@ -36,7 +36,7 @@ function PbCardItem({ item }: { item: IPbCard }) {
     <li className="card h-[200px] bg-white px-[20px] pt-[20px]">
       <div className="mb-[18px] flex">
         <Image
-          src={item.profile !== "person.png" ? item.profile : "/assets/images/profile.svg"}
+          src={item.profile}
           alt="프로필"
           width={60}
           height={60}

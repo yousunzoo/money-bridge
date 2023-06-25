@@ -74,3 +74,12 @@ export const getRecommendedPBList = async (page: number) => {
     throw new AxiosError(error.response.data);
   }
 };
+
+export const getUserContents = async () => {
+  try {
+    const res = await instance.get("/user/main/board");
+    return res.data.data.list;
+  } catch (error) {
+    throw error;
+  }
+};

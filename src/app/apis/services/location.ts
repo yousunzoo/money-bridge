@@ -17,9 +17,9 @@ export const getLocationName = async ({ latitude, longitude }: getLocationNamePr
   const url = `${KAKAO_API_COORD_URL}?x=${longitude}&y=${latitude}`;
   try {
     const response = await axios.get(url, options);
-    const data = response.data;
-    const res = data.documents[1].address_name.split(" ");
-    const location = res[res.length - 1];
+    const res = response.data;
+    const resArr = res.documents[1].address_name.split(" ");
+    const location = resArr[resArr.length - 1];
     return location;
   } catch (error) {
     throw new Error("서비스 영역이 아닙니다.");
@@ -29,10 +29,9 @@ export const getLocationName = async ({ latitude, longitude }: getLocationNamePr
 export const searchLocation = async (searchWord: string) => {
   const encodedQuery = encodeURIComponent(searchWord);
   const url = `${KAKAO_API_SEARCH_URL}?query=${encodedQuery}`;
-
   try {
-    const response = await axios.get(url, options);
-    const data = response.data;
+    const res = await axios.get(url, options);
+    const data = res.data;
     return data;
   } catch (error) {
     throw new Error("서비스 영역이 아닙니다.");

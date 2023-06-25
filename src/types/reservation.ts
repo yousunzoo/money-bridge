@@ -50,7 +50,6 @@ export interface IUserInfo {
   userPhoneNumber: string;
   userEmail: string;
 }
-
 export interface IReservationData {
   consultInfo: IConsultInfo;
   pbInfo: IPBInfo;

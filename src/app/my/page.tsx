@@ -15,7 +15,7 @@ const nextIcon = "/assets/images/nextIcon.svg";
 
 function MyPage() {
   const [mounted, setMounted] = useState(false);
-  const { loginedUserInfo, handleLogout, loading, isOpen, setIsOpen, modalContents } = useMyPageCheck();
+  const { loginedUserInfo, handleLogout, loading, isOpen, setIsOpen, modalContents } = useMyPageCheck(true);
 
   useEffect(() => {
     if (!loading) setMounted(true);

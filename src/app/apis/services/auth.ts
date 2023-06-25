@@ -1,6 +1,7 @@
 import { IJoinInformation, joinInDTO } from "@/types/join";
 import { formInstance, instance } from "../axios";
 import { IUser } from "@/types/login";
+import { AxiosError } from "axios";
 
 export const userLogin = async (user: IUser) => {
   const res = await instance.post("/login", user);
@@ -73,7 +74,11 @@ export const userLogout = async () => {
     const res = await instance.post("/auth/logout");
     return res.data.data;
   } catch (error: any) {
+<<<<<<< HEAD
     throw new Error(error.response.data);
+=======
+    throw new AxiosError(error.response.data.data.value);
+>>>>>>> 323bb4a1210ce6c1f42dda85d6441723001b1f2b
   }
 };
 
@@ -83,7 +88,7 @@ export const userWithdraw = async (password: string) => {
     const res = await instance.delete("/auth/account", { data });
     return res.data;
   } catch (error: any) {
-    throw new Error(error.response.data.data);
+    throw new AxiosError(error.response.data.data);
   }
 };
 
@@ -92,7 +97,7 @@ export const userCheckPassword = async (password: string) => {
     const res = await instance.post("/auth/password", { password });
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.data);
+    throw new AxiosError(error.response.data.data);
   }
 };
 
@@ -101,7 +106,7 @@ export const getMyInfo = async () => {
     const res = await instance.get("/auth/myinfo");
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response);
+    throw new AxiosError(error.response);
   }
 };
 
@@ -110,7 +115,7 @@ export const editMyInfo = async (data: { [key: string]: string }) => {
     const res = await instance.patch("/auth/myinfo", data);
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.data);
+    throw new AxiosError(error.response.data.data);
   }
 };
 
@@ -119,7 +124,6 @@ export const getLoginedUserInfo = async () => {
     const res = await instance.get("/auth/account");
     return res.data.data;
   } catch (error: any) {
-    const response = error.response.data;
-    throw new Error(response);
+    throw new AxiosError(error.response.data);
   }
 };

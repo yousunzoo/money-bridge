@@ -6,21 +6,13 @@ import UserReservationItem from "@/components/common/Card/CardItem/UserReservati
 import ProcessList from "@/components/common/ProcessList";
 import { getConsultationList, getConsultationStatus } from "../apis/services/pb";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { ILoginedUserInfo } from "@/types/reservation";
 import { getLoginedUserInfo } from "../apis/services/auth";
 import { AxiosError } from "axios";
-import { ConsultationStatue } from "@/types/management";
+import { ConsultationStatusProps, SelectedData } from "@/types/management";
 import { redirect, useSearchParams } from "next/navigation";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
-
-interface SelectedData {
-  reservationId: number;
-  isNewReservation: boolean;
-  profileImage: string;
-  name: string;
-  createdAt: string;
-  type: string;
-}
+import { ILoginedUserInfo } from "@/types/common";
+import ErrorModal from "@/components/common/ErrorModal";
 
 const PROCESS_DATA: Record<string, { name: string; path: string }> = {
   APPLY: { name: "신규예약", path: "newReservation" },
@@ -45,25 +37,31 @@ function ManagementPage() {
     refetchOnWindowFocus: false,
   });
 
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
+
   const {
     data: consultationStatus,
     isLoading: isStatusLoading,
     isError: isStatusError,
-  } = useQuery<ConsultationStatue, AxiosError>(["consultationStatus"], getConsultationStatus);
+  } = useQuery<ConsultationStatusProps, AxiosError>(["consultationStatus"], getConsultationStatus);
 
   const {
     data: consultationList,
     fetchNextPage,
     hasNextPage,
     isFetching,
+    isError: isListError,
   } = useInfiniteQuery(
     ["consultationList", process],
     ({ pageParam = 0 }) => getConsultationList({ type: process, page: pageParam }),
     {
-      getNextPageParam: ({ curPage, last }: { list: any; curPage: number; last: number }) =>
-        last ? false : curPage + 1,
+      getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),
     },
   );
+
+  console.log();
 
   const list = useMemo(
     () => (consultationList ? (consultationList.pages || []).flatMap(data => data.list) : []),
@@ -82,15 +80,18 @@ function ManagementPage() {
     setSelectPath(path);
     setSelectData(list);
   }, [consultationList, process]);
-  isLogined && userInfo.role !== "PB" && redirect("/");
-  // if (isStatusError | isListError) return <ErrorModal isError={true} path={"/schedule"} />;
-  console.log("consultationStatus", consultationStatus);
-  console.log("list", list);
+
+  if (!consultationStatus) return;
+
+  if (userInfo?.role !== "PB")
+    return <ErrorModal isError={true} path={"/"} content={"권한이 없습니다. 다시 시도해주세요."} />;
+  if (isStatusError || isListError)
+    return <ErrorModal isError={true} path={"/"} content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."} />;
 
   return (
     <div className="flex flex-col items-center">
       <TopNav title={"고객관리"} />
-      <ConsultationStatus {...consultationStatus} />
+      <ConsultationStatus consultationStatus={consultationStatus} pbId={userInfo.id} />
       <ProcessList role={"pb"} />
 
       <div className="w-full h-2 my-8 bg-background-secondary"></div>
@@ -98,7 +99,7 @@ function ManagementPage() {
       <div className="justify-start w-full">
         <div>
           <h3 className="pl-1 text-lg font-bold">{`${PROCESS_DATA[process]?.name || PROCESS_DATA.APPLY.name} ${
-            list?.length ? list?.length : 0
+            consultationList?.pages[0].totalElements ?? 0
           }건`}</h3>
           <p className="pl-1 my-1 mb-6 text-sm">예약 희망 일정을 확인 한 후 유선으로 상담 일정을 조율해주세요.</p>
           <ul className="flex flex-col gap-4">

@@ -5,10 +5,10 @@ import BookMark from "@/components/bookmarkPage/BookMark";
 import { getBookMarkContent } from "@/app/apis/services/user";
 import { useQuery } from "@tanstack/react-query";
 import { IContentCard } from "@/types/card";
-import { IDataResponse } from "@/types/common";
+import { IListResponse } from "@/types/common";
 
 function ContentBookMark() {
-  const { data: res } = useQuery<IDataResponse<IContentCard>>(["/auth/bookmarks/boards"], () => getBookMarkContent(0));
+  const { data: res } = useQuery<IListResponse<IContentCard>>(["/auth/bookmarks/boards"], () => getBookMarkContent(0));
 
   return (
     <div className="mb-10">

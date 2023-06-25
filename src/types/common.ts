@@ -1,4 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
+import { IPropensity } from "./pblist";
 
 export interface ButtonModalProps {
   modalContents: IModalContents;
@@ -30,28 +31,19 @@ export interface User {
   name: string;
 }
 
-export interface ListResponse<T> {
-  status: string;
-  msg: string;
-  data: {
-    list: T[];
-    totalElements?: number;
-    totalPages?: number;
-    curPage?: number;
-    first?: boolean;
-    last?: boolean;
-    empty?: boolean;
-  };
-}
-
-export interface DataResponse<T> {
-  status: string;
-  msg: string;
-  data: T[] | null;
+export interface IDataResponse<T> {
+  list: T[] | null;
   totalElements?: number;
   totalPages?: number;
   curPage?: number;
   first?: boolean;
   last?: boolean;
   empty?: boolean;
+}
+
+export interface ILoginedUserInfo {
+  id: number;
+  role: "USER" | "PB";
+  name: string;
+  propensity: IPropensity;
 }

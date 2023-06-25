@@ -1,10 +1,10 @@
-export interface Profile {
+export interface IProfile {
   profile: string;
   msg: string;
   companyLogo: string;
 }
 
-export interface loginProfile {
+export interface IloginProfile {
   id: number;
   profile: string;
   msg: string;
@@ -22,24 +22,24 @@ export interface loginProfile {
   intro: string;
   speciality1: string;
   speciality2: string;
-  career: Career[];
-  award: Award[];
+  career: ICareer[];
+  award: IAward[];
 }
 
-export interface Career {
+export interface ICareer {
   id: number;
   start: number;
   end: number;
   career: string;
 }
 
-export interface Award {
+export interface IAward {
   id: number;
   year: number;
   record: string;
 }
 
-export interface Portfolio {
+export interface IPortfolio {
   pbId: number;
   cumulativeReturn: number;
   maxDrawdown: number;
@@ -48,7 +48,7 @@ export interface Portfolio {
   file: string;
 }
 
-export interface PortfolioUpdate {
+export interface IPortfolioUpdate {
   company: string;
   branchName: string;
   career: number;
@@ -72,7 +72,7 @@ export interface PortfolioUpdate {
   msg: string;
 }
 
-export interface SamePB {
+export interface ISamePB {
   id: number;
   title: string;
   pbName: string;
@@ -85,7 +85,7 @@ export interface SamePB {
   career: number;
 }
 
-export interface PbReview {
+export interface IPbReview {
   reviewId: number;
   userName: string;
   content: string;
@@ -95,7 +95,7 @@ export interface PbReview {
   }[];
 }
 
-export interface ReviewStyles {
+export interface IReviewStyles {
   style1: string;
   style2: string;
   style3: string;

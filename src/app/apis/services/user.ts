@@ -1,15 +1,32 @@
-import { instance } from "../axios";
-import { useQuery } from "@tanstack/react-query";
+import { instance } from "@/app/apis/axios";
+import { IConvertedAnswers } from "@/types/analysis";
+import { AxiosError } from "axios";
 
-export const useBookmarkPB = () => {
-  const queryKey = "/user/bookmarks/pb";
-  const queryFn = () =>
-    // todo: 헤더 붙이기
-    instance.get(queryKey).then(res => {
-      return res.data;
-    });
+export const BookMarkPB = async (page: number) => {
+  try {
+    const res = await instance.get("/user/bookmarks/pb", { params: { page } });
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
+  }
+};
 
-  return useQuery([queryKey], queryFn);
+export const BookMarkContent = async (page: number) => {
+  try {
+    const res = await instance.get("/auth/bookmarks/boards", { params: { page } });
+    return res.data.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
+  }
+};
+
+export const getReservationData = async (pbId: string) => {
+  try {
+    const res = await instance.get(`/user/reservation/base/${pbId}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
 };
 
 export const checkPropensity = async (score: number) => {
@@ -17,7 +34,7 @@ export const checkPropensity = async (score: number) => {
     const res = await instance.post("/user/propensity", { score });
     return res.data;
   } catch (error: any) {
-    throw new Error(error);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -26,7 +43,7 @@ export const getUserInfo = async () => {
     const res = await instance.get("/user/mypage");
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.status);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -35,7 +52,26 @@ export const getMyPropensity = async () => {
     const res = await instance.get("/user/mypage/list/pb");
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.status);
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const reserve = async (data: { pbId: number; answers: IConvertedAnswers }) => {
+  const { pbId, answers } = data;
+  try {
+    const res = await instance.post(`/user/reservation/${pbId}`, answers);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const getRecommendedPBList = async (page: number) => {
+  try {
+    const res = await instance.get("user/list/pb", { params: { page } });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
   }
 };
 

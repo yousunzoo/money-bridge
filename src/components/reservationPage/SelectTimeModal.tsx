@@ -4,6 +4,7 @@ import SelectCalendar from "./SelectCalendar";
 import dayjs, { Dayjs } from "dayjs";
 import TimeSelect from "./TimeSelect";
 import { useReservationStore } from "@/store/reservationStore";
+import { timeSelectOptions } from "@/utils/timeSelectOptions";
 
 function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTime }: ISelectTimeModalProps) {
   const [step, setStep] = useState(1);
@@ -11,21 +12,7 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
   const [select, setSelect] = useState<ICandidateTimes>({ candidateTime1: null, candidateTime2: null });
   const { setAnswers } = useReservationStore();
 
-  const selectOptions = (() => {
-    const { consultStart, consultEnd } = consultTime;
-    const startHour = dayjs(consultStart, "hh").get("hour");
-    const endHour = dayjs(consultEnd, "hh").get("hour");
-    const am = [];
-    const pm = [];
-    for (let i = startHour; i <= endHour; i++) {
-      if (i < 12) {
-        am.push(i < 10 ? `0${i}:00` : `${i}:00`);
-      } else {
-        pm.push(`${i}:00`);
-      }
-    }
-    return { am, pm };
-  })();
+  const selectOptions = timeSelectOptions({ ...consultTime });
 
   const handleCalendarSelect = (e: Dayjs) => {
     const date = e.format();
@@ -55,7 +42,11 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
       setSelect({ ...select, candidateTime2: candidate });
     }
   };
-
+  const timeSelectProps = {
+    setIsDisabled: setIsDisabled,
+    handleTimeSelect: handleTimeSelect,
+    selectOptions: selectOptions,
+  };
   return (
     <div className="flex h-[520px] flex-col">
       <h2 className="mb-6 text-xl font-bold">
@@ -66,18 +57,10 @@ function SelectTimeModal({ nowStep, handleCloseModal, moveToNextStep, consultTim
           <SelectCalendar setIsDisabled={setIsDisabled} handleSelect={handleCalendarSelect} />
         )}
         {step === 2 && select.candidateTime1 && (
-          <TimeSelect
-            handleTimeSelect={handleTimeSelect}
-            selectOptions={selectOptions}
-            selectedDate={select.candidateTime1}
-          />
+          <TimeSelect {...timeSelectProps} selectedDate={select.candidateTime1} />
         )}
         {step === 4 && select.candidateTime2 && (
-          <TimeSelect
-            handleTimeSelect={handleTimeSelect}
-            selectOptions={selectOptions}
-            selectedDate={select.candidateTime2}
-          />
+          <TimeSelect {...timeSelectProps} selectedDate={select.candidateTime2} />
         )}
       </section>
       <button className={`button ${isDisabled && "inactive"}`} onClick={handleNextButton} disabled={isDisabled}>

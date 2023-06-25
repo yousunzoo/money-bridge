@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 interface IReservationStore {
   answers: IAnswers;
-  setAnswers: (step: number, answer: string | string[] | {}) => void;
+  setAnswers: (step: number, answer: string | string[] | {} | null) => void;
   resetAnswers: () => void;
 }
 

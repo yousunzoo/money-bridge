@@ -12,6 +12,7 @@ function TimeModal({
   handleTimeSelect,
   timeSelectClick,
   isDisabled,
+  setIsDisabled,
 }: TimeModalProps) {
   const selectOptions = (() => {
     const { consultStart, consultEnd } = consultTime;
@@ -39,7 +40,12 @@ function TimeModal({
           <Image src={close} alt="close" width={24} height={24} />
         </button>
       </div>
-      <TimeSelect selectOptions={selectOptions} selectedDate={selectedDate} handleTimeSelect={handleTimeSelect} />
+      <TimeSelect
+        setIsDisabled={setIsDisabled}
+        selectOptions={selectOptions}
+        selectedDate={selectedDate}
+        handleTimeSelect={handleTimeSelect}
+      />
       <button
         onClick={timeSelectClick}
         className={`mt-3 w-full rounded-md bg-primary-normal py-3 text-base  font-bold text-white`}

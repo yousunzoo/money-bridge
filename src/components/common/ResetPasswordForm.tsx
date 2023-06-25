@@ -8,6 +8,7 @@ import { useResetPassword } from "@/hooks/useResetPassword";
 import { useQueryClient } from "@tanstack/react-query";
 import { IFindPassword } from "@/types/login";
 import ButtonModal from "./ButtonModal";
+import { useMyPageCheck } from "@/hooks/useMyPageCheck";
 
 const yup_password = yup.string().min(8).max(15).matches(/^\S+$/).required();
 
@@ -19,6 +20,8 @@ function ResetPasswordForm() {
     second: "",
   });
   const [isOpen, setIsOpen] = useState(false);
+  const currentPath = pathName.split("/")[1];
+  const { loginedUserInfo } = useMyPageCheck(currentPath === "my");
   const findPassword = useResetPassword();
   const queryClient = useQueryClient();
 
@@ -29,10 +32,10 @@ function ResetPasswordForm() {
 
   const modalContents = {
     content: "비밀번호가 재설정 되었습니다.",
-    confirmText: "로그인",
+    confirmText: currentPath === "findPassword" ? "로그인" : "확인",
     confirmFn: () => {
       setIsOpen(false);
-      router.push("/login");
+      currentPath === "findPassword" ? router.push("/login") : router.back();
     },
   };
 
@@ -51,13 +54,16 @@ function ResetPasswordForm() {
   };
 
   const onSubmit = () => {
-    const currentPath = pathName.split("/")[1];
     switch (currentPath) {
       case "findPassword":
         const data = queryClient.getQueryData(["findPassword"]) as IFindPassword;
         findPassword({ id: data.data.id, password: inputs.first, role: pathName.split("/")[2].toUpperCase() });
-        setIsOpen(true);
+        break;
+      case "my":
+        if (!loginedUserInfo) return;
+        findPassword({ id: loginedUserInfo.id, password: inputs.first, role: loginedUserInfo.role });
     }
+    setIsOpen(true);
   };
 
   errors.first?.type === "required" ? (errors.first = undefined) : "";
@@ -116,7 +122,7 @@ function ResetPasswordForm() {
       </form>
       {isOpen && (
         <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen}>
-          <p>로그인 후 MONEY BRIDGE를 이용해주세요.</p>
+          {currentPath === "findPassword" && <p>로그인 후 MONEY BRIDGE를 이용해주세요.</p>}
         </ButtonModal>
       )}
     </div>

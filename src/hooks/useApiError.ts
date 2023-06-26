@@ -29,7 +29,7 @@ const useApiError = () => {
       setModalContents({
         content: ERROR_MESSAGES[status],
         confirmText: "확인",
-        confirmFn: () => redirect("/"),
+        confirmFn: () => router.push("/"),
       });
       setIsOpen(true);
     }

@@ -61,8 +61,6 @@ function ManagementPage() {
     },
   );
 
-  console.log();
-
   const list = useMemo(
     () => (consultationList ? (consultationList.pages || []).flatMap(data => data.list) : []),
     [consultationList],
@@ -74,7 +72,7 @@ function ManagementPage() {
       fetchNextPage();
     }
   });
-
+  console.log(list);
   useEffect(() => {
     const { path } = PROCESS_DATA[process] || PROCESS_DATA.APPLY;
     setSelectPath(path);
@@ -104,12 +102,13 @@ function ManagementPage() {
           <p className="pl-1 my-1 mb-6 text-sm">예약 희망 일정을 확인 한 후 유선으로 상담 일정을 조율해주세요.</p>
           <ul className="flex flex-col gap-4">
             {selectData?.length ? (
-              selectData.map(({ reservationId, name, createdAt, type }) => (
+              selectData.map(({ reservationId, name, createdAt, type, profileImage }) => (
                 <UserReservationItem
                   buttonName="고객 정보"
                   key={reservationId}
                   href={`/management/${selectPath}/${reservationId}`}
                   isRole={"USER"}
+                  profileImage={profileImage}
                 >
                   <p className="font-bold">{name}</p>
                   <p className="text-xs ">{createdAt} </p>

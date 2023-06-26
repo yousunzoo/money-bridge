@@ -8,7 +8,7 @@ import { yup_password } from "@/constants/yupSchema";
 import Image from "next/image";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
-import { MouseEvent } from "react";
+import { FormEvent, MouseEvent } from "react";
 
 type Tinput = "first" | "second";
 
@@ -24,7 +24,6 @@ function SetPasswordForm() {
 
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid, dirtyFields },
     resetField,
     getValues,
@@ -37,7 +36,8 @@ function SetPasswordForm() {
     resetField(inputEl.name as Tinput, { defaultValue: "" });
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
     const joinType = pathName.split("/")[2];
 
     setInformations("password", getValues("first"));
@@ -53,7 +53,7 @@ function SetPasswordForm() {
   return (
     <>
       <p className="my-14 text-xl font-bold leading-7">비밀번호를 입력해 주세요</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <div className="mb-2.5">
           <div className="relative flex items-center">
             <input

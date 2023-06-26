@@ -10,9 +10,7 @@ import { AxiosError } from "axios";
 const BUTTON_STYLE = "w-1/2 rounded-t-md bg-white py-4 shadow-md box-border";
 function PBMenu() {
   const { data: companyList, isLoading } = useQuery<ICompanyList, AxiosError>(["companyList"], getCompanyListwithLogo, {
-    refetchOnWindowFocus: false,
     staleTime: Infinity,
-    cacheTime: Infinity,
   });
   const { handleTypeClick, handleIDClick, company, speciality } = usePBListQueries();
 

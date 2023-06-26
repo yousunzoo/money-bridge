@@ -5,8 +5,9 @@ import useApiError from "@/hooks/useApiError";
 import { QueryClient, QueryClientProvider, Hydrate } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PropsWithChildren, useState } from "react";
-import { getUserInfo } from "./apis/services/user";
 import { getLoginedUserInfo } from "./apis/services/auth";
+import { ILoginedUserInfo } from "@/types/common";
+import { AxiosError } from "axios";
 
 export default function ReactQueryProvider({ children }: PropsWithChildren) {
   const [queryClient] = useState(() => new QueryClient());
@@ -21,8 +22,7 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
       retry: 1,
     },
   });
-
-  queryClient.prefetchQuery({
+  queryClient.prefetchQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["loginedUserInfo"],
     queryFn: getLoginedUserInfo,
     staleTime: Infinity,

@@ -1,7 +1,8 @@
 import { userLogin } from "@/app/apis/services/auth";
+import { useAuthenticationStore } from "@/store/authenticationStore";
 import { useUserStore } from "@/store/userStore";
 import { setCookie } from "@/utils/cookies";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -12,13 +13,17 @@ export const useLogin = (
 ) => {
   const router = useRouter();
   const pathName = usePathname();
+  const queryClient = useQueryClient();
   const { setUser } = useUserStore();
+  const { setCode } = useAuthenticationStore();
 
   const { mutate } = useMutation(userLogin, {
     onSuccess: data => {
       console.log(data);
       if (data.data.data.code) {
+        queryClient.setQueryData(["login"], data);
         if (setNextStep) {
+          setCode(data.data.data.code);
           setNextStep(true);
         }
       } else {

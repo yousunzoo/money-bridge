@@ -38,7 +38,7 @@ function EnterCareer() {
     setInformations("speciality1", selectedItem[0]);
     setInformations("speciality2", selectedItem[1]);
 
-    router.push("/join/pb/agreements");
+    router.push("/join/pb/registerBusinessCard");
   };
 
   return (

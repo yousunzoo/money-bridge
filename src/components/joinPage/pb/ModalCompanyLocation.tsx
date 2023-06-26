@@ -24,7 +24,6 @@ function ModalCompanyLocation({
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const companyLocationList = useGetCompnayLocation(companyId, value);
-  console.log(companyLocationList);
 
   const debouncedSetValue = debounce((newValue: string) => {
     setValue(newValue);
@@ -43,8 +42,7 @@ function ModalCompanyLocation({
 
   const handleSelect = (e: MouseEvent<HTMLUListElement>) => {
     const target = e.target as HTMLLIElement;
-    console.log(target);
-    setLocation({ name: target.textContent, id: Number(target.id) });
+    setLocation({ name: target.innerText, id: Number(target.id) });
     handleCloseModal();
   };
 
@@ -70,9 +68,13 @@ function ModalCompanyLocation({
         </p>
       )}
 
-      <ul className="w-full text-base font-bold leading-7" onClick={handleSelect}>
+      <ul className="h-[300px] w-full overflow-y-scroll text-base font-bold leading-7" onClick={handleSelect}>
         {companyLocationList?.data.list.map(location => (
-          <li key={location.id} id={location.id.toString()} className="border-b-1 border-button-inactive py-2 pl-4">
+          <li
+            key={location.id}
+            id={location.id.toString()}
+            className="cursor-pointer border-b-1 border-button-inactive py-2 pl-4"
+          >
             {location.name}
           </li>
         ))}

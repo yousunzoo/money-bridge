@@ -1,14 +1,17 @@
 import { removeCookie } from "@/utils/cookies";
 import { userLogout } from "@/app/apis/services/auth";
-import { useMutation } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export const useLogout = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(userLogout, {
-    onSuccess: data => {
+    onSuccess: () => {
       removeCookie("Authorization");
       removeCookie("refreshToken");
-      redirect("/");
+      queryClient.resetQueries();
+      router.replace("/");
     },
   });
 

@@ -3,6 +3,7 @@ import Script from "next/script";
 import ReactQueryProvider from "./ReactQueryProvider";
 import "./globals.css";
 import { Noto_Sans_KR } from "next/font/google";
+import Main from "@/components/common/Main";
 
 const noto = Noto_Sans_KR({ weight: ["500", "700"], subsets: ["latin"] });
 
@@ -27,10 +28,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={noto.className}>
         <ReactQueryProvider>
-          <main>
+          <Main>
             {children}
             <Navbar />
-          </main>
+          </Main>
         </ReactQueryProvider>
       </body>
     </html>

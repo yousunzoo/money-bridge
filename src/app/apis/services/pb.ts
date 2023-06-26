@@ -1,14 +1,14 @@
 import { ConsultationTimeCardProps } from "@/types/schedule";
-import { instance } from "../axios";
 import { AxiosError } from "axios";
 import { ChangeReservationProps, ConsultationListProps, GetScheduleInfoProps } from "@/types/pb";
+import { formInstance, instance } from "../axios";
 
 export const getPBInfo = async () => {
   try {
     const res = await instance.get("/pb/mypage");
-    return res.data;
+    return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.status);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -156,6 +156,15 @@ export const getReservationInfo = async ({ id }: { id: number }) => {
   }
 };
 
+export const getPBMyProfile = async () => {
+  try {
+    const res = await instance.get("/pb/portfolio/update");
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
 export const changeReservation = async ({ id, category, time, type }: ChangeReservationProps) => {
   console.log(id, category, time, type);
   try {
@@ -194,6 +203,15 @@ export const completedReservation = async (id: number) => {
 export const deleteReservation = async (id: number) => {
   try {
     const res = await instance.delete(`/auth/reservation/${id}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const editPBMyProfile = async (formData: FormData) => {
+  try {
+    const res = await formInstance.put("/pb/profile", formData);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);

@@ -1,21 +1,17 @@
 import { JoinFormType } from "@/constants/enum";
+import { yup_email, yup_name, yup_phone } from "@/constants/yupSchema";
 import { useAuthentication } from "@/hooks/useAuthentication";
 import { useJoinStore } from "@/store/joinStore";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-
-const yup_email = yup.string().email().required();
-const yup_name = yup.string().min(2).max(10).required();
-const yup_phone = yup
-  .string()
-  .matches(/^[0-9]{10,11}$/i)
-  .required();
+import alert from "/public/assets/images/alert.svg";
+import correct from "/public/assets/images/correct.svg";
+import { FormEvent } from "react";
 
 function JoinInformation({ type }: { type: JoinFormType }) {
-  const [value, setValue] = useState("");
   const router = useRouter();
   const pathName = usePathname();
   const authentication = useAuthentication();
@@ -27,29 +23,27 @@ function JoinInformation({ type }: { type: JoinFormType }) {
 
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid, dirtyFields },
+    getValues,
+    reset,
   } = useForm({ mode: "onChange", resolver: yupResolver(schema), defaultValues: { text: "" } });
 
-  const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
-    setValue(e.target.value);
-  };
-
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
     const joinType = pathName.split("/")[2];
     const currentPath = pathName.split("/")[3];
 
-    setInformations(currentPath, value);
+    setInformations(currentPath, getValues("text"));
     switch (type) {
       case JoinFormType.EMAIL:
-        authentication(value);
+        authentication(getValues("text"));
         router.push(`/join/${joinType}/authentication`);
         break;
       case JoinFormType.NAME:
         router.push(`/join/${joinType}/phoneNumber`);
         break;
       case JoinFormType.PHONENUMBER:
-        router.push(`/join/${joinType}/${joinType === "user" ? "agreements" : "registerBusinessCard"}`);
+        router.push(`/join/${joinType}/${joinType === "user" ? "agreements" : "selectCompany"}`);
         break;
     }
   };
@@ -61,20 +55,26 @@ function JoinInformation({ type }: { type: JoinFormType }) {
     <>
       <p className="my-14 text-xl font-bold leading-7">{joinStepRenderer[type].title}</p>
       <p className="mb-2 text-xs leading-[18px]">{joinStepRenderer[type].sub}</p>
-      <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
-        <input
-          type={`${type === JoinFormType.PHONENUMBER ? "number" : "text"}`}
-          className={`form_input ${errors.text ? "warnning" : dirtyFields.text ? "entering" : ""} `}
-          {...register("text")}
-          value={value}
-        />
+      <form onSubmit={onSubmit}>
+        <div className="relative flex items-center">
+          <input
+            type={`${type === JoinFormType.PHONENUMBER ? "number" : "text"}`}
+            className={`form_input ${errors.text ? "warnning" : dirtyFields.text ? "entering" : ""} `}
+            {...register("text")}
+          />
+          {dirtyFields.text && (
+            <>
+              <button type="button" className="input_button" tabIndex={-1} onClick={() => reset()}></button>
+              <Image src={errors.text ? alert : correct} alt="input_status" className="input_status" />
+            </>
+          )}
+        </div>
         <div className="h-[18px] pl-2">
           <span className={`text-xs leading-[18px] ${errors.text ? "text-status-alert" : "text-status-positive"}`}>
             {dirtyFields.text ? joinStepRenderer[type].validation : ""}
           </span>
         </div>
         <button
-          type="submit"
           className={`mt-[150px] h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"}`}
           onClick={onSubmit}
           disabled={!isValid}

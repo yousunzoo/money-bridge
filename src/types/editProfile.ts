@@ -1,9 +1,8 @@
 import { FieldErrors, UseFormGetValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
-import { ICompanyInput, ISpeciality } from "./join";
-import { Dispatch, SetStateAction } from "react";
 import { IAward } from "./my";
 
 export interface IEditProfileFormValues {
+  [key: string]: any;
   intro: string;
   msg: string;
   profile: string | FileList;
@@ -65,7 +64,7 @@ export interface ISpecialityInputProps {
 }
 export interface ICareer {
   id: string;
-  content: string | undefined;
+  career: string | undefined;
   start: number | undefined;
   end: number | undefined;
 }
@@ -87,14 +86,14 @@ export interface IMsgInputProps {
 }
 export interface IAwardFormProps {
   award: IAward;
-  errors: FieldErrors<IEditProfileFormValues | { [key: string]: unknown }>;
+  errors: FieldErrors<IEditProfileFormValues>;
   removeItems: (type: string, nowId: string) => void;
   register: UseFormRegister<any>;
 }
 
 export interface ICareerFormProps {
-  career: ICareer;
-  errors: FieldErrors<IEditProfileFormValues | { [key: string]: unknown }>;
+  careerData: ICareer;
+  errors: FieldErrors<IEditProfileFormValues>;
   removeItems: (type: string, nowId: string) => void;
   register: UseFormRegister<any>;
 }

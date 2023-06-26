@@ -134,12 +134,12 @@ export interface IPBMyProfile {
 
 export interface ICareer {
   id?: number;
-  content: string | undefined;
+  career: string | undefined;
   start: number | undefined;
   end: number | undefined;
 }
 export interface IAward {
   id?: string;
   record: string | undefined;
-  awardYear: number | undefined;
+  year: number | undefined;
 }

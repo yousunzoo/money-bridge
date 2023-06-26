@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 
 export const useEditProfile = () => {
   const router = useRouter();
-  const { id } = useQueryClient().getQueryData(["loginedUserInfo"]) as ILoginedUserInfo;
+  const queryClient = useQueryClient();
+  const { id } = queryClient.getQueryData(["loginedUserInfo"]) as ILoginedUserInfo;
   const { mutate } = useMutation<null, AxiosError, FormData>(["editProfile"], editPBMyProfile, {
     onSuccess: () => {
       router.push(`/detail/info/${id}`);
+      queryClient.refetchQueries(["getPBInfo"]);
     },
   });
   return mutate;

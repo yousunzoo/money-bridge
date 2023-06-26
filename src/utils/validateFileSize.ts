@@ -5,7 +5,7 @@ export const validateFileSize: Validate<string | FileList, IEditProfileFormValue
   const maxSize = 100 * 1024 * 1024; // 100MB
   if (typeof file === "string") return true;
   if (file && file[0] && file[0].size > maxSize) {
-    return "파일 크기는 100MB 이하여야 합니다.";
+    return false;
   }
   return true;
 };

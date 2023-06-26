@@ -3,7 +3,7 @@ import ModalCompanyLocation from "@/components/joinPage/pb/ModalCompanyLocation"
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import { ICompanyInputProps } from "@/types/editProfile";
 import { ICompanyInput } from "@/types/join";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 
 function CompanyInput({ getValues, setValue }: ICompanyInputProps) {
   const [company, setCompany] = useState({ id: getValues("companyId"), name: getValues("company") });
@@ -11,15 +11,20 @@ function CompanyInput({ getValues, setValue }: ICompanyInputProps) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [modalType, setModalType] = useState<"location" | "company" | null>(null);
+
   const handleOpenCompanyModal = () => {
     setIsOpen(true);
     setModalType("company");
   };
   const handleChangeCompany = (item: ICompanyInput) => {
+    if (getValues("company") !== item.name) {
+      setValue("branchName", "");
+    }
     setValue("company", item.name);
     setCompany({ ...item });
   };
-  const handleOpenLocationModal = () => {
+  const handleOpenLocationModal = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setIsOpen(true);
     setModalType("location");
   };
@@ -28,16 +33,15 @@ function CompanyInput({ getValues, setValue }: ICompanyInputProps) {
   };
 
   useEffect(() => {
-    const branch = location?.name ? location.name : "";
-    setValue("branchName", branch);
-  }, [company, location]);
+    setValue("branchName", location.name);
+  }, [location]);
 
   return (
     <>
       <section className="mb-8">
         <p className="mb-4 text-xl font-bold">증권사를 선택해주세요.</p>
         <label htmlFor="company" className="edit_input">
-          <button className="w-full text-left" onClick={handleOpenCompanyModal}>
+          <button className="w-full text-left" type="button" onClick={handleOpenCompanyModal}>
             {getValues("company")}
           </button>
           <input className="hidden" name="company" />
@@ -58,7 +62,7 @@ function CompanyInput({ getValues, setValue }: ICompanyInputProps) {
             지점 찾기
           </button>
         </div>
-      </section>{" "}
+      </section>
       {isOpen && (
         <ModalLayout handleCloseModal={() => setIsOpen(false)}>
           {modalType === "company" ? (

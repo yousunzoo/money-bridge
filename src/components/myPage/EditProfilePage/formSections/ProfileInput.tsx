@@ -5,7 +5,6 @@ function ProfileInput({ errors, register, removeFile, profile }: IProfileInputPr
     <section className="mb-10">
       <div className="mb-4 flex items-center justify-between">
         <p className="text-xl font-bold">프로필 이미지 업로드</p>
-        <p className={`${errors["profile"] && "text-status-error"}`}>파일 크기는 100MB 이하여야 합니다.</p>
         <div>
           <button
             onClick={() => removeFile("profile")}
@@ -34,7 +33,12 @@ function ProfileInput({ errors, register, removeFile, profile }: IProfileInputPr
           profile ? "text-gray-heavy" : "text-placeholder"
         }`}
       >
-        {profile ? profile : "이미지를 등록해주세요"}
+        {profile && profile !== "https://pb-business-card.s3.ap-northeast-2.amazonaws.com/profile.svg"
+          ? profile
+          : "이미지를 등록해주세요"}
+      </p>
+      <p className={`mt-2 text-sm ${profile && errors["profile"] && "text-status-error"}`}>
+        파일 크기는 100MB 이하여야 합니다.
       </p>
     </section>
   );

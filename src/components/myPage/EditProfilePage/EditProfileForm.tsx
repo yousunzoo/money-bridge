@@ -19,8 +19,8 @@ import { useEditProfile } from "@/hooks/useEditProfile";
 function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   const editProfile = useEditProfile();
   const [filePreviews, setFilePreviews] = useState({
-    profile: existingProfile.profile as string,
-    portfolio: existingProfile.portfolio as string,
+    profile: (existingProfile.profile as string).split("_")[1],
+    portfolio: existingProfile.portfolio && (existingProfile.portfolio as string).split("_")[1],
   });
   const [files, setFiles] = useState<{ [key: string]: File | null }>({
     profile: null,
@@ -31,6 +31,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
       return { ...career, id: uuidv4() };
     }),
   );
+
   const [awards, setAwards] = useState(
     existingProfile.awards.map(award => {
       return { ...award, id: uuidv4() };
@@ -69,11 +70,11 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   const portfolioVal = watch("portfolio");
 
   const addCareers = () => {
-    setCareers([...careers, { id: uuidv4(), content: undefined, start: undefined, end: undefined }]);
+    setCareers([...careers, { id: uuidv4(), career: undefined, start: undefined, end: undefined }]);
   };
 
   const addAwards = () => {
-    setAwards([...awards, { id: uuidv4(), record: undefined, awardYear: undefined }]);
+    setAwards([...awards, { id: uuidv4(), record: undefined, year: undefined }]);
   };
 
   const removeItems = (type: string, nowId: string) => {

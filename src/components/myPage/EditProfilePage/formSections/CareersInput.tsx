@@ -15,7 +15,7 @@ function CareersInput({ errors, register, removeItems, careers, addCareers }: IC
       <p className="mb-4 text-xs">재직 중일 시 퇴사에 현재 연도를 입력해주세요.</p>
       <ul className="px-4">
         {careers.map(item => (
-          <CareerForm key={item.id} errors={errors} register={register} removeItems={removeItems} career={item} />
+          <CareerForm key={item.id} errors={errors} register={register} removeItems={removeItems} careerData={item} />
         ))}
       </ul>
     </section>

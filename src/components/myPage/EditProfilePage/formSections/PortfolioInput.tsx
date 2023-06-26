@@ -7,7 +7,6 @@ function PortfolioInput({ errors, register, removeFile, portfolio }: IPortfolioI
     <section className="mb-10">
       <div className="mb-4 flex items-center justify-between">
         <p className="text-xl font-bold">포트폴리오 파일 업로드</p>
-        <p className={`${errors["portfolio"] && "text-status-error"}`}>파일 크기는 100MB 이하여야 합니다.</p>
         <div>
           <button
             onClick={() => removeFile("portfolio")}
@@ -27,12 +26,15 @@ function PortfolioInput({ errors, register, removeFile, portfolio }: IPortfolioI
             type="file"
             accept=".pdf"
             id="portfolio"
-            {...(register("portfolio"), { validate: validateFileSize })}
+            {...register("portfolio", { validate: validateFileSize })}
           />
         </div>
       </div>
       <p className={`rounded-md bg-white p-4 shadow-sm ${portfolio ? "text-gray-heavy" : "text-placeholder"}`}>
         {portfolio ? portfolio : "파일을 등록해주세요"}
+      </p>
+      <p className={`mt-2 text-sm ${portfolio && errors["portfolio"] && "text-status-error"}`}>
+        파일 크기는 100MB 이하여야 합니다.
       </p>
     </section>
   );

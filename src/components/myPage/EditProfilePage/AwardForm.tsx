@@ -3,7 +3,8 @@ import minusIcon from "/public/assets/images/minusCircle.svg";
 import { IAwardFormProps } from "@/types/editProfile";
 
 function AwardForm({ errors, award, removeItems, register }: IAwardFormProps) {
-  const { record, awardYear, id } = award;
+  const { record, year, id } = award;
+
   const handleClick = () => {
     if (!id) return;
     removeItems("award", id);
@@ -14,10 +15,10 @@ function AwardForm({ errors, award, removeItems, register }: IAwardFormProps) {
         <Image src={minusIcon} alt="삭제" width={28} height={28} />
       </button>
       <input
-        className={`edit_input mb-4 flex-1 ${errors[`award-${id}-content`] && "warnning"}`}
+        className={`edit_input mb-4 flex-1 ${errors[`award-${id}-record`] && "warnning"}`}
         placeholder="수상 내역을 작성해주세요."
         defaultValue={record}
-        {...register(`award-${id}-content`, {
+        {...register(`award-${id}-record`, {
           required: true,
         })}
       />
@@ -28,7 +29,7 @@ function AwardForm({ errors, award, removeItems, register }: IAwardFormProps) {
             type="number"
             className={`edit_input ${errors[`award-${id}-awardYear`] && "warnning"}`}
             placeholder="수상년도"
-            defaultValue={awardYear}
+            defaultValue={year}
             pattern="[0-9]{4}"
             {...register(`award-${id}-awardYear`, {
               required: true,

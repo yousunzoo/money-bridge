@@ -14,9 +14,7 @@ export const convertEditFormData = (
       obj[key] = data[key];
       return obj;
     }, {});
-  // const convertedSpeciality = userSpeciality.map(item => {
-  //   return speciality.find(specialityItem => specialityItem.id === item)?.text;
-  // });
+
   const deletePortfolio = data.portfolio ? false : true;
   const deleteProfile = data.profile ? false : true;
   const careersArr = [];
@@ -24,16 +22,16 @@ export const convertEditFormData = (
   for (const key in data) {
     if (key.includes("start")) {
       const index = key.split("careers-")[1].split("-start")[0];
-      const content = data[`careers-${index}-content`];
+      const content = data[`careers-${index}-career`];
       const end = data[`careers-${index}-end`];
       const start = data[key];
       careersArr.push({ content, start, end });
     }
     if (key.includes("awardYear")) {
       const index = key.split("award-")[1].split("-awardYear")[0];
-      const content = data[`award-${index}-content`];
+      const record = data[`award-${index}-record`];
       const awardYear = data[key];
-      awardsArr.push({ content, awardYear });
+      awardsArr.push({ record, awardYear });
     }
   }
 
@@ -63,6 +61,7 @@ export const convertEditFormData = (
   if (files.portfolio) {
     formData.append("portfolioFile", files.portfolio);
   }
+
   formData.append("updateDTO", new Blob([JSON.stringify(convertedData)], { type: "application/json" }));
   return formData;
 };

@@ -2,8 +2,8 @@ import { ICareerFormProps } from "@/types/editProfile";
 import minusIcon from "/public/assets/images/minusCircle.svg";
 
 import Image from "next/image";
-function CareerForm({ errors, career, removeItems, register }: ICareerFormProps) {
-  const { content, start, end, id } = career;
+function CareerForm({ errors, careerData, removeItems, register }: ICareerFormProps) {
+  const { career, start, end, id } = careerData;
   const handleClick = () => {
     if (!id) return;
     removeItems("career", id);
@@ -14,10 +14,10 @@ function CareerForm({ errors, career, removeItems, register }: ICareerFormProps)
         <Image src={minusIcon} alt="삭제" width={28} height={28} />
       </button>
       <input
-        className={`edit_input mb-4 flex-1 ${errors[`careers-${id}-content`] && "warnning"}`}
+        className={`edit_input mb-4 flex-1 ${errors[`careers-${id}-career`] && "warnning"}`}
         placeholder="경력을 작성해주세요."
-        defaultValue={content}
-        {...register(`careers-${id}-content`, {
+        defaultValue={career}
+        {...register(`careers-${id}-career`, {
           required: true,
         })}
       />

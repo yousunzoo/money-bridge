@@ -13,13 +13,15 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
   const { handleError, isOpen, modalContents, setIsOpen } = useApiError();
 
   queryClient.setDefaultOptions({
-    queries: { onError: (error: any) => handleError(error) },
+    queries: { onError: (error: any) => handleError(error), retry: 1 },
     mutations: {
       onError: (error: any) => {
         handleError(error);
       },
+      retry: 1,
     },
   });
+
   queryClient.prefetchQuery({
     queryKey: ["loginedUserInfo"],
     queryFn: getLoginedUserInfo,

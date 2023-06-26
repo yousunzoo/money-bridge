@@ -1,6 +1,7 @@
 import { ConsultationTimeCardProps } from "@/types/schedule";
 import { instance } from "../axios";
 import { AxiosError } from "axios";
+import { ChangeReservationProps, ConsultationListProps, GetScheduleInfoProps } from "@/types/pb";
 
 export const getPBInfo = async () => {
   try {
@@ -82,10 +83,6 @@ export const getPbReview = async (id: number | undefined, page: number) => {
     throw new Error(error.response);
   }
 };
-interface GetScheduleInfoProps {
-  year?: number;
-  month?: number;
-}
 
 export const getScheduleInfo = async ({ year, month }: GetScheduleInfoProps) => {
   try {
@@ -107,10 +104,6 @@ export const getConsultationStatus = async () => {
     throw new AxiosError(error.response.data);
   }
 };
-interface ConsultationListProps {
-  type: string;
-  page: number;
-}
 
 export const getConsultationList = async ({ type, page }: ConsultationListProps) => {
   try {
@@ -163,14 +156,8 @@ export const getReservationInfo = async ({ id }: { id: number }) => {
   }
 };
 
-interface changeReservationProps {
-  id: number;
-  category: string;
-  time: string;
-  type: string;
-}
-
-export const changeReservation = async ({ id, category, time, type }: changeReservationProps) => {
+export const changeReservation = async ({ id, category, time, type }: ChangeReservationProps) => {
+  console.log(id, category, time, type);
   try {
     const res = await instance.patch(`/pb/reservation/${id}`, {
       category,

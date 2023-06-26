@@ -24,7 +24,6 @@ function ModalCompanyLocation({
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const companyLocationList = useGetCompnayLocation(companyId, value);
-  console.log(companyLocationList);
 
   const debouncedSetValue = debounce((newValue: string) => {
     setValue(newValue);
@@ -43,7 +42,6 @@ function ModalCompanyLocation({
 
   const handleSelect = (e: MouseEvent<HTMLUListElement>) => {
     const target = e.target as HTMLLIElement;
-    console.log(target);
     setLocation({ name: target.innerText, id: Number(target.id) });
     handleCloseModal();
   };

@@ -44,7 +44,11 @@ function ModalCompanyList({
           </li>
         ))}
       </ul>
-      <button className="my-10 h-14 w-full rounded-[8px] bg-primary-normal text-white" onClick={handleSubmit}>
+      <button
+        type="button"
+        className="my-10 h-14 w-full rounded-[8px] bg-primary-normal text-white"
+        onClick={handleSubmit}
+      >
         확인
       </button>
     </div>

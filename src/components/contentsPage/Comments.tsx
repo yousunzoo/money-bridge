@@ -14,7 +14,7 @@ function Comments({ commentData }: { commentData: any }) {
   const showName = (name: string) => {
     return name.length > 2 ? name[0] + "*" + name.slice(2) : name;
   };
-
+// todo:개별 수정은?
   return (
     <>
       <div className="flex">

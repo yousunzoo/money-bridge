@@ -15,28 +15,27 @@ import { getMyId } from "@/utils/pbMyId";
 import { styleCase } from "@/utils/ConsultationStyle";
 import PbReviewItem from "@/components/pbdetailPage/pbreviewPage/PbReviewItem";
 import { AxiosError } from "axios";
-import { IAboutData, IPbReview, IReviewStyles, ISamePB } from "@/types/pb";
+import { IAboutData, IPbReview, IReviewStyles } from "@/types/pb";
 import { IDataResponse, IListResponse } from "@/types/common";
+import { IPbCard } from "@/types/card";
 
 function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; Id: number }) {
   const { id, name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
-  const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>([`/review/style/${id}`], () =>
+  const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>(["getReviewStyle"], () =>
     getReviewStyle(id),
   );
   const reviewData = review?.data;
-  const { data: same } = useQuery<IListResponse<ISamePB>, AxiosError>([`/auth/${id}/same`], () => getSamePb(id));
+  const { data: same } = useQuery<IListResponse<IPbCard>, AxiosError>(["getSamePb"], () => getSamePb(id));
   const sameData = same?.list;
-  const { data: PbRecentReview } = useQuery<IListResponse<IPbReview>, AxiosError>([`/reviews/${id}`], () =>
+  const { data: PbRecentReview } = useQuery<IListResponse<IPbReview>, AxiosError>(["getPbReviewRecent"], () =>
     getPbReviewRecent(id),
   );
   const pbRecentData = PbRecentReview?.list;
-  const { data: PbReview } = useQuery<IDataResponse<IPbReview>, AxiosError>([`auth/reviews/${id}`], () =>
-    getPbReview(id, 0),
-  );
+  const { data: PbReview } = useQuery<IDataResponse<IPbReview>, AxiosError>(["getPbReview"], () => getPbReview(id, 0));
   const pbReviewData = PbReview;
   const router = useRouter();
   const pathname: string = usePathname();
-  const myId: number = getMyId(role, Id, id);
+  const myId: number | undefined = getMyId(role, Id, id);
 
   const goToPage = () => {
     if (role === CommonROLE.USER) {
@@ -60,7 +59,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
       text = "상담 신청하기";
     }
   }
-  if (!reviewData || !sameData ) return null;
+  if (!reviewData || !sameData) return null;
   return (
     <div>
       <div className="info_header">
@@ -72,7 +71,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         <div className="mx-auto mb-[15px] flex text-xs">
           "투자자님들이 말하는&nbsp;<p className="font-bold">{name} PB의 매력</p>은?"
         </div>
-        <div className="mx-auto flex w-full justify-between px-[51px]">
+        <div className="mx-auto flex w-full grid-cols-1 px-[51px]">
           <div className="review_section">
             <Image
               src={styleCase(reviewData.style1).image}
@@ -105,6 +104,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
           </div>
         </div>
       </div>
+
       <div className="mb-20">
         <div className="flex w-full items-center">
           {pbReviewData && pbReviewData.data && (
@@ -121,7 +121,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         {pbRecentData && pbRecentData.length > 0 && (
           <ul>
             <Carousel autoplay draggable={true}>
-              {pbRecentData?.map((item: any) => (
+              {pbRecentData?.map(item => (
                 <PbReviewItem key={item.reviewId} item={item} />
               ))}
             </Carousel>
@@ -150,7 +150,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
           함께 만나보세요
         </div>
         <ul>
-          {sameData?.map((item: any) => (
+          {sameData?.map(item => (
             <PbCardItem key={item.id} item={item} />
           ))}
         </ul>

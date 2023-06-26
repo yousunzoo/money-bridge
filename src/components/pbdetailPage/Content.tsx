@@ -9,7 +9,7 @@ import { IContentData, IPortfolio } from "@/types/pb";
 
 function Content({ contentData }: { contentData: IContentData }) {
   const { id, name, intro, speciality1, speciality2, career, award } = contentData;
-  const { data: portfolio } = useQuery<IDataResponse<IPortfolio>, AxiosError>([`/auth/portfolio/${id}`], () =>
+  const { data: portfolio } = useQuery<IDataResponse<IPortfolio>, AxiosError>(["getPbPortfolio"], () =>
     getPbPortfolio(id),
   );
   const portfolioData = portfolio?.data;
@@ -99,6 +99,7 @@ function Content({ contentData }: { contentData: IContentData }) {
       <div className="mb-[95px]">
         <div className="header mb-[18px] font-bold">포트폴리오 다운로드</div>
         <div className="flex">
+          {/* 여기 스타일 무너짐 수정해야함 */}
           <div className="mr-1 flex h-12 w-full items-center rounded-md bg-white pl-4 text-placeholder">
             {file ? file : "없음"}
           </div>

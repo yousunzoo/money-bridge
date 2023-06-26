@@ -10,10 +10,11 @@ import { postBookMarkPB, deleteBookMarkPB } from "@/app/apis/services/user";
 import { IPbCard } from "@/types/card";
 import { ILoginedUserInfo } from "@/types/common";
 import { AxiosError } from "axios";
+import { speciality } from "@/components/joinPage/pb/EnterCareer";
 
 function PbCardItem({ item }: { item: IPbCard }) {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["/auth/account"],
+    queryKey: ["getLoginedUserInfo"],
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });
@@ -32,6 +33,10 @@ function PbCardItem({ item }: { item: IPbCard }) {
     router.push("/detail/info");
   };
 
+  const isSpeciality = (specialitys: string) => {
+    return speciality.filter(data => data.id === specialitys).map(item => item.name);
+  };
+
   return (
     <li className="card h-[200px] bg-white px-[20px] pt-[20px]">
       <div className="mb-[18px] flex">
@@ -48,8 +53,8 @@ function PbCardItem({ item }: { item: IPbCard }) {
             {item.companyName}&nbsp;{item.branchName}
           </div>
           <div className="flex text-xs text-gray-normal">
-            <p className="font-bold">분야</p>&nbsp;{item.speciality1}&nbsp;
-            {item.speciality2 ? item.speciality2 : null}&nbsp;・&nbsp;
+            <p className="font-bold">분야</p>&nbsp;{isSpeciality(item.speciality1)}&nbsp;
+            {item.speciality2 ? isSpeciality(item.speciality2) : null}&nbsp;・&nbsp;
             {item.career}년차
           </div>
         </div>
@@ -71,7 +76,7 @@ function PbCardItem({ item }: { item: IPbCard }) {
         )}
       </div>
       <div className="flex h-[34px] items-center justify-center rounded-md bg-background-primary text-xs font-bold text-primary-normal">
-        {item.msg && `"${item.msg}"`}
+        {item.msg ? `"${item.msg}"`: "소개가 없습니다."}
       </div>
       <div className="mt-[13px] flex items-center text-sm">
         <div className="flex flex-1 text-[10px]">

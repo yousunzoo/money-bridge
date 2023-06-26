@@ -8,7 +8,7 @@ function LoungeNew() {
   return (
     <>
       <TopNav title="최신 콘텐츠" hasBack={true} />
-      <ContentCardList queryKey={"/boards"} api={New} />
+      <ContentCardList queryKey={"getLoungeNew"} api={New} />
     </>
   );
 }

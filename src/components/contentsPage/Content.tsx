@@ -6,20 +6,25 @@ import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_fille
 import share from "/public/assets/images/icon/share.svg";
 import useContentBookMark from "@/hooks/useContentBookMark";
 import useShare from "@/hooks/useShare";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ButtonModal from "@/components/common/ButtonModal";
-import Download from "@/components/common/Download";
 import dayjs from "dayjs";
 import user_profile from "/public/assets/images/profile.svg";
 import "@/styles/content.css";
+import edit from "/public/assets/images/icon/edit.svg";
+import trash from "/public/assets/images/icon/delete.svg";
+import { getMyId } from "@/utils/pbMyId";
+import { deleteContent } from "@/app/apis/services/common";
+import useDelete from "@/hooks/useDelete";
 
-function Content({ contentData }: { contentData: any }) {
+function Content({ contentData, userData }: { contentData: any; userData: any }) {
   const { id, thumbnail, title, content, createdAt, tag1, tag2, pdId, name, isBookmarked, profile } = contentData;
   const pathname = usePathname();
+  const router = useRouter();
   const base = "https://money-bridge.vercel.app";
   const urlToCopy = base + pathname;
-
-  const { isBookmark, isBookmarkOpen, setIsBookmarkOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
+  const myId = getMyId(userData?.role, userData?.id, pdId);
+  const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
     id,
@@ -36,7 +41,7 @@ function Content({ contentData }: { contentData: any }) {
     setIsCopyOpen,
     copyContents,
   } = useShare(urlToCopy, title, content, thumbnail);
-
+  const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useDelete(id, deleteContent);
   return (
     <div>
       <div className="card mt-[33px] flex h-[52px] flex-row items-center rounded-md bg-white font-bold">
@@ -63,8 +68,18 @@ function Content({ contentData }: { contentData: any }) {
         <div className="mb-[15px] flex">
           <div className="font-xs flex-1">{dayjs(createdAt).format("YYYY. MM. DD")}</div>
           <div className="flex">
+            {myId && (
+              <>
+                <button onClick={() => router.push(`contents/edit/${id}`)} className="flex w-9 justify-end">
+                  <Image src={edit} alt="수정" width={24} height={24} className="icon" />
+                </button>
+                <button onClick={deleteHandler} className="flex w-9 justify-end">
+                  <Image src={trash} alt="삭제" width={24} height={24} className="icon" />
+                </button>
+              </>
+            )}
             <button onClick={shareHandler} className="flex w-9 justify-end">
-              <Image src={share} alt="공유하기" width={24} height={24} className="icon" />
+              <Image src={share} alt="공유" width={24} height={24} className="icon" />
             </button>
             <button onClick={bookMarkHandler} className="flex w-9 justify-end">
               {isBookmark ? (
@@ -77,21 +92,16 @@ function Content({ contentData }: { contentData: any }) {
         </div>
         <div className="mb-[103px] p-4 text-sm">{content}</div>
       </div>
-      {/* <Download
-      //첨부파일 수정
-        file={thumbnail}
-        title="첨부파일 다운로드"
-        style="ml-1 h-12 w-[100px] rounded-md bg-secondary-heavy text-white"
-      /> */}
       {isShareOpen && isShare && (
         <ButtonModal modalContents={shareContents} isOpen={isShareOpen} setIsOpen={setIsShareOpen} />
       )}
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
       )}
-      {isBookmarkOpen && isBookmark && (
-        <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkOpen} setIsOpen={setIsBookmarkOpen} />
+      {isBookmarkedOpen && isBookmark && (
+        <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
+      {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}
     </div>
   );
 }

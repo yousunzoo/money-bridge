@@ -123,22 +123,3 @@ export const getLoginedUserInfo = async () => {
     throw new AxiosError(error.response.data);
   }
 };
-
-
-export const setBookMarkContent = async (id: number) => {
-  try {
-    const res = await instance.post(`/auth/bookmark/board/${id}`);
-    return res.data.data;
-  } catch (error: any) {
-    throw new Error(error.response.data);
-  }
-};
-
-export const deleteBookMarkContent = async (id: number) => {
-  try {
-    const res = await instance.delete(`/auth/bookmark/board/${id}`);
-    return res.data.data;
-  } catch (error: any) {
-    throw new Error(error.response.data);
-  }
-};

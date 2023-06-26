@@ -12,8 +12,8 @@ import { IListResponse } from "@/types/common";
 import { AxiosError } from "axios";
 
 function Content() {
-  const { data: All } = useQuery<IListResponse<IContentCard>, AxiosError>(["/boards"], () => getLoungeNew(0));
-  const { data: NewAndHot } = useQuery<IListResponse<IContentCard>, AxiosError>(["/lounge/board"], getLoungeBoard);
+  const { data: All } = useQuery<IListResponse<IContentCard>, AxiosError>(["getLoungeNew"], () => getLoungeNew(0));
+  const { data: NewAndHot } = useQuery<IListResponse<IContentCard>, AxiosError>(["getLoungeBoard"], getLoungeBoard);
   const [all, setAll] = useState<IContentCard[]>();
   const [newData, setNewData] = useState<IContentCard[]>();
   const [hotData, setHotData] = useState<IContentCard[]>();

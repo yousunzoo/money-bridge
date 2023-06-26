@@ -59,7 +59,7 @@ function Intro({ introData }: { introData: IIntroData }) {
           alt="증권사 로고"
           width={112}
           height={42}
-          className="absolute left-[19px] z-10 h-[42px] w-[112px] cursor-pointer object-cover"
+          className="absolute left-[19px] top-3 z-10 h-[42px] w-[112px] cursor-pointer object-cover"
           onClick={goToCompany}
           priority
         />
@@ -71,7 +71,7 @@ function Intro({ introData }: { introData: IIntroData }) {
           width={0}
           height={390}
           sizes="100vw"
-          className="h-[390px] w-full"
+          className="w-full h-[390px] object-contain"
           priority
         />
       </div>

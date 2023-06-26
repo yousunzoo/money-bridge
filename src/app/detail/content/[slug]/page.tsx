@@ -17,19 +17,20 @@ function PbDetailContent() {
   const pathname: string = usePathname();
   const router = useRouter();
   const id: number = Number(pathname.split("/").pop());
-  const { data: userData ,isLoading } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["/auth/account"],
+  const { data: userData, isLoading } = useQuery<ILoginedUserInfo, AxiosError>({
+    queryKey: ["getLoginedUserInfo"],
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });
-  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>(
-    [`/auth/profile/${id}`],
-    () => getPbProfile(id),
+  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>(["getPbProfile"], () =>
+    getPbProfile(id),
   );
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => {
     if (!isLoading) setMounted(true);
   }, [isLoading]);
+
+  const myId = getMyId(userData?.role, userData?.id, id);
   if (!mounted || !authProfile?.data) return null;
 
   return (
@@ -37,7 +38,7 @@ function PbDetailContent() {
       <TopNav title="PB 상세프로필" hasBack={true} />
       <Intro introData={authProfile?.data} />
       <ContentCardList queryKey={`/auth/boards/${id}`} api={getPbContent} id={id} />
-      {getMyId(userData?.role, userData?.id, id) && (
+      {myId && (
         <button className="button_fixed" onClick={() => router.push("/lounge/write")}>
           콘텐츠 작성하기
         </button>

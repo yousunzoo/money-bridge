@@ -7,7 +7,7 @@ export const getBookMarkPB = async (page: number) => {
     const res = await instance.get("/user/bookmarks/pb", { params: { page } });
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response);
+    throw new AxiosError(error.response);
   }
 };
 
@@ -16,7 +16,7 @@ export const getBookMarkContent = async (page: number) => {
     const res = await instance.get("/auth/bookmarks/boards", { params: { page } });
     return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response);
+    throw new AxiosError(error.response);
   }
 };
 
@@ -80,7 +80,7 @@ export const postBookMarkPB = async (id: number) => {
     const res = await instance.post(`/user/bookmark/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new Error(error.response);
+    throw new AxiosError(error.response);
   }
 };
 
@@ -89,7 +89,7 @@ export const deleteBookMarkPB = async (id: number) => {
     const res = await instance.delete(`/user/bookmark/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new Error(error.response);
+    throw new AxiosError(error.response);
   }
 };
 
@@ -98,7 +98,7 @@ export const postBookMarkContent = async (id: number) => {
     const res = await instance.post(`/auth/bookmark/board/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new Error(error.response);
+    throw new AxiosError(error.response);
   }
 };
 
@@ -107,7 +107,7 @@ export const deleteBookMarkContent = async (id: number) => {
     const res = await instance.delete(`auth/bookmark/board/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new Error(error.response);
+    throw new AxiosError(error.response);
   }
 };
 

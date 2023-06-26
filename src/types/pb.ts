@@ -104,19 +104,6 @@ export interface IPortfolioUpdate {
   msg: string;
 }
 
-export interface ISamePB {
-  id: number;
-  title: string;
-  pbName: string;
-  speciality1: string;
-  speciality2: string;
-  profile: string;
-  address: string;
-  reserveCount: number;
-  reviewCount: number;
-  career: number;
-}
-
 export interface IPbReview {
   reviewId: number;
   userName: string;

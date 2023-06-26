@@ -11,7 +11,7 @@ import { AxiosError } from "axios";
 
 function Lounge() {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["/auth/account"],
+    queryKey: ["getLoginedUserInfo"],
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });

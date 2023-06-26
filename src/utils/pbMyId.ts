@@ -1,10 +1,10 @@
 import { CommonROLE } from "@/constants/enum";
 
-export const getMyId = (role: any, Id: any, id: any) => {
+export const getMyId = (role: string | undefined, userId: number | undefined, PbId: number) => {
   const isPb = role === CommonROLE.PB;
-  const pbId = Id === id;
+  const pbId = userId === PbId;
 
   if (isPb && pbId) {
-    return Id;
+    return userId;
   }
 };

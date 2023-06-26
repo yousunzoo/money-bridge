@@ -1,13 +1,13 @@
 import { Axios, AxiosError } from "axios";
 import { ConsultationTimeCardProps } from "@/types/schedule";
-import { instance } from "../axios";
+import { formInstance, instance } from "../axios";
 
 export const getPBInfo = async () => {
   try {
     const res = await instance.get("/pb/mypage");
-    return res.data;
+    return res.data.data;
   } catch (error: any) {
-    throw new Error(error.response.data.status);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -131,15 +131,15 @@ export const getPBMyProfile = async () => {
     const res = await instance.get("/pb/portfolio/update");
     return res.data.data;
   } catch (error: any) {
-    return new AxiosError(error.response.data);
+    throw new AxiosError(error.response.data);
   }
 };
 
-export const editPBMyProfile = async formData => {
+export const editPBMyProfile = async (formData: FormData) => {
   try {
-    const res = await instance.put("/pb/portfolio/update", formData);
+    const res = await formInstance.put("/pb/profile", formData);
     return res.data.data;
   } catch (error: any) {
-    return new AxiosError(error.response.data);
+    throw new AxiosError(error.response.data);
   }
 };

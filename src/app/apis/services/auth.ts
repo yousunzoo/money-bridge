@@ -93,7 +93,7 @@ export const userCheckPassword = async (password: string) => {
     const res = await instance.post("/auth/password", { password });
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response.data.data);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -102,7 +102,7 @@ export const getMyInfo = async () => {
     const res = await instance.get("/auth/myinfo");
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -111,7 +111,7 @@ export const editMyInfo = async (data: { [key: string]: string }) => {
     const res = await instance.patch("/auth/myinfo", data);
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response.data.data);
+    throw new AxiosError(error.response.data);
   }
 };
 

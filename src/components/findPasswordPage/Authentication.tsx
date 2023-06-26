@@ -21,7 +21,6 @@ function Authentication({ userEmail, onSubmit }: { userEmail?: string; onSubmit?
   const { code } = useAuthenticationStore();
   const authentication = useAuthentication();
   const { informations } = useJoinStore();
-  console.log(code);
 
   const modalContents_Resend = {
     content: "인증코드가 재발송되었습니다.",

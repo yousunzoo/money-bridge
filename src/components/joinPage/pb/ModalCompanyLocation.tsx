@@ -70,9 +70,13 @@ function ModalCompanyLocation({
         </p>
       )}
 
-      <ul className="w-full text-base font-bold leading-7" onClick={handleSelect}>
+      <ul className="h-[300px] w-full overflow-y-scroll text-base font-bold leading-7" onClick={handleSelect}>
         {companyLocationList?.data.list.map(location => (
-          <li key={location.id} id={location.id.toString()} className="border-b-1 border-button-inactive py-2 pl-4">
+          <li
+            key={location.id}
+            id={location.id.toString()}
+            className="cursor-pointer border-b-1 border-button-inactive py-2 pl-4"
+          >
             {location.name}
           </li>
         ))}

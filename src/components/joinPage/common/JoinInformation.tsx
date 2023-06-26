@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
+import { FormEvent } from "react";
 
 function JoinInformation({ type }: { type: JoinFormType }) {
   const router = useRouter();
@@ -22,13 +23,13 @@ function JoinInformation({ type }: { type: JoinFormType }) {
 
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid, dirtyFields },
     getValues,
     reset,
   } = useForm({ mode: "onChange", resolver: yupResolver(schema), defaultValues: { text: "" } });
 
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
     const joinType = pathName.split("/")[2];
     const currentPath = pathName.split("/")[3];
 
@@ -54,7 +55,7 @@ function JoinInformation({ type }: { type: JoinFormType }) {
     <>
       <p className="my-14 text-xl font-bold leading-7">{joinStepRenderer[type].title}</p>
       <p className="mb-2 text-xs leading-[18px]">{joinStepRenderer[type].sub}</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <div className="relative flex items-center">
           <input
             type={`${type === JoinFormType.PHONENUMBER ? "number" : "text"}`}

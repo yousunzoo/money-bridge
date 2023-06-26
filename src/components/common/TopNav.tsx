@@ -32,7 +32,7 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
   return (
     <>
       <div
-        className={`fixed left-1/2 top-0 z-20 flex h-10 w-full min-w-[390px] max-w-[768px] -translate-x-1/2 items-center justify-around px-4 ${
+        className={`fixed left-1/2 top-0 z-20 flex h-[60px] w-full min-w-[390px] max-w-[768px] -translate-x-1/2 items-center justify-between px-4 ${
           backGroundWhite ? "bg-white" : "bg-background-primary"
         }`}
       >
@@ -51,7 +51,7 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
         </div>
         {logoPath.includes(currentPath) ? (
           <div className="flex self-center justify-self-center text-center font-bold leading-[22px]">
-            <Image src={logo} alt="logo" width={120} height={20} />
+            <Image src={logo} alt="logo" width={120} height={20} onClick={() => router.push("/")} />
           </div>
         ) : (
           <span className="justify-self-center text-center font-bold leading-[22px]">{title}</span>

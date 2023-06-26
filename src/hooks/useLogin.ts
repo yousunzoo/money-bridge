@@ -1,4 +1,5 @@
 import { userLogin } from "@/app/apis/services/auth";
+import { useAuthenticationStore } from "@/store/authenticationStore";
 import { useUserStore } from "@/store/userStore";
 import { setCookie } from "@/utils/cookies";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -14,6 +15,7 @@ export const useLogin = (
   const pathName = usePathname();
   const queryClient = useQueryClient();
   const { setUser } = useUserStore();
+  const { setCode } = useAuthenticationStore();
 
   const { mutate } = useMutation(userLogin, {
     onSuccess: data => {
@@ -21,6 +23,7 @@ export const useLogin = (
       if (data.data.data.code) {
         queryClient.setQueryData(["login"], data);
         if (setNextStep) {
+          setCode(data.data.data.code);
           setNextStep(true);
         }
       } else {

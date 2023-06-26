@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, MouseEvent, useState } from "react";
+import React, { FormEvent, MouseEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -41,7 +41,6 @@ function ResetPasswordForm() {
 
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid, dirtyFields },
     resetField,
     getValues,
@@ -54,7 +53,8 @@ function ResetPasswordForm() {
     resetField(inputEl.name as Tinput, { defaultValue: "" });
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
     switch (currentPath) {
       case "findPassword":
         const data = queryClient.getQueryData(["findPassword"]) as IFindPassword;
@@ -75,7 +75,7 @@ function ResetPasswordForm() {
 
   return (
     <div className="mt-6">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <div className="mb-2.5">
           <h2 className="mb-4 text-xs leading-[18px]">기존과 다른 비밀번호를 입력해 주세요.</h2>
           <div className="relative flex items-center">

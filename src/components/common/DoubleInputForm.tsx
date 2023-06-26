@@ -1,5 +1,5 @@
 "use client";
-import React, { MouseEvent, useState } from "react";
+import React, { FormEvent, MouseEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -29,6 +29,8 @@ function DoubleInputForm({
   const [modalError, setModalError] = useState(false);
 
   const login = useLogin(setNextStep, setIsOpen, setModalError);
+  console.log("on submit??");
+
   const authentication = usePasswordAuthentication(setIsOpen, setModalError);
   const findEmail = useFindEmail(setIsOpen, setModalError);
   const inputType = type === InputFormType.LOGIN ? "password" : "text";
@@ -59,7 +61,6 @@ function DoubleInputForm({
 
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid, dirtyFields },
     resetField,
     getValues,
@@ -72,10 +73,12 @@ function DoubleInputForm({
     resetField(inputEl.name as Tinput, { defaultValue: "" });
   };
 
-  const onSubmit = async () => {
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
     switch (type) {
       case InputFormType.LOGIN:
         login({ email: getValues("first"), password: getValues("second"), role: pathName.split("/")[2].toUpperCase() });
+        console.log("on submit");
         break;
       case InputFormType.FIND_EMAIL:
         findEmail({
@@ -101,7 +104,7 @@ function DoubleInputForm({
 
   return (
     <div className="mt-6">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <div className="mb-2.5">
           <h2 className="mb-4 text-sm font-bold leading-5">{getNotice(type)?.data.header1}</h2>
           <div className="relative flex items-center">

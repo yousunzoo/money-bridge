@@ -1,7 +1,7 @@
 import { useState } from "react";
 import shareKakao from "@/utils/shareKakao";
 
-const useShare = (url: any, title?: any, description?: any, imageUrl?: any) => {
+const useShare = (url: string, title: string, description: string, imageUrl: string) => {
   const [isShare, setIsShare] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isCopy, setIsCopy] = useState(false);

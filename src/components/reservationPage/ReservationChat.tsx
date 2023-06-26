@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import SelectTimeModal from "@/components/reservationPage/SelectTimeModal";
 import { convertReservationAnswer, validateReservationAnswers } from "@/utils/convertAnswer";
 import { useReservationStore } from "@/store/reservationStore";
-import { IReservationChatProps, IReservationData } from "@/types/reservation";
+import { IReservationChatProps } from "@/types/reservation";
 import TimeSelectQuestion from "./Questions/TimeSelectQuestion";
 import LocationQuestion from "./Questions/LocationQuestion";
 import CheckInfoQuestion from "./Questions/CheckInfoQuestion";
@@ -15,6 +15,8 @@ import EditProfileModal from "./Modals/EditProfileModal";
 import { useMutation } from "@tanstack/react-query";
 import { reserve } from "@/app/apis/services/user";
 import { useRouter } from "next/navigation";
+import highlight from "/public/assets/images/highlight.svg";
+import Image from "next/image";
 
 function ReservationChat({ reservationData, pbId }: IReservationChatProps) {
   const router = useRouter();
@@ -89,15 +91,17 @@ function ReservationChat({ reservationData, pbId }: IReservationChatProps) {
   return (
     <>
       <div className="w-full py-6 pb-20" ref={sectionRef}>
-        <section className="mb-4 flex flex-col gap-y-4">
+        <section className="mb-10 flex flex-col gap-y-4">
           {answers[5] ? (
             <div className="text-lg font-semibold">
+              <Image className="mb-2" src={highlight} alt="highlight" width={24} height={24} />
               <p>{userInfo.userName}님의 상담 예약 응답이에요.</p>
               <p>PB님께 잘 전달해 드릴게요.</p>
             </div>
           ) : (
             <>
               <div className="text-lg font-semibold">
+                <Image className="mb-2" src={highlight} alt="highlight" width={24} height={24} />
                 <p>
                   {userInfo.userName}님,
                   <br />

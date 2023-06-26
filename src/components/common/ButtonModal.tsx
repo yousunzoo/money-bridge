@@ -10,10 +10,6 @@ function ButtonModal({ modalContents, isOpen, setIsOpen, children }: ButtonModal
     document.body.style.overflow = isOpen ? "hidden" : "initial";
   }, [isOpen]);
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   const handleCancelButton = () => {
     setIsOpen(false);
     if (cancelFn) cancelFn();

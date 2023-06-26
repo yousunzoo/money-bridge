@@ -12,6 +12,7 @@ import { yup_password } from "@/constants/yupSchema";
 import Image from "next/image";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
+import { useMyPageCheck } from "@/hooks/useMyPageCheck";
 
 type Tinput = "first" | "second";
 
@@ -19,6 +20,8 @@ function ResetPasswordForm() {
   const router = useRouter();
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const currentPath = pathName.split("/")[1];
+  const { loginedUserInfo } = useMyPageCheck(currentPath === "my");
   const findPassword = useResetPassword();
   const queryClient = useQueryClient();
 
@@ -29,10 +32,10 @@ function ResetPasswordForm() {
 
   const modalContents = {
     content: "비밀번호가 재설정 되었습니다.",
-    confirmText: "로그인",
+    confirmText: currentPath === "findPassword" ? "로그인" : "확인",
     confirmFn: () => {
       setIsOpen(false);
-      router.push("/login");
+      currentPath === "findPassword" ? router.push("/login") : router.back();
     },
   };
 
@@ -52,13 +55,16 @@ function ResetPasswordForm() {
   };
 
   const onSubmit = () => {
-    const currentPath = pathName.split("/")[1];
     switch (currentPath) {
       case "findPassword":
         const data = queryClient.getQueryData(["findPassword"]) as IFindPassword;
         findPassword({ id: data.data.id, password: getValues("first"), role: pathName.split("/")[2].toUpperCase() });
-        setIsOpen(true);
+        break;
+      case "my":
+        if (!loginedUserInfo) return;
+        findPassword({ id: loginedUserInfo.id, password: getValues("first"), role: loginedUserInfo.role });
     }
+    setIsOpen(true);
   };
 
   errors.first?.type === "required" ? (errors.first = undefined) : "";
@@ -131,7 +137,7 @@ function ResetPasswordForm() {
       </form>
       {isOpen && (
         <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen}>
-          <p>로그인 후 MONEY BRIDGE를 이용해주세요.</p>
+          {currentPath === "findPassword" && <p>로그인 후 MONEY BRIDGE를 이용해주세요.</p>}
         </ButtonModal>
       )}
     </div>

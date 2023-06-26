@@ -2,7 +2,8 @@ import { useAnalysisStore } from "@/store/analysisStore";
 import { IQuestionSectionProps } from "@/types/analysis";
 import Image from "next/image";
 import editIcon from "/public/assets/images/editIcon.svg";
-import React, { MouseEvent, useEffect, useRef, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
+import highlight from "/public/assets/images/highlight.svg";
 
 function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSectionProps) {
   const { answers } = useAnalysisStore();
@@ -48,10 +49,11 @@ function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSect
   };
 
   return (
-    <section ref={sectionRef} className="flex h-screen flex-col pb-10">
-      <div className={`${isChoosable ? "pt-14" : "pt-4"}`} />
-      {intro1 && isChoosable && <div className="text-lg mb-10 font-semibold">{intro2 && <p>{intro2}</p>}</div>}
-      <div className="pb-5">
+    <section ref={sectionRef} className="flex h-screen flex-col">
+      <div className="pt-10" />
+      {isChoosable && <Image src={highlight} className="mb-2" alt="highlight" width={24} height={24} />}
+      {intro1 && isChoosable && <div className="text-lg mb-4 font-semibold">{intro2 && <p>{intro2}</p>}</div>}
+      <div className="pb-4">
         <div>
           <p className="text-lg font-bold">{question}</p>
         </div>
@@ -66,7 +68,7 @@ function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSect
       </div>
       <div
         className={`${
-          isChoosable ? "grow" : answers[(nowStep + 1) as 1 | 2 | 3 | 4 | 5] || nowStep === 5 ? "h-0" : "h-20"
+          isChoosable ? "grow" : answers[(nowStep + 1) as 1 | 2 | 3 | 4 | 5] || nowStep === 5 ? "h-0" : "h-14"
         }`}
         ref={answerRef}
       />

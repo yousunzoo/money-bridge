@@ -1,9 +1,12 @@
 import { yup_name, yup_phone } from "@/constants/yupSchema";
 import { IEditInfoFormProps } from "@/types/my";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { FormEvent } from "react";
+import Image from "next/image";
+import React, { FormEvent, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import alert from "/public/assets/images/alert.svg";
+import correct from "/public/assets/images/correct.svg";
 
 function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
   const schema = yup.object().shape({
@@ -13,7 +16,8 @@ function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
   const {
     register,
     getValues,
-    formState: { errors, isValid, isDirty },
+    reset,
+    formState: { errors, isValid, isDirty, dirtyFields },
   } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -27,11 +31,21 @@ function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
       <form onSubmit={handleSubmit} className="flex h-[310px] flex-col justify-between">
         <div>
           <div>
-            <input
-              className={`form_input pr-3 ${errors.inputValue ? "warnning" : ""} ${isDirty ? "entering" : ""}`}
-              {...register("inputValue")}
-              placeholder={type === "name" ? "이름을 입력해주세요" : "비밀번호를 입력해주세요"}
-            />
+            <div className="relative flex items-center">
+              <input
+                type="text"
+                className={`form_input ${errors.inputValue ? "warnning" : dirtyFields.inputValue ? "entering" : ""} `}
+                placeholder={type === "name" ? "이름을 입력해주세요" : "전화번호를 입력해주세요"}
+                {...register("inputValue")}
+                autoFocus
+              />
+              {isDirty && (
+                <>
+                  <button className="input_button" onClick={() => reset()} tabIndex={-1}></button>
+                  <Image src={errors.inputValue ? alert : correct} alt="input_status" className="input_status" />
+                </>
+              )}
+            </div>
           </div>
           {isDirty && type === "phoneNumber" && (
             <p className={`pt-1 text-xs ${errors.inputValue ? "text-status-alert" : "text-status-positive"}`}>

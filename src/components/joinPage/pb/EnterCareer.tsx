@@ -3,7 +3,7 @@ import { useJoinStore } from "@/store/joinStore";
 import { useRouter } from "next/navigation";
 import React, { MouseEvent, useRef, useState } from "react";
 
-const speciality = [
+export const speciality = [
   { id: PBSpecialty.KOREAN_STOCK, name: "한국주식" },
   { id: PBSpecialty.US_STOCK, name: "미국주식" },
   { id: PBSpecialty.FUND, name: "펀드" },

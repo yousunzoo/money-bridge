@@ -19,6 +19,7 @@ function AccordianList({ type }: IAccordianListProps) {
   );
 
   const list = useMemo(() => (data ? data.pages.flatMap(data => data.list) : []), [data]);
+
   const ref = useIntersectionObserver(async (entry, observer) => {
     observer.unobserve(entry.target);
     if (hasNextPage && !isFetching) {

@@ -16,11 +16,7 @@ import { ILoginedUserInfo } from "@/types/common";
 function AnalysisPage() {
   const questions: IAnalysisQuestions = analysisQuestions;
   const [step, setStep] = useState(0);
-  const {
-    data: userData,
-    isLoading,
-    isError,
-  } = useQuery<ILoginedUserInfo, AxiosError>(["loginedUserInfo"], getLoginedUserInfo);
+  const { data: userData, isLoading } = useQuery<ILoginedUserInfo, AxiosError>(["loginedUserInfo"], getLoginedUserInfo);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const { answers, setAnswers } = useAnalysisStore();
   const registerPropensity = useCheckPropensity();

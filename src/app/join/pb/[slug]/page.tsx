@@ -21,9 +21,9 @@ type Tstep =
   | "password"
   | "name"
   | "phoneNumber"
-  | "registerBusinessCard"
   | "selectCompany"
   | "career"
+  | "registerBusinessCard"
   | "agreements"
   | "complete";
 
@@ -34,9 +34,9 @@ const step = {
   password: <SetPasswordForm />,
   name: <JoinInformation type={JoinFormType.NAME} />,
   phoneNumber: <JoinInformation type={JoinFormType.PHONENUMBER} />,
-  registerBusinessCard: <RegisterBusinessCard />,
   selectCompany: <SelectCompany />,
   career: <EnterCareer />,
+  registerBusinessCard: <RegisterBusinessCard />,
   agreements: <AgreeProvision />,
   complete: <PbComplete />,
 };

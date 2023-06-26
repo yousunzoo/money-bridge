@@ -1,4 +1,5 @@
 export interface IResponseLogin {
+  config: IResponseLoginConfig;
   headers: {
     authorization: string;
   };
@@ -12,6 +13,10 @@ interface IResponseLoginData {
     id: number;
     code: string | null;
   };
+}
+
+interface IResponseLoginConfig {
+  data: string;
 }
 
 export interface IUser {

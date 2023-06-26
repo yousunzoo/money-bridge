@@ -1,13 +1,17 @@
 import { getMyInfo } from "@/app/apis/services/auth";
+import { IUserEditableInfo } from "@/types/my";
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 function UserInfoList() {
-  const { data: userInfo, isLoading } = useQuery({
+  const { data: userInfo, isLoading } = useQuery<IUserEditableInfo, AxiosError>({
     queryKey: ["getMyInfo"],
     queryFn: getMyInfo,
+    staleTime: Infinity,
+    cacheTime: Infinity,
   });
 
   if (!userInfo || isLoading) return;

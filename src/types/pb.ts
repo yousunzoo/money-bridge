@@ -142,3 +142,40 @@ export interface UserReservationItemProps {
   isRole: string;
   profileImage: string;
 }
+
+export interface ReservationData {
+  pbId: number;
+  profileImage: string;
+  name: string;
+  phoneNumber: string;
+  reservationId: number;
+  candidateTime1: string;
+  candidateTime2: string;
+  time: string;
+  location: string;
+  locationAddress: string;
+  goal: string;
+  question: string;
+  type: string;
+  consultEnd: string;
+  consultStart: string;
+  email: string;
+  notice: string;
+  reviewCheck: boolean;
+  userId: number;
+}
+
+export interface ConsultationListProps {
+  type: string;
+  page: number;
+}
+export interface GetScheduleInfoProps {
+  year?: number;
+  month?: number;
+}
+export interface ChangeReservationProps {
+  id: number;
+  category: string | null;
+  time: string;
+  type: string;
+}

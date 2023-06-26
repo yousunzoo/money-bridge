@@ -11,13 +11,11 @@ function ErrorModal({ isError, path, content }: ErrorModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const routerPath = path ? path : "/";
-
   const ERROR_MESSAGE = {
     content,
     confirmText: "확인",
     confirmFn: () => router.push(routerPath),
   };
-
   useEffect(() => {
     if (isError) {
       setIsOpen(true);

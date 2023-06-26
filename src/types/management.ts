@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 export interface CalendarModalProps {
   calendarOpenHandler: () => void;
@@ -36,4 +36,26 @@ export interface TimeModalProps {
   handleTimeSelect: (time: string) => void;
   timeSelectClick: () => void;
   isDisabled: boolean;
+  setIsDisabled: Dispatch<SetStateAction<boolean>>;
+}
+export interface ConsultationStatusProps {
+  applyCount: number;
+  isNewApply: boolean;
+  confirmCount: number;
+  isNewConfirm: boolean;
+  completeCount: number;
+  isNewComplete: boolean;
+}
+export interface ConsultationStatusFunc {
+  consultationStatus: ConsultationStatusProps;
+  pbId: number;
+}
+
+export interface SelectedData {
+  reservationId: number;
+  isNewReservation: boolean;
+  profileImage: string;
+  name: string;
+  createdAt: string;
+  type: string;
 }

@@ -1,16 +1,20 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React, { FormEvent, MouseEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InputFormType } from "@/constants/enum";
 import { usePathname, useRouter } from "next/navigation";
 import { useLogin } from "@/hooks/useLogin";
+import { useFindEmail } from "@/hooks/useFindEmail";
+import ButtonModal from "./ButtonModal";
+import Image from "next/image";
+import alert from "/public/assets/images/alert.svg";
+import correct from "/public/assets/images/correct.svg";
+import { usePasswordAuthentication } from "@/hooks/usePasswordAuthentication";
+import { yup_email, yup_name, yup_password, yup_phone } from "@/constants/yupSchema";
 
-const yup_email = yup.string().required();
-const yup_password = yup.string().min(8).max(15).required();
-const yup_name = yup.string().min(2).max(10).required();
-const yup_phone = yup.string().min(10).max(11).required();
+type Tinput = "first" | "second";
 
 function DoubleInputForm({
   type,
@@ -19,14 +23,36 @@ function DoubleInputForm({
   type: InputFormType;
   setNextStep?: (value: React.SetStateAction<boolean>) => void;
 }) {
-  const login = useLogin(setNextStep);
   const router = useRouter();
   const pathName = usePathname();
-  const [inputs, setInputs] = useState({
-    first: "",
-    second: "",
-  });
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalError, setModalError] = useState(false);
+
+  const login = useLogin(setNextStep, setIsOpen, setModalError);
+  console.log("on submit??");
+
+  const authentication = usePasswordAuthentication(setIsOpen, setModalError);
+  const findEmail = useFindEmail(setIsOpen, setModalError);
   const inputType = type === InputFormType.LOGIN ? "password" : "text";
+
+  const modalContents_NotExist = {
+    content: "사용자가 존재하지 않습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+    },
+  };
+
+  const modalContents_Success = {
+    content: "인증코드가 발송되었습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+      if (type === InputFormType.FIND_PASSWORD) {
+        router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
+      }
+    },
+  };
 
   const schema = yup.object().shape({
     first: type === InputFormType.LOGIN ? yup_email : yup_name,
@@ -35,29 +61,39 @@ function DoubleInputForm({
 
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid, dirtyFields },
-  } = useForm({ mode: "onChange", resolver: yupResolver(schema), defaultValues: { first: "", second: "" } });
+    resetField,
+    getValues,
+  } = useForm({ mode: "all", resolver: yupResolver(schema), defaultValues: { first: "", second: "" } });
 
-  const handleChange = (e: ChangeEvent<HTMLFormElement>) => {
-    const { value, name } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
+  const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const button = e.target as HTMLButtonElement;
+    const inputEl = button.previousElementSibling as HTMLInputElement;
+    resetField(inputEl.name as Tinput, { defaultValue: "" });
   };
 
-  const onSubmit = async () => {
-    if (!isValid) {
-      alert("양식을 확인해");
-      return;
-    }
-    if (type === InputFormType.LOGIN) {
-      login({ email: inputs.first, password: inputs.second, role: pathName.split("/")[2].toUpperCase() });
-    } else if (type === InputFormType.FIND_PASSWORD) {
-      router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
-    } else if (type === InputFormType.FIND_EMAIL) {
-      if (setNextStep) setNextStep(true);
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    switch (type) {
+      case InputFormType.LOGIN:
+        login({ email: getValues("first"), password: getValues("second"), role: pathName.split("/")[2].toUpperCase() });
+        console.log("on submit");
+        break;
+      case InputFormType.FIND_EMAIL:
+        findEmail({
+          name: getValues("first"),
+          phoneNumber: getValues("second"),
+          role: pathName.split("/")[2].toUpperCase(),
+        });
+        break;
+      case InputFormType.FIND_PASSWORD:
+        authentication({
+          name: getValues("first"),
+          email: getValues("second"),
+          role: pathName.split("/")[2].toUpperCase(),
+        });
+        break;
     }
   };
 
@@ -68,15 +104,23 @@ function DoubleInputForm({
 
   return (
     <div className="mt-6">
-      <form onSubmit={() => handleSubmit(onSubmit)} onChange={handleChange}>
+      <form onSubmit={onSubmit}>
         <div className="mb-2.5">
           <h2 className="mb-4 text-sm font-bold leading-5">{getNotice(type)?.data.header1}</h2>
-          <input
-            type="text"
-            className={`form_input ${errors.first ? "warnning" : dirtyFields.first ? "entering" : ""} `}
-            {...register("first")}
-            value={inputs.first}
-          />
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              className={`form_input ${errors.first ? "warnning" : dirtyFields.first ? "entering" : ""} `}
+              {...register("first")}
+              autoFocus
+            />
+            {dirtyFields.first && (
+              <>
+                <button type="button" className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <Image src={errors.first ? alert : correct} alt="input_status" className="input_status" />
+              </>
+            )}
+          </div>
           <div className="h-[18px] pl-2">
             <span className={`text-xs leading-[18px] ${errors.first ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.first ? getNotice(type)?.data.notice1 : ""}
@@ -85,21 +129,26 @@ function DoubleInputForm({
         </div>
         <div className="mb-2.5">
           <h2 className="mb-4 mt-6 text-sm font-bold leading-5">{getNotice(type)?.data.header2}</h2>
-          <input
-            type={inputType}
-            className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
-            {...register("second")}
-            value={inputs.second}
-          />
+          <div className="relative flex items-center">
+            <input
+              type={inputType}
+              className={`form_input ${errors.second ? "warnning" : ""} ${dirtyFields.second ? "entering" : ""}`}
+              {...register("second")}
+            />
+            {dirtyFields.second && (
+              <>
+                <button type="button" className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <Image src={errors.second ? alert : correct} alt="input_status" className="input_status" />
+              </>
+            )}
+          </div>
           <div className="h-[18px] pl-2">
             <span className={`text-xs leading-[18px] ${errors.second ? "text-status-alert" : "text-status-positive"}`}>
               {dirtyFields.second ? getNotice(type)?.data.notice2 : ""}
             </span>
           </div>
         </div>
-        {/* <button type="submit" className={`mt-[16px] h-[56px] w-full rounded-[8px] ${isValid ? "bg-[#153445]" : "bg-[#ececec]"}`}> */}
         <button
-          type="button"
           className={`mt-4 h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"} ${
             isValid ? "cursor-pointer" : "cursor-not-allowed"
           }`}
@@ -111,6 +160,15 @@ function DoubleInputForm({
           </span>
         </button>
       </form>
+      {isOpen && (
+        <ButtonModal
+          modalContents={modalError ? modalContents_NotExist : modalContents_Success}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        >
+          <p>정보를 확인해 주세요.</p>
+        </ButtonModal>
+      )}
     </div>
   );
 }

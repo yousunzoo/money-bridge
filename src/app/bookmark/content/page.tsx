@@ -1,22 +1,23 @@
-"use client";
-import React, { useEffect, useState } from "react";
+"use client"
+import React from "react";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import BookMark from "@/components/bookmarkPage/BookMark";
-import ContentData from "@/mocks/hyeon17/Common/pbContent.json";
-import { useRoleStore } from "@/store/roleStore";
+import { getBookMarkContent } from "@/app/apis/services/user";
+import { useQuery } from "@tanstack/react-query";
+import { IContentCard } from "@/types/card";
+import { IListResponse } from "@/types/common";
 
 function ContentBookMark() {
-  const userData = useRoleStore();
-  const [role, setRole] = useState("");
-
-  useEffect(() => {
-    setRole(userData.user.role);
-  }, [userData]);
+  const { data: res } = useQuery<IListResponse<IContentCard>>(["/auth/bookmarks/boards"], () => getBookMarkContent(0));
 
   return (
     <div className="mb-10">
       <BookMark />
-      {ContentData ? <ContentCardList props={ContentData} role={role} /> : <div>북마크 한 콘텐츠 없음</div>}
+      {res !== null ? (
+        <ContentCardList queryKey={"/auth/bookmarks/boards"} api={getBookMarkContent} />
+      ) : (
+        <div className="flex justify-center">북마크 한 콘텐츠 없음</div>
+      )}
     </div>
   );
 }

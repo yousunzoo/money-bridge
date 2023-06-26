@@ -1,47 +1,67 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import arrayBack from "/public/assets/images/arrayBack.svg";
-import close from "/public/assets/images/close.svg";
+import logo from "/public/assets/images/logo.png";
+import { useGeoLocation } from "@/hooks/useGeoLacation";
+import arrowDown from "/public/assets/images/arrowDown.svg";
+import SelectLocationModal from "../mainPage/SelectLocationModal";
+import { useLocationStore } from "@/store/location";
 
-function TopNav({
-  title,
-  hasBack,
-  hasClose,
-  path = "",
-  backGroundWhite,
-}: {
-  title: string;
-  hasBack?: boolean;
-  hasClose?: boolean;
-  path?: string;
-  backGroundWhite?: boolean;
-}) {
+const logoPath = ["/", "/lounge"];
+
+function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: boolean; backGroundWhite?: boolean }) {
   const router = useRouter();
+  const currentPath = usePathname();
+  const current = useGeoLocation();
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const { locations } = useLocationStore();
+  const modalOpenHandler = () => {
+    setIsOpenModal(!isOpenModal);
+  };
+
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
-    <div
-      className={`fixed left-1/2 top-0 z-10 grid h-10 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 grid-cols-3 items-center px-4 ${
-        backGroundWhite ? "bg-white" : "bg-background-primary"
-      }`}
-    >
-      <div className="flex">
-        {hasBack && (
-          <button onClick={() => router.back()}>
-            <Image src={arrayBack} alt="Back" />
-          </button>
+    <>
+      <div
+        className={`fixed left-1/2 top-0 z-20 flex h-[60px] w-full min-w-[390px] max-w-[768px] -translate-x-1/2 items-center justify-between px-4 ${
+          backGroundWhite ? "bg-white" : "bg-background-primary"
+        }`}
+      >
+        <div className="flex min-w-[100px] justify-self-start">
+          {(logoPath.includes(currentPath) || currentPath === "/pblist") && (
+            <div className="font-bol flex cursor-pointer text-base" onClick={modalOpenHandler}>
+              {locations.location ? locations.location : <span>위치 선택</span>}
+              <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />
+            </div>
+          )}
+          {hasBack && (
+            <button className="flex h-6 w-6 items-center justify-center" onClick={() => router.back()}>
+              <Image src={arrayBack} alt="Back" height={24} />
+            </button>
+          )}
+        </div>
+        {logoPath.includes(currentPath) ? (
+          <div className="flex self-center justify-self-center text-center font-bold leading-[22px]">
+            <Image src={logo} alt="logo" width={120} height={20} onClick={() => router.push("/")} />
+          </div>
+        ) : (
+          <span className="justify-self-center text-center font-bold leading-[22px]">{title}</span>
         )}
+        <div className="flex min-w-[100px] justify-self-end">
+          {logoPath.includes(currentPath) && <button onClick={() => router.push("/login")}>로그인/회원가입</button>}
+        </div>
       </div>
-      <span className="text-center font-bold leading-[22px]">{title}</span>
-      <div className="flex justify-end">
-        {hasClose && (
-          <button onClick={() => router.replace(path)}>
-            <Image src={close} alt="Close" />
-          </button>
-        )}
-      </div>
-    </div>
+      {isOpenModal && <SelectLocationModal setIsOpenModal={setIsOpenModal} />}
+    </>
   );
 }
 

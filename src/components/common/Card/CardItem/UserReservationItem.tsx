@@ -4,14 +4,7 @@ import React, { ReactNode } from "react";
 import DefaultProfile from "/public/assets/images/profile.svg";
 import Image from "next/image";
 import Link from "next/link";
-
-interface UserReservationItemProps {
-  children: ReactNode;
-  buttonName: string;
-  href: string;
-  isRole: string;
-  profileImage?: string;
-}
+import { UserReservationItemProps } from "@/types/pb";
 
 function UserReservationItem({ children, buttonName, href, isRole, profileImage }: UserReservationItemProps) {
   return (
@@ -25,7 +18,7 @@ function UserReservationItem({ children, buttonName, href, isRole, profileImage 
           className=" max-w-[70px]"
         />
       </div>
-      <div className="flex flex-col justify-center rounded-lg px-4 py-3 ">{children}</div>
+      <div className="flex flex-col justify-center px-4 py-3 rounded-lg ">{children}</div>
 
       <Link
         href={href}

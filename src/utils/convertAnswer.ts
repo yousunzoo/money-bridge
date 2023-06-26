@@ -1,3 +1,4 @@
+import { IConvertedAnswers } from "./../types/analysis";
 import reservationQuestions from "@/constants/reservationQuestions.json";
 import propensityQuestions from "@/constants/propensityCheckQuestions.json";
 import { IAnswers, IQuestions } from "@/types/reservation";
@@ -21,7 +22,8 @@ const scoreArr = [
   [5, 4, 3, 2],
   [5, 4, 2, 1],
 ];
-export const convertReservationAnswer = (answers: IAnswers) => {
+
+export const convertReservationAnswer = (answers: IAnswers): IConvertedAnswers => {
   const questions: IQuestions = reservationQuestions;
   const answersArr = Object.values(answers);
   const OptionsArr = [reservationGoal, reservationType, reservationLocationType];
@@ -39,7 +41,7 @@ export const convertReservationAnswer = (answers: IAnswers) => {
   });
 
   const arrangedAnswers = {
-    goal1: convertedAnswers[0],
+    goal: convertedAnswers[0],
     reservationType: convertedAnswers[1],
     locationType: convertedAnswers[2],
     candidateTime1: convertedAnswers[3].candidateTime1,
@@ -52,12 +54,21 @@ export const convertReservationAnswer = (answers: IAnswers) => {
   return arrangedAnswers;
 };
 
+export const validateReservationAnswers = (answers: IAnswers) => {
+  if (!answers[5]) return false;
+  const convertedAnswers = convertReservationAnswer(answers);
+  return convertedAnswers.reservationType === "VISIT" && convertedAnswers.locationType === null ? false : true;
+};
+
 export const convertAnalysisAnswers = (answers: IAnalysisAnswers) => {
   const questions: IAnalysisQuestions = propensityQuestions;
   const answersArr = Object.values(answers);
-  const convertedAnswers = answersArr.map((answer, index) => {
-    const ansIndex = questions[index].options.indexOf(answer);
-    return scoreArr[index][ansIndex];
-  });
-  return convertedAnswers;
+
+  const ScoreSummation = answersArr.reduce((acc, value, index) => {
+    const ansIndex = questions[index].options.indexOf(value);
+
+    return acc + scoreArr[index][ansIndex];
+  }, 0);
+
+  return ScoreSummation;
 };

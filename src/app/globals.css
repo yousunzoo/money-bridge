@@ -4,22 +4,22 @@
 
 @layer utilities {
   body {
-    background-color: #eee;
-    width: 100vw;
-    height: 100vh;
+    background-color: #f8f8f8;
+    height: auto;
     letter-spacing: -0.6px;
     color: #242424;
   }
 
   main {
-    background-color: #fff;
+    background-color: #f8f8f8;
     min-width: 390px;
-    max-width: 425px;
+    max-width: 768px;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     margin: auto;
     padding: 0 16px;
-    overflow-y: scroll;
+    padding-top: 70px;
+    padding-bottom: 140px;
   }
 
   input[type="number"]::-webkit-inner-spin-button {
@@ -54,7 +54,11 @@
   }
 
   .input_authentication {
-    @apply w-full min-w-[302px] rounded-sm border-1 border-background-secondary px-3 py-2;
+    @apply w-full min-w-[302px] max-w-[425px] rounded-sm border-1 border-background-secondary px-3 py-2;
+  }
+
+  .input_authentication:focus-visible {
+    @apply outline-none;
   }
 
   .entering {
@@ -89,12 +93,13 @@
   .button_outlined {
     @apply flex h-[56px] w-full min-w-[358px] items-center justify-center rounded-md border-1 border-primary-normal font-bold text-primary-normal;
   }
+
   .button_small {
     @apply h-[56px] w-[110px] rounded-sm border-1 border-primary-normal bg-white font-bold;
   }
 
   .info_card {
-    @apply w-full rounded-xl border-1 border-primary-normal p-4;
+    @apply w-full rounded-xl border-1 border-primary-normal bg-white p-4;
   }
 
   .button_cancel {
@@ -106,7 +111,7 @@
   }
 
   .button_fixed {
-    @apply fixed bottom-[75px] left-1/2 flex h-20 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 items-center justify-center rounded-t-lg bg-primary-normal text-2xl font-bold text-white;
+    @apply fixed bottom-[70px] left-1/2 w-full flex h-20 min-w-[390px] max-w-[768px] -translate-x-1/2 items-center justify-center rounded-t-lg bg-primary-normal text-2xl font-bold text-white;
   }
 
   .modal_background {
@@ -114,11 +119,11 @@
   }
 
   .modal {
-    @apply fixed bottom-[58px] left-1/2 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 rounded-t-md bg-white px-4 py-8;
+    @apply fixed bottom-[70px] left-1/2 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 rounded-t-md bg-white px-4 py-8;
   }
 
   .card {
-    @apply mx-auto my-4 flex w-full flex-col rounded-md shadow-md;
+    @apply mx-auto my-2 flex w-full flex-col rounded-md shadow-md;
   }
 
   .popup {
@@ -130,15 +135,17 @@
   }
 
   .popup .popup-button {
-    @apply rounded-sm bg-primary-normal text-white;
+    @apply h-[44px] rounded-md bg-primary-normal text-white;
   }
 
   .popup .cancel-button {
-    @apply w-1/2 rounded-sm border-1 border-black py-3;
+    @apply w-1/2 rounded-md border-1 border-black py-3;
   }
+
   .pb_top_Phrase {
     @apply mb-6 mt-4 w-full bg-primary-normal px-4 py-2 text-center text-xs;
   }
+
   .user_top_Phrase {
     @apply mb-6 mt-4 w-full bg-secondary-heavy px-4 py-2 text-center text-xs;
   }
@@ -150,17 +157,32 @@
   .propensity_circle {
     @apply absolute top-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 rounded-[5px] bg-primary-normal;
   }
-}
 
-.fixedButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 425px;
-  height: 50px;
-  position: fixed;
-  bottom: 50px;
-  background-color: #000;
-  color: #fff;
+  .input_button {
+    @apply absolute right-10 h-4 w-4 bg-[url('/assets/images/clear.svg')];
+  }
+
+  .input_status {
+    @apply absolute right-3;
+  }
+
+  .edit_input {
+    @apply block w-full rounded-sm border-1 border-button-inactive bg-white p-4 text-gray-heavy;
+  }
+  .edit_input:focus-visible {
+    @apply outline-none;
+  }
+
+  .edit_input::placeholder {
+    @apply text-placeholder;
+  }
+  .scroll_hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .custom-gradient {
+  background-image: linear-gradient(to bottom, transparent, black);
   z-index: 10;
 }
+}
+

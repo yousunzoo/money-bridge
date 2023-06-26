@@ -1,31 +1,74 @@
 "use client";
-
 import TopNav from "@/components/common/TopNav";
-import reviewMockData from "../../mocks/kjun/calendarData.json";
-import consultTime from "../../mocks/kjun/consultTime.json";
 import { useState } from "react";
-import ManagementCalendar from "./Calendar";
+import ManagementCalendar from "../../components/schedulePage/Calendar";
 import "@/styles/calendar.css";
 import question from "/public/assets/images/question_mark.svg";
 import Image from "next/image";
-import InfoModal from "./InfoModal";
-import DayScheduleList from "./DayScheduleList";
-import ConsultationTimeCard from "./ConsultationTimeCard";
-const data = reviewMockData.data.reservationList;
-const counltTime = consultTime.data;
+import InfoModal from "@/components/schedulePage/InfoModal";
+import DayScheduleList from "@/components/schedulePage/DayScheduleList";
+import ConsultationTimeCard from "@/components/schedulePage/ConsultationTimeCard";
+import { useQuery } from "@tanstack/react-query";
+import { getConsultTime, getScheduleInfo } from "../apis/services/pb";
+import { AxiosError } from "axios";
+import { ConsultationTimeCardProps, DayScheduleListProps } from "@/types/schedule";
+import dayjs from "dayjs";
+import ErrorModal from "@/components/common/ErrorModal";
+import { getLoginedUserInfo } from "../apis/services/auth";
+import { redirect } from "next/navigation";
+import { ILoginedUserInfo } from "@/types/common";
 
 function SchedulePage() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isClickDay, setIsClickDay] = useState("");
+  const [clickDay, setClickDay] = useState("");
+  const [clickDate, setClickDate] = useState({
+    year: dayjs().year(),
+    month: dayjs().month() + 1,
+  });
+  const {
+    data: userInfo,
+    isLoading: userLoading,
+    isSuccess: isLogined,
+  } = useQuery<ILoginedUserInfo, AxiosError>({
+    queryKey: ["loginedUserInfo"],
+    queryFn: getLoginedUserInfo,
+    refetchOnWindowFocus: false,
+  });
+
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
+
+  const {
+    data: schedule,
+    isError: scheduleError,
+    isLoading: scheduleLoading,
+  } = useQuery<DayScheduleListProps[], AxiosError>(["pbSchedlue", clickDay], () =>
+    getScheduleInfo({
+      year: clickDate.year,
+      month: clickDate.month,
+    }),
+  );
+  const {
+    data: consultTime,
+    isError: consultError,
+    isLoading,
+  } = useQuery<ConsultationTimeCardProps, AxiosError>(["consultTime"], getConsultTime);
 
   const onClickHandler = () => {
     setIsOpen(!isOpen);
   };
-  const clickDayList = data.filter(item => item.day === isClickDay);
+
+  const clickDayList = schedule?.filter(item => item.day === clickDay);
+
+  if (userInfo?.role !== "PB")
+    return <ErrorModal isError={true} path={"/"} content={"권한이 없습니다. 다시 시도해주세요."} />;
+  if (scheduleError || consultError)
+    return <ErrorModal isError={true} path={"/"} content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."} />;
   return (
     <div className="relative flex flex-col items-center">
       <Image
-        className="absolute right-14 top-10 z-10 cursor-pointer "
+        className="absolute z-10 cursor-pointer right-7 top-6 "
         src={question}
         alt={question}
         width={20}
@@ -34,9 +77,13 @@ function SchedulePage() {
       />
       {isOpen && <InfoModal />}
       <TopNav title={"일정관리"} hasBack={true}></TopNav>
-      <ManagementCalendar reservationList={data} setIsClickDay={setIsClickDay} />
-      <DayScheduleList clickDayList={clickDayList} isClickDay={isClickDay} />
-      <ConsultationTimeCard {...counltTime} />
+      <ManagementCalendar reservationList={schedule} setIsClickDay={setClickDay} setClickDate={setClickDate} />
+      <DayScheduleList clickDayList={clickDayList} isClickDay={clickDay} />
+      <ConsultationTimeCard
+        consultStart={consultTime?.consultStart}
+        consultEnd={consultTime?.consultEnd}
+        consultNotice={consultTime?.consultNotice}
+      />
     </div>
   );
 }

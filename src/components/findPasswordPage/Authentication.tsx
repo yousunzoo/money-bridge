@@ -5,13 +5,15 @@ import Image from "next/image";
 import { useAuthentication } from "@/hooks/useAuthentication";
 import { useAuthenticationStore } from "@/store/authenticationStore";
 import { useJoinStore } from "@/store/joinStore";
+import ButtonModal from "../common/ButtonModal";
 
 const TIMER_TIME = 300;
 
-function Authentication() {
+function Authentication({ userEmail, onSubmit }: { userEmail?: string; onSubmit?: () => void }) {
   const [value, setValue] = useState("");
   const [min, setMin] = useState(5);
   const [sec, setSec] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const time = useRef(TIMER_TIME);
   const timerId = useRef<NodeJS.Timeout>();
   const router = useRouter();
@@ -19,6 +21,43 @@ function Authentication() {
   const { code } = useAuthenticationStore();
   const authentication = useAuthentication();
   const { informations } = useJoinStore();
+
+  const modalContents_Resend = {
+    content: "인증코드가 재발송되었습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+    },
+  };
+
+  const modalContents_Success = {
+    content: "확인되었습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+      const routePath = pathName.split("/")[1] === "join" ? "password" : "selectInformation";
+      router.push(`/${pathName.split("/")[1]}/${pathName.split("/")[2]}/${routePath}`);
+    },
+  };
+
+  const modalContents_WrongCode = {
+    content: "인증코드가 일치하지 않습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+    },
+  };
+
+  const modalContents_TimeOut = {
+    content: "입력 시간이 만료되었습니다.",
+    confirmText: "인증코드 재발송",
+    confirmFn: () => {
+      setIsOpen(false);
+      handleResend();
+    },
+  };
+
+  const [modalContent, setModalContent] = useState(modalContents_Success);
 
   const startTimer = () => {
     time.current = TIMER_TIME;
@@ -39,6 +78,7 @@ function Authentication() {
     if (time.current <= 0) {
       clearInterval(timerId.current);
       setSec(0);
+      setModalContent(modalContents_TimeOut);
     }
   }, [sec]);
 
@@ -47,16 +87,20 @@ function Authentication() {
   };
 
   const handleClick = () => {
+    setModalContent(code === value ? modalContents_Success : modalContents_WrongCode);
     if (code === value) {
-      const routePath = pathName.split("/")[1] === "join" ? "password" : "selectInformation";
-      router.push(`/${pathName.split("/")[1]}/${pathName.split("/")[2]}/${routePath}`);
-    } else {
-      alert("인증번호 틀림");
+      if (onSubmit) {
+        onSubmit();
+        return;
+      }
     }
+    setIsOpen(true);
   };
 
   const handleResend = () => {
-    authentication(informations.email);
+    setModalContent(modalContents_Resend);
+    const email = userEmail ? userEmail : informations.email;
+    authentication(email);
     clearInterval(timerId.current);
     startTimer();
   };
@@ -94,6 +138,11 @@ function Authentication() {
       >
         확인
       </button>
+      {isOpen && (
+        <ButtonModal modalContents={modalContent} isOpen={isOpen} setIsOpen={setIsOpen}>
+          <h3>정보를 확인해 주세요.</h3>
+        </ButtonModal>
+      )}
     </>
   );
 }

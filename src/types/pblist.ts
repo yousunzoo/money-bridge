@@ -1,8 +1,10 @@
 import { MouseEvent } from "react";
+import { ISpeciality } from "./join";
 
 export interface ICompanyListProps {
   companyList: ICompanyList;
   nowCompany: string;
+  handleIDClick: (e: MouseEvent<HTMLLIElement>) => void;
 }
 
 export interface ISpecialityListProps {
@@ -49,4 +51,22 @@ export interface IPropensityCardProps {
   userPropensity: IPropensity;
 }
 
-export type IPropensity = "CONSERVATIVE" | "CAUTIOUS" | "BALANCED" | "AGGRESSIVE" | "SPECULATIVE" | null;
+export type IPropensity = "CONSERVATIVE" | "CAUTIOUS" | "BALANCED" | "AGGRESSIVE" | "SPECULATIVE";
+
+export interface IPBListRequest {
+  sort: "distance" | "career";
+  location: {
+    latitude: number;
+    longitude: number;
+  };
+  speciality?: string;
+  company?: string;
+}
+
+export interface IPBListParams {
+  latitude?: string;
+  longitude?: string;
+  speciality?: string;
+  company?: string;
+  page: number;
+}

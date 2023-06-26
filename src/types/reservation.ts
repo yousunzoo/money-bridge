@@ -11,14 +11,17 @@ export interface IQuestion {
   intro2?: string;
   options: string[];
 }
-
+export interface IReservationChatProps {
+  reservationData: IReservationData;
+  pbId: number;
+}
 export interface IAnswers {
   0: string | null;
   1: string | null;
   2: string | null;
   3: ICandidateTimes | null;
   4: string | null;
-  5: IUserInfo | null;
+  5: IReservationUserInfo | null;
 }
 
 export interface IPbStation {
@@ -27,26 +30,67 @@ export interface IPbStation {
   branchLatitude: number;
   branchLongitude: number;
 }
-export interface IConsultTime {
+export interface IPBInfo extends IPbStation {
+  pbName: string;
+}
+
+export interface IConsultInfo {
   consultEnd: string;
   consultStart: string;
   notice: string;
 }
-
-export interface IUserInfo {
-  userName: string;
-  userPhoneNumber: string;
-  userEmail: string;
+export interface INowLoginedUserInfo {
+  name: string;
+  email: string;
+  propensity: string;
 }
-export interface IBubbleSectionProps {
-  step: 0 | 1 | 2 | 3 | 4 | 5;
-  isOpen?: Boolean;
+export interface IReservationUserInfo {
+  name: string;
+  phoneNumber: string;
+  email: string;
+}
+export interface IReservationData {
+  consultInfo: IConsultInfo;
+  pbInfo: IPBInfo;
+  userInfo: IReservationUserInfo;
+}
+export interface IPurposeQuestionProps {
   moveToNextStep: (nowStep: number) => void;
-  skipNextStep?: () => void;
-  pbStation?: IPbStation;
-  consultTime?: IConsultTime;
-  handleOpenModal?: (nowStep: number) => void;
-  userInfo?: IUserInfo;
+}
+
+export interface ITypeQuestionProps {
+  moveToNextStep: (nowStep: number) => void;
+  skipNextStep: () => void;
+}
+
+export interface ITimeSelectQuestionProps {
+  consultTime: IConsultInfo;
+  handleOpenModal: (nowStep: number) => void;
+  isOpen: boolean;
+}
+
+export interface ILocationQuestionProps {
+  moveToNextStep: (nowStep: number) => void;
+  pbStation: IPbStation;
+}
+
+export interface IReservationUserInfo {
+  userName: string;
+  userEmail: string;
+  userPhoneNumber: string;
+}
+
+export interface ICheckQuestionProps {
+  moveToNextStep: (nowStep: number) => void;
+  handleOpenModal: (nowStep: number) => void;
+  userInfo: IReservationUserInfo;
+  isOpen: boolean;
+}
+
+export interface ICheckMemoQuestion {
+  isOpen: boolean;
+  moveToNextStep: (nowStep: number) => void;
+  handleOpenModal: (nowStep: number) => void;
 }
 
 export interface ICandidateTimes {
@@ -57,7 +101,7 @@ export interface IEditProfileModalProps {
   nowStep: number;
   handleCloseModal: () => void;
   moveToNextStep: (nowStep: number) => void;
-  userInfo: IUserInfo;
+  userInfo: IReservationUserInfo;
 }
 export interface ICandidateTimeProps {
   candidates: ICandidateTimes;
@@ -66,7 +110,7 @@ export interface ISelectTimeModalProps {
   nowStep: number;
   handleCloseModal: () => void;
   moveToNextStep: (nowStep: number) => void;
-  consultTime: IConsultTime;
+  consultTime: IConsultInfo;
 }
 export interface ISelectCalendarProps {
   handleSelect: (e: Dayjs) => void;
@@ -74,6 +118,7 @@ export interface ISelectCalendarProps {
 }
 
 export interface ITimeSelectProps {
+  setIsDisabled: Dispatch<SetStateAction<boolean>>;
   selectedDate: string;
   selectOptions: {
     am: string[];
@@ -92,3 +137,5 @@ export interface IModalLayoutProps {
   children: ReactNode;
   handleCloseModal: () => void;
 }
+
+export type IUseGetReservationPageDataProps = () => { reservationData: IReservationData; loading: boolean };

@@ -49,7 +49,7 @@ function Page() {
 
   return (
     <>
-      <TopNav title="비밀번호 찾기" hasBack backGroundWhite />
+      <TopNav title={`${pathName.split("/")[2] === "user" ? "유저" : "PB"} 비밀번호 찾기`} hasBack backGroundWhite />
       {step[path]}
     </>
   );

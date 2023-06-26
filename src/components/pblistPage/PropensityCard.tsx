@@ -18,7 +18,7 @@ function PropensityCard({ userPropensity }: IPropensityCardProps) {
 
   const DOT_STYLE = `propensity_circle ${dotPosition[bar]}`;
   return (
-    <article className="mb-10 w-full rounded-lg bg-white px-4 py-4 shadow-md">
+    <article className="w-full rounded-lg bg-white px-4 py-4 shadow-md">
       <div className="mb-4 flex items-end justify-between border-b-1 border-dashed border-gray-normal pb-4">
         <h3 className="text-bold text-2xl text-primary-normal">{propensity}</h3>
         <Link className="text-xs text-gray-heavy underline decoration-1" href="/my/propensity">
@@ -29,7 +29,7 @@ function PropensityCard({ userPropensity }: IPropensityCardProps) {
         <div className="relative mb-2 h-1 w-full bg-background-normal">
           <div className={`${DOT_STYLE}`} />
         </div>
-        <p className="text-tiny">
+        <p className="text-xs">
           손실 위험도 : <span className="text-status-positive">{lossRisk}</span>
         </p>
       </div>
@@ -38,7 +38,7 @@ function PropensityCard({ userPropensity }: IPropensityCardProps) {
           <div className="relative mb-2 h-1 w-full bg-background-normal">
             <div className={`${DOT_STYLE}`} />
           </div>
-          <p className="text-tiny">
+          <p className="text-xs">
             수익 추구 : <span className="text-status-positive">{pursuit}</span>
           </p>
         </div>
@@ -48,7 +48,7 @@ function PropensityCard({ userPropensity }: IPropensityCardProps) {
           <div className="relative mb-2 h-1 w-full bg-background-normal">
             <div className={`${DOT_STYLE}`} />
           </div>
-          <p className="text-tiny">
+          <p className="text-xs">
             상품 위험도 : <span className="text-status-positive">{productRisk}</span>
           </p>
         </div>

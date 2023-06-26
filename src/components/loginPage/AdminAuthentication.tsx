@@ -1,13 +1,45 @@
-import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
+import { useAuthenticationStore } from "@/store/authenticationStore";
+import { IResponseLogin } from "@/types/login";
+import { setCookie } from "@/utils/cookies";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import ButtonModal from "../common/ButtonModal";
+import { useAuthentication } from "@/hooks/useAuthentication";
 
 const TIMER_TIME = 300;
 
 function AdminAuthentication() {
-  const [code, setCode] = useState("");
+  const [value, setValue] = useState("");
   const [min, setMin] = useState(5);
   const [sec, setSec] = useState(0);
   const time = useRef(TIMER_TIME);
   const timerId = useRef<NodeJS.Timeout>();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalError, setModalError] = useState(false);
+  const queryClient = useQueryClient();
+  const adminInfo = queryClient.getQueryData(["login"]) as IResponseLogin;
+  const router = useRouter();
+  const { code } = useAuthenticationStore();
+  const authentication = useAuthentication();
+
+  const modalContents_Error = {
+    content: "인증코드가 일치하지 않습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+    },
+  };
+
+  const modalContents_Success = {
+    content: "인증되었습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+      router.push("/");
+    },
+  };
 
   const startTimer = () => {
     time.current = TIMER_TIME;
@@ -32,14 +64,21 @@ function AdminAuthentication() {
   }, [sec]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCode(e.target.value);
+    setValue(e.target.value);
   };
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {};
+  const handleClick = () => {
+    if (value === code) {
+      setCookie("Authorization", adminInfo.headers.authorization);
+    }
+    setModalError(value !== code);
+    setIsOpen(true);
+  };
 
   const handleResend = () => {
     clearInterval(timerId.current);
     startTimer();
+    authentication(JSON.parse(adminInfo.config.data).email);
   };
 
   return (
@@ -49,13 +88,13 @@ function AdminAuthentication() {
         <br /> 인증코드를 발송하였습니다.
       </p>
       <p className="mb-[50px] w-full rounded-sm px-3 text-xl font-bold leading-7 text-primary-normal">
-        Moneybridge@logo.com
+        {JSON.parse(adminInfo.config.data).email}
       </p>
       <p className="mb-4 text-xl font-bold leading-5">인증코드 입력</p>
       <p className="mb-2 text-xs leading-[18px]">개인정보 보호를 위해 인증코드는 5분 간 유효합니다.</p>
 
       <div className="flex gap-[18px]">
-        <input className={`input_authentication ${code ? "entering" : ""}`} onChange={handleChange} />
+        <input className={`input_authentication ${value ? "entering" : ""}`} onChange={handleChange} />
         <button className="break-keep text-sm leading-5 underline" onClick={handleResend}>
           재발송
         </button>
@@ -65,15 +104,22 @@ function AdminAuthentication() {
       </p>
       <button
         className={`h-14 w-full rounded-[8px] text-xl font-bold leading-7 ${
-          code
+          value
             ? "cursor-pointer bg-primary-normal text-white"
             : "cursor-not-allowed bg-background-disabled text-gray-heavy"
         }`}
         onClick={handleClick}
-        disabled={code.length === 0}
+        disabled={value.length === 0}
       >
         확인
       </button>
+      {isOpen && (
+        <ButtonModal
+          modalContents={modalError ? modalContents_Error : modalContents_Success}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        ></ButtonModal>
+      )}
     </>
   );
 }

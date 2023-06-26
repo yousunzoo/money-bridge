@@ -4,22 +4,27 @@ import Link from "next/link";
 
 function NotFound() {
   return (
-    <section>
+    <section className="text-center">
       <Image src={logo} width={200} height={100} alt="logo" />
-      <div className="my-14 flex flex-col gap-4 break-keep leading-6">
-        <p className="font-bold">
-          죄송합니다. <br />
-          요청하신 페이지를 찾을 수 없습니다.
-        </p>
-        <p>
-          방문하시려는 페이지의 주소가 잘못 입력되었거나, <br />
-          페이지의 주소가 변경 혹은 삭제되어 요청하신 페이지를 찾을 수 없습니다.
-        </p>
-        <p>입력하신 주소가 정확한지 다시 한번 확인해 주시기 바랍니다.</p>
+      <div className="my-16 flex flex-col gap-4 break-keep leading-6">
+        <h3 className="mb-10 text-2xl font-bold">페이지가 없습니다</h3>
+        <p>주소가 잘못되었거나 바뀐 것 같습니다.</p>
+        <p>다시 확인해주시겠어요?</p>
       </div>
-      <Link className="button" href="/">
-        홈 화면으로 이동
-      </Link>
+      <nav className="mx-auto flex max-w-[500px] gap-2">
+        <Link
+          className="flex h-[56px] w-full items-center justify-center rounded-md border-1 border-primary-normal bg-white font-bold text-primary-normal"
+          href="/"
+        >
+          뒤로 가기
+        </Link>
+        <Link
+          className="flex h-[56px] w-full items-center justify-center rounded-md bg-primary-normal font-bold text-white"
+          href="/"
+        >
+          홈 화면으로 이동
+        </Link>
+      </nav>
     </section>
   );
 }

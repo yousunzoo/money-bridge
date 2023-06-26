@@ -18,6 +18,7 @@ function ModalCompanyList({
 
   const handleSelect = (e: MouseEvent<HTMLUListElement>) => {
     const liEl = e.target as HTMLLIElement;
+    if (!liEl.textContent) return;
     setSelectedItem({ name: liEl.textContent, id: Number(liEl.id) });
     liEl.classList.add("bg-background-secondary");
   };

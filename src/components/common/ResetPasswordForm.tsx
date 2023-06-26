@@ -86,7 +86,12 @@ function ResetPasswordForm() {
             />
             {dirtyFields.first && (
               <>
-                <button type="button" className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <button
+                  type="button"
+                  className="input_button bg-[url('/assets/images/clear.svg')]"
+                  tabIndex={-1}
+                  onClick={handleClear}
+                ></button>
                 <Image src={errors.first ? alert : correct} alt="input_status" className="input_status" />
               </>
             )}
@@ -114,7 +119,12 @@ function ResetPasswordForm() {
             />
             {dirtyFields.second && (
               <>
-                <button type="button" className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <button
+                  type="button"
+                  className="input_button bg-[url('/assets/images/clear.svg')]"
+                  tabIndex={-1}
+                  onClick={handleClear}
+                ></button>
                 <Image src={errors.second ? alert : correct} alt="input_status" className="input_status" />
               </>
             )}

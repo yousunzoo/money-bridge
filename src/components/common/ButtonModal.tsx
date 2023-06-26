@@ -8,6 +8,10 @@ function ButtonModal({ modalContents, isOpen, setIsOpen, children }: ButtonModal
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "initial";
+
+    return () => {
+      document.body.style.removeProperty("overflow");
+    };
   }, [isOpen]);
 
   const handleCancelButton = () => {
@@ -21,7 +25,7 @@ function ButtonModal({ modalContents, isOpen, setIsOpen, children }: ButtonModal
 
   if (!isOpen) return <></>;
   return (
-    <div className="fixed left-0 top-0 z-10 h-full w-full">
+    <div className="fixed left-0 top-0 z-20 h-full w-full">
       <div className="modal_background" />
       <div className="popup flex flex-col justify-between">
         <div className="text-center">

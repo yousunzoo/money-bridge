@@ -1,6 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { Dayjs } from "dayjs";
-import { IPropensity } from "./pblist";
 
 export interface IQuestions {
   [key: number]: IQuestion;
@@ -22,7 +21,7 @@ export interface IAnswers {
   2: string | null;
   3: ICandidateTimes | null;
   4: string | null;
-  5: IUserInfo | null;
+  5: IReservationUserInfo | null;
 }
 
 export interface IPbStation {
@@ -45,15 +44,15 @@ export interface INowLoginedUserInfo {
   email: string;
   propensity: string;
 }
-export interface IUserInfo {
-  userName: string;
-  userPhoneNumber: string;
-  userEmail: string;
+export interface IReservationUserInfo {
+  name: string;
+  phoneNumber: string;
+  email: string;
 }
 export interface IReservationData {
   consultInfo: IConsultInfo;
   pbInfo: IPBInfo;
-  userInfo: IUserInfo;
+  userInfo: IReservationUserInfo;
 }
 export interface IPurposeQuestionProps {
   moveToNextStep: (nowStep: number) => void;
@@ -75,10 +74,16 @@ export interface ILocationQuestionProps {
   pbStation: IPbStation;
 }
 
+export interface IReservationUserInfo {
+  userName: string;
+  userEmail: string;
+  userPhoneNumber: string;
+}
+
 export interface ICheckQuestionProps {
   moveToNextStep: (nowStep: number) => void;
   handleOpenModal: (nowStep: number) => void;
-  userInfo: IUserInfo;
+  userInfo: IReservationUserInfo;
   isOpen: boolean;
 }
 
@@ -96,7 +101,7 @@ export interface IEditProfileModalProps {
   nowStep: number;
   handleCloseModal: () => void;
   moveToNextStep: (nowStep: number) => void;
-  userInfo: IUserInfo;
+  userInfo: IReservationUserInfo;
 }
 export interface ICandidateTimeProps {
   candidates: ICandidateTimes;

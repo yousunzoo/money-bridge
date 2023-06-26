@@ -2,12 +2,7 @@
 import { getMyPropensity } from "@/app/apis/services/user";
 import TopNav from "@/components/common/TopNav";
 import HydratePropensity from "@/components/myPage/propensityPage/HydratePropensity";
-import PropensityChart from "@/components/myPage/propensityPage/PropensityChart";
-import PropensityInfoCard from "@/components/myPage/propensityPage/PropensityInfoCard";
-import RecommendPBList from "@/components/myPage/propensityPage/RecommendPBList";
-import RiskGrades from "@/components/myPage/propensityPage/RiskGrades";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
-import { propensityDetailedList } from "@/constants/propensityList";
 import { IPropensityData } from "@/types/my";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -18,10 +13,11 @@ import { useEffect, useState } from "react";
 function PropensityPage() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const { data, isLoading, isSuccess } = useQuery<unknown, AxiosError, IPropensityData>({
+  const { data, isLoading, isSuccess } = useQuery<IPropensityData, AxiosError>({
     queryKey: ["myPropensity"],
     queryFn: getMyPropensity,
-    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    cacheTime: Infinity,
   });
 
   const handleCloseModal = () => {
@@ -29,7 +25,6 @@ function PropensityPage() {
     router.push("/analysis");
   };
 
-  console.log(isSuccess);
   useEffect(() => {
     if (isSuccess && !data.propensity) {
       setIsOpen(true);

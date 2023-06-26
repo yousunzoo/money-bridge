@@ -20,7 +20,7 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ["https://d2ky5wm6akosox.cloudfront.net"],
+    domains: ["d2ky5wm6akosox.cloudfront.net"],
   },
 };
 

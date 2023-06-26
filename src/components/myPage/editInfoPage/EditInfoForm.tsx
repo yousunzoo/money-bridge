@@ -9,7 +9,7 @@ import correct from "/public/assets/images/correct.svg";
 
 const yup_phone = yup
   .string()
-  .matches(/^[0-9]{10,11}$/i)
+  .matches(/^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/i)
   .required();
 const yup_name = yup.string().min(2).max(10).required();
 

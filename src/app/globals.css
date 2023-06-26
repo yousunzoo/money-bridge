@@ -119,7 +119,7 @@
   }
 
   .modal {
-    @apply fixed bottom-[58px] left-1/2 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 rounded-t-md bg-white px-4 py-8;
+    @apply fixed bottom-[70px] left-1/2 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 rounded-t-md bg-white px-4 py-8;
   }
 
   .card {
@@ -166,6 +166,16 @@
     @apply absolute right-3;
   }
 
+  .edit_input {
+    @apply block w-full rounded-sm border-1 border-button-inactive bg-white p-4 text-gray-heavy;
+  }
+  .edit_input:focus-visible {
+    @apply outline-none;
+  }
+
+  .edit_input::placeholder {
+    @apply text-placeholder;
+  }
   .scroll_hidden::-webkit-scrollbar {
     display: none;
   }

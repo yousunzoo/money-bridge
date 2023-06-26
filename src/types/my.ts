@@ -108,3 +108,38 @@ export interface INoticeItem {
   date?: string;
   label?: string;
 }
+
+export interface IEditProfileFormProps {
+  existingProfile: IPBMyProfile;
+}
+
+export interface IPBMyProfile {
+  company: string;
+  companyId: number;
+  branchName: string;
+  career: number;
+  careers: ICareer[];
+  awards: IAward[];
+  speciality1: string;
+  speciality2: string;
+  cumulativeReturn: number;
+  maxDrawdown: number;
+  profitFactor: number;
+  averageProfit: number;
+  profile: string | FileList;
+  portfolio: string | FileList;
+  intro: string;
+  msg: string;
+}
+
+export interface ICareer {
+  id?: number;
+  career: string | undefined;
+  start: number | undefined;
+  end: number | undefined;
+}
+export interface IAward {
+  id?: string;
+  record: string | undefined;
+  year: number | undefined;
+}

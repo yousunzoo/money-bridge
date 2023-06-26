@@ -1,16 +1,22 @@
 import { getPBInfo } from "@/app/apis/services/pb";
 import { speciality } from "@/constants/pbListMenu";
-import { IUserInfoProps } from "@/types/my";
+import { IPBInfo } from "@/types/my";
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 function PBInfo() {
-  const { data, isLoading, error } = useQuery({ queryKey: ["getPBInfo"], queryFn: getPBInfo, staleTime: Infinity });
+  const { data, isLoading } = useQuery<IPBInfo, AxiosError>({
+    queryKey: ["getPBInfo"],
+    queryFn: getPBInfo,
+    staleTime: Infinity,
+  });
 
   if (!data || isLoading) return;
-  const { name, profile, branchName, msg, career, speciality1, speciality2, reserveCount, reviewCount } = data.data;
+
+  const { name, profile, branchName, msg, career, speciality1, speciality2, reserveCount, reviewCount } = data;
   const pbSpeciality1 = speciality.find(item => item.id === speciality1)?.text;
   const pbSpeciality2 = speciality.find(item => item.id === speciality2)?.text;
 
@@ -23,8 +29,8 @@ function PBInfo() {
       </h2>
       <article className="w-full rounded-md bg-white p-4 shadow-md">
         <div className="mb-6 flex">
-          <div className="mr-4 h-[60px] w-[60px] overflow-hidden rounded-[30px]">
-            <Image src={profile} width={60} height={60} alt={name} />
+          <div className="relative mr-4 h-[60px] w-[60px] overflow-hidden rounded-[30px]">
+            <Image src={profile} fill={true} alt={name} />
           </div>
           <div>
             <p className="font-bold">{name} PB</p>

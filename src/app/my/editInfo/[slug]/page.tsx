@@ -5,7 +5,7 @@ import TopNav from "@/components/common/TopNav";
 import EditInfoForm from "@/components/myPage/editInfoPage/EditInfoForm";
 import EditPasswordForm from "@/components/myPage/editInfoPage/EditPasswordForm";
 import { ButtonModalProps } from "@/types/common";
-import { INowLoginedUserInfo } from "@/types/reservation";
+import { IUserInfo } from "@/types/reservation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -20,9 +20,12 @@ function EditPage({ params }: { params: { slug: string } }) {
     content: "",
     confirmText: "확인",
   });
-  const { data, isLoading } = useQuery<INowLoginedUserInfo, AxiosError>(["myInfo"], getMyInfo);
+  const { data, isLoading } = useQuery<IUserInfo, AxiosError>(["myInfo"], getMyInfo, {
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  });
 
-  const { mutate } = useMutation(editMyInfo, {
+  const { mutate } = useMutation<any, AxiosError, { [key: string]: string }>(editMyInfo, {
     onSuccess: () => {
       setIsOpen(true);
       const content =
@@ -33,14 +36,7 @@ function EditPage({ params }: { params: { slug: string } }) {
         confirmFn: () => router.back(),
       });
       queryClient.refetchQueries(["loginedUserInfo"]);
-    },
-    onError: (error: AxiosError) => {
-      console.log(error);
-      setIsOpen(true);
-      setModalContents({
-        content: "알 수 없는 에러가 발생했습니다. 다시 시도해주세요.",
-        confirmText: "확인",
-      });
+      queryClient.refetchQueries(["getMyInfo"]);
     },
   });
 

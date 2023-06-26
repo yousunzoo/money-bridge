@@ -22,7 +22,7 @@ function MyPage() {
     setMounted(true);
   }, []);
 
-  if (!mounted || !loginedUserInfo) return null;
+  if (loading || !loginedUserInfo) return null;
   return (
     <>
       <TopNav title="마이페이지" hasBack={true} />

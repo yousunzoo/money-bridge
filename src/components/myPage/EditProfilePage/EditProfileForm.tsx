@@ -133,7 +133,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="pb-20">
         <ProfileInput errors={errors} register={register} removeFile={removeFile} profile={filePreviews.profile} />
         <CompanyInput getValues={getValues} setValue={setValue} />
         <CareerInput errors={errors} register={register} defaultValue={getValues("career")} />

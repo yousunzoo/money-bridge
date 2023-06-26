@@ -1,17 +1,12 @@
+import { yup_name, yup_phone } from "@/constants/yupSchema";
 import { IEditInfoFormProps } from "@/types/my";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
-import React, { FormEvent, MouseEvent } from "react";
+import React, { FormEvent } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
-
-const yup_phone = yup
-  .string()
-  .matches(/^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/i)
-  .required();
-const yup_name = yup.string().min(2).max(10).required();
 
 function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
   const schema = yup.object().shape({

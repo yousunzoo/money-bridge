@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 export const usePasswordAuthentication = (
-  setModalError: React.Dispatch<React.SetStateAction<boolean>>,
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setModalError: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   const queryClient = useQueryClient();
   const { setCode } = useAuthenticationStore();

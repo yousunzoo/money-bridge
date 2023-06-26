@@ -12,7 +12,7 @@ function BusinessCard() {
   const handleClick = () => {
     if (selectedCard) {
       setInformations("businessCard", selectedCard);
-      router.push("/join/pb/selectCompany");
+      router.push("/join/pb/agreements");
     } else {
       fileInputRef.current && fileInputRef.current.click();
     }

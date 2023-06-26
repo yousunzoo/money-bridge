@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import { ButtonModalProps } from "@/types/common";
 import { useWithdraw } from "@/hooks/useWithdraw";
 import { useCheckPassword } from "@/hooks/useCheckPassword";
+import { yup_password } from "@/constants/yupSchema";
 
-const yup_password = yup.string().min(8).max(15).matches(/^\S+$/).required();
 const checkBlank = (value: string) => {
   return value.includes(" ");
 };

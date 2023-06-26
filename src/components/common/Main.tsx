@@ -5,7 +5,15 @@ import { ReactNode } from "react";
 function Main({ children }: { children: ReactNode }) {
   const path = usePathname();
   const background = (() => {
-    if (path === "/" || path.startsWith("/lounge") || path.startsWith("/pblist") || path.startsWith("/my")) {
+    if (
+      path === "/" ||
+      path.startsWith("/lounge") ||
+      path.startsWith("/management") ||
+      path.startsWith("/schedule") ||
+      path.startsWith("/myCounseling") ||
+      path.startsWith("/pblist") ||
+      path.startsWith("/my")
+    ) {
       return "bg-background-primary";
     }
     return "bg-white";

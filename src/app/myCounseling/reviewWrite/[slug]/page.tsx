@@ -103,7 +103,6 @@ function ReviewWritePage({ params: { slug } }: { params: { slug: string } }) {
     return (
       <ErrorModal isError={true} path={"/myCounseling?process=APPLY"} content={"권한이 없습니다. 다시 시도해주세요."} />
     );
-
   return (
     <div>
       <TopNav title="후기 작성" hasBack={true} />

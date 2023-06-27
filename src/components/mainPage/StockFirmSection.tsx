@@ -1,20 +1,27 @@
 "use client";
 
 import React from "react";
-import CompanyList from "../common/CompanyList";
-import { companyListData } from "@/mocks/seon/companyList";
 import { usePBListQueries } from "@/hooks/usePBListQueries";
 import { Carousel } from "antd";
 import { chunkArray } from "@/utils/chunkArray";
 import Image from "next/image";
-import profile from "/public/assets/images/profile.svg";
+import { useQuery } from "@tanstack/react-query";
+import { ICompanyList } from "@/types/pblist";
+import { AxiosError } from "axios";
+import { getCompanyListwithLogo } from "@/app/apis/services/etc";
 
 const LI_STYLE =
   "flex flex-col py-2 justify-between w-full h-[60px] justify-center items-center rounded-sm cursor-pointer";
 
 function StockFirmSection() {
   const { handleIDClick } = usePBListQueries();
-  const chunkedCompanyList = chunkArray([{ id: "ALL", logo: null, name: "전체보기" }, ...companyListData], 8);
+
+  const { data: companyList, isLoading } = useQuery<ICompanyList, AxiosError>(["companyList"], getCompanyListwithLogo, {
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  });
+  if (!companyList) return;
+  const chunkedCompanyList = chunkArray([{ id: "ALL", logo: null, name: "전체보기" }, ...companyList], 8);
 
   return (
     <section className="relative w-full mt-3 ">
@@ -32,9 +39,9 @@ function StockFirmSection() {
                   className={`${LI_STYLE} ${company.name === "전체보기" && "!justify-center"}`}
                   key={company.id}
                 >
-                  {company.logo && <Image src={profile} alt={company.name} width={24} height={24} />}
+                  {company.logo && <Image src={company.logo} alt={company.name} width={24} height={24} />}
                   {company.name === "전체보기" ? (
-                    <p>
+                    <p className="font-bold">
                       전체
                       <br />
                       보기

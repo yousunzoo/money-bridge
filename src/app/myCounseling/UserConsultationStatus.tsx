@@ -9,7 +9,7 @@ interface ConsultationStatue {
 }
 
 const boxStyle =
-  "flex h-[68] w-[104px] flex-col items-center rounded-md border-1 border-b-secondary-heavy bg-white py-[14px] text-center  text-sm font-bold text-secondary-heavy";
+  "flex h-[68] w-full flex-col items-center rounded-md border-1 border-b-secondary-heavy bg-white py-[14px] text-center  text-sm font-bold text-secondary-heavy";
 
 function UserConsultationStatus({
   applyCount,
@@ -20,7 +20,7 @@ function UserConsultationStatus({
   isNewComplete,
 }: ConsultationStatue) {
   return (
-    <section className="mt-8  flex h-auto w-[380px] flex-col justify-between rounded-lg bg-white px-6 py-6 shadow-xl ">
+    <section className="flex flex-col justify-between w-full h-auto px-6 py-6 mt-8 bg-white rounded-lg shadow-xl ">
       <div>
         <h2 className="py-2 mb-2 text-lg font-bold border-b-1 border-background-disabled ">상담현황</h2>
       </div>
@@ -32,7 +32,7 @@ function UserConsultationStatus({
           </div>
           예약신청
         </div>
-        <div className={boxStyle}>
+        <div className={`mx-2 ${boxStyle}`}>
           <div className="relative w-8 h-8 text-xl">
             {isNewConfirm && <div className="absolute top-0 right-0 w-2 h-2 rounded-xl bg-status-alert"></div>}
             {confirmCount}

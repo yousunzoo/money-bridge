@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InputFormType } from "@/constants/enum";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useLogin } from "@/hooks/useLogin";
 import { useFindEmail } from "@/hooks/useFindEmail";
 import ButtonModal from "./ButtonModal";
@@ -18,12 +18,11 @@ import { IModalContent } from "@/types/common";
 type Tinput = "first" | "second";
 
 function DoubleInputForm({ type }: { type: InputFormType }) {
-  const router = useRouter();
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   const modalContents_Default = {
-    content: "사용자가 존재하지 않습니다.",
+    content: "일시적인 오류가 발생했습니다.",
     confirmText: "확인",
     confirmFn: () => {
       setIsOpen(false);

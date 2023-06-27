@@ -45,7 +45,7 @@ function PbListSection() {
             <UserReservationItem
               key={item.id}
               buttonName={"정보 보기"}
-              href={`/datail/info/${item.id}`}
+              href={`/detail/info/${item.id}`}
               isRole={"PB"}
               profileImage={profile}
             >

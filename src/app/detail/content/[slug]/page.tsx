@@ -25,13 +25,8 @@ function PbDetailContent() {
   const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>(["getPbProfile"], () =>
     getPbProfile(id),
   );
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => {
-    if (!isLoading) setMounted(true);
-  }, [isLoading]);
-
   const myId = getMyId(userData?.role, userData?.id, id);
-  if (!mounted || !authProfile?.data) return null;
+  if (!isLoading || !authProfile?.data) return null;
 
   return (
     <div className="mb-32">

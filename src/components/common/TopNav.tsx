@@ -35,7 +35,6 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });
-  console.log(userInfo);
 
   const [mounted, setMounted] = useState<boolean>(false);
 
@@ -56,7 +55,7 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
       >
         <div className="flex min-w-[100px] justify-self-start">
           {(logoPath.includes(currentPath) || currentPath === "/pblist") && (
-            <div className="font-bol flex cursor-pointer text-base" onClick={modalOpenHandler}>
+            <div className="flex cursor-pointer text-base font-bold" onClick={modalOpenHandler}>
               {locations.location ? locations.location : <span>위치 선택</span>}
               <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />
             </div>

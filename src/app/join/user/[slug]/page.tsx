@@ -55,26 +55,6 @@ function Page() {
   const { informations } = useJoinStore();
   const { code } = useAuthenticationStore();
   const stepPath = pathName.split("/")[3];
-  console.log(informations);
-  console.log(code);
-
-  // switch (stepPath) {
-  //   case "authentication":
-  //     informations.email === "" ? redirect("/login") : "";
-  //     break;
-  //   case "password":
-  //     code === "" ? redirect("/login") : "";
-  //     break;
-  //   case "name":
-  //     informations.password === "" ? redirect("/login") : "";
-  //     break;
-  //   case "phoneNumber":
-  //     informations.name === "" ? redirect("/login") : "";
-  //     break;
-  //   case "agreements":
-  //     informations.phoneNumber === "" ? redirect("/login") : "";
-  //     break;
-  // }
 
   return (
     <>

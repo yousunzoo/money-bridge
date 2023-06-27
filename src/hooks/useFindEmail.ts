@@ -22,7 +22,6 @@ export const useFindEmail = (
 
   const { mutate } = useMutation(findEmail, {
     onSuccess: data => {
-      console.log(data);
       queryClient.setQueryData(["findEmail"], data);
       if (data.data[0].email) {
         router.push(`/findEmail/${pathName.split("/")[2]}/informationCheck`);
@@ -31,9 +30,7 @@ export const useFindEmail = (
         setIsOpen(true);
       }
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
   return mutate;
 };

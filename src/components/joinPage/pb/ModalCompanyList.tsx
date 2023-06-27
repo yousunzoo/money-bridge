@@ -14,7 +14,6 @@ function ModalCompanyList({
     id: 0,
   });
   const getCompanyList = useGetCompanyList();
-  console.log(getCompanyList.data?.data);
 
   const handleSelect = (e: MouseEvent<HTMLUListElement>) => {
     const liEl = e.target as HTMLLIElement;

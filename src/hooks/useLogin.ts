@@ -1,5 +1,4 @@
 import { userLogin } from "@/app/apis/services/auth";
-import { useUserStore } from "@/store/userStore";
 import { IModalContent } from "@/types/common";
 import { IResponseErrorData400, IResponseErrorData404 } from "@/types/login";
 import { setCookie } from "@/utils/cookies";
@@ -13,13 +12,10 @@ export const useLogin = (
 ) => {
   const router = useRouter();
   const pathName = usePathname();
-  const { setUser } = useUserStore();
 
   const { mutate } = useMutation(userLogin, {
     onSuccess: data => {
-      console.log(data);
       setCookie("Authorization", data.headers.authorization);
-      setUser(pathName.split("/")[2].toUpperCase(), data.data.data.name, data.data.data.id);
       router.push("/");
     },
     onError: (err: AxiosError) => {

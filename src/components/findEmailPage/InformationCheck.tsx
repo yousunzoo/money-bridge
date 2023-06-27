@@ -9,7 +9,6 @@ function InformationCheck() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData(["findEmail"]) as IFindEmail;
-  console.log(data);
 
   const handleClick = () => {
     router.push("/login");

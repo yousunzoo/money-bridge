@@ -31,9 +31,7 @@ export const usePasswordAuthentication = (
       });
       setIsOpen(true);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
   return mutate;
 };

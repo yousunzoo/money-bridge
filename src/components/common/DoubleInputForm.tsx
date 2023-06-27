@@ -60,7 +60,6 @@ function DoubleInputForm({ type }: { type: InputFormType }) {
     switch (type) {
       case InputFormType.LOGIN:
         login({ email: getValues("first"), password: getValues("second"), role: pathName.split("/")[2].toUpperCase() });
-        console.log("on submit");
         break;
       case InputFormType.FIND_EMAIL:
         findEmail({

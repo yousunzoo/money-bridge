@@ -13,6 +13,7 @@ import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
 import { usePasswordAuthentication } from "@/hooks/usePasswordAuthentication";
 import { yup_email, yup_name, yup_password, yup_phone } from "@/constants/yupSchema";
+import { IModalContent } from "@/types/common";
 
 type Tinput = "first" | "second";
 
@@ -20,30 +21,21 @@ function DoubleInputForm({ type }: { type: InputFormType }) {
   const router = useRouter();
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [modalError, setModalError] = useState(false);
 
-  const login = useLogin(setIsOpen, setModalError);
-  const authentication = usePasswordAuthentication(setIsOpen, setModalError);
-  const findEmail = useFindEmail(setIsOpen, setModalError);
-
-  const inputType = type === InputFormType.LOGIN ? "password" : "text";
-
-  const modalContents_NotExist = {
+  const modalContents_Default = {
     content: "사용자가 존재하지 않습니다.",
     confirmText: "확인",
     confirmFn: () => {
       setIsOpen(false);
     },
   };
+  const [modalContent, setModalContent] = useState<IModalContent>(modalContents_Default);
 
-  const modalContents_Success = {
-    content: "인증코드가 발송되었습니다.",
-    confirmText: "확인",
-    confirmFn: () => {
-      setIsOpen(false);
-      router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
-    },
-  };
+  const authentication = usePasswordAuthentication(setIsOpen, setModalContent);
+  const login = useLogin(setIsOpen, setModalContent);
+  const findEmail = useFindEmail(setIsOpen, setModalContent);
+
+  const inputType = type === InputFormType.LOGIN ? "password" : "text";
 
   const schema = yup.object().shape({
     first: type === InputFormType.LOGIN ? yup_email : yup_name,
@@ -162,11 +154,7 @@ function DoubleInputForm({ type }: { type: InputFormType }) {
         </button>
       </form>
       {isOpen && (
-        <ButtonModal
-          modalContents={modalError ? modalContents_NotExist : modalContents_Success}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        >
+        <ButtonModal modalContents={modalContent} isOpen={isOpen} setIsOpen={setIsOpen}>
           <p>정보를 확인해 주세요.</p>
         </ButtonModal>
       )}

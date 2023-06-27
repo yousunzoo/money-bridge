@@ -29,7 +29,6 @@ function DoubleInputForm({
   const [modalError, setModalError] = useState(false);
 
   const login = useLogin(setNextStep, setIsOpen, setModalError);
-  console.log("on submit??");
 
   const authentication = usePasswordAuthentication(setIsOpen, setModalError);
   const findEmail = useFindEmail(setIsOpen, setModalError);
@@ -116,7 +115,12 @@ function DoubleInputForm({
             />
             {dirtyFields.first && (
               <>
-                <button type="button" className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <button
+                  type="button"
+                  className="input_button bg-[url('/assets/images/clear.svg')]"
+                  tabIndex={-1}
+                  onClick={handleClear}
+                ></button>
                 <Image src={errors.first ? alert : correct} alt="input_status" className="input_status" />
               </>
             )}
@@ -137,7 +141,12 @@ function DoubleInputForm({
             />
             {dirtyFields.second && (
               <>
-                <button type="button" className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <button
+                  type="button"
+                  className="input_button bg-[url('/assets/images/clear.svg')]"
+                  tabIndex={-1}
+                  onClick={handleClear}
+                ></button>
                 <Image src={errors.second ? alert : correct} alt="input_status" className="input_status" />
               </>
             )}

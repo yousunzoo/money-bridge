@@ -48,7 +48,6 @@ function SelectCompany() {
     router.push("/join/pb/career");
   };
 
-  console.log(company, location);
   return (
     <>
       <p className="mb-6 mt-14 text-xl font-bold leading-7">

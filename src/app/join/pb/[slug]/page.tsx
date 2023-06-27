@@ -69,7 +69,6 @@ function Page() {
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
   checkRedirect(pathName) ?? redirect("/login");
   const { informations } = useJoinStore();
-  console.log(informations);
   return (
     <>
       <TopNav title="PB 회원가입" hasBack backGroundWhite />

@@ -2,7 +2,6 @@ import { IFindEmailData } from "@/types/login";
 import React from "react";
 
 function InformationItem({ information }: { information: IFindEmailData }) {
-  console.log(information);
   return (
     <li className="mb-6 flex w-full flex-col items-center gap-6 rounded-sm border-1 border-primary-normal p-6">
       <div className="flex w-full flex-row justify-between">

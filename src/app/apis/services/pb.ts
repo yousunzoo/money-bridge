@@ -166,7 +166,6 @@ export const getPBMyProfile = async () => {
 };
 
 export const changeReservation = async ({ id, category, time, type }: ChangeReservationProps) => {
-  console.log(id, category, time, type);
   try {
     const res = await instance.patch(`/pb/reservation/${id}`, {
       category,

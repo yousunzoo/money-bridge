@@ -16,22 +16,16 @@ import { yup_email, yup_name, yup_password, yup_phone } from "@/constants/yupSch
 
 type Tinput = "first" | "second";
 
-function DoubleInputForm({
-  type,
-  setNextStep,
-}: {
-  type: InputFormType;
-  setNextStep?: (value: React.SetStateAction<boolean>) => void;
-}) {
+function DoubleInputForm({ type }: { type: InputFormType }) {
   const router = useRouter();
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [modalError, setModalError] = useState(false);
 
-  const login = useLogin(setNextStep, setIsOpen, setModalError);
-
+  const login = useLogin(setIsOpen, setModalError);
   const authentication = usePasswordAuthentication(setIsOpen, setModalError);
   const findEmail = useFindEmail(setIsOpen, setModalError);
+
   const inputType = type === InputFormType.LOGIN ? "password" : "text";
 
   const modalContents_NotExist = {
@@ -47,9 +41,7 @@ function DoubleInputForm({
     confirmText: "확인",
     confirmFn: () => {
       setIsOpen(false);
-      if (type === InputFormType.FIND_PASSWORD) {
-        router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
-      }
+      router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
     },
   };
 

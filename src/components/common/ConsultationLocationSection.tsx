@@ -19,9 +19,12 @@ function ConsultationLocationSection({ type, role, location, locationAddress }: 
       </div>
       <div className="flex justify-between mt-2">
         <span className="font-bold">미팅 장소</span>
-        <span className={role === "USER" ? `text-secondary-heavy` : `text-primary-normal`}>{location}</span>
+
+        <span className={role === "USER" ? `text-secondary-heavy` : `text-primary-normal`}>
+          {location === null ? "유선으로 결정" : location}
+        </span>
       </div>
-      <LocationCopyButton location={locationAddress} />
+      {locationAddress && <LocationCopyButton location={locationAddress} />}
     </section>
   );
 }

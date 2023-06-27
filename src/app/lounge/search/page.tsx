@@ -1,17 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import TopNav from "@/components/common/TopNav";
-import search_active from "/public/assets/images/icon/search_active.svg";
-import Image from "next/image";
-import PbCardList from "@/components/common/Card/CardList/PbCardList";
-import { getSearchPb, getSearchContent } from "@/app/apis/services/common";
-import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
+import PbResult from "@/components/searchPage/PbResult";
+import ContentResult from "@/components/searchPage/ContentResult";
+import Search from "@/components/searchPage/Search";
+
 function LoungeSearch() {
-  const [isPB, setIsPB] = useState(true);
-  const [contentValue, setContentValue] = useState("");
-  const [searchContent, setSearchContent] = useState("");
-  const [pbValue, setPbValue] = useState("");
-  const [searchPb, setSearchPb] = useState("");
+  const [isPB, setIsPB] = useState<boolean>(true);
+  const [contentValue, setContentValue] = useState<string>("");
+  const [searchContent, setSearchContent] = useState<string>("");
+  const [pbValue, setPbValue] = useState<string>("");
+  const [searchPb, setSearchPb] = useState<string>("");
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isPB) {
@@ -21,39 +20,38 @@ function LoungeSearch() {
     }
   };
 
-  
   const onSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (isPB) {
-        setPbValue(searchPb);
+        if (searchPb.trim() !== "") {
+          setPbValue(searchPb);
+          setSearchPb("");
+        }
       } else {
-        setContentValue(searchContent);
+        if (searchContent.trim() !== "") {
+          setContentValue(searchContent);
+          setSearchContent("");
+        }
       }
     }
   };
 
   const initPB = () => {
     setIsPB(true);
+    setPbValue("");
+    setSearchPb("");
   };
 
   const initContent = () => {
     setIsPB(false);
+    setContentValue("");
+    setSearchContent("");
   };
 
-console.log(pbValue);
   return (
     <>
       <TopNav title="검색하기" hasBack={true} />
-      <div className="relative">
-        <input
-          className="search_input mt-6 h-[56px] w-full"
-          type="text"
-          placeholder="궁금한 정보를 검색해보세요"
-          onChange={onSearchChange}
-          onKeyDown={onSearch}
-        />
-        <Image src={search_active} alt="검색 활성화" className="absolute left-4 top-10 h-[25px] w-[25px]" />
-      </div>
+      <Search isPB={isPB} searchPb={searchPb} searchContent={searchContent} onSearchChange={onSearchChange} onSearch={onSearch} />
       <div className="mt-6 flex text-base font-bold text-primary-normal">
         <div
           className={`mr-2 flex h-[40px] flex-1 cursor-pointer items-center justify-center rounded-3xl border-[2px] ${
@@ -74,27 +72,9 @@ console.log(pbValue);
       </div>
       <div className="mt-[24px]">
         {isPB ? (
-          <>
-            {pbValue! == "" && (
-              <>
-                <div className="mb-[24px] h-[34px] border-b-[1px] border-b-gray-normal text-gray-normal">
-                  {/* {getResult() ? <>PB 검색 결과</> : <>일치하는 정보가 없습니다</>} */}
-                </div>
-                <PbCardList queryKey={"getSearchPb"} api={getSearchPb} etc={pbValue} />
-              </>
-            )}
-          </>
+          <PbResult pbValue={pbValue} />
         ) : (
-          <>
-            {contentValue !== "" && (
-              <>
-                <div className="mb-[24px] h-[34px] border-b-[1px] border-b-gray-normal text-gray-normal">
-                  {/* {getResult() ? <>콘텐츠 검색 결과</> : <>일치하는 정보가 없습니다</>} */}
-                </div>
-                <ContentCardList queryKey={"getSearchContent"} api={getSearchContent} etc={contentValue} />
-              </>
-            )}
-          </>
+          <ContentResult contentValue={contentValue} />
         )}
       </div>
     </>

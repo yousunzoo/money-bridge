@@ -5,12 +5,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import { IContentCard } from "@/types/card";
 
-function ContentCardList({ queryKey, api, id }: { queryKey: string; api: any; id?: number }) {
+function ContentCardList({ queryKey, api, etc }: { queryKey: string; api: any; etc?: number | string }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
     ({ pageParam = 0 }) => {
-      if (id) {
-        return api(id, pageParam);
+      if (etc) {
+        return api(etc, pageParam);
       } else {
         return api(pageParam);
       }

@@ -80,16 +80,16 @@ export const getContents = async () => {
   }
 };
 
-export const getSearchContent = async (name: string, page: number, title: string) => {
+export const getSearchContent = async ( search: string, page: string) => {
   try {
-    const res = await instance.get("/lounge/boards", { params: { name, page, title } });
+    const res = await instance.get("/lounge/boards", { params: {search, page} });
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response);
   }
 };
 
-export const getSearchPb = async (name: string, page: number) => {
+export const getSearchPb = async (name: string, page: string) => {
   try {
     const res = await instance.get("/pbs", { params: { name, page } });
     return res.data.data;

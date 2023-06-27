@@ -5,11 +5,15 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import { IPbCard } from "@/types/card";
 
-function PbCardList({ queryKey, api }: { queryKey: string; api: any }) {
+function PbCardList({ queryKey, api, etc }: { queryKey: string; api: any; etc?: string }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
     ({ pageParam = 0 }) => {
-      return api(pageParam);
+      if (etc) {
+        return api(etc, pageParam);
+      } else {
+        return api(pageParam);
+      }
     },
     {
       getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),

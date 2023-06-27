@@ -37,7 +37,7 @@ function PbDetailContent() {
     <div className="mb-32">
       <TopNav title="PB 상세프로필" hasBack={true} />
       <Intro introData={authProfile?.data} />
-      <ContentCardList queryKey={`/auth/boards/${id}`} api={getPbContent} id={id} />
+      <ContentCardList queryKey={`/auth/boards/${id}`} api={getPbContent} etc={id} />
       {myId && (
         <button className="button_fixed" onClick={() => router.push("/lounge/write")}>
           콘텐츠 작성하기

@@ -71,7 +71,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         <div className="mx-auto mb-[15px] flex text-xs">
           "투자자님들이 말하는&nbsp;<p className="font-bold">{name} PB의 매력</p>은?"
         </div>
-        <div className="mx-auto flex w-full grid-cols-1 px-[51px]">
+        <div className="mx-auto w-full grid-flow-col px-[51px]">
           <div className="review_section">
             <Image
               src={styleCase(reviewData.style1).image}

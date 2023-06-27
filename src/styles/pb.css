@@ -24,7 +24,7 @@
   }
 
   .review_section {
-    @apply flex flex-col justify-center
+    @apply grid justify-center grid-flow-row w-[10px]
   }
 
   .review_text {

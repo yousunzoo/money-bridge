@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import home from "/public/assets/images/navbar/home.svg";
 import contacts from "/public/assets/images/navbar/contacts.svg";
 import list from "/public/assets/images/navbar/list.svg";
 import identity from "/public/assets/images/navbar/identity.svg";
 import Image from "next/image";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 const navItems = [
   {
@@ -29,7 +30,7 @@ const navItems = [
   },
   {
     role: "PB",
-    href: "/management",
+    href: "/management?process=APPLY",
     image: contacts,
     text: "고객관리",
   },
@@ -42,12 +43,12 @@ const navItems = [
 ];
 
 function Navbar() {
-  const [isRole, setisRole] = useState("USER");
-
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
+  if (!userInfo) return;
   return (
     <nav className="fixed bottom-0 left-1/2 flex h-[70px] w-full max-w-[768px] -translate-x-1/2 justify-around bg-white p-2">
       {navItems.map(item => {
-        if (item.role === "ALL" || item.role === isRole) {
+        if (item.role === "ALL" || item.role === userInfo.role) {
           return (
             <Link key={item.text} href={item.href} className="group flex w-[74px] flex-col items-center">
               <Image src={item.image} alt={item.text} width={26} height={26} />
@@ -55,7 +56,6 @@ function Navbar() {
             </Link>
           );
         }
-        return null;
       })}
     </nav>
   );

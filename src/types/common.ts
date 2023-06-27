@@ -51,4 +51,5 @@ export interface ILoginedUserInfo {
   role: "USER" | "PB";
   name: string;
   propensity: IPropensity;
+  isAdmin: boolean;
 }

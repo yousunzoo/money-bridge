@@ -16,7 +16,6 @@ export const usePasswordAuthentication = (
 
   const { mutate } = useMutation(passwordAuthentication, {
     onSuccess: data => {
-      console.log(data);
       queryClient.setQueryData(["findPassword"], data);
       if (data.data.id) {
         setCode(data.data.code);

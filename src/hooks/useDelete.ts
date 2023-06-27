@@ -1,21 +1,17 @@
 import { useState } from "react";
 
-const useDelete = (id: number, api: any) => {
+const useDelete = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  const deleteHandler = () => {
-    if (isDeleteOpen) {
-      setIsDeleteOpen(false);
-      api(id);
-    }
+  const deleteHandler = (id: number, mutate: any) => {
+    setIsDeleteOpen(true);
+    mutate({ id: id });
   };
 
   const deleteContents = {
-    content: "삭제하시겠습니까?",
+    content: "댓글이 삭제되었습니다.",
     confirmText: "확인",
-    cancelText: "취소",
-    confirmFn: () => setIsDeleteOpen(true),
-    cancelFn: () => setIsDeleteOpen(false),
+    confirmFn: () => setIsDeleteOpen(false),
   };
 
   return { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents };

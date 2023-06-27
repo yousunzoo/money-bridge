@@ -33,7 +33,7 @@ export const getLoungeNew = async (page: number) => {
 export const getContentsId = async (id: number) => {
   try {
     const res = await instance.get(`auth/board/${id}`);
-    return res.data.data;
+    return res.data;
   } catch (error: any) {
     throw new AxiosError(error.response);
   }
@@ -42,13 +42,13 @@ export const getContentsId = async (id: number) => {
 export const getNotLoginContents = async (id: number) => {
   try {
     const res = await instance.get(`/board/${id}`);
-    return res.data.data;
+    return res.data;
   } catch (error: any) {
     throw new AxiosError(error.response);
   }
 };
 
-export const deleteContent = async (id: number) => {
+export const deleteContent = async ({ id}: {id:number }) => {
   try {
     const res = await instance.delete(`pb/board/${id}`);
     return res.data.data;

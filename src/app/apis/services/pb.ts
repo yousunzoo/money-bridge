@@ -217,3 +217,21 @@ export const editPBMyProfile = async (formData: FormData) => {
     throw new AxiosError(error.response.data);
   }
 };
+
+export const updatePBContents = async ({id,thumbnail,update}:{id: number; thumbnail:any; update:any;}) => {
+  try {
+    const res = await instance.put(`pb/board/${id}`,{});
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response);
+  }
+};
+
+export const postPBContents = async ({ thumbnail, update }: {thumbnail: any; update: any }) => {
+  try {
+    const res = await instance.get("/pb/board",{});
+    return res.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response);
+  }
+};

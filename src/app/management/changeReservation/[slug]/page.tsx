@@ -180,9 +180,7 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
     confirmText: "확인",
     cancelText: "취소",
     cancelFn: () => setIsButtonOpen(false),
-    confirmFn: () => {
-      cancelMutate(slug);
-    },
+    confirmFn: () => cancelMutate(slug),
   };
 
   const changemodalContents = {

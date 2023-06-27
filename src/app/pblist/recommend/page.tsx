@@ -64,7 +64,7 @@ function RecommendPage() {
       )}
       {isOpen && (
         <ButtonModal isOpen={isOpen} setIsOpen={setIsOpen} modalContents={modalContents}>
-          {!data?.propensity && (
+          {!data?.propensity && data?.role !== "PB" && (
             <p>
               투자분석으로 나에게 딱 맞는 PB를
               <br /> 추천 받을 수 있어요!

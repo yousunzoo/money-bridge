@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ButtonModal from "@/components/common/ButtonModal";
 import { useMyPageCheck } from "@/hooks/useMyPageCheck";
+import { Skeleton } from "antd";
 
 const LINK_STYLE = "flex items-center text-sm justify-between py-2 mb-2 pr-1";
 const BUTTON_STYLE = "gray-heavy text-xs underline decoration-gray-heavy decoration-1";
@@ -15,16 +16,17 @@ const nextIcon = "/assets/images/nextIcon.svg";
 
 function MyPage() {
   const [mounted, setMounted] = useState(false);
-  const { loginedUserInfo, handleLogout, isOpen, setIsOpen, modalContents } = useMyPageCheck(true);
+  const { loginedUserInfo, loading, handleLogout, isOpen, setIsOpen, modalContents } = useMyPageCheck(true);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted || !loginedUserInfo) return null;
+  if (loading || !loginedUserInfo) return null;
   return (
     <>
       <TopNav title="마이페이지" hasBack={true} />
+      <Skeleton className="mb-10" active loading={loading} />
       {loginedUserInfo.role === "USER" && <UserInfo />}
       {loginedUserInfo.role === "PB" && <PBInfo />}
       <section className="mb-10">

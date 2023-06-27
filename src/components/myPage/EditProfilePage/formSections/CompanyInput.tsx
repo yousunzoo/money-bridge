@@ -5,7 +5,7 @@ import { ICompanyInputProps } from "@/types/editProfile";
 import { ICompanyInput } from "@/types/join";
 import { MouseEvent, useEffect, useState } from "react";
 
-function CompanyInput({ getValues, setValue }: ICompanyInputProps) {
+function CompanyInput({ getValues, setValue, branchName }: ICompanyInputProps) {
   const [company, setCompany] = useState({ id: getValues("companyId"), name: getValues("company") });
   const [location, setLocation] = useState<{ id: number; name: string }>({ id: 0, name: getValues("branchName") });
 
@@ -51,7 +51,7 @@ function CompanyInput({ getValues, setValue }: ICompanyInputProps) {
         <p className="mb-4 text-xl font-bold">지점을 입력해주세요.</p>
         <div className="flex justify-between">
           <label htmlFor="branchName" className={`edit_input flex-1 ${!getValues("branchName") && "text-placeholder"}`}>
-            {getValues("branchName") ? getValues("branchName") : "지점명"}
+            {branchName || "지점명"}
             <input className="hidden" name="branchName" />
           </label>
           <button

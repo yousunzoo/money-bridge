@@ -31,12 +31,12 @@ function ContentCardItem({ item }: { item: IContentCard }) {
     }
   };
 
-  const goTOLounge = () => {
-    router.push("/lounge/content");
+  const goToContents = () => {
+    router.push(`/contents/${item.id}`);
   };
 
   return (
-    <li className="h-56 p-6 bg-white cursor-pointer card" onClick={goTOLounge}>
+    <li className="h-56 p-6 bg-white cursor-pointer card" onClick={goToContents}>
       <div className="flex flex-col justify-between h-full">
         <div className="flex justify-between">
           <div className="flex flex-col ">

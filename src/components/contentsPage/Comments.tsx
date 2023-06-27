@@ -4,18 +4,73 @@ import dayjs from "dayjs";
 import profile from "/public/assets/images/profile.svg";
 import "@/styles/content.css";
 import { getMyId } from "@/utils/pbMyId";
-import { postReply } from "@/app/apis/services/auth";
-import { useMutation,useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import useDelete from "@/hooks/useDelete";
+import { postReply, postReReply, deleteReply, deleteReReply, editReply, editReReply } from "@/app/apis/services/auth";
+import ButtonModal from "@/components/common/ButtonModal";
+import { showName } from "@/utils/userNameFormat";
+import { ILoginedUserInfo } from "@/types/common";
+import { IContentsInfo, IReReply, IReply } from "@/types/contents";
 
-function Comments({ commentData, userData }: { commentData: any; userData: any }) {
-  const [isEdit, setIsEdit] = useState(false);
-  const [editText, setEditText] = useState("");
-  const [newComment, setNewComment] = useState("");
+function Comments({ commentData, userData }: { commentData: IContentsInfo; userData: ILoginedUserInfo }) {
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isReEdit, setIsReEdit] = useState<boolean>(false);
+  const [isReply, setIsReply] = useState<boolean>(false);
+  const [reID, setReID] = useState<number>(0);
+  const [editID, setEditID] = useState<number>(0);
+  const [editText, setEditText] = useState<string>("");
+  const [newComment, setNewComment] = useState<string>("");
+  const [newReComment, setNewReComment] = useState<string>("");
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(postReply, {
-    onSuccess: data => {
+  const { mutate: postreply } = useMutation(postReply, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["getContentsId"]);
+    },
+    onError: (err: AxiosError) => {
+      console.log(err);
+    },
+  });
+
+  const { mutate: postrereply } = useMutation(postReReply, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["getContentsId"]);
+    },
+    onError: (err: AxiosError) => {
+      console.log(err);
+    },
+  });
+
+  const { mutate: deletereply } = useMutation(deleteReply, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["getContentsId"]);
+    },
+    onError: (err: AxiosError) => {
+      console.log(err);
+    },
+  });
+
+  const { mutate: deleterereply } = useMutation(deleteReReply, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["getContentsId"]);
+    },
+    onError: (err: AxiosError) => {
+      console.log(err);
+    },
+  });
+
+  const { mutate: editrereply } = useMutation(editReReply, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["getContentsId"]);
+    },
+    onError: (err: AxiosError) => {
+      console.log(err);
+    },
+  });
+
+  const { mutate: editreply } = useMutation(editReply, {
+    onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
     onError: (err: AxiosError) => {
@@ -27,23 +82,72 @@ function Comments({ commentData, userData }: { commentData: any; userData: any }
     setEditText(e.target.value);
   };
 
-  const showName = (name: string) => {
-    return name.length > 2 ? name[0] + "*" + name.slice(2) : name;
+  const editReplyHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewComment(e.target.value);
+  };
+
+  const editItemClickHandler = (itemId: number) => {
+    setIsEdit(true);
+    setEditID(itemId);
+  };
+
+  const editEndHandler = (itemId: number) => {
+    if (editText.trim() !== "") {
+      editreply({ id: itemId, reply: editText });
+    }
+    setIsEdit(false);
+    setEditID(0);
+    setEditText("");
+  };
+
+  const replyEditItemClickHandler = (itemId: number) => {
+    setIsReEdit(true);
+    setReID(itemId);
+  };
+
+  const replyEditEndHandler = (itemId: number) => {
+    if (newReComment.trim() !== "") {
+      editrereply({ id: itemId, rereply: newReComment });
+    }
+    setIsReEdit(false);
+    setReID(0);
+    setNewReComment("");
+  };
+
+  const replyPostHandler = (id: number) => {
+    setIsReply(true);
+    setReID(id);
+  };
+
+  const replyEndHandler = () => {
+    setIsReply(false);
+    setReID(0);
   };
 
   const addComment = () => {
     if (newComment.trim() !== "") {
-      mutate({ id: commentData.id, replyInDTO: newComment });
+      postreply({ id: commentData.id, reply: newComment });
       setNewComment("");
     }
   };
+
+  const addReComment = (reId: number) => {
+    if (newReComment.trim() !== "") {
+      postrereply({ id: reId, rereply: newReComment });
+      setNewReComment("");
+      setIsReply(false);
+      setReID(0);
+    }
+  };
+
+  const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useDelete();
 
   return (
     <>
       <div className="flex">
         <div className="mb-[16px] flex-1 text-base font-bold">댓글 {commentData?.reply.length}개</div>
         <button
-          onClick={addComment}
+          onClick={() => addComment()}
           className="h-[30px] w-[72px] rounded-md border-[2px] bg-white text-secondary-heavy"
         >
           등록
@@ -56,31 +160,49 @@ function Comments({ commentData, userData }: { commentData: any; userData: any }
         value={newComment}
         onChange={e => setNewComment(e.target.value)}
       />
-      {commentData?.reply.map((item: any) => (
-        <div className="mt-[33px]" key={item.authorId}>
+      {commentData?.reply.map((item: IReply) => (
+        <div className="mt-[33px]" key={item.id}>
           <div className="flex text-xs">
             <Image className="image" src={item.profile ? item.profile : profile} alt="프로필" width={18} height={18} />
             <div className="name">{showName(item.name)} 님</div>
             <div className="flex-1">{dayjs(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
 
             {getMyId(userData?.role, userData?.id, item.authorId) && (
-  <>
-    {isEdit ? (
-      <button className="mr-[8px]" onClick={() => setIsEdit(false)}>
-        완료
-      </button>
-    ) : (
-      <button className="mr-[8px]" onClick={() => setIsEdit(true)}>
-        수정
-      </button>
-    )}
-    <button>삭제</button>
-  </>
-)}
-
+              <>
+                {isEdit && editID === item.id ? (
+                  <button
+                    className="mr-[8px]"
+                    onClick={() => {
+                      editEndHandler(item.id);
+                    }}
+                  >
+                    완료
+                  </button>
+                ) : (
+                  <button
+                    className="mr-[8px]"
+                    onClick={() => {
+                      editItemClickHandler(item.id);
+                    }}
+                  >
+                    수정
+                  </button>
+                )}
+                <button onClick={() => deleteHandler(item.id, deletereply)}>삭제</button>
+              </>
+            )}
+            {isReply ? (
+              <button className="mr-[8px]" onClick={() => replyEndHandler()}>
+                취소
+              </button>
+            ) : (
+              <button className="mr-[8px]" onClick={() => replyPostHandler(item.id)}>
+                답글
+              </button>
+            )}
           </div>
 
-          {isEdit ? (
+          {isEdit && editID === item.id ? (
             <input
               className="mt-[7px] w-full bg-white p-[14px]"
               defaultValue={item.content}
@@ -92,8 +214,26 @@ function Comments({ commentData, userData }: { commentData: any; userData: any }
             <div className="content">{item.content}</div>
           )}
 
-          {item.reReply?.map((reply: any) => (
-            <div className="ml-auto mt-[33px] flex w-[90%] flex-col" key={reply.authorId}>
+          {isReply && reID === item.id && (
+            <>
+              <input
+                className="mb-[12px] h-[50px] w-full bg-white"
+                placeholder="답글을 남겨보세요"
+                type="text"
+                value={newReComment}
+                onChange={e => setNewReComment(e.target.value)}
+              />
+              <button
+                className="h-[20px] w-[52px] rounded-md border-[2px] bg-white text-secondary-heavy"
+                onClick={() => addReComment(item.id)}
+              >
+                등록
+              </button>
+            </>
+          )}
+
+          {item.reReply?.map((reply: IReReply) => (
+            <div className="ml-auto mt-[33px] flex w-[90%] flex-col" key={reply.uniqueValue}>
               <div className="flex text-xs">
                 <Image
                   className="image"
@@ -105,36 +245,36 @@ function Comments({ commentData, userData }: { commentData: any; userData: any }
                 <div className="name">{showName(reply.name)} 님</div>
                 <div className="flex-1">{dayjs(reply.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
                 {getMyId(userData?.role, userData?.id, reply.authorId) && (
-  <>
-    {isEdit ? (
-      <button className="mr-[8px]" onClick={() => setIsEdit(false)}>
-        완료
-      </button>
-    ) : (
-      <button className="mr-[8px]" onClick={() => setIsEdit(true)}>
-        수정
-      </button>
-    )}
-    <button>삭제</button>
-  </>
-)}
-
+                  <>
+                    {isReEdit ? (
+                      <button className="mr-[8px]" onClick={() => replyEditEndHandler(reply.uniqueValue)}>
+                        완료
+                      </button>
+                    ) : (
+                      <button className="mr-[8px]" onClick={() => replyEditItemClickHandler(reply.uniqueValue)}>
+                        수정
+                      </button>
+                    )}
+                    <button onClick={() => deleteHandler(reply.uniqueValue, deleterereply)}>삭제</button>
+                  </>
+                )}
               </div>
-              {isEdit ? (
+              {isReEdit ? (
                 <input
                   className="mt-[7px] w-full bg-white p-[14px]"
-                  defaultValue={item.content}
+                  defaultValue={reply.content}
                   type="text"
-                  onChange={editHandler}
-                  value={editText ? editText : item.content}
+                  onChange={editReplyHandler}
+                  value={newComment ? newComment : reply.content}
                 />
               ) : (
-                <div className="content">{item.content}</div>
+                <div className="content">{reply.content}</div>
               )}
             </div>
           ))}
         </div>
       ))}
+      {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}
     </>
   );
 }

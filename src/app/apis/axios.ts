@@ -23,7 +23,6 @@ const createInstance = (ContentType: string) => {
       return request;
     },
     (error: AxiosError) => {
-      console.log(error);
       return Promise.reject(error);
     },
   );

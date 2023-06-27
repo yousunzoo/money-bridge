@@ -58,11 +58,10 @@ function MyReviewPage({ params: { slug } }: { params: { slug: number } }) {
         content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."}
       />
     );
-  console.log(data.styleList);
   return (
     <div>
       <TopNav title="나의 후기" hasBack={true} />
-      <section className="flex flex-col items-center w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md shadow-2xl">
+      <section className="mt-6 flex w-full flex-col items-center rounded-md bg-white p-4 pb-6 text-xs shadow-2xl">
         <article className="w-full pt-3">
           <h3 className="font-bold">상담 일정은 잘 지켜졌나요?</h3>
           <div className={`mt-5 flex w-full flex-col items-center border-b-1 border-background-secondary pb-3`}>
@@ -70,9 +69,9 @@ function MyReviewPage({ params: { slug } }: { params: { slug: number } }) {
             <span className="my-2">{ADHERENCE[data.adherence]}</span>
           </div>
         </article>
-        <article className="w-full pt-3 pb-5 border-b-1 border-background-secondary ">
+        <article className="w-full border-b-1 border-background-secondary pb-5 pt-3 ">
           <h3 className="font-bold ">상담 스타일은 어떠셨나요?</h3>
-          <ul className="flex justify-center w-full gap-2 mt-4">
+          <ul className="mt-4 flex w-full justify-center gap-2">
             {data.styleList.map(style => (
               <li
                 key={style.style}

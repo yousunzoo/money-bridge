@@ -7,12 +7,8 @@ export const useResetPassword = () => {
   const router = useRouter();
 
   const { mutate } = useMutation(resetPassword, {
-    onSuccess: data => {
-      console.log(data);
-    },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onSuccess: data => {},
+    onError: (err: AxiosError) => {},
   });
   return mutate;
 };

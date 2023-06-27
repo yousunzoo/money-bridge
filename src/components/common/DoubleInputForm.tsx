@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { InputFormType } from "@/constants/enum";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useLogin } from "@/hooks/useLogin";
 import { useFindEmail } from "@/hooks/useFindEmail";
 import ButtonModal from "./ButtonModal";
@@ -13,45 +13,28 @@ import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
 import { usePasswordAuthentication } from "@/hooks/usePasswordAuthentication";
 import { yup_email, yup_name, yup_password, yup_phone } from "@/constants/yupSchema";
+import { IModalContent } from "@/types/common";
 
 type Tinput = "first" | "second";
 
-function DoubleInputForm({
-  type,
-  setNextStep,
-}: {
-  type: InputFormType;
-  setNextStep?: (value: React.SetStateAction<boolean>) => void;
-}) {
-  const router = useRouter();
+function DoubleInputForm({ type }: { type: InputFormType }) {
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [modalError, setModalError] = useState(false);
 
-  const login = useLogin(setNextStep, setIsOpen, setModalError);
+  const modalContents_Default = {
+    content: "일시적인 오류가 발생했습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+    },
+  };
+  const [modalContent, setModalContent] = useState<IModalContent>(modalContents_Default);
 
-  const authentication = usePasswordAuthentication(setIsOpen, setModalError);
-  const findEmail = useFindEmail(setIsOpen, setModalError);
+  const authentication = usePasswordAuthentication(setIsOpen, setModalContent);
+  const login = useLogin(setIsOpen, setModalContent);
+  const findEmail = useFindEmail(setIsOpen, setModalContent);
+
   const inputType = type === InputFormType.LOGIN ? "password" : "text";
-
-  const modalContents_NotExist = {
-    content: "사용자가 존재하지 않습니다.",
-    confirmText: "확인",
-    confirmFn: () => {
-      setIsOpen(false);
-    },
-  };
-
-  const modalContents_Success = {
-    content: "인증코드가 발송되었습니다.",
-    confirmText: "확인",
-    confirmFn: () => {
-      setIsOpen(false);
-      if (type === InputFormType.FIND_PASSWORD) {
-        router.push(`/findPassword/${pathName.split("/")[2]}/authentication`);
-      }
-    },
-  };
 
   const schema = yup.object().shape({
     first: type === InputFormType.LOGIN ? yup_email : yup_name,
@@ -77,7 +60,6 @@ function DoubleInputForm({
     switch (type) {
       case InputFormType.LOGIN:
         login({ email: getValues("first"), password: getValues("second"), role: pathName.split("/")[2].toUpperCase() });
-        console.log("on submit");
         break;
       case InputFormType.FIND_EMAIL:
         findEmail({
@@ -170,11 +152,7 @@ function DoubleInputForm({
         </button>
       </form>
       {isOpen && (
-        <ButtonModal
-          modalContents={modalError ? modalContents_NotExist : modalContents_Success}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        >
+        <ButtonModal modalContents={modalContent} isOpen={isOpen} setIsOpen={setIsOpen}>
           <p>정보를 확인해 주세요.</p>
         </ButtonModal>
       )}

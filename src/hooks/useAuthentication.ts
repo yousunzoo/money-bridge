@@ -7,12 +7,9 @@ export const useAuthentication = () => {
   const { setCode } = useAuthenticationStore();
   const { mutate } = useMutation(joinAuthentication, {
     onSuccess: data => {
-      console.log(data);
       setCode(data.data.code);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
   return mutate;
 };

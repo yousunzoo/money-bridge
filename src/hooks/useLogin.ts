@@ -1,41 +1,54 @@
 import { userLogin } from "@/app/apis/services/auth";
-import { useAuthenticationStore } from "@/store/authenticationStore";
-import { useUserStore } from "@/store/userStore";
+import { IModalContent } from "@/types/common";
+import { IResponseErrorData400, IResponseErrorData404 } from "@/types/login";
 import { setCookie } from "@/utils/cookies";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { usePathname, useRouter } from "next/navigation";
 
 export const useLogin = (
-  setNextStep: ((value: React.SetStateAction<boolean>) => void) | undefined,
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setModalError: React.Dispatch<React.SetStateAction<boolean>>,
+  setModalContent: React.Dispatch<React.SetStateAction<IModalContent>>,
 ) => {
   const router = useRouter();
   const pathName = usePathname();
-  const queryClient = useQueryClient();
-  const { setUser } = useUserStore();
-  const { setCode } = useAuthenticationStore();
 
   const { mutate } = useMutation(userLogin, {
     onSuccess: data => {
-      console.log(data);
-      if (data.data.data.code) {
-        queryClient.setQueryData(["login"], data);
-        if (setNextStep) {
-          setCode(data.data.data.code);
-          setNextStep(true);
-        }
-      } else {
-        setCookie("Authorization", data.headers.authorization);
-        setUser(pathName.split("/")[2].toUpperCase(), data.data.data.name, data.data.data.id);
-        alert(`${data.data.data.name}님 환영~`);
-        router.push("/");
-      }
+      setCookie("Authorization", data.headers.authorization);
+      router.push("/");
     },
     onError: (err: AxiosError) => {
-      console.log(err);
-      setModalError(true);
+      const errorStatus = err.response?.status;
+
+      if (errorStatus === 400) {
+        const errorData = err.response?.data as IResponseErrorData400;
+        setModalContent({
+          content: errorData.data.value,
+          confirmText: "재입력",
+          confirmFn: () => {
+            setIsOpen(false);
+          },
+        });
+      } else if (errorStatus === 404) {
+        const errorData = err.response?.data as IResponseErrorData404;
+        setModalContent({
+          content: errorData.data,
+          confirmText: "재입력",
+          confirmFn: () => {
+            setIsOpen(false);
+          },
+        });
+      } else if (errorStatus === 500) {
+        setModalContent({
+          content: "일시적인 오류가 발생했습니다.",
+          confirmText: "재입력",
+          confirmFn: () => {
+            setIsOpen(false);
+          },
+        });
+      }
+
       setIsOpen(true);
     },
   });

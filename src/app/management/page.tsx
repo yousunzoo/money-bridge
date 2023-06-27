@@ -74,7 +74,6 @@ function ManagementPage() {
   }, [consultationList, process]);
 
   if (!consultationStatus) return;
-  console.log(userInfo?.role);
   if (userInfo?.role !== "PB")
     return <ErrorModal isError={true} path={"/"} content={"권한이 없습니다. 다시 시도해주세요."} />;
   if (isStatusError || isListError)
@@ -86,14 +85,14 @@ function ManagementPage() {
       <ConsultationStatus consultationStatus={consultationStatus} pbId={userInfo.id} />
       <ProcessList role={"pb"} linkHref="management" />
 
-      <div className="w-full h-2 my-8 bg-background-secondary"></div>
+      <div className="my-8 h-2 w-full bg-background-secondary"></div>
 
-      <div className="justify-start w-full">
+      <div className="w-full justify-start">
         <div>
-          <h3 className="pl-1 text-lg font-bold">{`${PROCESS_DATA[process]?.name || PROCESS_DATA.APPLY.name} ${
+          <h3 className="text-lg pl-1 font-bold">{`${PROCESS_DATA[process]?.name || PROCESS_DATA.APPLY.name} ${
             consultationList?.pages[0].totalElements ?? 0
           }건`}</h3>
-          <p className="pl-1 my-1 mb-6 text-sm">예약 희망 일정을 확인 한 후 유선으로 상담 일정을 조율해주세요.</p>
+          <p className="my-1 mb-6 pl-1 text-sm">예약 희망 일정을 확인 한 후 유선으로 상담 일정을 조율해주세요.</p>
           <ul className="flex flex-col gap-4">
             {selectData?.length ? (
               selectData.map(({ reservationId, name, createdAt, type, profileImage }) => (

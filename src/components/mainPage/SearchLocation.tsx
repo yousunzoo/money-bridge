@@ -16,9 +16,7 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
       const data = await searchLocation(search);
       const list = data.documents;
       setSearchList(list);
-    } catch (error) {
-      console.log("서비스 영역이 아닙니다.");
-    }
+    } catch (error) {}
   };
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,9 +37,7 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
       setLocation(data);
       setCoordinate({ latitude, longitude });
       setIsOpenSearch(false);
-    } catch (error) {
-      console.log("서비스 영역이 아닙니다.");
-    }
+    } catch (error) {}
   };
 
   const closedHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,7 +70,7 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
         {searchList &&
           searchList.map(item => (
             <li
-              className="flex items-center justify-between w-full p-4 border-b-1 border-gray-normal hover:bg-background-secondary"
+              className="flex w-full items-center justify-between border-b-1 border-gray-normal p-4 hover:bg-background-secondary"
               key={item.x}
               onClick={() => selectLocation({ x: item.x, y: item.y })}
             >

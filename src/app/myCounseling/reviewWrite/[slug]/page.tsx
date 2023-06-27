@@ -50,7 +50,6 @@ function ReviewWritePage({ params: { slug } }: { params: { slug: string } }) {
 
   const adherenceClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
     const item = e.currentTarget.id;
-    console.log(item);
 
     setReviewState(prevStatue => ({
       ...prevStatue,
@@ -110,10 +109,10 @@ function ReviewWritePage({ params: { slug } }: { params: { slug: string } }) {
       <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">상담 후기를 남겨주세요.</span>
       </div>
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md shadow-2xl">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs shadow-2xl">
         <article className="w-full pt-3">
           <h3 className="font-bold">상담 일정은 잘 지켜졌나요?</h3>
-          <ul className="flex justify-around pb-3 mt-5 border-b-1 border-background-secondary">
+          <ul className="mt-5 flex justify-around border-b-1 border-background-secondary pb-3">
             {Object.entries(ADHERENCE).map(([key, value]) => (
               <li
                 key={key}
@@ -137,7 +136,7 @@ function ReviewWritePage({ params: { slug } }: { params: { slug: string } }) {
           <h3 className="font-bold ">
             상담 스타일은 어떠셨나요? <span>(최대 4개 선택 가능)</span>
           </h3>
-          <ul className="flex flex-wrap justify-center gap-2 pb-4 mt-3 border-b-1 border-background-secondary">
+          <ul className="mt-3 flex flex-wrap justify-center gap-2 border-b-1 border-background-secondary pb-4">
             {Object.entries(COUNSELING_STYLE).map(([key, value]) => (
               <li
                 key={key}
@@ -159,7 +158,7 @@ function ReviewWritePage({ params: { slug } }: { params: { slug: string } }) {
             id=""
             rows={4}
             cols={50}
-            className="w-full p-2 mt-4 rounded-md bg-background-secondary"
+            className="mt-4 w-full rounded-md bg-background-secondary p-2"
             onChange={reviewChangeHanlder}
           ></textarea>
         </article>

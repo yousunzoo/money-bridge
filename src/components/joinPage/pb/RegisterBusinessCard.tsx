@@ -26,7 +26,6 @@ function BusinessCard() {
     const file = e.target.files?.[0];
     file && setSelectedCard(file);
   };
-  console.log(selectedCard);
   return (
     <>
       <p className="mb-2 mt-14 text-xl font-bold leading-7">

@@ -7,6 +7,7 @@ import { AxiosError } from "axios";
 import { getUserContents } from "@/app/apis/services/user";
 import { ILoginedUserInfo } from "@/types/common";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 interface BoardListProps {
   career: number;
@@ -20,26 +21,19 @@ interface BoardListProps {
   title: string;
 }
 function CustomListSection() {
-  const {
-    data: userInfo,
-    isLoading: userLoading,
-    isSuccess: isLogined,
-  } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["loginedUserInfo"],
-    queryFn: getLoginedUserInfo,
-    refetchOnWindowFocus: false,
-  });
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
 
   const {
     data: boardList,
     error,
     isLoading,
   } = useQuery<BoardListProps[], AxiosError>(["boardList"], userInfo?.role === "USER" ? getUserContents : getContents);
+  if (!userInfo || !boardList) return;
 
   return (
     <section className="relative w-full mt-3 ">
       <h3 className="text-xl font-bold">
-        ㅇㅇㅇ님의 성향을 딱! 맞춘
+        {userInfo.name} 님의 성향을 딱! 맞춘
         <br /> 실제 PB의 투자 정보
       </h3>
       <ul className="flex flex-wrap items-center justify-between py-4">

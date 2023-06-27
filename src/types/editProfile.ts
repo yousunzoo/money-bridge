@@ -34,6 +34,7 @@ export interface IPortfolioInputProps {
 export interface ICompanyInputProps {
   getValues: UseFormGetValues<IEditProfileFormValues>;
   setValue: UseFormSetValue<IEditProfileFormValues>;
+  branchName: string;
 }
 
 export interface ICareerInputProps {
@@ -78,11 +79,13 @@ export interface IFigureInputProps {
 export interface IIntroInputProps {
   register: UseFormRegister<IEditProfileFormValues>;
   intro: string;
+  errors: FieldErrors<IEditProfileFormValues>;
 }
 
 export interface IMsgInputProps {
   register: UseFormRegister<IEditProfileFormValues>;
   msg: string;
+  errors: FieldErrors<IEditProfileFormValues>;
 }
 export interface IAwardFormProps {
   award: IAward;

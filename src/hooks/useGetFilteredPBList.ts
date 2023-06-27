@@ -53,12 +53,20 @@ export const useGetFilteredPBlist = () => {
 
   useEffect(() => {
     if (company) {
-      setParams({ ...params, company });
+      const newParams = { ...params, company };
+      if (newParams["speciality"]) {
+        delete newParams["speciality"];
+      }
+      setParams(newParams);
       setQueryKey(["company", sortParam, company]);
     }
     if (speciality) {
-      setParams({ ...params, speciality });
-      setQueryKey(["company", sortParam, speciality]);
+      const newParams = { ...params, speciality };
+      if (newParams["company"]) {
+        delete newParams["company"];
+      }
+      setParams(newParams);
+      setQueryKey(["speciality", sortParam, speciality]);
     }
   }, [company, speciality]);
 

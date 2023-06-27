@@ -1,5 +1,6 @@
-import { Axios, AxiosError } from "axios";
 import { ConsultationTimeCardProps } from "@/types/schedule";
+import { AxiosError } from "axios";
+import { ChangeReservationProps, ConsultationListProps, GetScheduleInfoProps } from "@/types/pb";
 import { formInstance, instance } from "../axios";
 
 export const getPBInfo = async () => {
@@ -82,10 +83,6 @@ export const getPbReview = async (id: number | undefined, page: number) => {
     throw new Error(error.response);
   }
 };
-interface GetScheduleInfoProps {
-  year?: number;
-  month?: number;
-}
 
 export const getScheduleInfo = async ({ year, month }: GetScheduleInfoProps) => {
   try {
@@ -97,6 +94,29 @@ export const getScheduleInfo = async ({ year, month }: GetScheduleInfoProps) => 
     });
     return res.data.data;
   } catch (error) {}
+};
+
+export const getConsultationStatus = async () => {
+  try {
+    const res = await instance.get("/pb/management/recent");
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const getConsultationList = async ({ type, page }: ConsultationListProps) => {
+  try {
+    const res = await instance.get("/pb/management/reservations", {
+      params: {
+        page,
+        type,
+      },
+    });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
 };
 
 export const getConsultTime = async () => {
@@ -113,6 +133,7 @@ export interface ConsultTimeProps {
   consultEnd: string;
   consultNotice: string;
 }
+
 export const updateConsultTime = async ({ consultStart, consultEnd, consultNotice }: ConsultationTimeCardProps) => {
   try {
     const res = await instance.post("/pb/consultTime", {
@@ -126,9 +147,62 @@ export const updateConsultTime = async ({ consultStart, consultEnd, consultNotic
   }
 };
 
+export const getReservationInfo = async ({ id }: { id: number }) => {
+  try {
+    const res = await instance.get(`/pb/reservation/${id}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
 export const getPBMyProfile = async () => {
   try {
     const res = await instance.get("/pb/portfolio/update");
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const changeReservation = async ({ id, category, time, type }: ChangeReservationProps) => {
+  console.log(id, category, time, type);
+  try {
+    const res = await instance.patch(`/pb/reservation/${id}`, {
+      category,
+      time,
+      type,
+    });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const confirmedReservation = async ({ id, time }: { id: number; time: string }) => {
+  try {
+    const res = await instance.patch(`/pb/reservation/${id}/confirmed`, {
+      time: String(time),
+    });
+
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const completedReservation = async (id: number) => {
+  try {
+    const res = await instance.patch(`/auth/reservation/${id}/completed`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const deleteReservation = async (id: number) => {
+  try {
+    const res = await instance.delete(`/auth/reservation/${id}`);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);

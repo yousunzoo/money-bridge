@@ -6,6 +6,7 @@ import { IAccordianListProps } from "@/types/my";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getFAQs, getNotices } from "@/app/apis/services/etc";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
+import { Skeleton } from "antd";
 
 function AccordianList({ type }: IAccordianListProps) {
   const { data, fetchNextPage, hasNextPage, isLoading, isFetching } = useInfiniteQuery(
@@ -28,7 +29,18 @@ function AccordianList({ type }: IAccordianListProps) {
   });
 
   const [nowClicked, setNowClicked] = useState<string | null>(null);
-  if (!data || isLoading) return;
+  if (!data || isLoading)
+    return (
+      <div className="flex flex-col gap-4">
+        <Skeleton.Button active block />
+        <Skeleton.Button active block />
+        <Skeleton.Button active block />
+        <Skeleton.Button active block />
+        <Skeleton.Button active block />
+        <Skeleton.Button active block />
+        <Skeleton.Button active block />
+      </div>
+    );
   return (
     <>
       <ul>

@@ -5,9 +5,6 @@ import PBMenu from "@/components/pblistPage/PBMenu";
 import SortTab from "@/components/pblistPage/SortTab";
 import { usePBListQueries } from "@/hooks/usePBListQueries";
 import TopNav from "@/components/common/TopNav";
-import { useQuery } from "@tanstack/react-query";
-import { getCompanyListwithLogo } from "../apis/services/etc";
-import PbCardList from "@/components/common/Card/CardList/PbCardList";
 import FilteredPbCardList from "@/components/pblistPage/FilteredPbCardList";
 
 function PBListPage() {

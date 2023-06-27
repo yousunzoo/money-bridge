@@ -2,6 +2,7 @@ import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import { useMemo } from "react";
 import PbCardItem from "../common/Card/CardItem/PbCardItem";
 import { useGetFilteredPBlist } from "@/hooks/useGetFilteredPBList";
+import PBCardSkeletonItem from "../common/Card/CardItem/PBCardSkeletonItem";
 
 function FilteredPbCardList() {
   const { pbListData, fetchNextPage, hasNextPage, isFetching } = useGetFilteredPBlist();
@@ -19,6 +20,12 @@ function FilteredPbCardList() {
 
   return (
     <>
+      {isFetching && (
+        <>
+          <PBCardSkeletonItem />
+          <PBCardSkeletonItem />
+        </>
+      )}
       {list.length > 0 ? (
         <ul>
           {list.map((item: any) => (

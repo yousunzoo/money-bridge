@@ -26,6 +26,10 @@ function ChangeTimePage() {
     refetchOnWindowFocus: false,
   });
 
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
+
   const {
     data: consultTime,
     isError: consultError,
@@ -114,9 +118,10 @@ function ChangeTimePage() {
     isOpenModal: isOpenModal.endModal,
   };
 
-  isLogined && userInfo.role !== "PB" && redirect("/");
-  if (consultError) return <ErrorModal isError={true} path={"/schedule"} />;
-
+  if (userInfo?.role !== "PB")
+    return <ErrorModal isError={true} path={"/"} content={"권한이 없습니다. 다시 시도해주세요."} />;
+  if (consultError)
+    return <ErrorModal isError={true} path={"/"} content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."} />;
   return (
     <div>
       <TopNav title={"상담 가능 시간 변경하기"} hasBack={true} />

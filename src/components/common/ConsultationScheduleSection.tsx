@@ -1,7 +1,7 @@
 import React from "react";
 interface ConsultationScheduleSectionProps {
-  candidateTime1: string;
-  candidateTime2: string;
+  candidateTime1?: string;
+  candidateTime2?: string;
   role: string;
   time?: string;
 }

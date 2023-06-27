@@ -38,3 +38,24 @@ export interface TimeModalProps {
   isDisabled: boolean;
   setIsDisabled: Dispatch<SetStateAction<boolean>>;
 }
+export interface ConsultationStatusProps {
+  applyCount: number;
+  isNewApply: boolean;
+  confirmCount: number;
+  isNewConfirm: boolean;
+  completeCount: number;
+  isNewComplete: boolean;
+}
+export interface ConsultationStatusFunc {
+  consultationStatus: ConsultationStatusProps;
+  pbId: number;
+}
+
+export interface SelectedData {
+  reservationId: number;
+  isNewReservation: boolean;
+  profileImage: string;
+  name: string;
+  createdAt: string;
+  type: string;
+}

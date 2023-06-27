@@ -13,12 +13,12 @@ function Content({ contentData }: { contentData: IContentData }) {
     getPbPortfolio(id),
   );
   const portfolioData = portfolio?.data;
-  const { cumulativeReturn, maxDrawdown, profitFactor, averageProfit, file} = portfolioData||{};
+  const { cumulativeReturn, maxDrawdown, profitFactor, averageProfit, file } = (portfolioData as IPortfolio) || {};
 
-  const download = () => {
+  const download = (fileUrl: string) => {
     const link = document.createElement("a");
-    link.href = file || "";
-    link.download = file || "";
+    link.href = fileUrl;
+    link.download = "portfolio.pdf";
     link.click();
   };
 
@@ -77,23 +77,31 @@ function Content({ contentData }: { contentData: IContentData }) {
           <br />
           확인해 보세요
         </div>
-        <div className="flex justify-between px-3 font-bold">
-          <div className="portfolio">
-            <div className="card portfolio_number">{cumulativeReturn ? cumulativeReturn : 0}%</div>
-            <div className="portfolio_text">누적 수익률</div>
-          </div>
-          <div className="portfolio">
-            <div className="card portfolio_number">{maxDrawdown ? maxDrawdown : 0}%</div>
-            <div className="portfolio_text">최대 자본인하율</div>
-          </div>
-          <div className="portfolio">
-            <div className="card portfolio_number">{averageProfit ? averageProfit : 0}%</div>
-            <div className="portfolio_text">평균 손익률</div>
-          </div>
-          <div className="portfolio">
-            <div className="card portfolio_number">{profitFactor ? profitFactor : 0}:1</div>
-            <div className="portfolio_text">Profit Factor</div>
-          </div>
+        <div className="flex justify-center px-3 font-bold">
+          {cumulativeReturn && (
+            <div className="portfolio">
+              <div className="card portfolio_number">{cumulativeReturn}%</div>
+              <div className="portfolio_text">누적 수익률</div>
+            </div>
+          )}
+          {maxDrawdown && (
+            <div className="portfolio">
+              <div className="card portfolio_number">{maxDrawdown}%</div>
+              <div className="portfolio_text">최대 자본인하율</div>
+            </div>
+          )}
+          {averageProfit && (
+            <div className="portfolio">
+              <div className="card portfolio_number">{averageProfit}%</div>
+              <div className="portfolio_text">평균 손익률</div>
+            </div>
+          )}
+          {profitFactor && (
+            <div className="portfolio">
+              <div className="card portfolio_number">{profitFactor}:1</div>
+              <div className="portfolio_text">Profit Factor</div>
+            </div>
+          )}
         </div>
       </div>
       <div className="mb-[95px]">
@@ -103,7 +111,7 @@ function Content({ contentData }: { contentData: IContentData }) {
           <div className="mr-1 flex h-12 w-full items-center rounded-md bg-white pl-4 text-placeholder">
             {file ? file : "없음"}
           </div>
-          <button onClick={() => download} className="h-12 w-[100px] rounded-md bg-primary-normal text-white">
+          <button onClick={() => download(file)} className="h-12 w-[100px] rounded-md bg-primary-normal text-white">
             다운로드
           </button>
         </div>

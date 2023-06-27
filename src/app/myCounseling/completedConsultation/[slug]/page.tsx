@@ -2,87 +2,83 @@
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import TopNav from "@/components/common/TopNav";
 import React from "react";
-import res from "../../../../mocks/kjun/managementReservations.json";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 import DoubleButton from "@/components/common/DoubleButton";
+import { redirect, useRouter } from "next/navigation";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { useUserReservationInfo } from "@/hooks/useGetUserReservationInfo";
+import ErrorModal from "@/components/common/ErrorModal";
+import SingleButton from "@/components/common/SingleButton";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
+function CompletedConsultationPage({ params: { slug } }: { params: { slug: number } }) {
+  const router = useRouter();
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
+  const { reservationInfo, reservationLoading, reservationError } = useUserReservationInfo(slug);
 
-interface ReservationData {
-  pbId: number;
-  profileImage: string;
-  name: string;
-  phoneNumber: string;
-  reservationId: number;
-  candidateTime1: string;
-  candidateTime2: string;
-  time: string;
-  location: string;
-  locationAddress: string;
-  goal: string;
-  question: string;
-  type: string;
-}
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
 
-function CompletedConsultationPage({ params }: Props) {
+  if (reservationInfo === undefined) return;
   const {
-    pbId,
-    profileImage,
+    reservationId,
+    time,
     name,
     phoneNumber,
-    reservationId,
-    candidateTime1,
-    candidateTime2,
-    time,
+    pbId,
+    type,
     location,
     locationAddress,
     goal,
     question,
-    type,
+    profileImage,
     reviewCheck,
-  } = res.data.reservationList[0];
-  // profileImage데이터는 api등록 후 UserReservationItem props 내려주고 코드 변경하기
-  const role = "USER";
-  const completionPhrase1 = "상담이 완료되었습니다.";
-  const completionPhrase2 = "상담 후기를 작성해주세요.";
-  const onClickhandler = () => {
-    console.log("click");
-  };
+  } = reservationInfo;
+  if (!userInfo) return;
+  const role = userInfo?.role;
+  const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
-  // 데이터 time 유무에 따라 상담일정, 희망일정 다르게
-  const historyCard = {
-    candidateTime1,
-    candidateTime2,
-    type,
-    time,
-    location,
-    locationAddress,
-    goal,
-    question,
-    role,
-    reviewCheck: false,
-    completionPhrase1,
-    completionPhrase2,
-  };
-  const scheduleSectionProps = { candidateTime1, candidateTime2, role, time };
+  const scheduleSectionProps = { role, time };
   const locationSectionProps = { type, role, location, locationAddress };
   const noteSectionProps = { role, goal, question };
 
+  const reReservationHandler = () => {
+    router.push(`/reservation?pbId=${pbId}`);
+  };
+
+  const writeReviewHandler = () => {
+    if (reviewCheck) {
+      router.push(`/myCounseling/myReview/${reservationId}`);
+      return;
+    }
+    router.push(`/myCounseling/reviewWrite/${reservationId}`);
+  };
+  const checkClickHandler = () => {
+    router.push("/myCounseling?process=COMPLETE");
+  };
+  if (userInfo?.role !== "USER")
+    return (
+      <ErrorModal isError={true} path={"/myCounseling?process=APPLY"} content={"권한이 없습니다. 다시 시도해주세요."} />
+    );
+  if (reservationError)
+    return (
+      <ErrorModal
+        isError={true}
+        path={"/myCounseling?process=APPLY"}
+        content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."}
+      />
+    );
   return (
     <div>
       <TopNav title="완료된 상담" hasBack={true} />
-      <div className="mt-4 user_top_Phrase">
+      <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">상담이 완료되었습니다.</span>
       </div>
-      <UserReservationItem buttonName="PB 정보" href={"/"} isRole={"PB"} profileImage="">
+      <UserReservationItem buttonName="PB 정보" href={`/detail/info/${pbId}`} isRole={"PB"} profileImage={profileImage}>
         <p className="font-bold">{name}</p>
-        <p className="text-xs ">{phoneNumber}</p>
+        <p className="text-xs ">{formattedPhoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
 
@@ -98,10 +94,11 @@ function CompletedConsultationPage({ params }: Props) {
           reviewCheck={reviewCheck}
           firstTitle={"상담 다시 신청하기"}
           secondTitle={"후기 작성"}
-          firstClickFunc={onClickhandler}
-          secondClickFunc={onClickhandler}
+          firstClickFunc={reReservationHandler}
+          secondClickFunc={writeReviewHandler}
           role={"USER"}
         />
+        <SingleButton title={"확인"} role={role} ClickFunc={checkClickHandler} />
       </section>
     </div>
   );

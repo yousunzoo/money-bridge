@@ -47,7 +47,7 @@ function PbListSection() {
               buttonName={"정보 보기"}
               href={`/datail/info/${item.id}`}
               isRole={"PB"}
-              profileImage={item.profile}
+              profileImage={profile}
             >
               <p className="font-bold">{item.name}</p>
               <p>{item.msg}</p>

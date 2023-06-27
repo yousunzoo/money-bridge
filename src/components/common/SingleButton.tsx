@@ -12,7 +12,7 @@ function SingleButton({ title, role, ClickFunc }: ButtonProps) {
       onClick={ClickFunc}
       className={` ${
         role === "USER" ? "bg-secondary-heavy" : "bg-primary-normal"
-      } h-14 w-full items-end rounded-md text-base font-bold text-white`}
+      } mt-6 h-14 w-full items-end rounded-md text-base font-bold text-white`}
     >
       {title}
     </button>

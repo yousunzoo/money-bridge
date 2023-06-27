@@ -1,61 +1,48 @@
+import { ConsultationStatusFunc } from "@/types/management";
 import Link from "next/link";
 import React from "react";
-interface ConsultationStatue {
-  applyCount: number;
-  isNewApply: boolean;
-  confirmCount: number;
-  isNewConfirm: boolean;
-  completeCount: number;
-  isNewComplete: boolean;
-}
-function ConsultationStatus({
-  applyCount,
-  isNewApply,
-  confirmCount,
-  isNewConfirm,
-  completeCount,
-  isNewComplete,
-}: ConsultationStatue) {
+
+function ConsultationStatus({ consultationStatus, pbId }: ConsultationStatusFunc) {
   return (
-    <section className="mt-8 flex h-auto w-[380px] justify-between rounded-lg bg-white px-6 py-6 shadow-xl ">
-      <div>
-        <h2 className="text-lg mb-2 border-b-1 border-background-disabled py-2 font-bold ">상담현황</h2>
+    <section className="flex justify-between w-full h-auto px-6 py-6 mt-8 bg-white rounded-lg shadow-xl ">
+      <div className="mr-6 w-[320px]">
+        <h2 className="py-2 mb-2 text-lg font-bold border-b-1 border-background-disabled ">상담현황</h2>
         <div>
-          <div className="bg-gray-300 w-1/2 text-sm">
-            <div className="flex w-[160px] justify-between ">
+          <div className="text-sm bg-gray-300">
+            <div className="flex justify-between ">
               <div>
-                {isNewApply && <div className="h-1 w-1 rounded-xl bg-status-alert"></div>}
+                {consultationStatus.isNewApply && <div className="w-1 h-1 rounded-xl bg-status-alert"></div>}
                 <span>신규예약</span>
               </div>
-              <p className="font-bold">{applyCount} 건</p>
+              <p className="font-bold">{consultationStatus.applyCount} 건</p>
             </div>
-            <div className="flex w-[160px] justify-between ">
+            <div className="flex justify-between w-full ">
               <div>
-                {isNewConfirm && <div className="h-1 w-1 rounded-xl bg-status-alert"></div>}
+                {consultationStatus.isNewConfirm && <div className="w-1 h-1 rounded-xl bg-status-alert"></div>}
                 <span>예약확정</span>
               </div>
-              <p className="font-bold">{confirmCount} 건</p>
+              <p className="font-bold">{consultationStatus.confirmCount} 건</p>
             </div>
-            <div className="flex w-[160px] justify-between ">
+            <div className="flex justify-between w-full ">
               <div>
-                {isNewComplete && <div className="h-1 w-1 rounded-xl bg-status-alert"></div>}
+                {consultationStatus.isNewComplete && <div className="w-1 h-1 rounded-xl bg-status-alert"></div>}
                 <span>상담완료</span>
               </div>
-              <p className="font-bold">{completeCount} 건</p>
+              <p className="font-bold">{consultationStatus.completeCount} 건</p>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-between ">
+      <div className="flex w-[340px] flex-col justify-between ">
         <Link
-          href="/schedule"
-          className="h-[30] w-[132px] rounded-md border-1 border-primary-normal bg-white py-[14px]  text-center text-sm font-bold  text-primary-normal"
+          href={`/detail/review/${pbId}`}
+          className="w-min-[300px] h-[30] rounded-md border-1 border-primary-normal bg-white py-[14px]  text-center text-sm font-bold  text-primary-normal"
         >
           나의 후기
         </Link>
         <Link
           href="/schedule"
-          className="h-[30] w-[132px] rounded-md bg-primary-normal py-[14px] text-center text-sm font-bold text-white "
+          className="h-[30] w-full rounded-md bg-primary-normal py-[14px] text-center text-sm font-bold text-white "
         >
           일정 관리
         </Link>

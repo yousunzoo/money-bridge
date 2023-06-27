@@ -35,21 +35,19 @@ function SchedulePage() {
     refetchOnWindowFocus: false,
   });
 
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
+
   const {
     data: schedule,
     isError: scheduleError,
     isLoading: scheduleLoading,
-  } = useQuery<DayScheduleListProps[], AxiosError>(
-    ["pbSchedlue", clickDay],
-    () =>
-      getScheduleInfo({
-        year: clickDate.year,
-        month: clickDate.month,
-      }),
-    {
-      cacheTime: 0,
-      retry: false, // 오류 발생 시 재시도하지 않음
-    },
+  } = useQuery<DayScheduleListProps[], AxiosError>(["pbSchedlue", clickDay], () =>
+    getScheduleInfo({
+      year: clickDate.year,
+      month: clickDate.month,
+    }),
   );
   const {
     data: consultTime,
@@ -63,8 +61,10 @@ function SchedulePage() {
 
   const clickDayList = schedule?.filter(item => item.day === clickDay);
 
-  isLogined && userInfo.role !== "PB" && redirect("/");
-  if (scheduleError || consultError) return <ErrorModal isError={true} />;
+  if (userInfo?.role !== "PB")
+    return <ErrorModal isError={true} path={"/"} content={"권한이 없습니다. 다시 시도해주세요."} />;
+  if (scheduleError || consultError)
+    return <ErrorModal isError={true} path={"/"} content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."} />;
   return (
     <div className="relative flex flex-col items-center">
       <Image

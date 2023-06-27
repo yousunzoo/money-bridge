@@ -18,12 +18,12 @@ import { deleteContent } from "@/app/apis/services/common";
 import useDelete from "@/hooks/useDelete";
 
 function Content({ contentData, userData }: { contentData: any; userData: any }) {
-  const { id, thumbnail, title, content, createdAt, tag1, tag2, pdId, name, isBookmarked, profile } = contentData;
+  const { id, thumbnail, title, content, createdAt, tag1, tag2, pbId, name, isBookmarked, profile } = contentData;
   const pathname = usePathname();
   const router = useRouter();
   const base = "https://money-bridge.vercel.app";
   const urlToCopy = base + pathname;
-  const myId = getMyId(userData?.role, userData?.id, pdId);
+  const myId = getMyId(userData?.role, userData?.id, pbId);
   const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
@@ -54,7 +54,7 @@ function Content({ contentData, userData }: { contentData: any; userData: any })
         />
         <div className="flex-1 text-[17px]">{name} PB</div>
         <Link
-          href={`/detail/info/${pdId}`}
+          href={`/detail/info/${pbId}`}
           className="flex-3 flex h-full w-[112px] items-center justify-center rounded-r-md bg-secondary-heavy text-base text-white"
         >
           프로필 보기
@@ -70,7 +70,7 @@ function Content({ contentData, userData }: { contentData: any; userData: any })
           <div className="flex">
             {myId && (
               <>
-                <button onClick={() => router.push(`contents/edit/${id}`)} className="flex w-9 justify-end">
+                <button onClick={() => router.push("/contents/edit")} className="flex w-9 justify-end">
                   <Image src={edit} alt="수정" width={24} height={24} className="icon" />
                 </button>
                 <button onClick={deleteHandler} className="flex w-9 justify-end">

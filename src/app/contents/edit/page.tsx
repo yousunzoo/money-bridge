@@ -6,7 +6,7 @@ function ContentsEdit() {
   return (
     <>
       <TopNav title="콘텐츠 수정하기" hasBack={true} />
-      <Write />
+      {/* <Write /> */}
     </>
   );
 }

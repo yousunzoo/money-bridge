@@ -1,8 +1,9 @@
+"use client";
 import React, { useState } from "react";
 import "@/styles/content.css";
 import { BoardStatus } from "@/constants/enum";
 
-function Write({ props }: { props?: any }) {
+function Write({ props }: { props: any }) {
   const { content, status, tag1, tag2, thumbnail, title, file } = props;
   const [titleText, setTitleText] = useState("");
   const [contentText, setContentText] = useState("");

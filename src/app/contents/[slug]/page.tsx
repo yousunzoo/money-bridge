@@ -31,7 +31,7 @@ function ContentsDetail() {
             <>
               <Poster img={contents.thumbnail} />
               <Content contentData={contents} userData={userData} />
-              <Comments commentData={contents.reply} />
+              <Comments commentData={contents} userData={userData} />
             </>
           )
         : notLoginContents && (

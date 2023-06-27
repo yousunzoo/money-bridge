@@ -30,7 +30,7 @@ function PbCardItem({ item }: { item: IPbCard }) {
   };
 
   const goToDetail = () => {
-    router.push("/detail/info");
+    router.push(`/detail/info/${item.id}`);
   };
 
   const isSpeciality = (specialitys: string) => {

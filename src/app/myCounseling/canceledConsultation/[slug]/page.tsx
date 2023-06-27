@@ -8,86 +8,70 @@ import DoubleButton from "@/components/common/DoubleButton";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { useUserReservationInfo } from "@/hooks/useGetUserReservationInfo";
+import { redirect, useRouter } from "next/navigation";
+import ErrorModal from "@/components/common/ErrorModal";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
+function CanceledConsultationPage({ params: { slug } }: { params: { slug: number } }) {
+  const router = useRouter();
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
+  const { reservationInfo, reservationLoading, reservationError } = useUserReservationInfo(slug);
 
-interface ReservationData {
-  pbId: number;
-  profileImage: string;
-  name: string;
-  phoneNumber: string;
-  reservationId: number;
-  candidateTime1: string;
-  candidateTime2: string;
-  time: string;
-  location: string;
-  locationAddress: string;
-  goal: string;
-  question: string;
-  type: string;
-}
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
 
-function CanceledConsultationPage({ params }: Props) {
+  if (reservationInfo === undefined) return null;
   const {
-    pbId,
-    profileImage,
-    name,
-    phoneNumber,
     reservationId,
     candidateTime1,
     candidateTime2,
     time,
+    name,
+    pbId,
+    type,
     location,
     locationAddress,
     goal,
     question,
-    type,
+    profileImage,
     reviewCheck,
-  } = res.data.reservationList[0];
-  // profileImage데이터는 api등록 후 UserReservationItem props 내려주고 코드 변경하기
-  const role: string = "USER";
-  const completionPhrase1 = "";
-  const completionPhrase2 = "";
-
-  // 데이터 time 유무에 따라 상담일정, 희망일정 다르게
-  const historyCard = {
-    candidateTime1,
-    candidateTime2,
-    type,
-    time,
-    location,
-    locationAddress,
-    goal,
-    question,
-    role,
-    reviewCheck,
-    completionPhrase1,
-    completionPhrase2,
-  };
+  } = reservationInfo;
+  if (!userInfo) return;
+  const role = userInfo?.role;
 
   const scheduleSectionProps = { candidateTime1, candidateTime2, role, time };
   const locationSectionProps = { type, role, location, locationAddress };
   const noteSectionProps = { role, goal, question };
 
   const consultationRequestHandler = () => {
-    console.log("상담 다시 신청하기");
+    router.push(`/reservation?pbId=${pbId}`);
   };
 
   const checkClickHandler = () => {
-    console.log("확인");
+    router.back();
   };
 
+  if (userInfo?.role !== "USER")
+    return (
+      <ErrorModal isError={true} path={"/myCounseling?process=APPLY"} content={"권한이 없습니다. 다시 시도해주세요."} />
+    );
+  if (reservationError)
+    return (
+      <ErrorModal
+        isError={true}
+        path={"/myCounseling?process=APPLY"}
+        content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."}
+      />
+    );
   return (
     <div>
       <TopNav title="취소된 상담" hasBack={true} />
-      <div className="user_top_Phrase">
+      <div className="user_top_Phrase  mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">취소된 상담입니다.</span>
       </div>
-      <UserReservationItem buttonName="PB 정보" href={"/"} isRole={"pb"} profileImage="">
+      <UserReservationItem buttonName="PB 정보" href={`/detail/info/${pbId}`} isRole={"pb"} profileImage={profileImage}>
         <p className="font-bold">{name} PB</p>
         <p className="text-xs ">{"취소된 상담"}</p>
       </UserReservationItem>

@@ -1,5 +1,6 @@
 import { instance } from "@/app/apis/axios";
 import { IConvertedAnswers } from "@/types/analysis";
+import { ConsultationListProps } from "@/types/pb";
 import { AxiosError } from "axios";
 
 export const getBookMarkPB = async (page: number) => {
@@ -117,5 +118,67 @@ export const getUserContents = async () => {
     return res.data.data.list;
   } catch (error) {
     throw error;
+  }
+};
+
+export const getUserReservationRecent = async () => {
+  try {
+    const res = await instance.get("/user/reservations/recent");
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const getUserReservationInfo = async ({ id }: { id: number }) => {
+  try {
+    const res = await instance.get(`/user/reservation/${id}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+interface CreateReviewProps {
+  adherence: string;
+  content: string;
+  reservationId: number;
+  styleList: string[];
+}
+
+export const getMyReview = async (id: number) => {
+  try {
+    const res = await instance.get(`/user/review/${id}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const createReview = async ({ adherence, content, reservationId, styleList }: CreateReviewProps) => {
+  try {
+    const res = await instance.post<CreateReviewProps>("/user/review", {
+      adherence,
+      content,
+      reservationId,
+      styleList,
+    });
+    return res;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const getUserConsultationList = async ({ type, page }: ConsultationListProps) => {
+  try {
+    const res = await instance.get("/user/reservations", {
+      params: {
+        page,
+        type,
+      },
+    });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
   }
 };

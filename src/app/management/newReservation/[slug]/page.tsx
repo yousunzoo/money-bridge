@@ -13,6 +13,7 @@ import ScheduleSection from "@/components/managementPage/changeReservationPage/S
 import ButtonModal from "@/components/common/ButtonModal";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { useGetReservationInfo } from "@/hooks/useGetReservationInfo";
+import SingleButton from "@/components/common/SingleButton";
 
 function NewReservationPage({ params: { slug } }: { params: { slug: number } }) {
   const router = useRouter();
@@ -66,6 +67,10 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
       setTimeState(reservationInfo.candidateTime1);
     }
   }, [reservationInfo]);
+
+  const checkClickHandler = () => {
+    router.push("/management?process=APPLY");
+  };
 
   if (reservationInfo === undefined) return null;
 
@@ -134,6 +139,7 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
           secondClickFunc={confirmedClickHandler}
           role={"PB"}
         />
+        <SingleButton title={"확인"} role={role} ClickFunc={checkClickHandler} />
         {isButtonOpen && (
           <ButtonModal modalContents={modalContents} isOpen={isButtonOpen} setIsOpen={setIsButtonOpen} />
         )}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React from "react";
 import DefaultProfile from "/public/assets/images/profile.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +15,7 @@ function UserReservationItem({ children, buttonName, href, isRole, profileImage 
           width={70}
           height={70}
           alt="profile"
-          className=" max-w-[70px]"
+          className="max-w-[70px] rounded-full object-cover"
         />
       </div>
       <div className="flex flex-col justify-center px-4 py-3 rounded-lg ">{children}</div>

@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import ButtonModal from "@/components/common/ButtonModal";
 import ErrorModal from "@/components/common/ErrorModal";
+import SingleButton from "@/components/common/SingleButton";
 
 function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number } }) {
   const router = useRouter();
@@ -54,6 +55,10 @@ function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number
     cancelFn: () => setIsButtonOpen(false),
     confirmFn: () => completeMutate(slug),
   };
+  const checkClickHandler = () => {
+    router.push("/management?process=CONFIRM");
+  };
+
   const scheduleSectionProps = { role, time };
   const locationSectionProps = { type, role, location, locationAddress };
   const noteSectionProps = { role, goal, question };
@@ -98,6 +103,7 @@ function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number
           role={"PB"}
           reviewCheck={reviewCheck}
         />
+        <SingleButton title={"확인"} role={role} ClickFunc={checkClickHandler} />
         {isButtonOpen && (
           <ButtonModal modalContents={modalContents} isOpen={isButtonOpen} setIsOpen={setIsButtonOpen} />
         )}

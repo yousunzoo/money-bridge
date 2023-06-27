@@ -123,3 +123,57 @@ export const getLoginedUserInfo = async () => {
     throw new AxiosError(error.response.data);
   }
 };
+
+export const postReply = async ({ id, replyInDTO }: { id: number; replyInDTO: string }) => {
+  try {
+    const res = await instance.post(`/auth/board/${id}/reply`, { content:replyInDTO });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const postReReply = async (id: number, rereply: string) => {
+  try {
+    const res = await instance.post(`/auth/board/${id}/rereply`, { rereply });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const editReply = async (id: number, reply: string) => {
+  try {
+    const res = await instance.patch(`/auth/board/reply/${id}`, { reply });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const editReReply = async (id: number, rereply: string) => {
+  try {
+    const res = await instance.patch(`/auth/board/rereply/${id}`, { rereply });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const deleteReply = async (id: number) => {
+  try {
+    const res = await instance.delete(`/auth/board/reply/${id}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const deleteReReply = async (id: number) => {
+  try {
+    const res = await instance.delete(`/auth/board/rereply/${id}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};

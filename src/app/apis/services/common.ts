@@ -82,7 +82,7 @@ export const getContents = async () => {
 
 export const getSearchContent = async ( search: string, page: string) => {
   try {
-    const res = await instance.get("/lounge/boards", { params: {search, page} });
+    const res = await instance.get("/lounge/boards", { params: { search, page } });
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response);

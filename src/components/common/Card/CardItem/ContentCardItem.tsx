@@ -19,7 +19,6 @@ function ContentCardItem({ item }: { item: IContentCard }) {
   });
   const router = useRouter();
   const [isBookmarked, setIsBookmarked] = useState<boolean | undefined>(item.isBookmarked);
-  console.log(item);
   const bookMark = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     if (isBookmarked) {

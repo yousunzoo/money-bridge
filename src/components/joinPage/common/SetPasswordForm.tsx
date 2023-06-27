@@ -63,7 +63,11 @@ function SetPasswordForm() {
             />
             {dirtyFields.first && (
               <>
-                <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <button
+                  className="input_button bg-[url('/assets/images/clear.svg')]"
+                  tabIndex={-1}
+                  onClick={handleClear}
+                ></button>
                 <Image src={errors.first ? alert : correct} alt="input_status" className="input_status" />
               </>
             )}
@@ -91,7 +95,11 @@ function SetPasswordForm() {
             />
             {dirtyFields.second && (
               <>
-                <button className="input_button" tabIndex={-1} onClick={handleClear}></button>
+                <button
+                  className="input_button bg-[url('/assets/images/clear.svg')]"
+                  tabIndex={-1}
+                  onClick={handleClear}
+                ></button>
                 <Image src={errors.second ? alert : correct} alt="input_status" className="input_status" />
               </>
             )}

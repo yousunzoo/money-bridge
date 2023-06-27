@@ -1,7 +1,13 @@
 "use client";
 
+import { createReview } from "@/app/apis/services/user";
+import ButtonModal from "@/components/common/ButtonModal";
 import DoubleButton from "@/components/common/DoubleButton";
+import ErrorModal from "@/components/common/ErrorModal";
 import TopNav from "@/components/common/TopNav";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { useMutation } from "@tanstack/react-query";
+import { redirect, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const COUNSELING_STYLE: { [key: string]: string } = {
@@ -21,23 +27,34 @@ const ADHERENCE: { [key: string]: string } = {
   EXCELLENT: "잘 지켜졌어요",
 };
 
-function ReviewWritePage({ params }: { params: { slug: string } }) {
+function ReviewWritePage({ params: { slug } }: { params: { slug: string } }) {
+  const router = useRouter();
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
+  const [isButtonOpen, setIsButtonOpen] = useState(false);
+
   const [reviewState, setReviewState] = useState({
-    reservationId: Number(params.slug),
-    adhercence: 0,
+    reservationId: Number(slug),
+    adherence: "BAD",
     styleList: [] as string[],
     content: "",
   });
 
-  useEffect(() => {
-    console.log(reviewState);
-  }, [reviewState]);
+  const { mutate: reviewMutate } = useMutation(createReview, {
+    onSuccess: () => {
+      router.push(`/myCounseling/myReview/${slug}`);
+    },
+  });
 
   const adherenceClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
-    const item = Number(e.currentTarget.id);
+    const item = e.currentTarget.id;
+    console.log(item);
+
     setReviewState(prevStatue => ({
       ...prevStatue,
-      adhercence: item,
+      adherence: item,
     }));
   };
 
@@ -69,18 +86,29 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
       content: review,
     }));
   };
-
+  const modalContents = {
+    content: "후기를 작성 하시겠습니까?",
+    confirmText: "확인",
+    cancelText: "취소",
+    cancelFn: () => setIsButtonOpen(false),
+    confirmFn: () => reviewMutate({ ...reviewState }),
+  };
   const writeCancelHandler = () => {
-    console.log("작성 취소");
+    router.back();
   };
   const completedHandler = () => {
-    console.log("작성 완료");
+    setIsButtonOpen(true);
   };
+
+  if (userInfo?.role !== "USER")
+    return (
+      <ErrorModal isError={true} path={"/myCounseling?process=APPLY"} content={"권한이 없습니다. 다시 시도해주세요."} />
+    );
 
   return (
     <div>
       <TopNav title="후기 작성" hasBack={true} />
-      <div className="mt-4 user_top_Phrase">
+      <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">상담 후기를 남겨주세요.</span>
       </div>
       <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md shadow-2xl">
@@ -96,10 +124,10 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
               >
                 <div
                   className={`${
-                    reviewState.adhercence === Number(key)
+                    reviewState.adherence.includes(key)
                       ? "border-[#F5A8A3] bg-status-alert"
                       : "border-background-secondary bg-white"
-                  } h-7 w-7 rounded-full border-[8px] `}
+                  }  h-7 w-7 rounded-full border-[8px]`}
                 ></div>
                 <span className="my-2">{value}</span>
               </li>
@@ -118,7 +146,7 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
                 onClick={counselingClickHandler}
                 className={`${
                   reviewState.styleList.includes(key) && "bg-black text-white"
-                } flex h-8 w-[70px] cursor-pointer items-center justify-center rounded-full border-1 text-black `}
+                } flex h-8 w-[70px] cursor-pointer items-center justify-center rounded-lg border-1 text-black `}
               >
                 {value}
               </li>
@@ -132,7 +160,7 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
             id=""
             rows={4}
             cols={50}
-            className="p-2 mt-4 rounded-md w-ful bg-background-secondary"
+            className="w-full p-2 mt-4 rounded-md bg-background-secondary"
             onChange={reviewChangeHanlder}
           ></textarea>
         </article>
@@ -143,6 +171,9 @@ function ReviewWritePage({ params }: { params: { slug: string } }) {
           firstClickFunc={writeCancelHandler}
           secondClickFunc={completedHandler}
         ></DoubleButton>
+        {isButtonOpen && (
+          <ButtonModal modalContents={modalContents} isOpen={isButtonOpen} setIsOpen={setIsButtonOpen} />
+        )}
       </section>
     </div>
   );

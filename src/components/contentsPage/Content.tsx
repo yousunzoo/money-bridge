@@ -16,14 +16,29 @@ import trash from "/public/assets/images/icon/delete.svg";
 import { getMyId } from "@/utils/pbMyId";
 import { deleteContent } from "@/app/apis/services/common";
 import useDelete from "@/hooks/useDelete";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { ILoginedUserInfo } from "@/types/common";
+import { IContentData } from "@/types/contents";
 
-function Content({ contentData, userData }: { contentData: any; userData: any }) {
+function Content({ contentData, userData }: { contentData: IContentData; userData: ILoginedUserInfo }) {
   const { id, thumbnail, title, content, createdAt, tag1, tag2, pbId, name, isBookmarked, profile } = contentData;
-  const pathname = usePathname();
+  const pathname:string = usePathname();
   const router = useRouter();
-  const base = "https://money-bridge.vercel.app";
-  const urlToCopy = base + pathname;
-  const myId = getMyId(userData?.role, userData?.id, pbId);
+  const base:string = "https://money-bridge.vercel.app";
+  const urlToCopy: string = base + pathname;
+  const myId:number|undefined = getMyId(userData?.role, userData?.id, pbId);
+  const queryClient = useQueryClient();
+
+  const { mutate: deletecontent } = useMutation(deleteContent, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["getContentsId"]);
+    },
+    onError: (err: AxiosError) => {
+      console.log(err);
+    },
+  });
+
   const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
@@ -41,7 +56,7 @@ function Content({ contentData, userData }: { contentData: any; userData: any })
     setIsCopyOpen,
     copyContents,
   } = useShare(urlToCopy, title, content, thumbnail);
-  const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useDelete(id, deleteContent);
+  const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useDelete();
   return (
     <div>
       <div className="card mt-[33px] flex h-[52px] flex-row items-center rounded-md bg-white font-bold">
@@ -73,7 +88,7 @@ function Content({ contentData, userData }: { contentData: any; userData: any })
                 <button onClick={() => router.push("/contents/edit")} className="flex w-9 justify-end">
                   <Image src={edit} alt="수정" width={24} height={24} className="icon" />
                 </button>
-                <button onClick={deleteHandler} className="flex w-9 justify-end">
+                <button onClick={() => deleteHandler(id, deletecontent)} className="flex w-9 justify-end">
                   <Image src={trash} alt="삭제" width={24} height={24} className="icon" />
                 </button>
               </>

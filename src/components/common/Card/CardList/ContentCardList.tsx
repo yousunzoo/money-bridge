@@ -1,11 +1,21 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { SetStateAction, useMemo, Dispatch,useEffect } from "react";
 import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import { IContentCard } from "@/types/card";
 
-function ContentCardList({ queryKey, api, etc }: { queryKey: string; api: any; etc?: number | string }) {
+function ContentCardList({
+  queryKey,
+  api,
+  etc,
+  setResult,
+}: {
+  queryKey: string[] | string;
+  api: any;
+  etc?: number | string;
+  setResult?: Dispatch<SetStateAction<boolean>>;
+}) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
     ({ pageParam = 0 }) => {
@@ -27,6 +37,16 @@ function ContentCardList({ queryKey, api, etc }: { queryKey: string; api: any; e
       fetchNextPage();
     }
   });
+
+  useEffect(()=>{
+if (list.length > 0) {
+    setResult && setResult(true);
+  } else {
+    setResult && setResult(false);
+  }
+
+  },[list.length, setResult])
+
 
   return (
     <>

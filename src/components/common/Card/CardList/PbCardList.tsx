@@ -1,12 +1,22 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { SetStateAction, useMemo, Dispatch, useEffect } from "react";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import { IPbCard } from "@/types/card";
 import PBCardSkeletonItem from "../CardItem/PBCardSkeletonItem";
 
-function PbCardList({ queryKey, api, etc }: { queryKey: string; api: any; etc?: string }) {
+function PbCardList({
+  queryKey,
+  api,
+  etc,
+  setResult,
+}: {
+  queryKey: string[] | string;
+  api: any;
+  etc?: string;
+  setResult?: Dispatch<SetStateAction<boolean>>;
+}) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
     ({ pageParam = 0 }) => {
@@ -28,6 +38,14 @@ function PbCardList({ queryKey, api, etc }: { queryKey: string; api: any; etc?: 
       fetchNextPage();
     }
   });
+
+  useEffect(() => {
+    if (list.length > 0) {
+      setResult && setResult(true);
+    } else {
+      setResult && setResult(false);
+    }
+  }, [list.length, setResult]);
 
   return (
     <>

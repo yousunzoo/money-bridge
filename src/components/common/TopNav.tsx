@@ -35,14 +35,11 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });
+  console.log(userInfo);
 
   const [mounted, setMounted] = useState<boolean>(false);
 
   const { logout } = useMyPageCheck(false);
-
-  const handleExternalLink = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.stopPropagation();
-  };
 
   useEffect(() => {
     setMounted(true);
@@ -59,18 +56,10 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
       >
         <div className="flex min-w-[100px] justify-self-start">
           {(logoPath.includes(currentPath) || currentPath === "/pblist") && (
-            // <>
-            //   {userInfo?.name === "관리자" ? (
-            //     <a href="https://admin-money-bridge.vercel.app/" target="_blank" onClick={handleExternalLink}>
-            //       백오피스로 이동
-            //     </a>
-            //   ) : (
             <div className="font-bol flex cursor-pointer text-base" onClick={modalOpenHandler}>
               {locations.location ? locations.location : <span>위치 선택</span>}
               <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />
             </div>
-            //   )}
-            // </>
           )}
           {hasBack && (
             <button className="flex h-6 w-6 items-center justify-center" onClick={() => router.back()}>

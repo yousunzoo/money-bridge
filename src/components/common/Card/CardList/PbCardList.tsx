@@ -4,6 +4,7 @@ import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import { IPbCard } from "@/types/card";
+import PBCardSkeletonItem from "../CardItem/PBCardSkeletonItem";
 
 function PbCardList({ queryKey, api, etc }: { queryKey: string; api: any; etc?: string }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
@@ -31,6 +32,12 @@ function PbCardList({ queryKey, api, etc }: { queryKey: string; api: any; etc?: 
   return (
     <>
       <ul>
+        {isFetching && (
+          <>
+            <PBCardSkeletonItem />
+            <PBCardSkeletonItem />
+          </>
+        )}
         {list?.map((item: IPbCard) => (
           <PbCardItem key={item.id} item={item} />
         ))}

@@ -11,7 +11,9 @@ export const getCookie = (key: string) => {
 
 export const setCookie = (key: string, data: string) => {
   try {
-    cookies.set(key, data);
+    cookies.set(key, data, {
+      path: "/",
+    });
   } catch (error) {
     console.error(error);
   }

@@ -36,8 +36,12 @@ function AccordianItem({ listItem, nowClicked, setNowClicked }: IAccordianItemPr
   return (
     <li onClick={handleClick} id={String(listItem.id)} ref={liRef} className="mb-4 cursor-pointer px-4">
       <div className="flex items-center justify-between border-b-1 border-button-inactive pb-4">
-        <span className="w-2/12 text-gray-heavy">[{listItem.label ? listItem.label : "공지"}]</span>
-        <span className="mr-auto w-7/12 overflow-ellipsis">{listItem.title}</span>
+        <span className={` text-gray-heavy ${listItem.label ? "w-3/12" : "w-2/12"}`}>
+          [{listItem.label ? listItem.label : "공지"}]
+        </span>
+        <span className={`mr-auto truncate ${listItem.date ? "w-6/12" : "w-8/12"} overflow-ellipsis`}>
+          {listItem.title}
+        </span>
         {listItem.date && <span className="w-3/12 text-gray-heavy">{listItem.date}</span>}
         <Image
           src="/assets/images/arrowDown.svg"

@@ -77,16 +77,16 @@ function CompletedConsultationPage({ params }: Props) {
   return (
     <div>
       <TopNav title="완료된 상담" hasBack={true} />
-      <div className="user_top_Phrase mt-4">
+      <div className="mt-4 user_top_Phrase">
         <span className="text-white ">상담이 완료되었습니다.</span>
       </div>
-      <UserReservationItem buttonName="PB 정보" href={"/"} isRole={"PB"}>
+      <UserReservationItem buttonName="PB 정보" href={"/"} isRole={"PB"} profileImage="">
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{phoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
 
-      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
+      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />

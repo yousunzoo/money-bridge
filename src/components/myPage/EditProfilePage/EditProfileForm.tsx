@@ -133,9 +133,9 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="pb-20">
         <ProfileInput errors={errors} register={register} removeFile={removeFile} profile={filePreviews.profile} />
-        <CompanyInput getValues={getValues} setValue={setValue} />
+        <CompanyInput getValues={getValues} setValue={setValue} branchName={watch("branchName")} />
         <CareerInput errors={errors} register={register} defaultValue={getValues("career")} />
         <CareersInput
           errors={errors}
@@ -159,8 +159,8 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
           removeFile={removeFile}
           portfolio={filePreviews.portfolio}
         />
-        <IntroInput register={register} intro={getValues("intro")} />
-        <MsgInput register={register} msg={getValues("msg")} />
+        <IntroInput errors={errors} register={register} intro={watch("intro")} />
+        <MsgInput errors={errors} register={register} msg={watch("msg")} />
         <button className="button_fixed">등록 완료</button>
       </form>
     </>

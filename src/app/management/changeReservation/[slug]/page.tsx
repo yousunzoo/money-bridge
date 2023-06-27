@@ -1,8 +1,7 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import TopNav from "@/components/common/TopNav";
-import React, { useEffect, useRef, useState } from "react";
-import res from "../../../../mocks/kjun/managementReservations.json";
+import React, { useEffect, useState } from "react";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
 import DoubleButton from "@/components/common/DoubleButton";
 import ScheduleSection from "@/components/managementPage/changeReservationPage/ScheduleSection";
@@ -11,78 +10,75 @@ import CalendarModal from "@/components/managementPage/changeReservationPage/Cal
 import TimeModal from "@/components/managementPage/changeReservationPage/TimeModal";
 import CounselingModal from "@/components/managementPage/changeReservationPage/CounselingModal";
 import LocationChangeModal from "@/components/managementPage/changeReservationPage/LocationChangeModal";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { redirect, useRouter } from "next/navigation";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { useGetReservationInfo } from "@/hooks/useGetReservationInfo";
+import { changeReservation, deleteReservation } from "@/app/apis/services/pb";
+import ErrorModal from "@/components/common/ErrorModal";
+import ButtonModal from "@/components/common/ButtonModal";
+import { ChangeReservationProps } from "@/types/pb";
+import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
-
-interface ReservationData {
-  pbId: number;
-  profileImage: string;
-  name: string;
-  phoneNumber: string;
-  reservationId: number;
-  candidateTime1: string;
-  candidateTime2: string;
-  time: string;
-  location: string;
-  locationAddress: string;
-  goal: string;
-  question: string;
-  type: string;
-}
 interface ChangeStatusProps {
+  id: number;
   time: string;
   type: string;
   category: string | null;
 }
 
-function ChangeReservationPage({ params }: Props) {
-  // 상태 객체로 변경 예정
+function ChangeReservationPage({ params: { slug } }: { params: { slug: number } }) {
+  const router = useRouter();
+  const [buttonType, setButtonType] = useState("");
+
   const [isDisabled, setIsDisabled] = useState(true);
   const [isSelectSchedule, setIsSelectSchedule] = useState(true);
   const [isOpenVisit, setIsOpenVisit] = useState(false);
   const [isOpenCalendar, setIsOpenCalendar] = useState(false);
   const [isOpenTime, setIsOpenTime] = useState(false);
   const [isOpenLocation, setIsOpenLocation] = useState(false);
+  const [isButtonOpen, setIsButtonOpen] = useState(false);
+
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
 
   const [changeState, setChangeState] = useState<ChangeStatusProps>({
+    id: 0,
     time: "",
     type: "",
     category: "",
   });
 
-  // 더미데이터
-  const {
-    pbId,
-    profileImage,
-    name,
-    phoneNumber,
-    reservationId,
-    candidateTime1,
-    candidateTime2,
-    time,
-    location,
-    locationAddress,
-    goal,
-    question,
-    type,
-  } = res.data.reservationList[0];
-  const consultTime = {
-    consultStart: "09:00",
-    consultEnd: "18:00",
-    notice: "월요일 13시 제외",
-  };
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
 
-  // profileImage데이터는 api등록 후 UserReservationItem props 내려주고 코드 변경하기
-  const role = "PB";
+  const { reservationInfo, reservationLoading, reservationError } = useGetReservationInfo(slug);
+
+  const { mutate: changeMutate } = useMutation<null, AxiosError, ChangeReservationProps>(changeReservation, {
+    onSuccess: () => {
+      router.push(`management/confirmedReservation/${slug}`);
+    },
+  });
+
+  const { mutate: cancelMutate } = useMutation<null, AxiosError, number>(deleteReservation, {
+    onSuccess: () => {
+      router.push(`management/canceledConsultation/${slug}`);
+    },
+  });
 
   useEffect(() => {
-    console.log(changeState);
-    console.log(isOpenLocation);
-  }, [changeState]);
+    if (!reservationInfo) return;
+    setChangeState({
+      id: slug,
+      time: candidateTime1,
+      type: type,
+      category: type === "CALL" ? null : "BRANCH",
+    });
+  }, [reservationInfo]);
+
+  if (!userInfo) return;
+  const role = userInfo.role;
 
   // 상담 희망 일정(1순위, 2순위) 선택 버튼
   const selectTimeHandler = (clickTime: string) => {
@@ -100,7 +96,6 @@ function ChangeReservationPage({ params }: Props) {
 
   // 미팅장소 수정 오픈 버튼
   const locationOpenHandler = () => {
-    console.log(":sadfasdfa");
     setIsOpenLocation(!isOpenLocation);
   };
 
@@ -109,11 +104,12 @@ function ChangeReservationPage({ params }: Props) {
     setChangeState(prevState => ({
       ...prevState,
       type: clickType,
+      category: clickType === "CALL" ? null : "BRANCH",
     }));
     setIsOpenVisit(false);
   };
 
-  // 상담 방식 선택 버튼
+  // 미팅 장소 선택 버튼
   const selectLocationHandler = (clickType: string | null) => {
     setChangeState(prevState => ({
       ...prevState,
@@ -160,58 +156,85 @@ function ChangeReservationPage({ params }: Props) {
     setIsOpenTime(!isOpenTime);
   };
 
-  // 날짜 선택
+  // 시간 선택
   const timeSelectClick = () => {
     setIsOpenTime(!isOpenTime);
   };
 
+  // 상담 취소 버튼
   const cancelReservationHandler = () => {
-    console.log("예약취소 버튼");
+    setButtonType("cancel");
+    setIsButtonOpen(true);
   };
 
+  // 변경 및 예약 확정 버튼
   const changeCompleteHandler = () => {
-    console.log("변경완료 버튼");
+    setButtonType("change");
+    setIsButtonOpen(true);
   };
 
-  const scheduleSectionProps = {
+  if (reservationInfo === undefined) return null;
+
+  const cancelmodalContents = {
+    content: "예약을 취소 하시겠습니까?",
+    confirmText: "확인",
+    cancelText: "취소",
+    cancelFn: () => setIsButtonOpen(false),
+    confirmFn: () => {
+      cancelMutate(slug);
+    },
+  };
+
+  const changemodalContents = {
+    content: "예약 확정을 하시겠습니까?",
+    confirmText: "확인",
+    cancelText: "취소",
+    cancelFn: () => setIsButtonOpen(false),
+    confirmFn: () => {
+      changeMutate(changeState);
+    },
+  };
+
+  const {
+    profileImage,
+    name,
+    phoneNumber,
     candidateTime1,
     candidateTime2,
-    isSelectSchedule,
-    selectTimeHandler,
-  };
+    location,
+    consultStart,
+    consultEnd,
+    goal,
+    notice,
+    question,
+    type,
+    time,
+  } = reservationInfo;
+
   const noteSectionProps = { role, goal, question };
-  const calendarSectionProps = {
-    calendarOpenHandler,
-    isDisabled,
-    setIsDisabled,
-    handleCalendarSelect,
-    dateSelectClick,
-  };
 
   const timeModalProps = {
     timeOpenHandler,
-    consultTime,
+    consultTime: { consultStart, consultEnd, notice },
     selectedDate: changeState.time,
     handleTimeSelect,
     timeSelectClick,
     isDisabled,
     setIsDisabled,
   };
-  const counselingModal = {
-    visitOpenHandler,
-    type: changeState.type,
-    isOpenVisit,
-    selectTypeHandler,
-  };
-
-  const locationChangeModalProps = {
-    type: changeState.type,
-    location,
-    locationOpenHandler,
-    isOpenLocation,
-    selectLocationHandler,
-  };
-
+  const scheduleSectionProps = { role, time };
+  if (userInfo?.role !== "PB")
+    return (
+      <ErrorModal isError={true} path={"/management?process=APPLY"} content={"권한이 없습니다. 다시 시도해주세요."} />
+    );
+  if (reservationError)
+    return (
+      <ErrorModal
+        isError={true}
+        path={"/management?process=APPLY"}
+        content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."}
+      />
+    );
   return (
     <div>
       <TopNav title="예약 변경" hasBack={true} />
@@ -219,14 +242,24 @@ function ChangeReservationPage({ params }: Props) {
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">예약일자를 확정지어야 상담예약이 확정됩니다.</span>
       </div>
-      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"}>
+      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"} profileImage={profileImage}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{phoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
-      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
-        <ScheduleSection {...scheduleSectionProps} />
-        <section className="my-4 flex justify-between border-b-1 pb-4">
+
+      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
+        {time ? (
+          <ConsultationScheduleSection {...scheduleSectionProps} />
+        ) : (
+          <ScheduleSection
+            candidateTime1={candidateTime1}
+            candidateTime2={candidateTime2}
+            isSelectSchedule={isSelectSchedule}
+            selectTimeHandler={selectTimeHandler}
+          />
+        )}
+        <section className="flex justify-between pb-4 mt-8 mb-4 border-b-1">
           <h3 className="font-bold">상담 일정이 변경되셨나요?</h3>
           <button
             onClick={calendarOpenHandler}
@@ -235,10 +268,20 @@ function ChangeReservationPage({ params }: Props) {
             확정된 일정 입력하기
           </button>
         </section>
-
-        <section className="mb-4 flex flex-col border-b-1 pb-4">
-          <CounselingModal {...counselingModal} />
-          <LocationChangeModal {...locationChangeModalProps} />
+        <section className="flex flex-col pb-4 mb-4 border-b-1">
+          <CounselingModal
+            visitOpenHandler={visitOpenHandler}
+            type={changeState.type}
+            isOpenVisit={isOpenVisit}
+            selectTypeHandler={selectTypeHandler}
+          />
+          <LocationChangeModal
+            type={changeState.type}
+            location={location}
+            locationOpenHandler={locationOpenHandler}
+            isOpenLocation={isOpenLocation}
+            selectLocationHandler={selectLocationHandler}
+          />
         </section>
         <ConsultationNoteSection {...noteSectionProps} />
         <div className="flex flex-col items-center pt-6 text-xs">
@@ -247,14 +290,26 @@ function ChangeReservationPage({ params }: Props) {
         </div>
         <DoubleButton
           firstTitle={"예약 취소"}
-          secondTitle={"변경 완료"}
+          secondTitle={"변경 및 상담 확정"}
           firstClickFunc={cancelReservationHandler}
           secondClickFunc={changeCompleteHandler}
           role={"PB"}
         />
       </section>
-
-      {isOpenCalendar && <CalendarModal {...calendarSectionProps} />}
+      {isButtonOpen && buttonType === "change" ? (
+        <ButtonModal modalContents={changemodalContents} isOpen={isButtonOpen} setIsOpen={setIsButtonOpen} />
+      ) : (
+        <ButtonModal modalContents={cancelmodalContents} isOpen={isButtonOpen} setIsOpen={setIsButtonOpen} />
+      )}
+      {isOpenCalendar && (
+        <CalendarModal
+          calendarOpenHandler={calendarOpenHandler}
+          isDisabled={isDisabled}
+          setIsDisabled={setIsDisabled}
+          handleCalendarSelect={handleCalendarSelect}
+          dateSelectClick={dateSelectClick}
+        />
+      )}
       {isOpenTime && <TimeModal {...timeModalProps} />}
     </div>
   );

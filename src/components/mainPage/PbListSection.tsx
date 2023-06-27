@@ -10,6 +10,8 @@ import { getSuggestionPB } from "@/app/apis/services/common";
 import { useLocationStore } from "@/store/location";
 import { AxiosError } from "axios";
 import { PbListSectionPorps } from "@/types/main";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import ErrorModal from "../common/ErrorModal";
 
 function PbListSection() {
   const {
@@ -21,7 +23,7 @@ function PbListSection() {
 
   const {
     data: pbList,
-    error,
+    isError,
     isLoading,
   } = useQuery<PbListSectionPorps[], AxiosError>(["pbSuggestionPB"], () =>
     getSuggestionPB({
@@ -29,6 +31,11 @@ function PbListSection() {
       longitude,
     }),
   );
+
+  if (!pbList) return;
+
+  if (isError)
+    return <ErrorModal isError={true} path={"/"} content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."} />;
 
   return (
     <section className="mt-3">
@@ -45,9 +52,9 @@ function PbListSection() {
             <UserReservationItem
               key={item.id}
               buttonName={"정보 보기"}
-              href={`/datail/info/${item.id}`}
+              href={`/detail/info/${item.id}`}
               isRole={"PB"}
-              profileImage={profile}
+              profileImage={item.profile}
             >
               <p className="font-bold">{item.name}</p>
               <p>{item.msg}</p>

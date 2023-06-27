@@ -8,7 +8,7 @@ import { IContentCard } from "@/types/card";
 import { IListResponse } from "@/types/common";
 
 function ContentBookMark() {
-  const { data: res } = useQuery<IListResponse<IContentCard>>(["/auth/bookmarks/boards"], () => getBookMarkContent(0));
+  const { data: res } = useQuery<IListResponse<IContentCard>>(["getBookMarkContent"], () => getBookMarkContent(0));
 
   return (
     <div className="mb-10">

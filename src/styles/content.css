@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .image{
+    @apply mr-[7px] h-[18px] w-[18px] rounded-full;
+  }
+  .name {
+    @apply mr-[7px] h-[14px] font-bold;
+  }
+  .icon{
+    @apply h-[24px] w-[24px];
+  }
+  .content{
+    @apply mt-[7px] bg-background-secondary p-[14px];
+  }
+  .title {
+    @apply text-xl font-bold mb-[18px];
+  }
+  .file_button {
+    @apply mb-[18px] h-[38px] w-[87px] cursor-pointer rounded-md bg-white shadow-md;
+  }
+
+}

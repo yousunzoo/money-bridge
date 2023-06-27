@@ -1,27 +1,43 @@
 export interface IContentsInfo {
-  id: number;
-  thumbnail: string;
-  tag1: string;
-  tag2: string | null;
-  title: string;
-  createdAt: string;
-  pbId: number;
-  name: string;
-  profile: string;
-  speciality1: string;
-  speciality2: string | null;
   career: number;
   content: string;
+  createdAt: string;
+  id: number;
+  isBookmarked: boolean;
+  name: string;
+  pbId: number;
+  profile: string;
   reply: IReply[];
+  speciality1: string;
+  speciality2: string;
+  tag1: string;
+  tag2: string;
+  thumbnail: string;
+  title: string;
 }
-
+export interface INotLoginContentsInfo {
+  thumbnail: string;
+}
 export interface IReply {
+  authorId: number;
+  content: string;
+  createdAt: string;
   id: number;
   name: string;
   profile: string;
-  replyContent: string;
+  reReply: IReReply[];
+  role: string;
+}
+
+export interface IReReply {
+  authorId: number;
+  content: string;
   createdAt: string;
-  parentId: number | null;
+  id: number;
+  name: string;
+  profile: string;
+  role: string;
+  uniqueValue: number;
 }
 
 export interface IContentsSave {
@@ -55,4 +71,18 @@ export interface ITempSave {
   tag1: string;
   tag2: string;
   thumbnail: string;
+}
+
+export interface IContentData {
+  id: number;
+  thumbnail: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  tag1: string;
+  tag2: string;
+  pbId: number;
+  name: string;
+  isBookmarked: boolean;
+  profile: string;
 }

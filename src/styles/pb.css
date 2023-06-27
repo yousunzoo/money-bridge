@@ -12,7 +12,7 @@
   }
 
   .portfolio {
-    @apply flex h-[114px] w-[76px] flex-col items-center justify-center;
+    @apply flex h-[114px] min-w-[76px] max-w-[138px] flex-col items-center justify-center flex-1 mx-5;
   }
 
   .portfolio_number {
@@ -24,7 +24,7 @@
   }
 
   .review_section {
-    @apply flex flex-col justify-center
+    @apply flex flex-col justify-center flex-1
   }
 
   .review_text {

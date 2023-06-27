@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { postBookMarkContent, deleteBookMarkContent } from "@/app/apis/services/user";
 
-const useBookMark = (isBookmarked: boolean, link: string, id: number) => {
+const useContentBookMark = (isBookmarked: boolean, link: string, id: number) => {
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
   const router = useRouter();
@@ -34,4 +34,4 @@ const useBookMark = (isBookmarked: boolean, link: string, id: number) => {
   return { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents };
 };
 
-export default useBookMark;
+export default useContentBookMark;

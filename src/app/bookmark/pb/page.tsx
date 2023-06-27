@@ -8,7 +8,7 @@ import { IListResponse } from "@/types/common";
 import { IPbCard } from "@/types/card";
 
 function PbBookMark() {
-  const { data: res } = useQuery<IListResponse<IPbCard>>(["/user/bookmarks/pb"], () => getBookMarkPB(0));
+  const { data: res } = useQuery<IListResponse<IPbCard>>(["getBookMarkPB"], () => getBookMarkPB(0));
 
   return (
     <div className="mb-10">

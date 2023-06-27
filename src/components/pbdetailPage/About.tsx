@@ -42,7 +42,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
       router.push("/reservation");
     } else if (role === CommonROLE.PB) {
       if (pathname === `/detail/info/${myId}`) {
-        router.push("/detail/edit");
+        router.push("/my/editProfile");
       } else {
         router.push("/reservation");
       }
@@ -62,48 +62,58 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
   if (!reviewData || !sameData) return null;
   return (
     <div>
-      <div className="info_header">
-        투자자 님들의
-        <br />
-        실제 상담 후기
-      </div>
-      <div className="card mb-[46px] flex h-[154px] w-full flex-col justify-center">
-        <div className="mx-auto mb-[15px] flex text-xs">
-          "투자자님들이 말하는&nbsp;<p className="font-bold">{name} PB의 매력</p>은?"
-        </div>
-        <div className="mx-auto w-full grid-flow-col px-[51px]">
-          <div className="review_section">
-            <Image
-              src={styleCase(reviewData.style1).image}
-              alt={styleCase(reviewData.style1).style}
-              width={56}
-              height={56}
-              className="h-[56px] w-[56px]"
-            />
-            <div className="review_text">{styleCase(reviewData.style1).style}</div>
+      {reviewData && (
+        <>
+          <div className="info_header">
+            투자자 님들의
+            <br />
+            실제 상담 후기
           </div>
-          <div className="review_section">
-            <Image
-              src={styleCase(reviewData.style2).image}
-              alt={styleCase(reviewData.style2).style}
-              width={56}
-              height={56}
-              className="h-[56px] w-[56px]"
-            />
-            <div className="review_text">{styleCase(reviewData.style2).style}</div>
+          <div className="card mb-[46px] flex h-[154px] w-full flex-col justify-center">
+            <div className="mx-auto mb-[15px] flex text-xs">
+              "투자자님들이 말하는&nbsp;<p className="font-bold">{name} PB의 매력</p>은?"
+            </div>
+            <div className="mx-auto flex w-full px-[51px]">
+              {reviewData.style1 && (
+                <div className="review_section">
+                  <Image
+                    src={styleCase(reviewData.style1).image}
+                    alt={styleCase(reviewData.style1).style}
+                    width={56}
+                    height={56}
+                    className="mx-auto h-[56px] w-[56px]"
+                  />
+                  <div className="review_text">{styleCase(reviewData.style1).style}</div>
+                </div>
+              )}
+              {reviewData.style2 && (
+                <div className="review_section">
+                  <Image
+                    src={styleCase(reviewData.style2).image}
+                    alt={styleCase(reviewData.style2).style}
+                    width={56}
+                    height={56}
+                    className="mx-auto h-[56px] w-[56px]"
+                  />
+                  <div className="review_text">{styleCase(reviewData.style2).style}</div>
+                </div>
+              )}
+              {reviewData.style3 && (
+                <div className="review_section">
+                  <Image
+                    src={styleCase(reviewData.style3).image}
+                    alt={styleCase(reviewData.style3).style}
+                    width={56}
+                    height={56}
+                    className="mx-auto h-[56px] w-[56px]"
+                  />
+                  <div className="review_text">{styleCase(reviewData.style3).style}</div>
+                </div>
+              )}
+            </div>
           </div>
-          <div className="review_section">
-            <Image
-              src={styleCase(reviewData.style3).image}
-              alt={styleCase(reviewData.style3).style}
-              width={56}
-              height={56}
-              className="h-[56px] w-[56px]"
-            />
-            <div className="review_text">{styleCase(reviewData.style3).style}</div>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
 
       <div className="mb-20">
         <div className="flex w-full items-center">
@@ -128,6 +138,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
           </ul>
         )}
       </div>
+
       <div>
         <div className="info_header">방문 상담을 원하시나요?</div>
         <div className="card h-[240px] p-[18px]">
@@ -143,6 +154,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
           </div>
         </div>
       </div>
+
       <div className="mt-[90px]">
         <div className="info_header">
           핏에 맞는 다른 PB도
@@ -155,6 +167,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
           ))}
         </ul>
       </div>
+      
       <button className="button_fixed" onClick={() => goToPage()}>
         {text}
       </button>

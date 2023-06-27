@@ -54,6 +54,7 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
     return (
       <ErrorModal isError={true} path={"/management?process=APPLY"} content={"권한이 없습니다. 다시 시도해주세요."} />
     );
+
   if (reservationError)
     return (
       <ErrorModal

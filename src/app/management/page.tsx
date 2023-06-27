@@ -13,13 +13,7 @@ import { redirect, useSearchParams } from "next/navigation";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import { ILoginedUserInfo } from "@/types/common";
 import ErrorModal from "@/components/common/ErrorModal";
-
-const PROCESS_DATA: Record<string, { name: string; path: string }> = {
-  APPLY: { name: "신규예약", path: "newReservation" },
-  CONFIRM: { name: "예약확정", path: "confirmedReservation" },
-  COMPLETE: { name: "상담완료", path: "completedConsultation" },
-  WITHDRAW: { name: "예약취소", path: "canceledConsultation" },
-};
+import { PROCESS_DATA } from "@/constants/reservation";
 
 function ManagementPage() {
   const [selectData, setSelectData] = useState<SelectedData[] | []>([]);
@@ -72,7 +66,7 @@ function ManagementPage() {
       fetchNextPage();
     }
   });
-  console.log(list);
+
   useEffect(() => {
     const { path } = PROCESS_DATA[process] || PROCESS_DATA.APPLY;
     setSelectPath(path);
@@ -80,7 +74,6 @@ function ManagementPage() {
   }, [consultationList, process]);
 
   if (!consultationStatus) return;
-
   if (userInfo?.role !== "PB")
     return <ErrorModal isError={true} path={"/"} content={"권한이 없습니다. 다시 시도해주세요."} />;
   if (isStatusError || isListError)
@@ -90,16 +83,16 @@ function ManagementPage() {
     <div className="flex flex-col items-center">
       <TopNav title={"고객관리"} />
       <ConsultationStatus consultationStatus={consultationStatus} pbId={userInfo.id} />
-      <ProcessList role={"pb"} />
+      <ProcessList role={"pb"} linkHref="management" />
 
-      <div className="w-full h-2 my-8 bg-background-secondary"></div>
+      <div className="my-8 h-2 w-full bg-background-secondary"></div>
 
-      <div className="justify-start w-full">
+      <div className="w-full justify-start">
         <div>
-          <h3 className="pl-1 text-lg font-bold">{`${PROCESS_DATA[process]?.name || PROCESS_DATA.APPLY.name} ${
+          <h3 className="text-lg pl-1 font-bold">{`${PROCESS_DATA[process]?.name || PROCESS_DATA.APPLY.name} ${
             consultationList?.pages[0].totalElements ?? 0
           }건`}</h3>
-          <p className="pl-1 my-1 mb-6 text-sm">예약 희망 일정을 확인 한 후 유선으로 상담 일정을 조율해주세요.</p>
+          <p className="my-1 mb-6 pl-1 text-sm">예약 희망 일정을 확인 한 후 유선으로 상담 일정을 조율해주세요.</p>
           <ul className="flex flex-col gap-4">
             {selectData?.length ? (
               selectData.map(({ reservationId, name, createdAt, type, profileImage }) => (
@@ -111,7 +104,7 @@ function ManagementPage() {
                   profileImage={profileImage}
                 >
                   <p className="font-bold">{name}</p>
-                  <p className="text-xs ">{createdAt} </p>
+                  <p className="text-xs ">{createdAt.slice(5)} </p>
                   <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"}</p>
                 </UserReservationItem>
               ))

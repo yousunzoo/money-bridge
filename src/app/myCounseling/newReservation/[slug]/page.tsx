@@ -1,89 +1,91 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import TopNav from "@/components/common/TopNav";
-import React from "react";
-import res from "../../../../mocks/kjun/managementReservations.json";
-import ConsultingHistoryCard from "../../../../components/common/ConsultingHistoryCard";
-import SingleButton from "@/components/common/SingleButton";
+import React, { useState } from "react";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { redirect, useRouter } from "next/navigation";
+import { useUserReservationInfo } from "@/hooks/useGetUserReservationInfo";
+import DoubleButton from "@/components/common/DoubleButton";
+import ButtonModal from "@/components/common/ButtonModal";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { deleteReservation } from "@/app/apis/services/pb";
+import ErrorModal from "@/components/common/ErrorModal";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
+function NewReservationPage({ params: { slug } }: { params: { slug: number } }) {
+  const router = useRouter();
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
+  const { reservationInfo, reservationLoading, reservationError } = useUserReservationInfo(slug);
+  const [isButtonOpen, setIsButtonOpen] = useState(false);
 
-interface ReservationData {
-  pbId: number;
-  profileImage: string;
-  name: string;
-  phoneNumber: string;
-  reservationId: number;
-  candidateTime1: string;
-  candidateTime2: string;
-  time: string;
-  location: string;
-  locationAddress: string;
-  goal: string;
-  question: string;
-  type: string;
-}
-
-function NewReservationPage({ params }: Props) {
+  if (!isLogined && !userLoading) {
+    redirect("/");
+  }
+  const { mutate: cancelMutate } = useMutation<null, AxiosError, number>(deleteReservation, {
+    onSuccess: () => {
+      router.push(`/myCounseling/canceledConsultation/${slug}`);
+    },
+  });
+  if (reservationInfo === undefined) return null;
   const {
-    pbId,
-    profileImage,
+    candidateTime1,
     name,
     phoneNumber,
-    reservationId,
-    candidateTime1,
-    candidateTime2,
-    time,
-    location,
-    locationAddress,
-    goal,
-    question,
-    type,
-  } = res.data.reservationList[0];
-  // profileImage데이터는 api등록 후 UserReservationItem props 내려주고 코드 변경하기
-  const role = "USER";
-  const completionPhrase1 = "PB가 유선연락을 통해 일정과 장소를 확인해드립니다.";
-  const completionPhrase2 = "(영업일 1일 이내)";
-  const onClickhandler = () => {
-    console.log("click");
-  };
-
-  const historyCard = {
-    candidateTime1,
     candidateTime2,
     type,
     location,
     locationAddress,
     goal,
     question,
-    role,
-    completionPhrase1,
-    completionPhrase2,
-  };
-  const undoChangeClickHandler = () => {
-    console.log("변경/취소");
+    profileImage,
+    pbId,
+  } = reservationInfo;
+  if (!userInfo) return;
+  const role = userInfo?.role;
+  const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+
+  const cancelClickHandler = () => {
+    setIsButtonOpen(true);
   };
 
+  const clickHandler = () => {
+    router.back();
+  };
+  const modalContents = {
+    content: "예약을 취소 하시겠습니까?",
+    confirmText: "확인",
+    cancelText: "취소",
+    cancelFn: () => setIsButtonOpen(false),
+    confirmFn: () => cancelMutate(slug),
+  };
   const scheduleSectionProps = { candidateTime1, candidateTime2, role };
   const locationSectionProps = { type, role, location, locationAddress };
   const noteSectionProps = { role, goal, question };
 
+  if (userInfo?.role !== "USER")
+    return (
+      <ErrorModal isError={true} path={"/myCounseling?process=APPLY"} content={"권한이 없습니다. 다시 시도해주세요."} />
+    );
+  if (reservationError)
+    return (
+      <ErrorModal
+        isError={true}
+        path={"/myCounseling?process=APPLY"}
+        content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."}
+      />
+    );
   return (
     <div>
       <TopNav title="신규예약" hasBack={true} />
-      <div className="mt-4 user_top_Phrase">
+      <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">프라이빗 뱅커가 곧 유선으로 연락을 드립니다.</span>
       </div>
-      <UserReservationItem buttonName="PB 정보" href={"/"} isRole={"PB"} profileImage="">
+      <UserReservationItem buttonName="PB 정보" href={`/detail/info/${pbId}`} isRole={"PB"} profileImage={profileImage}>
         <p className="font-bold">{name}</p>
-        <p className="text-xs ">{phoneNumber}</p>
+        <p className="text-xs ">{formattedPhoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
 
@@ -95,7 +97,16 @@ function NewReservationPage({ params }: Props) {
           <p className="font-bold text-primary-normal">PB가 유선연락을 통해 일정과 장소를 확인해드립니다.</p>
           <p className="text-primary-normal">(영업일 1일 이내)</p>
         </div>
-        <SingleButton title={"예약 변경/취소"} role={"USER"} ClickFunc={undoChangeClickHandler} />
+        <DoubleButton
+          firstTitle={"예약 취소"}
+          secondTitle={"확인"}
+          firstClickFunc={cancelClickHandler}
+          secondClickFunc={clickHandler}
+          role={"USER"}
+        />
+        {isButtonOpen && (
+          <ButtonModal modalContents={modalContents} isOpen={isButtonOpen} setIsOpen={setIsButtonOpen} />
+        )}
       </section>
     </div>
   );

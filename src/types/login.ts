@@ -52,3 +52,18 @@ export interface IFindPassword {
     code: string;
   };
 }
+
+export interface IResponseErrorData400 {
+  data: {
+    key: string;
+    value: string;
+  };
+  msg: string;
+  status: number;
+}
+
+export interface IResponseErrorData404 {
+  data: string;
+  msg: string;
+  status: number;
+}

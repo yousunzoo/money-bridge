@@ -2,7 +2,6 @@
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import TopNav from "@/components/common/TopNav";
 import React from "react";
-import res from "../../../../mocks/kjun/managementReservations.json";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
@@ -40,7 +39,7 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
   const role = userInfo?.role;
 
   const checkClickHandler = () => {
-    router.push("/management?process=APPLY");
+    router.push("/management?process=WITHDRAW");
   };
 
   const scheduleSectionProps = {
@@ -55,6 +54,7 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
     return (
       <ErrorModal isError={true} path={"/management?process=APPLY"} content={"권한이 없습니다. 다시 시도해주세요."} />
     );
+
   if (reservationError)
     return (
       <ErrorModal
@@ -66,7 +66,7 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
   return (
     <div>
       <TopNav title="취소된 상담" hasBack={true} />
-      <div className="pb_top_Phrase">
+      <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">취소된 상담입니다.</span>
       </div>
 

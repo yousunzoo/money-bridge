@@ -13,6 +13,7 @@ import ScheduleSection from "@/components/managementPage/changeReservationPage/S
 import ButtonModal from "@/components/common/ButtonModal";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { useGetReservationInfo } from "@/hooks/useGetReservationInfo";
+import SingleButton from "@/components/common/SingleButton";
 
 function NewReservationPage({ params: { slug } }: { params: { slug: number } }) {
   const router = useRouter();
@@ -30,7 +31,6 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
 
   const { mutate } = useMutation(confirmedReservation, {
     onSuccess: data => {
-      console.log(data);
       router.push(`/management/confirmedReservation/${slug}`);
     },
   });
@@ -66,6 +66,10 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
       setTimeState(reservationInfo.candidateTime1);
     }
   }, [reservationInfo]);
+
+  const checkClickHandler = () => {
+    router.push("/management?process=APPLY");
+  };
 
   if (reservationInfo === undefined) return null;
 
@@ -117,13 +121,13 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
         <p className="text-xs ">{formattedPhoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md ">
-        <section className="w-full pb-4 my-4 border-b-1">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs ">
+        <section className="my-4 w-full border-b-1 pb-4">
           <ScheduleSection {...scheduleSectionProps} />
         </section>
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />
-        <div className="flex flex-col items-center mt-6 text-xs">
+        <div className="mt-6 flex flex-col items-center text-xs">
           <p className="font-bold text-primary-normal">투자자와 유선연락을 통해 일정과 장소를 정하신 후</p>
           <p className="text-primary-normal">예약을 확정하시면 투자자에게 상담 확정 알림이 전송됩니다.</p>
         </div>
@@ -134,6 +138,7 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
           secondClickFunc={confirmedClickHandler}
           role={"PB"}
         />
+        <SingleButton title={"확인"} role={role} ClickFunc={checkClickHandler} />
         {isButtonOpen && (
           <ButtonModal modalContents={modalContents} isOpen={isButtonOpen} setIsOpen={setIsButtonOpen} />
         )}

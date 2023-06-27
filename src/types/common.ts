@@ -51,4 +51,11 @@ export interface ILoginedUserInfo {
   role: "USER" | "PB";
   name: string;
   propensity: IPropensity;
+  isAdmin: boolean;
+}
+
+export interface IModalContent {
+  content: string;
+  confirmText: string;
+  confirmFn: () => void;
 }

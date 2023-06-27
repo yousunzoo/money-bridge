@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 
 const LINKS = [
   { id: 1, text: "신규예약", href: "APPLY" },
@@ -9,12 +9,17 @@ const LINKS = [
   { id: 4, text: "예약취소", href: "WITHDRAW" },
 ];
 
-function ProcessList({ role }: { role: string }) {
+interface ProcessListProps {
+  role: string;
+  linkHref: string;
+}
+
+function ProcessList({ role, linkHref }: ProcessListProps) {
   const searchParams = useSearchParams();
   const currentProcess = searchParams.get("process");
 
   const getContainerClasses = (itemHref: string) => {
-    if (role === "user") {
+    if (role === "USER") {
       return currentProcess === itemHref
         ? "bg-secondary-heavy text-white"
         : "border-secondary-heavy text-secondary-heavy bg-white";
@@ -27,7 +32,7 @@ function ProcessList({ role }: { role: string }) {
     <ul className="flex justify-start w-full gap-2 mt-8 ">
       {LINKS.map(item => (
         <Link
-          href={`/management?process=${item.href}`}
+          href={`/${linkHref}?process=${item.href}`}
           key={item.id}
           className={`rounded-md border-1 p-2 text-sm ${getContainerClasses(item.href)}`}
         >

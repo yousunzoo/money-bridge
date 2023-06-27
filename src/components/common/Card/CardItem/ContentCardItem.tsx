@@ -19,7 +19,6 @@ function ContentCardItem({ item }: { item: IContentCard }) {
   });
   const router = useRouter();
   const [isBookmarked, setIsBookmarked] = useState<boolean | undefined>(item.isBookmarked);
-
   const bookMark = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     if (isBookmarked) {
@@ -46,17 +45,17 @@ function ContentCardItem({ item }: { item: IContentCard }) {
             <div className="text-2xl font-bold">{item.title}</div>
           </div>
           {userData?.role && (
-            <button onClick={bookMark} className="flex-3 flex w-12 items-center justify-center">
+            <button onClick={bookMark} className="flex items-center justify-center w-12 flex-3">
               {isBookmarked ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
             </button>
           )}
         </div>
-        <div className="mt-20 flex">
+        <div className="flex mt-20">
           <div className="flex h-[31px] flex-1 flex-col text-[10px]">
-            <div className="flex">
-              <p className="font-bold">{item.pbName}PB</p>&nbsp;| {item.career}년차
+            <div className="flex text-base">
+              <p className="font-bold">{item.pbName}PB</p> &nbsp;| {item.career}년차
             </div>
-            <div>{item.msg}</div>
+            <span className="text-base">{item.msg}</span>
           </div>
           <Image
             src={item.companyLogo}

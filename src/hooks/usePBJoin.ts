@@ -14,14 +14,11 @@ export const usePBJoin = () => {
 
   const { mutate } = useMutation(pbJoin, {
     onSuccess: data => {
-      console.log(data);
       resetInformations();
       resetCode();
       router.push(`/join/${joinType}/complete`);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
   return mutate;
 };

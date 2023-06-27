@@ -70,14 +70,17 @@ function CompletedConsultationPage({ params: { slug } }: { params: { slug: numbe
           <p className="font-bold text-primary-normal">상담이 완료되었습니다.</p>
         </div>
         {reviewCheck ? (
-          <DoubleButton
-            firstTitle={"후기 보러 가기"}
-            secondTitle={"확인"}
-            firstClickFunc={myReviewClickHandler}
-            secondClickFunc={checkClickHandler}
-            role={"PB"}
-            reviewCheck={reviewCheck}
-          />
+          <>
+            <DoubleButton
+              firstTitle={"후기 보러 가기"}
+              secondTitle={"확인"}
+              firstClickFunc={myReviewClickHandler}
+              secondClickFunc={checkClickHandler}
+              role={"PB"}
+              reviewCheck={reviewCheck}
+            />
+            <SingleButton title={"확인"} role={role} ClickFunc={checkClickHandler} />
+          </>
         ) : (
           <SingleButton title={"확인"} role={role} ClickFunc={checkClickHandler} />
         )}

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .slick-dots.slick-dots-bottom {
   bottom: -20px;
 }

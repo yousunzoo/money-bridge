@@ -24,7 +24,9 @@ const useApiError = () => {
   const handleError = useCallback((axiosError: any) => {
     const errorResponse = axiosError.message as ErrorProps;
     const status = errorResponse.status;
+    const data = errorResponse.data;
 
+    if (data == "투자성향 분석이 되지않았습니다.") return;
     if (ERROR_MESSAGES[status]) {
       setModalContents({
         content: ERROR_MESSAGES[status],

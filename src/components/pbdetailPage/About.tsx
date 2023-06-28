@@ -20,7 +20,7 @@ import { IDataResponse, IListResponse } from "@/types/common";
 import { IPbCard } from "@/types/card";
 
 function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; Id: number }) {
-  const { id, name, branchAddress, branchName, companyName, branchLatitude, branchLongitude } = aboutData;
+  const { id, name, branchAddress, branchName, branchLatitude, branchLongitude } = aboutData;
   const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>(["getReviewStyle"], () =>
     getReviewStyle(id),
   );
@@ -39,12 +39,12 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
 
   const goToPage = () => {
     if (role === CommonROLE.USER) {
-      router.push("/reservation");
+      router.push(`/reservation?pbId=${id}`);
     } else if (role === CommonROLE.PB) {
       if (pathname === `/detail/info/${myId}`) {
         router.push("/my/editProfile");
       } else {
-        router.push("/reservation");
+        router.push(`/reservation?pbId=${id}`);
       }
     }
   };
@@ -62,58 +62,60 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
   if (!reviewData || !sameData) return null;
   return (
     <div>
-      {reviewData && (
-        <>
-          <p className="info_header">
-            투자자 님들의
-            <br />
-            실제 상담 후기
-          </p>
-          <div className="card mb-[46px] flex h-[154px] w-full flex-col justify-center">
-            <p className="mx-auto mb-[15px] flex text-xs">
-              "투자자님들이 말하는&nbsp;<span className="font-bold">{name} PB의 매력</span>은?"
+      {reviewData.style1 ||
+        reviewData.style2 ||
+        (reviewData.style3 && (
+          <>
+            <p className="info_header">
+              투자자 님들의
+              <br />
+              실제 상담 후기
             </p>
-            <div className="mx-auto flex w-full px-[51px]">
-              {reviewData.style1 && (
-                <div className="review_section">
-                  <Image
-                    src={styleCase(reviewData.style1).image}
-                    alt={styleCase(reviewData.style1).style}
-                    width={56}
-                    height={56}
-                    className="mx-auto h-[56px] w-[56px]"
-                  />
-                  <p className="review_text">{styleCase(reviewData.style1).style}</p>
-                </div>
-              )}
-              {reviewData.style2 && (
-                <div className="review_section">
-                  <Image
-                    src={styleCase(reviewData.style2).image}
-                    alt={styleCase(reviewData.style2).style}
-                    width={56}
-                    height={56}
-                    className="mx-auto h-[56px] w-[56px]"
-                  />
-                  <p className="review_text">{styleCase(reviewData.style2).style}</p>
-                </div>
-              )}
-              {reviewData.style3 && (
-                <div className="review_section">
-                  <Image
-                    src={styleCase(reviewData.style3).image}
-                    alt={styleCase(reviewData.style3).style}
-                    width={56}
-                    height={56}
-                    className="mx-auto h-[56px] w-[56px]"
-                  />
-                  <p className="review_text">{styleCase(reviewData.style3).style}</p>
-                </div>
-              )}
+            <div className="card mb-[46px] flex h-[154px] w-full flex-col justify-center">
+              <p className="mx-auto mb-[15px] flex text-xs">
+                "투자자님들이 말하는&nbsp;<span className="font-bold">{name} PB의 매력</span>은?"
+              </p>
+              <div className="mx-auto flex w-full px-[51px]">
+                {reviewData.style1 && (
+                  <div className="review_section">
+                    <Image
+                      src={styleCase(reviewData.style1).image}
+                      alt={styleCase(reviewData.style1).style}
+                      width={56}
+                      height={56}
+                      className="mx-auto h-[56px] w-[56px]"
+                    />
+                    <p className="review_text">{styleCase(reviewData.style1).style}</p>
+                  </div>
+                )}
+                {reviewData.style2 && (
+                  <div className="review_section">
+                    <Image
+                      src={styleCase(reviewData.style2).image}
+                      alt={styleCase(reviewData.style2).style}
+                      width={56}
+                      height={56}
+                      className="mx-auto h-[56px] w-[56px]"
+                    />
+                    <p className="review_text">{styleCase(reviewData.style2).style}</p>
+                  </div>
+                )}
+                {reviewData.style3 && (
+                  <div className="review_section">
+                    <Image
+                      src={styleCase(reviewData.style3).image}
+                      alt={styleCase(reviewData.style3).style}
+                      width={56}
+                      height={56}
+                      className="mx-auto h-[56px] w-[56px]"
+                    />
+                    <p className="review_text">{styleCase(reviewData.style3).style}</p>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        ))}
 
       <div className="mb-20">
         <div className="flex w-full items-center">
@@ -142,9 +144,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
       <div>
         <p className="info_header">방문 상담을 원하시나요?</p>
         <div className="card h-[240px] p-[18px]">
-          <p className="text-base font-bold">
-            {branchName}
-          </p>
+          <p className="text-base font-bold">{branchName}</p>
           <div className="flex text-xs">
             <p className="flex-1">{branchAddress}</p>
             <LocationCopyButton location={branchAddress} />
@@ -163,11 +163,11 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         </p>
         <ul>
           {sameData?.map(item => (
-            <PbCardItem key={item.id} item={item} />
+            <PbCardItem key={item.id} item={item} queryKey={"getSamePb"} bookmarks={true} />
           ))}
         </ul>
       </div>
-      
+
       <button className="button_fixed" onClick={() => goToPage()}>
         {text}
       </button>

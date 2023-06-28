@@ -8,6 +8,9 @@ import { ButtonModalProps } from "@/types/common";
 import { useWithdraw } from "@/hooks/useWithdraw";
 import { useCheckPassword } from "@/hooks/useCheckPassword";
 import { yup_password } from "@/constants/yupSchema";
+import Image from "next/image";
+import alert from "/public/assets/images/alert.svg";
+import correct from "/public/assets/images/correct.svg";
 
 const checkBlank = (value: string) => {
   return value.includes(" ");
@@ -36,7 +39,8 @@ function CheckPassword({
   const {
     register,
     getValues,
-    formState: { errors, isValid, isDirty },
+    reset,
+    formState: { errors, isValid, isDirty, dirtyFields },
   } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -86,12 +90,25 @@ function CheckPassword({
       </h3>
       <form onSubmit={handleSubmit} className="flex h-[310px] flex-col justify-between">
         <div>
-          <input
-            type="password"
-            className={`form_input pr-3 ${errors.password ? "warnning" : ""} ${isDirty ? "entering" : ""}`}
-            {...register("password")}
-            placeholder="비밀번호를 입력해주세요"
-          />
+          <div className="relative flex items-center">
+            <input
+              type="password"
+              className={`form_input pr-3 ${errors.password ? "warnning" : ""} ${isDirty ? "entering" : ""}`}
+              {...register("password")}
+              placeholder="비밀번호를 입력해주세요"
+            />
+            {dirtyFields.password && (
+              <>
+                <button
+                  type="button"
+                  className="input_button bg-[url('/assets/images/clear.svg')]"
+                  tabIndex={-1}
+                  onClick={() => reset()}
+                ></button>
+                <Image src={errors.password ? alert : correct} alt="input_status" className="input_status" />
+              </>
+            )}
+          </div>
           {isDirty && (
             <>
               <p className={`pt-1 text-xs ${errors.password ? "text-status-alert" : "text-status-positive"}`}>

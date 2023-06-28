@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { getCookie, setCookie } from "@/utils/cookies";
+import { getCookie, removeCookie, setCookie } from "@/utils/cookies";
 import { reissueToken } from "./services/etc";
 
 const createInstance = (ContentType: string) => {
@@ -36,13 +36,15 @@ const createInstance = (ContentType: string) => {
         config,
         response: { status, data },
       } = error;
-      if (status === 401) {
-        if (data.msg === "unAuthorized") {
+      if (status === 401 && data.msg === "unAuthorized") {
+        const accessToken = getCookie("Authorization");
+        if (accessToken) {
           const originalRequest = config;
           const { data } = await reissueToken();
-          // 새로운 토큰 저장
           setCookie("Authorization", data.headers.authorization);
           return axios(originalRequest);
+        } else {
+          removeCookie("refreshToken");
         }
       }
 

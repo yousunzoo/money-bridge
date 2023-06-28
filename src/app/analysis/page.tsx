@@ -13,6 +13,7 @@ import { AxiosError } from "axios";
 import highlight from "/public/assets/images/highlight.svg";
 import Image from "next/image";
 import { ILoginedUserInfo } from "@/types/common";
+
 function AnalysisPage() {
   const questions: IAnalysisQuestions = analysisQuestions;
   const [step, setStep] = useState(0);

@@ -73,8 +73,6 @@ export const getCompanyLocation = async (companyId: number, keyword: string) => 
 export const userLogout = async () => {
   try {
     const res = await instance.post("/auth/logout");
-    removeCookie("Authorization");
-    removeCookie("refreshToken");
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data.data.value);

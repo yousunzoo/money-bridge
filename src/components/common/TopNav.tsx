@@ -1,18 +1,15 @@
 "use client";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import arrayBack from "/public/assets/images/arrayBack.svg";
 import logo from "/public/assets/images/logo.png";
 import { useGeoLocation } from "@/hooks/useGeoLacation";
 import arrowDown from "/public/assets/images/arrowDown.svg";
 import SelectLocationModal from "../mainPage/SelectLocationModal";
 import { useLocationStore } from "@/store/location";
-import { useQuery } from "@tanstack/react-query";
-import { ILoginedUserInfo } from "@/types/common";
-import { AxiosError } from "axios";
-import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { useMyPageCheck } from "@/hooks/useMyPageCheck";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 const logoPath = ["/", "/lounge"];
 
@@ -26,15 +23,7 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
     setIsOpenModal(!isOpenModal);
   };
 
-  const {
-    data: userInfo,
-    isLoading: userLoading,
-    isSuccess: isLogined,
-  } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["loginedUserInfo"],
-    queryFn: getLoginedUserInfo,
-    refetchOnWindowFocus: false,
-  });
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
 
   const [mounted, setMounted] = useState<boolean>(false);
 

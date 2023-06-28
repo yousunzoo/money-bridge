@@ -1,5 +1,6 @@
 import { useState } from "react";
 import shareKakao from "@/utils/shareKakao";
+import { truncateContent } from "@/utils/truncateContent";
 
 const useShare = (url: string, title: string, description: string, imageUrl: string) => {
   const [isShare, setIsShare] = useState(false);
@@ -7,6 +8,7 @@ const useShare = (url: string, title: string, description: string, imageUrl: str
   const [isCopy, setIsCopy] = useState(false);
   const [isCopyOpen, setIsCopyOpen] = useState(false);
   const [isKaKaoOpen, setIsKaKaoOpen] = useState(false);
+  const truncatedDescription = truncateContent(description, 20);
 
   const shareHandler = () => {
     setIsShareOpen(true);
@@ -38,7 +40,7 @@ const useShare = (url: string, title: string, description: string, imageUrl: str
   };
 
   if (isKaKaoOpen) {
-    shareKakao(url, title, description, imageUrl);
+    shareKakao(url, title, truncatedDescription, imageUrl);
     setIsKaKaoOpen(false);
   }
 

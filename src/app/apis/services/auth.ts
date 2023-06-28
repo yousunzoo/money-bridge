@@ -1,17 +1,17 @@
 import { IJoinInformation, joinInDTO } from "@/types/join";
 import { formInstance, instance } from "../axios";
-import { IUser } from "@/types/login";
+import { IUser, IUserLogin } from "@/types/login";
 import { AxiosError } from "axios";
 import { removeCookie } from "@/utils/cookies";
 
-export const userLogin = async (user: IUser) => {
+export const userLogin = async (user: IUserLogin) => {
   const res = await instance.post("/login", user);
   return res;
 };
 
 export const userJoin = async (joinData: IJoinInformation) => {
   const res = await instance.post(`/join/user`, joinData);
-  return res.data;
+  return res;
 };
 
 export const pbJoin = async (joinData: IJoinInformation) => {

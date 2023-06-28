@@ -55,7 +55,7 @@ function EnterCareer() {
           <li
             key={item.id}
             id={item.id}
-            className={`chip ${selectedItem.includes(item.id) && "selected"}`}
+            className={`chip cursor-pointer ${selectedItem.includes(item.id) && "selected"}`}
             onClick={handleSelectSpeciality}
           >
             {item.name}

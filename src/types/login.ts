@@ -28,6 +28,13 @@ export interface IUser {
   phoneNumber?: string;
 }
 
+export interface IUserLogin {
+  role: string;
+  email: string;
+  password: string;
+  remember: boolean;
+}
+
 export interface IFindEmail {
   status: number;
   msg: string;

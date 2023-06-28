@@ -3,12 +3,13 @@ import Image from "next/image";
 import check from "/public/assets/images/check.svg";
 
 function KeepLoginButton() {
-  const [autoLogin, setAutoLogin] = useState(false);
+  const [autoLogin, setAutoLogin] = useState(localStorage.getItem("AutoLogin") === "true");
 
   const clickRememberLoginStatus = () => {
     localStorage.setItem("AutoLogin", (!autoLogin).toString());
     setAutoLogin(!autoLogin);
   };
+
   return (
     <div className="flex h-[50px] items-center justify-center gap-1">
       <button

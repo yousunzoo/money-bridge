@@ -1,20 +1,37 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { postBookMarkContent, deleteBookMarkContent } from "@/app/apis/services/user";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteBookMarkContent, postBookMarkContent } from "@/app/apis/services/user";
+import { AxiosError } from "axios";
 
-const useContentBookMark = (isBookmarked: boolean, link: string, id: number) => {
+const useContentBookMark = (isBookmarked: boolean, link: string, queryKey?: string|string[]) => {
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const bookMarkHandler = () => {
+  const { mutate: postbookMarkContent } = useMutation(postBookMarkContent, {
+    onSuccess: () => {
+      queryClient.refetchQueries([queryKey]);
+    },
+    onError: (err: AxiosError) => {},
+  });
+
+  const { mutate: deletebookMarkContent } = useMutation(deleteBookMarkContent, {
+    onSuccess: () => {
+      queryClient.refetchQueries([queryKey]);
+    },
+    onError: (err: AxiosError) => {},
+  });
+
+  const bookMarkHandler = (id: number) => {
     setIsBookmarkedOpen(true);
     if (isBookmarked) {
       setIsBookmark(false);
-      deleteBookMarkContent(id);
+      deletebookMarkContent({ id: id });
     } else {
       setIsBookmark(true);
-      postBookMarkContent(id);
+      postbookMarkContent({ id: id });
     }
   };
 

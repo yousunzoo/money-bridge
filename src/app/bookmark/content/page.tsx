@@ -14,7 +14,7 @@ function ContentBookMark() {
     <div className="mb-10">
       <BookMark />
       {res !== null ? (
-        <ContentCardList queryKey={"/auth/bookmarks/boards"} api={getBookMarkContent} />
+        <ContentCardList queryKey={"/auth/bookmarks/boards"} api={getBookMarkContent} bookmarks={true} />
       ) : (
         <div className="flex justify-center">북마크 한 콘텐츠 없음</div>
       )}

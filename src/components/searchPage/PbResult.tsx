@@ -11,7 +11,7 @@ function PbResult({ pbValue }: { pbValue: string; }) {
           <div className="mb-[24px] h-[34px] border-b-[1px] border-b-gray-normal text-gray-normal">
             {result ? <>PB 검색 결과</> : <>일치하는 정보가 없습니다</>}
           </div>
-          <PbCardList queryKey={["getSearchPb",pbValue]} api={getSearchPb} etc={pbValue} setResult={setResult} />
+          <PbCardList queryKey={["getSearchPb", pbValue]} api={getSearchPb} etc={pbValue} setResult={setResult} bookmarks={false} />
         </>
       )}
     </>

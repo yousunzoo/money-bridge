@@ -13,14 +13,18 @@ import { AxiosError } from "axios";
 import { IloginProfile, IProfile } from "@/types/pb";
 import { IDataResponse } from "@/types/common";
 import Profile from "@/components/pbdetailPage/Profile";
+import { getCookie } from "@/utils/cookies";
 
 function PbDetailInfo() {
+  const token = getCookie("Authorization");
   const pathname: string = usePathname();
   const id: number = Number(pathname.split("/").pop());
   const { data: profile } = useQuery<IDataResponse<IProfile>, AxiosError>(["getPbNotLogin"], () => getPbNotLogin(id));
-  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>(["getPbProfile"], () =>
-    getPbProfile(id),
-  );
+  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>({
+    queryKey: ["getPbProfile"],
+    queryFn: () => getPbProfile(id),
+    enabled: !!token,
+  });
   const { data: userData, isLoading } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
     queryFn: getLoginedUserInfo,
@@ -32,7 +36,7 @@ function PbDetailInfo() {
   return (
     <div className="mb-24 flex w-full flex-col">
       <TopNav title="PB 상세프로필" hasBack={true} />
-      {userData && authProfile?.data ? (
+      {userData?.role !== undefined && authProfile?.data ? (
         <>
           <Intro introData={authProfile?.data} />
           <Content contentData={authProfile?.data} />

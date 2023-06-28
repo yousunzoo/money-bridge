@@ -58,7 +58,7 @@ function RecommendPage() {
               제공해드릴 수 있는 PB입니다.
             </h3>
             <p className="mb-8 text-sm">해당 추천은 투자성향 설문을 바탕으로 추천된 리스트입니다.</p>
-            <PbCardList queryKey="recommendedPB" api={getRecommendedPBList} />
+            <PbCardList queryKey="recommendedPB" api={getRecommendedPBList} bookmarks={true} />
           </section>
         </>
       )}

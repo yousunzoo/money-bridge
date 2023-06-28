@@ -13,7 +13,7 @@ interface BoardListProps {
   career: number;
   companyLogo: string;
   id: number;
-  isBookmark: boolean;
+  isBookmarked: boolean;
   msg: string;
   pbName: string;
   tag1: string;
@@ -37,7 +37,7 @@ function CustomListSection() {
         <br /> 실제 PB의 투자 정보
       </h3>
       <ul className="flex flex-wrap items-center justify-between py-4">
-        {boardList && boardList.map(item => <ContentCardItem key={item.id} item={item} />)}
+        {boardList && boardList.map(item => <ContentCardItem key={item.id} item={item} bookmarks={false} />)}
       </ul>
     </section>
   );

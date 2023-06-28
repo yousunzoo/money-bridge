@@ -27,6 +27,7 @@ function CompletedConsultationPage({ params: { slug } }: { params: { slug: numbe
     reservationInfo;
   if (!userInfo) return;
   const role = userInfo?.role;
+  const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
   const myReviewClickHandler = () => {
     router.push("/management?process=COMPLETE");
@@ -57,12 +58,17 @@ function CompletedConsultationPage({ params: { slug } }: { params: { slug: numbe
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">상담이 완료되었습니다.</span>
       </div>
-      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"} profileImage={profileImage}>
+      <UserReservationItem
+        buttonName="고객 정보"
+        href={`tel:${formattedPhoneNumber}`}
+        isRole={"USER"}
+        profileImage={profileImage}
+      >
         <p className="font-bold">{name}</p>
-        <p className="text-xs ">{phoneNumber}</p>
+        <p className="text-xs ">{formattedPhoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />

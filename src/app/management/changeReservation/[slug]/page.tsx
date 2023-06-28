@@ -208,6 +208,7 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
     type,
     time,
   } = reservationInfo;
+  const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
   const noteSectionProps = { role, goal, question };
 
@@ -240,13 +241,18 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">예약일자를 확정지어야 상담예약이 확정됩니다.</span>
       </div>
-      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"} profileImage={profileImage}>
+      <UserReservationItem
+        buttonName="고객 정보"
+        href={`tel:${formattedPhoneNumber}`}
+        isRole={"USER"}
+        profileImage={profileImage}
+      >
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{phoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
 
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
         {time ? (
           <ConsultationScheduleSection {...scheduleSectionProps} />
         ) : (
@@ -257,7 +263,7 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
             selectTimeHandler={selectTimeHandler}
           />
         )}
-        <section className="flex justify-between pb-4 mt-8 mb-4 border-b-1">
+        <section className="mb-4 mt-8 flex justify-between border-b-1 pb-4">
           <h3 className="font-bold">상담 일정이 변경되셨나요?</h3>
           <button
             onClick={calendarOpenHandler}
@@ -266,7 +272,7 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
             확정된 일정 입력하기
           </button>
         </section>
-        <section className="flex flex-col pb-4 mb-4 border-b-1">
+        <section className="mb-4 flex flex-col border-b-1 pb-4">
           <CounselingModal
             visitOpenHandler={visitOpenHandler}
             type={changeState.type}

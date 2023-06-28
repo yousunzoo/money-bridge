@@ -18,7 +18,7 @@ function UserReservationItem({ children, buttonName, href, isRole, profileImage 
           className="max-w-[70px] rounded-full object-cover"
         />
       </div>
-      <div className="flex flex-col justify-center px-4 py-3 rounded-lg ">{children}</div>
+      <div className="flex flex-col justify-center rounded-lg px-4 py-3 ">{children}</div>
 
       <Link
         href={href}

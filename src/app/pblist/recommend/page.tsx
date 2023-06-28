@@ -53,7 +53,7 @@ function RecommendPage() {
           </section>
           <section>
             <h3 className="mb-2 text-2xl font-bold leading-8">
-              홍길동님에게 특화된 서비스를
+              {data.name}님에게 특화된 서비스를
               <br />
               제공해드릴 수 있는 PB입니다.
             </h3>

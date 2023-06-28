@@ -15,11 +15,11 @@ function BookmarkPreviewCard({ type, bookmark }: IBookmarkPreviewCardProps) {
       <div className="flex h-[150px] w-full px-2 pt-5">
         {count > 0 && (
           <>
-            <div className="h-[50px] w-[50px] overflow-hidden rounded-[25px] bg-gray-normal">
+            <div className="h-[50px] w-[50px] overflow-hidden rounded-[25px]">
               <Image src={list[0].thumbnail} width={50} height={50} alt={list[0].thumbnail} />
             </div>
             {count > 1 && (
-              <div className="-ml-4 h-[50px] w-[50px] overflow-hidden rounded-[25px] bg-gray-normal">
+              <div className="-ml-4 h-[50px] w-[50px] overflow-hidden rounded-[25px]">
                 <Image src={list[1].thumbnail} width={50} height={50} alt={list[1].thumbnail} />
               </div>
             )}

@@ -22,7 +22,7 @@ export const useMyPageCheck = (enabled: boolean) => {
     queryKey: ["loginedUserInfo"],
     queryFn: getLoginedUserInfo,
     retry: 1,
-    staleTime: Infinity,
+    refetchOnWindowFocus: false,
     enabled: enabled,
   });
 

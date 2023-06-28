@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "@/styles/content.css";
 import { BoardStatus } from "@/constants/enum";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ITemp } from "@/types/contents";
 
 function Write({ data, id }: { data?: ITemp; id?: number }) {
@@ -78,7 +78,7 @@ function Write({ data, id }: { data?: ITemp; id?: number }) {
       <div className="flex items-center justify-center">
         {isStatus ? (
           <>
-            <button onClick={() => router.back()} className="button_outlined mr-10 min-w-[175px] max-w-[350px]">
+            <button onClick={() => router.push(`/contents/${id}`)} className="button_outlined mr-10 min-w-[175px] max-w-[350px]">
               취소
             </button>
             <button onClick={() => router.push(`/contents/${id}`)} className="button min-w-[175px] max-w-[350px]">

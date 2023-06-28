@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ILoginedUserInfo } from "@/types/common";
 
-const useDelete = () => {
+const useDelete = (userData?:ILoginedUserInfo) => {
+  const router = useRouter();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const deleteHandler = (id: number, mutate: any) => {
@@ -9,9 +12,10 @@ const useDelete = () => {
   };
 
   const deleteContents = {
-    content: "댓글이 삭제되었습니다.",
+    content: "삭제되었습니다.",
     confirmText: "확인",
-    confirmFn: () => setIsDeleteOpen(false),
+    confirmFn: () => {setIsDeleteOpen(false);
+    router.push(`/detail/content/${userData?.id}`);},
   };
 
   return { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents };

@@ -47,28 +47,27 @@ export const useGetFilteredPBlist = () => {
       getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),
       refetchOnWindowFocus: false,
       cacheTime: 100000,
-      staleTime: 100000,
     },
   );
 
   useEffect(() => {
     if (company) {
-      const newParams = { ...params, company };
+      const newParams = { ...params, sort: sortParam, company };
       if (newParams["speciality"]) {
         delete newParams["speciality"];
       }
-      setParams(newParams);
+      setParams({ ...newParams });
       setQueryKey(["company", sortParam, company]);
     }
     if (speciality) {
-      const newParams = { ...params, speciality };
+      const newParams = { ...params, sort: sortParam, speciality };
       if (newParams["company"]) {
         delete newParams["company"];
       }
-      setParams(newParams);
+      setParams({ ...newParams });
       setQueryKey(["speciality", sortParam, speciality]);
     }
-  }, [company, speciality]);
+  }, [company, speciality, sortParam]);
 
   return { pbListData, fetchNextPage, hasNextPage, isFetching };
 };

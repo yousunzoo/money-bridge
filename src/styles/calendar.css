@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .ant-picker-calendar {
   padding: 20px 16px 10px;
   border-radius: 30px;

@@ -12,7 +12,7 @@ function CompanyList({ companyList, nowCompany, handleIDClick }: ICompanyListPro
   const nowCard = nowCompany === "ALL" ? 0 : Math.ceil((Number(nowCompany) + 1) / 8) - 1;
 
   return (
-    <Carousel draggable={true} initialSlide={nowCard}>
+    <Carousel dots={true} dotPosition="bottom" draggable={true} initialSlide={nowCard}>
       {chunkedCompanyList.map((companyList, index) => (
         <div key={index}>
           <ul className="grid grid-cols-4 gap-4 px-4">

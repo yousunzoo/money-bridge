@@ -18,15 +18,13 @@ interface IProvision {
 }
 
 export const userRequired: IProvision[] = [
-  { id: 0, title: "시스메틱 이용약관 동의" },
-  { id: 1, title: "개인정보 취급방침 동의" },
-  { id: 2, title: "개인정보 제 3자 제공 동의" },
+  { id: 0, title: "일반투자자 이용약관 동의" },
+  { id: 1, title: "개인정보 처리방침 동의" },
 ];
 
 export const pbRequired: IProvision[] = [
-  { id: 0, title: "시스메틱 이용약관 동의" },
-  { id: 1, title: "개인정보 취급방침 동의" },
-  { id: 2, title: "개인정보 제 3자 제공 동의" },
+  { id: 0, title: "파트너(PB) 이용약관 동의" },
+  { id: 1, title: "개인정보 처리방침 동의" },
 ];
 const optional: IProvision[] = [
   // { id: required.length, title: "위치기반 서비스 이용 동의" },

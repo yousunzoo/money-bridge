@@ -34,7 +34,7 @@ function PbDetailContent() {
       {authProfile?.data && <Intro introData={authProfile?.data} />}
       <ContentCardList queryKey={`/auth/boards/${id}`} api={getPbContent} etc={id} />
       {myId && (
-        <button className="button_fixed" onClick={() => router.push("/lounge/write")}>
+        <button className="button_fixed" onClick={() => router.push("/contents/write")}>
           콘텐츠 작성하기
         </button>
       )}

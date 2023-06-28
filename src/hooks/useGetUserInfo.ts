@@ -16,6 +16,7 @@ export const useGetUserInfo = () => {
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
     enabled: !!token,
+    staleTime: Infinity,
   });
 
   return { userInfo, userLoading, isLogined, isLoginError };

@@ -8,7 +8,7 @@ export const getBookMarkPB = async (page: number) => {
     const res = await instance.get("/user/bookmarks/pb", { params: { page } });
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -17,7 +17,7 @@ export const getBookMarkContent = async (page: number) => {
     const res = await instance.get("/auth/bookmarks/boards", { params: { page } });
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -76,39 +76,39 @@ export const getRecommendedPBList = async (page: number) => {
   }
 };
 
-export const postBookMarkPB = async (id: number) => {
+export const postBookMarkPB = async ({ id }: { id: number }) => {
   try {
     const res = await instance.post(`/user/bookmark/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
-export const deleteBookMarkPB = async (id: number) => {
+export const deleteBookMarkPB = async ({ id }: { id: number }) => {
   try {
     const res = await instance.delete(`/user/bookmark/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
-export const postBookMarkContent = async (id: number) => {
+export const postBookMarkContent = async ({ id }: { id: number }) => {
   try {
     const res = await instance.post(`/auth/bookmark/board/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
-export const deleteBookMarkContent = async (id: number) => {
+export const deleteBookMarkContent = async ({ id }: { id: number }) => {
   try {
-    const res = await instance.delete(`auth/bookmark/board/${id}`);
+    const res = await instance.delete(`/auth/bookmark/board/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 

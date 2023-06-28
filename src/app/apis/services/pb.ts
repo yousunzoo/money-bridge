@@ -17,7 +17,7 @@ export const getPbNotLogin = async (id: number) => {
     const res = await instance.get(`/profile/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -26,7 +26,7 @@ export const getPbProfile = async (id: number) => {
     const res = await instance.get(`/auth/profile/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -35,7 +35,7 @@ export const getPbPortfolio = async (id: number | undefined) => {
     const res = await instance.get(`/auth/portfolio/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -44,7 +44,7 @@ export const getSamePb = async (id: number | undefined) => {
     const res = await instance.get(`/auth/${id}/same`);
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -53,7 +53,7 @@ export const getPbContent = async (id: number, page: number) => {
     const res = await instance.get(`/auth/boards/${id}`, { params: { page } });
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -62,7 +62,7 @@ export const getReviewStyle = async (id: number | undefined) => {
     const res = await instance.get(`/review/style/${id}`);
     return res.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -71,7 +71,7 @@ export const getPbReviewRecent = async (id: number | undefined) => {
     const res = await instance.get(`/reviews/${id}`);
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -80,7 +80,7 @@ export const getPbReview = async (id: number | undefined, page: number) => {
     const res = await instance.get(`auth/reviews/${id}`, { params: { page } });
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -222,7 +222,7 @@ export const updatePBContents = async ({id,thumbnail,update}:{id: number; thumbn
     const res = await instance.put(`pb/board/${id}`,{});
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -231,7 +231,7 @@ export const postPBContents = async ({ thumbnail, update }: {thumbnail: any; upd
     const res = await instance.post("/pb/board",{});
     return res.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -240,7 +240,7 @@ export const getTemp = async (id: number) => {
     const res = await instance.get(`pb/board/${id}`);
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };
 
@@ -249,6 +249,6 @@ export const getTempList = async () => {
     const res = await instance.get("pb/boards/temp");
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error.response.data);
   }
 };

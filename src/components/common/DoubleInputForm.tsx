@@ -170,7 +170,7 @@ const getNotice = (type: InputFormType) => {
           header1: "이메일",
           header2: "비밀번호",
           notice1: "@를 포함하여 작성해 주세요.",
-          notice2: "8자 이상 입력해 주세요.",
+          notice2: "영문(대소문자), 숫자 포함하여 8자 이상 입력해 주세요.",
           submit: "로그인",
           func: "",
         },

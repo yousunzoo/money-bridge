@@ -9,22 +9,13 @@ import { ConsultationTimeCardProps } from "@/types/schedule";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { redirect, useRouter } from "next/navigation";
 import ErrorModal from "@/components/common/ErrorModal";
-import { getLoginedUserInfo } from "@/app/apis/services/auth";
-import { ILoginedUserInfo } from "@/types/common";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 function ChangeTimePage() {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const {
-    data: userInfo,
-    isLoading: userLoading,
-    isSuccess: isLogined,
-  } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["loginedUserInfo"],
-    queryFn: getLoginedUserInfo,
-    refetchOnWindowFocus: false,
-  });
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
 
   if (!isLogined && !userLoading) {
     redirect("/");
@@ -126,25 +117,25 @@ function ChangeTimePage() {
     <div>
       <TopNav title={"상담 가능 시간 변경하기"} hasBack={true} />
       <section>
-        <h3 className="mt-10 text-lg font-bold">상담 가능 시간을 설정해주세요.</h3>
-        <div className="flex items-center justify-around px-4 mt-4 rounded-md shadow-md py-7">
+        <h3 className="text-lg mt-10 font-bold">상담 가능 시간을 설정해주세요.</h3>
+        <div className="mt-4 flex items-center justify-around rounded-md px-4 py-7 shadow-md">
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-center">업무 시작 시간</span>
+            <span className="text-center text-sm font-bold">업무 시작 시간</span>
             <TimePickerButton {...startTimeButtonProps} />
           </div>
-          <div className="flex flex-col w-2 h-full align-bottom">
+          <div className="flex h-full w-2 flex-col align-bottom">
             <span className="mt-8 text-gray-normal">~</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-center">업무 종료 시간</span>
+            <span className="text-center text-sm font-bold">업무 종료 시간</span>
             <TimePickerButton {...endTimeButtonProps} />
           </div>
         </div>
       </section>
-      <div className="mt-8 mb-4">
+      <div className="mb-4 mt-8">
         <span className="text-sm font-bold">· 점심시간 등 상담이 불가한 요일, 시간을 알려주세요 (100자 이내)</span>
       </div>
-      <section className="w-full p-2 bg-white rounded-md shadow-md">
+      <section className="w-full rounded-md bg-white p-2 shadow-md">
         <textarea
           name=""
           id=""
@@ -152,7 +143,7 @@ function ChangeTimePage() {
           rows={6}
           cols={50}
           onChange={noticeChangeHandler}
-          className="w-full p-2 mt-4 text-sm rounded-md bg-background-secondary"
+          className="mt-4 w-full rounded-md bg-background-secondary p-2 text-sm"
         ></textarea>
       </section>
       <DoubleButton

@@ -14,6 +14,7 @@ import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import { ILoginedUserInfo } from "@/types/common";
 import ErrorModal from "@/components/common/ErrorModal";
 import { PROCESS_DATA } from "@/constants/reservation";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 function ManagementPage() {
   const [selectData, setSelectData] = useState<SelectedData[] | []>([]);
@@ -21,15 +22,7 @@ function ManagementPage() {
   const searchParams = useSearchParams();
   const process = searchParams.get("process") || "APPLY";
 
-  const {
-    data: userInfo,
-    isLoading: userLoading,
-    isSuccess: isLogined,
-  } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["loginedUserInfo"],
-    queryFn: getLoginedUserInfo,
-    refetchOnWindowFocus: false,
-  });
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
 
   if (!isLogined && !userLoading) {
     redirect("/");

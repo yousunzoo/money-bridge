@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 
 export const timeSelectOptions = ({ consultStart, consultEnd }: { consultStart: string; consultEnd: string }) => {
   const startHour = dayjs(consultStart, "hh").get("hour");
-  const endHour = dayjs(consultEnd, "hh").get("hour");
+  const endHour = dayjs(consultEnd, "hh").get("hour") === 0 ? 24 : dayjs(consultEnd, "hh").get("hour");
   const am = [];
   const pm = [];
   for (let i = startHour; i <= endHour; i++) {

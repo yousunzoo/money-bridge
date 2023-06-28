@@ -7,7 +7,7 @@ export const stepProgressList = [
     link: "/analysis",
   },
   {
-    type: "hasDoneBoardBookMark",
+    type: "hasDoneBoardBookmark",
     text: "투자 정보 쌓아보기",
     defaultImage: "/assets/images/progressList/hasDoneBoardBookMark.svg",
     activeImage: "/assets/images/progressList/doneBoardBookMark.svg",
@@ -25,6 +25,6 @@ export const stepProgressList = [
     text: "상담후기 작성하기",
     defaultImage: "/assets/images/progressList/hasDoneReview.svg",
     activeImage: "/assets/images/progressList/doneReview.svg",
-    link: "",
+    link: "/myCounseling",
   },
 ];

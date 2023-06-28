@@ -9,7 +9,7 @@ export const useCheckPropensity = () => {
   const { resetAnswers } = useAnalysisStore();
   const { mutate: registerPropensity } = useMutation(checkPropensity, {
     onSuccess: () => {
-      router.replace("/analysis/complete");
+      router.replace("/my/propensity");
       queryClient.refetchQueries(["myPropensity"]);
       queryClient.refetchQueries(["loginedUserInfo"]);
       resetAnswers();

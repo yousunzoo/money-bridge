@@ -22,7 +22,6 @@ function EditPage({ params }: { params: { slug: string } }) {
   });
   const { data, isLoading } = useQuery<IUserEditableInfo, AxiosError>(["myInfo"], getMyInfo, {
     staleTime: Infinity,
-    cacheTime: Infinity,
   });
 
   const { mutate } = useMutation<any, AxiosError, { [key: string]: string }>(editMyInfo, {

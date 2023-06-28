@@ -8,12 +8,12 @@ export interface IUserInfoProps {
 
 export interface IUserStep {
   hasDonePropensity: boolean;
-  hasDoneBoardBookMark: boolean;
+  hasDoneBoardBookmark: boolean;
   hasDoneReservation: boolean;
   hasDoneReview: boolean;
 }
 
-export type TProgress = "hasDonePropensity" | "hasDoneBoardBookMark" | "hasDoneReservation" | "hasDoneReview";
+export type TProgress = "hasDonePropensity" | "hasDoneBoardBookmark" | "hasDoneReservation" | "hasDoneReview";
 
 export interface IReservationCount {
   apply: number;

@@ -14,9 +14,8 @@ import { AxiosError } from "axios";
 import { ConsultationTimeCardProps, DayScheduleListProps } from "@/types/schedule";
 import dayjs from "dayjs";
 import ErrorModal from "@/components/common/ErrorModal";
-import { getLoginedUserInfo } from "../apis/services/auth";
 import { redirect } from "next/navigation";
-import { ILoginedUserInfo } from "@/types/common";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 function SchedulePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,15 +24,7 @@ function SchedulePage() {
     year: dayjs().year(),
     month: dayjs().month() + 1,
   });
-  const {
-    data: userInfo,
-    isLoading: userLoading,
-    isSuccess: isLogined,
-  } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["loginedUserInfo"],
-    queryFn: getLoginedUserInfo,
-    refetchOnWindowFocus: false,
-  });
+  const { userInfo, userLoading, isLogined } = useGetUserInfo();
 
   if (!isLogined && !userLoading) {
     redirect("/");
@@ -68,7 +59,7 @@ function SchedulePage() {
   return (
     <div className="relative flex flex-col items-center">
       <Image
-        className="absolute z-10 cursor-pointer right-7 top-6 "
+        className="absolute right-7 top-6 z-10 cursor-pointer "
         src={question}
         alt={question}
         width={20}

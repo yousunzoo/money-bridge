@@ -40,10 +40,18 @@ function PbListSection() {
   return (
     <section className="mt-3">
       <h3 className="text-xl font-bold">
-        가장 가까이에 있는 <br /> PB를 만나보세요
+        {location ? (
+          <span>
+            가장 가까이에 있는 <br /> PB를 만나보세요
+          </span>
+        ) : (
+          <span>
+            위치를 선택하면 <br /> 가장 가까이 있는 PB를 볼 수 있어요!
+          </span>
+        )}
       </h3>
       <div className="flex justify-end ">
-        <span className="mr-1">{location}</span>
+        <span className="mr-1">{location ? location : "위치 미지정"}</span>
         <Image className="mr-2" src={myLocation} alt={"myLocation"} width={14} height={14} />
       </div>
       <ul className="flex flex-col gap-4 py-2 ">

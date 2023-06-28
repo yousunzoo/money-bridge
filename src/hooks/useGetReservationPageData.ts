@@ -1,5 +1,6 @@
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { getReservationData } from "@/app/apis/services/user";
+import { useReservationStore } from "@/store/reservationStore";
 import { ILoginedUserInfo } from "@/types/common";
 import { IReservationData } from "@/types/reservation";
 import { useQuery } from "@tanstack/react-query";
@@ -10,6 +11,8 @@ import { useEffect, useState } from "react";
 export const useGetReservationPageData = () => {
   const [loading, setLoading] = useState(true);
   const params = useSearchParams().get("pbId");
+  const { resetAnswers } = useReservationStore();
+
   const { isLoading: userLoading, isSuccess: isLogined } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["loginedUserInfo"],
     queryFn: getLoginedUserInfo,
@@ -30,6 +33,9 @@ export const useGetReservationPageData = () => {
     enabled: !!isLogined,
   });
 
+  useEffect(() => {
+    resetAnswers();
+  }, []);
   useEffect(() => {
     if (userLoading || reservationLoading) {
       setLoading(true);

@@ -44,7 +44,7 @@ function Content() {
         </div>
         <ul>
           {newData?.map((item: IContentCard) => (
-            <ContentCardItem key={item.id} item={item} />
+            <ContentCardItem key={item.id} item={item} bookmarks={false} />
           ))}
         </ul>
       </div>
@@ -61,7 +61,7 @@ function Content() {
         </div>
         <ul>
           {hotData?.map((item: IContentCard) => (
-            <ContentCardItem key={item.id} item={item} />
+            <ContentCardItem key={item.id} item={item} bookmarks={false} />
           ))}
         </ul>
       </div>
@@ -111,9 +111,9 @@ function Content() {
           )}
         </div>
         {isClick ? (
-          <ContentCardList queryKey={"/boards"} api={getLoungeNew} />
+          <ContentCardList queryKey={"/boards"} api={getLoungeNew} bookmarks={false} />
         ) : (
-          all?.map((item: IContentCard) => <ContentCardItem key={item.id} item={item} />)
+          all?.map((item: IContentCard) => <ContentCardItem key={item.id} item={item} bookmarks={false} />)
         )}
       </div>
     </>

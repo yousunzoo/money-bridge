@@ -29,7 +29,7 @@ function FilteredPbCardList() {
       {list.length > 0 ? (
         <ul>
           {list.map((item: any) => (
-            <PbCardItem key={item.id} item={item} />
+            <PbCardItem key={item.id} item={item} bookmarks={true} />
           ))}
         </ul>
       ) : (

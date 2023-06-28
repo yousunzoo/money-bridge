@@ -7,7 +7,7 @@ function RecommendPBList({ list }: { list: IPbCard[] }) {
       <h3 className="mb-4 pb-4 text-2xl font-bold text-primary-normal">맞춤 PB 리스트</h3>
       <ul>
         {list.map(pbcardItem => (
-          <PbCardItem key={pbcardItem.id} item={pbcardItem} />
+          <PbCardItem key={pbcardItem.id} item={pbcardItem} bookmarks={true} />
         ))}
       </ul>
     </section>

@@ -23,20 +23,18 @@ import { IContentData } from "@/types/contents";
 
 function Content({ contentData, userData }: { contentData: IContentData; userData: ILoginedUserInfo }) {
   const { id, thumbnail, title, content, createdAt, tag1, tag2, pbId, name, isBookmarked, profile } = contentData;
-  const pathname:string = usePathname();
+  const pathname: string = usePathname();
   const router = useRouter();
-  const base:string = "https://money-bridge.vercel.app";
+  const base: string = "https://money-bridge.vercel.app";
   const urlToCopy: string = base + pathname;
-  const myId:number|undefined = getMyId(userData?.role, userData?.id, pbId);
+  const myId: number | undefined = getMyId(userData?.role, userData?.id, pbId);
   const queryClient = useQueryClient();
 
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
 
   const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(

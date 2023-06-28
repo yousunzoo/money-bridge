@@ -27,7 +27,7 @@ function PbDetailInfo() {
     refetchOnWindowFocus: false,
   });
 
-  if (!profile?.data || (!isLoading && !authProfile?.data)) return null;
+  if (!profile?.data) return null;
 
   return (
     <div className="mb-24 flex w-full flex-col">

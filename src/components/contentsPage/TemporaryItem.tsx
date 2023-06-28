@@ -29,7 +29,9 @@ function TemporaryItem({ item }: { item: ITempList }) {
         <div className="mr-6 text-base font-bold">{item.title}</div>
         <div className="text-sm">{timeShow()}</div>
       </div>
-      <div className="mt-4 h-[120px] rounded-sm bg-background-normal p-3"> {truncateContent(item.content, 20)}</div>
+      <div className="mt-4 h-[120px] whitespace-normal rounded-sm bg-background-normal p-3">
+        {truncateContent(item.content, 20)}
+      </div>
     </li>
   );
 }

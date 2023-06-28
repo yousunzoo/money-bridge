@@ -11,7 +11,7 @@ function PbReviewItem({ item }: { item: IPbReview }) {
         <div className="mr-2 text-sm font-bold">{showName(item.userName)} 님</div>
         <div className="text-xs">{dayjs(item.createdAt).format("YYYY.MM.DD")}</div>
       </div>
-      <div className="h-[90px] rounded-md bg-background-secondary p-3.5 text-xs">{item.content}</div>
+      <div className="h-[90px] whitespace-normal rounded-md bg-background-secondary p-3.5 text-xs">{item.content?item.content:"작성된 후기가 없습니다."}</div>
       <ul className="mt-3 flex">
         {item.list.map((styles: any, idx: number) => (
           <li key={idx} className="option mr-[8px] flex h-[35px] items-center">

@@ -20,7 +20,6 @@ function Intro({ introData }: { introData: IIntroData }) {
     branchName,
     msg,
     companyId,
-    companyName,
     companyLogo,
     reserveCount,
     reviewCount,
@@ -64,31 +63,31 @@ function Intro({ introData }: { introData: IIntroData }) {
           priority
         />
         <div className="absolute h-full w-full bg-gradient-to-t from-black from-0%"></div>
-        <div className="absolute bottom-[74px] left-[19px] h-[70px] w-[285px] text-[26px] text-white">{msg}</div>
+        <p className="absolute bottom-[74px] left-[19px] h-[70px] w-[285px] whitespace-normal text-[26px] text-white">
+          {msg}
+        </p>
         <Image
           src={profile}
           alt="프로필 이미지"
           width={0}
           height={390}
           sizes="100vw"
-          className="w-full h-[390px] object-contain"
+          className="h-[390px] w-full object-contain"
           priority
         />
       </div>
 
       <div className="flex flex-col items-center">
-        <div className="mb-4 mt-[23px] text-2xl font-bold">{name} PB</div>
-        <div className="mb-[18px] font-medium">
-          {companyName}&nbsp;{branchName}
-        </div>
+        <p className="mb-4 mt-[23px] text-2xl font-bold">{name} PB</p>
+        <p className="mb-[18px] font-medium">{branchName}</p>
         <div className="mb-3 flex h-[34px] w-[200px] items-center justify-center rounded-md bg-background-secondary text-[10px]">
           <div className="flex pr-[15px]">
-            <div className="font-bold">총 상담횟수</div>
+            <p className="font-bold">총 상담횟수</p>
             <div>&nbsp;&nbsp;{reserveCount ? reserveCount : 0}회</div>
           </div>
           <div className="h-full w-[2px] bg-white"></div>
           <div className="flex pl-[14px]">
-            <div className="font-bold">상담후기</div>
+            <p className="font-bold">상담후기</p>
             <div>&nbsp;&nbsp;{reviewCount ? reviewCount : 0}건</div>
           </div>
         </div>

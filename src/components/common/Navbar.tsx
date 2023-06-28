@@ -8,6 +8,7 @@ import list from "/public/assets/images/navbar/list.svg";
 import identity from "/public/assets/images/navbar/identity.svg";
 import Image from "next/image";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   {
@@ -44,6 +45,8 @@ const navItems = [
 
 function Navbar() {
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
+  const path = usePathname();
+  console.log(path === "/");
   return (
     <nav className="fixed bottom-0 left-1/2 flex h-[70px] w-full max-w-[768px] -translate-x-1/2 justify-around bg-white p-2">
       {navItems.map(item => {
@@ -51,7 +54,7 @@ function Navbar() {
           return (
             <Link key={item.text} href={item.href} className="group flex w-[74px] flex-col items-center">
               <Image src={item.image} alt={item.text} width={26} height={26} />
-              <span className="text-sm group-focus:font-bold">{item.text}</span>
+              <span className={`text-sm group-focus:font-bold ${path === item.href && "font-bold"}`}>{item.text}</span>
             </Link>
           );
         }

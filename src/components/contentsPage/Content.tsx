@@ -84,7 +84,7 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
           <div className="flex">
             {myId && (
               <>
-                <button onClick={() => router.push("/contents/edit")} className="flex w-9 justify-end">
+                <button onClick={() => router.push(`/contents/edit/${id}`)} className="flex w-9 justify-end">
                   <Image src={edit} alt="수정" width={24} height={24} className="icon" />
                 </button>
                 <button onClick={() => deleteHandler(id, deletecontent)} className="flex w-9 justify-end">

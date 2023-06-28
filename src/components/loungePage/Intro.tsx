@@ -8,8 +8,9 @@ import search from "/public/assets/images/icon/lounge_search.svg";
 import Image from "next/image";
 import mylist from "/public/assets/images/icon/lounge_mylist.svg";
 import write from "/public/assets/images/icon/lounge_write.svg";
+import { ILoginedUserInfo } from "@/types/common";
 
-function Intro({ role }: { role: string | undefined }) {
+function Intro({ userData }: { userData: ILoginedUserInfo | undefined }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -22,7 +23,7 @@ function Intro({ role }: { role: string | undefined }) {
   };
 
   const goToBookMark = () => {
-    if (role) {
+    if (userData?.role) {
       router.push("/bookmark/content");
     } else {
       setIsOpen(true);
@@ -38,10 +39,10 @@ function Intro({ role }: { role: string | undefined }) {
           <br />
           고급정보를 만나보세요
         </div>
-        {role === CommonROLE.PB ? (
+        {userData?.role === CommonROLE.PB ? (
           <div className="flex justify-end">
             <Link
-              href={`/detail/content/`}
+              href={`/detail/content/${userData?.id}`}
               className="mr-4 flex h-16 w-16 flex-col items-center justify-center rounded-md bg-secondary-light text-xs font-bold text-secondary-heavy"
             >
               <Image src={mylist} alt="내 글 목록" />내 글 목록

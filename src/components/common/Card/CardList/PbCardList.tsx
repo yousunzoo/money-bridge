@@ -50,7 +50,7 @@ function PbCardList({
   return (
     <>
       <ul>
-        {isFetching && (
+        {(isFetching || list.length === 0) && (
           <>
             <PBCardSkeletonItem />
             <PBCardSkeletonItem />

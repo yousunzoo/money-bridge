@@ -28,54 +28,42 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
 
   const { mutate: postrereply } = useMutation(postReReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
 
   const { mutate: deletereply } = useMutation(deleteReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
 
   const { mutate: deleterereply } = useMutation(deleteReReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
 
   const { mutate: editrereply } = useMutation(editReReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
 
   const { mutate: editreply } = useMutation(editReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
 
   const editHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -237,7 +225,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
               <div className="flex text-xs">
                 <Image
                   className="image"
-                  src={item.profile ? item.profile : profile}
+                  src={reply.profile ? reply.profile : profile}
                   alt="프로필"
                   width={18}
                   height={18}

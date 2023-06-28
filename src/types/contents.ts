@@ -2,6 +2,7 @@ export interface IContentsInfo {
   career: number;
   content: string;
   createdAt: string;
+  updatedAt: string | null;
   id: number;
   isBookmarked: boolean;
   name: string;
@@ -79,6 +80,7 @@ export interface IContentData {
   title: string;
   content: string;
   createdAt: string;
+  updatedAt: string | null;
   tag1: string;
   tag2: string;
   pbId: number;

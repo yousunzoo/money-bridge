@@ -80,6 +80,7 @@ export interface IPortfolio {
   profitFactor: number;
   averageProfit: number;
   file: string;
+  name: string;
 }
 
 export interface IPortfolioUpdate {

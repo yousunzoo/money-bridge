@@ -19,7 +19,7 @@ function Lounge() {
   return (
     <>
       <TopNav title="라운지" hasBack={true} />
-      <Intro role={userData?.role} />
+      <Intro userData={userData} />
       {userData?.role === "USER" && <PbRecommend name={userData?.name} />}
       <Content />
     </>

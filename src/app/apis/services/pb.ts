@@ -228,8 +228,26 @@ export const updatePBContents = async ({id,thumbnail,update}:{id: number; thumbn
 
 export const postPBContents = async ({ thumbnail, update }: {thumbnail: any; update: any }) => {
   try {
-    const res = await instance.get("/pb/board",{});
+    const res = await instance.post("/pb/board",{});
     return res.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response);
+  }
+};
+
+export const getTemp = async (id: number) => {
+  try {
+    const res = await instance.get(`pb/board/${id}`);
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response);
+  }
+};
+
+export const getTempList = async () => {
+  try {
+    const res = await instance.get("pb/boards/temp");
+    return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response);
   }

@@ -2,6 +2,7 @@ import { IJoinInformation, joinInDTO } from "@/types/join";
 import { formInstance, instance } from "../axios";
 import { IUser, IUserLogin } from "@/types/login";
 import { AxiosError } from "axios";
+import { removeCookie } from "@/utils/cookies";
 
 export const userLogin = async (user: IUserLogin) => {
   const res = await instance.post("/login", user);
@@ -72,6 +73,8 @@ export const getCompanyLocation = async (companyId: number, keyword: string) => 
 export const userLogout = async () => {
   try {
     const res = await instance.post("/auth/logout");
+    removeCookie("Authorization");
+    removeCookie("refreshToken");
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data.data.value);

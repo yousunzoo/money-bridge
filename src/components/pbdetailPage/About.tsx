@@ -64,15 +64,15 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
     <div>
       {reviewData && (
         <>
-          <div className="info_header">
+          <p className="info_header">
             투자자 님들의
             <br />
             실제 상담 후기
-          </div>
+          </p>
           <div className="card mb-[46px] flex h-[154px] w-full flex-col justify-center">
-            <div className="mx-auto mb-[15px] flex text-xs">
-              "투자자님들이 말하는&nbsp;<p className="font-bold">{name} PB의 매력</p>은?"
-            </div>
+            <p className="mx-auto mb-[15px] flex text-xs">
+              "투자자님들이 말하는&nbsp;<span className="font-bold">{name} PB의 매력</span>은?"
+            </p>
             <div className="mx-auto flex w-full px-[51px]">
               {reviewData.style1 && (
                 <div className="review_section">
@@ -83,7 +83,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
                     height={56}
                     className="mx-auto h-[56px] w-[56px]"
                   />
-                  <div className="review_text">{styleCase(reviewData.style1).style}</div>
+                  <p className="review_text">{styleCase(reviewData.style1).style}</p>
                 </div>
               )}
               {reviewData.style2 && (
@@ -95,7 +95,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
                     height={56}
                     className="mx-auto h-[56px] w-[56px]"
                   />
-                  <div className="review_text">{styleCase(reviewData.style2).style}</div>
+                  <p className="review_text">{styleCase(reviewData.style2).style}</p>
                 </div>
               )}
               {reviewData.style3 && (
@@ -107,7 +107,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
                     height={56}
                     className="mx-auto h-[56px] w-[56px]"
                   />
-                  <div className="review_text">{styleCase(reviewData.style3).style}</div>
+                  <p className="review_text">{styleCase(reviewData.style3).style}</p>
                 </div>
               )}
             </div>
@@ -119,9 +119,9 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         <div className="flex w-full items-center">
           {pbReviewData && pbReviewData.data && (
             <>
-              <div className="w-full text-xs font-bold">
+              <p className="w-full text-xs font-bold">
                 후기 {pbReviewData.totalElements ? pbReviewData.totalElements : 0}건
-              </div>
+              </p>
               <Link href={`/detail/review/${id}`} className="flex w-full justify-end text-sm underline">
                 전체보기
               </Link>
@@ -140,13 +140,13 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
       </div>
 
       <div>
-        <div className="info_header">방문 상담을 원하시나요?</div>
+        <p className="info_header">방문 상담을 원하시나요?</p>
         <div className="card h-[240px] p-[18px]">
-          <div className="text-base font-bold">
-            {companyName}&nbsp;{branchName}
-          </div>
+          <p className="text-base font-bold">
+            {branchName}
+          </p>
           <div className="flex text-xs">
-            <div className="flex-1">{branchAddress}</div>
+            <p className="flex-1">{branchAddress}</p>
             <LocationCopyButton location={branchAddress} />
           </div>
           <div className="mt-4 h-[140px]">
@@ -156,11 +156,11 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
       </div>
 
       <div className="mt-[90px]">
-        <div className="info_header">
+        <p className="info_header">
           핏에 맞는 다른 PB도
           <br />
           함께 만나보세요
-        </div>
+        </p>
         <ul>
           {sameData?.map(item => (
             <PbCardItem key={item.id} item={item} />

@@ -28,7 +28,7 @@ function CheckInfoQuestion({ isOpen, userInfo, handleOpenModal, moveToNextStep }
   };
 
   return (
-    <section ref={sectionRef} className="flex h-screen flex-col pb-10">
+    <section ref={sectionRef} className={`${isChoosable && answers[5] && "pt-20"} flex h-screen flex-col pb-10`}>
       <div className={`${isChoosable ? "pt-12" : "pt-4"}`} />
       {isChoosable && <Image className="mb-2" src={highlight} alt="highlight" width={24} height={24} />}
       {intro1 && isChoosable && (

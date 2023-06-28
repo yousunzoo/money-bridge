@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Axios, AxiosError } from "axios";
+import { AxiosError } from "axios";
 
 export const useMyPageCheck = (enabled: boolean) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,9 +29,7 @@ export const useMyPageCheck = (enabled: boolean) => {
   const { mutate: logout } = useMutation<unknown, AxiosError>(userLogout, {
     onSuccess: () => {
       router.replace("/");
-      removeCookie("Authorization");
-      removeCookie("refreshToken");
-      queryClient.removeQueries(["loginedUserInfo"]);
+      queryClient.resetQueries();
     },
   });
 

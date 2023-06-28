@@ -58,7 +58,7 @@ function PbCardItem({ item }: { item: IPbCard }) {
             {item.career}년차
           </div>
         </div>
-        {userData?.role && (
+        {userData?.role !== undefined && (
           <button onClick={bookMark} className="flex-2 flex w-12 items-start justify-center pt-1">
             {isBookmarked ? (
               <Image
@@ -76,7 +76,7 @@ function PbCardItem({ item }: { item: IPbCard }) {
         )}
       </div>
       <div className="flex h-[34px] items-center justify-center rounded-md bg-background-primary text-xs font-bold text-primary-normal">
-        {item.msg ? `"${item.msg}"`: "소개가 없습니다."}
+        {item.msg ? `"${item.msg}"` : "소개가 없습니다."}
       </div>
       <div className="mt-[13px] flex items-center text-sm">
         <div className="flex flex-1 text-[10px]">

@@ -8,7 +8,6 @@ import useContentBookMark from "@/hooks/useContentBookMark";
 import useShare from "@/hooks/useShare";
 import { usePathname, useRouter } from "next/navigation";
 import ButtonModal from "@/components/common/ButtonModal";
-import dayjs from "dayjs";
 import user_profile from "/public/assets/images/profile.svg";
 import "@/styles/content.css";
 import edit from "/public/assets/images/icon/edit.svg";
@@ -20,23 +19,23 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { ILoginedUserInfo } from "@/types/common";
 import { IContentData } from "@/types/contents";
+import { timeShow } from "@/utils/timeShow";
 
 function Content({ contentData, userData }: { contentData: IContentData; userData: ILoginedUserInfo }) {
-  const { id, thumbnail, title, content, createdAt, tag1, tag2, pbId, name, isBookmarked, profile } = contentData;
-  const pathname:string = usePathname();
+  const { id, thumbnail, title, content, createdAt, updatedAt, tag1, tag2, pbId, name, isBookmarked, profile } =
+    contentData;
+  const pathname: string = usePathname();
   const router = useRouter();
-  const base:string = "https://money-bridge.vercel.app";
+  const base: string = "https://money-bridge.vercel.app";
   const urlToCopy: string = base + pathname;
-  const myId:number|undefined = getMyId(userData?.role, userData?.id, pbId);
+  const myId: number | undefined = getMyId(userData?.role, userData?.id, pbId);
   const queryClient = useQueryClient();
 
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {
-      console.log(err);
-    },
+    onError: (err: AxiosError) => {},
   });
 
   const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
@@ -81,11 +80,11 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
         </div>
         <div className="mb-[11px] text-2xl font-bold">{title}</div>
         <div className="mb-[15px] flex">
-          <div className="font-xs flex-1">{dayjs(createdAt).format("YYYY. MM. DD")}</div>
+          <div className="font-xs flex-1">{timeShow(createdAt, updatedAt)}</div>
           <div className="flex">
             {myId && (
               <>
-                <button onClick={() => router.push("/contents/edit")} className="flex w-9 justify-end">
+                <button onClick={() => router.push(`/contents/edit/${id}`)} className="flex w-9 justify-end">
                   <Image src={edit} alt="수정" width={24} height={24} className="icon" />
                 </button>
                 <button onClick={() => deleteHandler(id, deletecontent)} className="flex w-9 justify-end">

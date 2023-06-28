@@ -1,9 +1,17 @@
 "use client";
+import { removeCookie } from "@/utils/cookies";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 function Main({ children }: { children: ReactNode }) {
   const path = usePathname();
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", () => {
+      if (localStorage.getItem("AutoLogin") === "false") removeCookie("Authorization");
+    });
+  }, []);
+
   const background = (() => {
     if (
       path === "/" ||

@@ -8,7 +8,6 @@ import useContentBookMark from "@/hooks/useContentBookMark";
 import useShare from "@/hooks/useShare";
 import { usePathname, useRouter } from "next/navigation";
 import ButtonModal from "@/components/common/ButtonModal";
-import dayjs from "dayjs";
 import user_profile from "/public/assets/images/profile.svg";
 import "@/styles/content.css";
 import edit from "/public/assets/images/icon/edit.svg";
@@ -20,9 +19,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { ILoginedUserInfo } from "@/types/common";
 import { IContentData } from "@/types/contents";
+import { timeShow } from "@/utils/timeShow";
 
 function Content({ contentData, userData }: { contentData: IContentData; userData: ILoginedUserInfo }) {
-  const { id, thumbnail, title, content, createdAt, tag1, tag2, pbId, name, isBookmarked, profile } = contentData;
+  const { id, thumbnail, title, content, createdAt, updatedAt, tag1, tag2, pbId, name, isBookmarked, profile } =
+    contentData;
   const pathname: string = usePathname();
   const router = useRouter();
   const base: string = "https://money-bridge.vercel.app";
@@ -79,7 +80,7 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
         </div>
         <div className="mb-[11px] text-2xl font-bold">{title}</div>
         <div className="mb-[15px] flex">
-          <div className="font-xs flex-1">{dayjs(createdAt).format("YYYY. MM. DD")}</div>
+          <div className="font-xs flex-1">{timeShow(createdAt, updatedAt)}</div>
           <div className="flex">
             {myId && (
               <>

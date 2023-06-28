@@ -33,7 +33,6 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
 
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onSuccess: () => {
-      queryClient.refetchQueries(["getContentsId"]);
     },
     onError: (err: AxiosError) => {},
   });
@@ -41,7 +40,7 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
   const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
-    id,
+    "getContentsId",
   );
 
   const {
@@ -55,7 +54,7 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
     setIsCopyOpen,
     copyContents,
   } = useShare(urlToCopy, title, content, thumbnail);
-  const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useDelete();
+  const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useDelete(userData);
   return (
     <div>
       <div className="card mt-[33px] flex h-[52px] flex-row items-center rounded-md bg-white font-bold">
@@ -95,7 +94,10 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
             <button onClick={shareHandler} className="flex w-9 justify-end">
               <Image src={share} alt="공유" width={24} height={24} className="icon" />
             </button>
-            <button onClick={bookMarkHandler} className="flex w-9 justify-end">
+            <button
+              onClick={() => bookMarkHandler(id)}
+              className="flex w-9 justify-end"
+            >
               {isBookmark ? (
                 <Image src={bookmark_filled} alt="북마크 활성화" width={24} height={24} className="icon" />
               ) : (

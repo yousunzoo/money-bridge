@@ -8,7 +8,7 @@ function LoungeHot() {
   return (
     <>
       <TopNav title="인기 콘텐츠" hasBack={true} />
-      <ContentCardList queryKey={"getLoungeHot"} api={Hot} />
+      <ContentCardList queryKey={"getLoungeHot"} api={Hot} bookmarks={false} />
     </>
   );
 }

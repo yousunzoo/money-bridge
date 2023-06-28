@@ -8,8 +8,8 @@ import { useGeoLocation } from "@/hooks/useGeoLacation";
 import arrowDown from "/public/assets/images/arrowDown.svg";
 import SelectLocationModal from "../mainPage/SelectLocationModal";
 import { useLocationStore } from "@/store/location";
-import { useMyPageCheck } from "@/hooks/useMyPageCheck";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { useLogout } from "@/hooks/useLogout";
 
 const logoPath = ["/", "/lounge"];
 
@@ -27,7 +27,7 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
 
   const [mounted, setMounted] = useState<boolean>(false);
 
-  const { logout } = useMyPageCheck(false);
+  const logout = useLogout();
 
   useEffect(() => {
     setMounted(true);

@@ -13,7 +13,7 @@ function Profile({ notLoginData }: { notLoginData: IProfile }) {
           alt="증권사 로고"
           width={112}
           height={42}
-          className="absolute left-[19px] z-10 h-[42px] w-[112px] cursor-pointer object-cover"
+          className="absolute left-1 top-4 z-10 h-[42px] w-[112px] cursor-pointer object-contain"
           priority
         />
         <div className="absolute h-full w-full bg-gradient-to-t from-black from-0%"></div>

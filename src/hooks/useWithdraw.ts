@@ -1,8 +1,9 @@
 import { userWithdraw } from "@/app/apis/services/auth";
 import { removeCookie } from "@/utils/cookies";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useWithdraw = () => {
+  const queryClient = useQueryClient();
   const {
     mutate: withdraw,
     isSuccess: IsWithdrawed,
@@ -10,6 +11,8 @@ export const useWithdraw = () => {
   } = useMutation(userWithdraw, {
     onSuccess: () => {
       removeCookie("Authorization");
+      removeCookie("refreshToken");
+      queryClient.resetQueries();
     },
   });
   return { withdraw, IsWithdrawed, withdrawError };

@@ -13,17 +13,22 @@ import { AxiosError } from "axios";
 import highlight from "/public/assets/images/highlight.svg";
 import Image from "next/image";
 import { ILoginedUserInfo } from "@/types/common";
+
 function AnalysisPage() {
   const questions: IAnalysisQuestions = analysisQuestions;
   const [step, setStep] = useState(0);
   const { data: userData, isLoading } = useQuery<ILoginedUserInfo, AxiosError>(["loginedUserInfo"], getLoginedUserInfo);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const { answers, setAnswers } = useAnalysisStore();
+  const { answers, setAnswers, resetAnswers } = useAnalysisStore();
   const registerPropensity = useCheckPropensity();
   const moveToNextStep = (nowStep: number, answer: string) => {
     setStep(nowStep + 1);
     setAnswers(nowStep, answer);
   };
+
+  useEffect(() => {
+    resetAnswers();
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;

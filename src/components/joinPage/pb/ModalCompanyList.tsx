@@ -33,15 +33,16 @@ function ModalCompanyList({
         className="scroll_hidden -mx-4 flex h-[200px] flex-col overflow-y-scroll pr-px text-center"
         onClick={handleSelect}
       >
-        {getCompanyList.data?.data.list.map(company => (
-          <li
-            key={company.id}
-            id={`${company.id}`}
-            className={`cursor-pointer py-3.5 ${selectedItem.name === company.name && "bg-background-secondary"}`}
-          >
-            {company.name}
-          </li>
-        ))}
+        {getCompanyList &&
+          getCompanyList.data?.data.list.map(company => (
+            <li
+              key={company.id}
+              id={`${company.id}`}
+              className={`cursor-pointer py-3.5 ${selectedItem.name === company.name && "bg-background-secondary"}`}
+            >
+              {company.name}
+            </li>
+          ))}
       </ul>
       <button
         type="button"

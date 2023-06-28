@@ -5,7 +5,12 @@ import PbThirdParty from "@/constants/provisions/pb/PbThirdParty";
 import UserPersonalInformation from "@/constants/provisions/user/UserPersonalInformation";
 import UserSysmetic from "@/constants/provisions/user/UserSysmetic";
 import UserThirdParty from "@/constants/provisions/user/UserThirdParty";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "이용약관",
+};
 
 function TermsPage() {
   const userProvisions = [

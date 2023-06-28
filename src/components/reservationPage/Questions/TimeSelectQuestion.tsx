@@ -1,5 +1,5 @@
-import { ITimeSelectQuestionProps, IQuestions } from "@/types/reservation";
-import React, { MouseEvent, useEffect, useRef, useState } from "react";
+import { ITimeSelectQuestionProps } from "@/types/reservation";
+import React, { useEffect } from "react";
 import UserBubble from "../UserBubble/UserBubble";
 import { useSetQuestions } from "@/hooks/useSetQuestions";
 import highlight from "/public/assets/images/highlight.svg";
@@ -16,13 +16,13 @@ function TimeSelectQuestion({ isOpen, consultTime, handleOpenModal }: ITimeSelec
   };
 
   useEffect(() => {
-    if (answers[3]?.candidateTime1) {
+    if (isChoosable && answers[3]?.candidateTime1) {
       setIsChoosable(false);
     }
-  }, [isChoosable, answers]);
+  }, [answers]);
 
   return (
-    <section ref={sectionRef} className="flex h-screen flex-col pb-10">
+    <section ref={sectionRef} className={`${isChoosable && answers[3] && "pt-20"} flex h-screen flex-col pb-10`}>
       {isChoosable && <Image className="mb-2" src={highlight} alt="highlight" width={24} height={24} />}
       {intro1 && isChoosable && (
         <div className="text-lg mb-4 font-semibold">

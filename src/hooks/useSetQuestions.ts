@@ -11,17 +11,24 @@ export const useSetQuestions = (step: 0 | 1 | 2 | 3 | 4 | 5, isOpen?: boolean) =
   const { answers, setAnswers } = useReservationStore();
 
   useEffect(() => {
-    if (!sectionRef.current || !answerRef.current) return;
+    if (!sectionRef.current) return;
 
     if (!isChoosable) {
       sectionRef.current.classList.remove("h-screen");
-      answerRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      if (answers[step] && answerRef.current) {
+        answerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
       return;
     }
-    if (step !== 0 && isChoosable) {
+
+    if (isChoosable) {
+      console.log("choose");
+    }
+    if (step !== 0 && answers[step] && isChoosable) {
+      console.log("hi");
       sectionRef.current.classList.add("h-screen");
       sectionRef.current.scrollIntoView({
         behavior: "smooth",
@@ -36,5 +43,6 @@ export const useSetQuestions = (step: 0 | 1 | 2 | 3 | 4 | 5, isOpen?: boolean) =
       setIsChoosable(false);
     }
   }, [isOpen]);
+
   return { nowQuestion, isChoosable, setIsChoosable, sectionRef, answerRef, answers, setAnswers };
 };

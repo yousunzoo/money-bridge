@@ -18,7 +18,7 @@ function LocationQuestion({ pbStation, moveToNextStep }: ILocationQuestionProps)
   };
 
   return (
-    <section ref={sectionRef} className="flex h-screen flex-col pb-10">
+    <section ref={sectionRef} className={`${isChoosable && answers[1] && "pt-20"} flex h-screen flex-col pb-10`}>
       {isChoosable && <Image className="mb-2" src={highlight} alt="highlight" width={24} height={24} />}
       {intro1 && isChoosable && (
         <div className="text-lg mb-4 font-semibold">

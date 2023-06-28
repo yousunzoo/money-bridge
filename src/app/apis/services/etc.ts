@@ -4,7 +4,7 @@ import { IPBListParams, IPBListRequest } from "@/types/pblist";
 
 export const getFAQs = async (page: number) => {
   try {
-    const res = await instance.get("/FAQ", { params: { page } });
+    const res = await instance.get("/faqs", { params: { page } });
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);

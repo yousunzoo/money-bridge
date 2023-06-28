@@ -12,7 +12,7 @@ export interface IUserBubbleProps {
 }
 function UserBubble({ answerRef, step, answers, setIsChoosable }: IUserBubbleProps) {
   const didAnswer = step === 3 && answers[3]?.candidateTime1 ? true : answers[step] ? true : false;
-  const margin = answers[(step + 1) as 1 | 2 | 3 | 4 | 5] ? "" : "mt-10";
+  const margin = answers[(step + 1) as 1 | 2 | 3 | 4 | 5] ? "" : "mt-20";
   return (
     <>
       {!didAnswer && <div className="grow" />}

@@ -49,7 +49,7 @@ function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSect
   };
 
   return (
-    <section ref={sectionRef} className="flex h-screen flex-col">
+    <section ref={sectionRef} className={`flex h-screen flex-col ${isChoosable && "pt-10"}`}>
       <div className="pt-10" />
       {isChoosable && <Image src={highlight} className="mb-2" alt="highlight" width={24} height={24} />}
       {intro1 && isChoosable && <div className="text-lg mb-4 font-semibold">{intro2 && <p>{intro2}</p>}</div>}
@@ -68,7 +68,7 @@ function QuestionSection({ nowStep, nowQuestion, moveToNextStep }: IQuestionSect
       </div>
       <div
         className={`${
-          isChoosable ? "grow" : answers[(nowStep + 1) as 1 | 2 | 3 | 4 | 5] || nowStep === 5 ? "h-0" : "h-14"
+          isChoosable ? "grow" : answers[(nowStep + 1) as 1 | 2 | 3 | 4 | 5] || nowStep === 5 ? "h-0" : "h-20"
         }`}
         ref={answerRef}
       />

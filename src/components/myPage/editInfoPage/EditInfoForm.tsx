@@ -39,9 +39,14 @@ function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
                 {...register("inputValue")}
                 autoFocus
               />
-              {isDirty && (
+              {dirtyFields.inputValue && (
                 <>
-                  <button className="input_button" onClick={() => reset()} tabIndex={-1}></button>
+                  <button
+                    type="button"
+                    className="input_button bg-[url('/assets/images/clear.svg')]"
+                    tabIndex={-1}
+                    onClick={() => reset()}
+                  ></button>
                   <Image src={errors.inputValue ? alert : correct} alt="input_status" className="input_status" />
                 </>
               )}

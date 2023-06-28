@@ -5,11 +5,12 @@ import React from "react";
 import { getTemp } from "@/app/apis/services/pb";
 import { useQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import { ITemp } from "@/types/contents";
 
 function ContentsEdit() {
   const pathname: string = usePathname();
   const id: number = Number(pathname.split("/").pop());
-  const { data: tempData } = useQuery(["getTemp"], () => getTemp(id));
+  const { data: tempData } = useQuery<ITemp>(["getTemp"], () => getTemp(id));
 
   return (
     <>

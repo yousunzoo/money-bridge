@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import "@/styles/content.css";
 import { BoardStatus } from "@/constants/enum";
 import { useRouter } from "next/router";
+import { ITemp } from "@/types/contents";
 
-function Write({ data, id }: { data?: any; id?: number }) {
+function Write({ data, id }: { data?: ITemp; id?: number }) {
   const router = useRouter();
   const isStatus = data?.status === BoardStatus.ACTIVE || BoardStatus.TEMP;
   const [titleText, setTitleText] = useState(isStatus ? data?.title : "");

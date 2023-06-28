@@ -6,7 +6,7 @@ function ContentsWrite() {
   return (
     <>
       <TopNav title="콘텐츠 작성하기" hasBack={true} />
-      {/* <Write /> */}
+      <Write />
     </>
   );
 }

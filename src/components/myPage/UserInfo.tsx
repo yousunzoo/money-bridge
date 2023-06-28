@@ -1,5 +1,4 @@
 import { Propensity } from "@/constants/enum";
-import { IUserInfoProps } from "@/types/my";
 import StepProgress from "./StepProgress";
 import MyReservationStatus from "./MyReservationStatus";
 import BookmarkPreview from "./BookmarkPreview";
@@ -8,7 +7,11 @@ import { getUserInfo } from "@/app/apis/services/user";
 import { IPropensity } from "@/types/pblist";
 
 function UserInfo() {
-  const { data, isLoading, error } = useQuery({ queryKey: ["userInfo"], queryFn: getUserInfo, staleTime: Infinity });
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: getUserInfo,
+    refetchOnWindowFocus: false,
+  });
 
   if (!data || isLoading) return;
 

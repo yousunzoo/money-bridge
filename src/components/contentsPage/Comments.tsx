@@ -225,7 +225,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
               <div className="flex text-xs">
                 <Image
                   className="image"
-                  src={item.profile ? item.profile : profile}
+                  src={reply.profile ? reply.profile : profile}
                   alt="프로필"
                   width={18}
                   height={18}

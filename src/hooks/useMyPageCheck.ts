@@ -15,13 +15,13 @@ export const useMyPageCheck = () => {
   const token = getCookie("Authorization");
   const {
     data: loginedUserInfo,
-    isLoading: userLoading,
-    isError: userError,
+    isLoading,
+    isSuccess,
+    isError,
   } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["loginedUserInfo"],
+    queryKey: ["myPage"],
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: true,
-    enabled: !!token,
   });
 
   const { mutate: logout } = useMutation<unknown, AxiosError>(userLogout, {
@@ -43,5 +43,5 @@ export const useMyPageCheck = () => {
     });
   };
 
-  return { loginedUserInfo, userLoading, userError, logout, isOpen, setIsOpen, modalContents, handleLogout };
+  return { loginedUserInfo, isLoading, isError, logout, isOpen, setIsOpen, modalContents, handleLogout };
 };

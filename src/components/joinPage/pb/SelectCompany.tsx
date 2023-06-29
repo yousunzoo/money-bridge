@@ -7,6 +7,7 @@ import ModalCompanyLocation from "./ModalCompanyLocation";
 import { ICompanyInput } from "@/types/join";
 import { useJoinStore } from "@/store/joinStore";
 import { useRouter } from "next/navigation";
+import { useGetCompanyList } from "@/hooks/useGetCompanyList";
 
 function SelectCompany() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,7 @@ function SelectCompany() {
     id: 0,
   });
   const { setInformations } = useJoinStore();
+  const companyList = useGetCompanyList();
   const router = useRouter();
 
   const handleChangeCompany = (item: ICompanyInput) => {
@@ -104,7 +106,11 @@ function SelectCompany() {
               handleCloseModal={handleCloseModal}
             />
           ) : (
-            <ModalCompanyList handleChangeCompany={handleChangeCompany} handleCloseModal={handleCloseModal} />
+            <ModalCompanyList
+              handleChangeCompany={handleChangeCompany}
+              handleCloseModal={handleCloseModal}
+              companyList={companyList.data}
+            />
           )}
         </ModalLayout>
       )}

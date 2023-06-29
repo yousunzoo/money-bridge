@@ -15,18 +15,13 @@ const BUTTON_STYLE = "gray-heavy text-xs underline decoration-gray-heavy decorat
 const nextIcon = "/assets/images/nextIcon.svg";
 
 function MyPage() {
-  const [mounted, setMounted] = useState(false);
-  const { loginedUserInfo, loading, handleLogout, isOpen, setIsOpen, modalContents } = useMyPageCheck();
+  const { loginedUserInfo, userLoading, handleLogout, isOpen, setIsOpen, modalContents } = useMyPageCheck();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (loading || !loginedUserInfo) return null;
+  if (userLoading || !loginedUserInfo) return null;
   return (
     <>
       <TopNav title="마이페이지" hasBack={true} />
-      <Skeleton className="mb-10" active loading={loading} />
+      <Skeleton className="mb-10" active loading={userLoading} />
       {loginedUserInfo.role === "USER" && <UserInfo />}
       {loginedUserInfo.role === "PB" && <PBInfo />}
       <section className="mb-10">

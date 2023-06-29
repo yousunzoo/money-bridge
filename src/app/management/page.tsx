@@ -6,12 +6,10 @@ import UserReservationItem from "@/components/common/Card/CardItem/UserReservati
 import ProcessList from "@/components/common/ProcessList";
 import { getConsultationList, getConsultationStatus } from "../apis/services/pb";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { getLoginedUserInfo } from "../apis/services/auth";
 import { AxiosError } from "axios";
 import { ConsultationStatusProps, SelectedData } from "@/types/management";
 import { redirect, useSearchParams } from "next/navigation";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
-import { ILoginedUserInfo } from "@/types/common";
 import ErrorModal from "@/components/common/ErrorModal";
 import { PROCESS_DATA } from "@/constants/reservation";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";

@@ -32,8 +32,10 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
     goal,
     question,
     profileImage,
+    phoneNumber,
     reviewCheck,
   } = reservationInfo;
+  const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
   if (!userInfo) return;
   const role = userInfo?.role;
@@ -70,12 +72,17 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
         <span className="text-white ">취소된 상담입니다.</span>
       </div>
 
-      <UserReservationItem buttonName="고객 정보" href={"/"} isRole={"USER"} profileImage={profileImage}>
+      <UserReservationItem
+        buttonName="고객 정보"
+        href={`tel:${formattedPhoneNumber}`}
+        isRole={"USER"}
+        profileImage={profileImage}
+      >
         <p className="font-bold">{name}</p>
         <p className="text-xs ">취소된 상담</p>
       </UserReservationItem>
 
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />

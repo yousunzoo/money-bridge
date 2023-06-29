@@ -46,9 +46,9 @@ function Intro({ introData }: { introData: IIntroData }) {
         <Image
           src={companyLogo}
           alt="증권사 로고"
-          width={112}
+          width={42}
           height={42}
-          className="absolute left-[19px] top-3 z-10 h-[42px] w-[112px] cursor-pointer object-cover"
+          className="absolute left-2  z-10 h-[42px] cursor-pointer object-contain"
           onClick={goToCompany}
           priority
         />

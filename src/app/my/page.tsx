@@ -16,19 +16,19 @@ const BUTTON_STYLE = "gray-heavy text-xs underline decoration-gray-heavy decorat
 const nextIcon = "/assets/images/nextIcon.svg";
 
 function MyPage() {
-  const { loginedUserInfo, userLoading, userError, handleLogout, isOpen, setIsOpen, modalContents } = useMyPageCheck();
+  const { loginedUserInfo, isLoading, isError, handleLogout, isOpen, setIsOpen, modalContents } = useMyPageCheck();
 
   useEffect(() => {
-    if (userError) {
+    if (!loginedUserInfo && isError) {
       redirect("/login");
     }
-  }, [userError]);
+  }, [loginedUserInfo, isError]);
 
-  if (userLoading || !loginedUserInfo) return null;
+  if (isLoading || !loginedUserInfo) return null;
   return (
     <>
       <TopNav title="마이페이지" hasBack={true} />
-      <Skeleton className="mb-10" active loading={userLoading} />
+      <Skeleton className="mb-10" active loading={isLoading} />
       {loginedUserInfo.role === "USER" && <UserInfo />}
       {loginedUserInfo.role === "PB" && <PBInfo />}
       <section className="mb-10">

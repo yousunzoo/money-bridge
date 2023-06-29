@@ -48,7 +48,7 @@ export const getNotLoginContents = async (id: number) => {
   }
 };
 
-export const deleteContent = async ({ id}: {id:number }) => {
+export const deleteContent = async ({ id }: { id: number }) => {
   try {
     const res = await instance.delete(`pb/board/${id}`);
     return res.data.data;
@@ -58,11 +58,12 @@ export const deleteContent = async ({ id}: {id:number }) => {
 };
 
 export const getSuggestionPB = async ({ latitude, longitude }: CoordinateProps): Promise<PbListSectionPorps[]> => {
+  console.log(latitude, longitude);
   try {
     const res = await instance.get("/main/pb", {
       params: {
-        latitude,
         longitude,
+        latitude,
       },
     });
     return res.data.data.list;
@@ -80,7 +81,7 @@ export const getContents = async () => {
   }
 };
 
-export const getSearchContent = async ( search: string, page: string) => {
+export const getSearchContent = async (search: string, page: string) => {
   try {
     const res = await instance.get("/lounge/boards", { params: { search, page } });
     return res.data.data;

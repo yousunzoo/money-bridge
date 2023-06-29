@@ -9,6 +9,7 @@ import UserComplete from "@/components/joinPage/user/UserComplete";
 import { useJoinStore } from "@/store/joinStore";
 import SetPasswordForm from "@/components/joinPage/common/SetPasswordForm";
 import { useAuthenticationStore } from "@/store/authenticationStore";
+import { useEffect } from "react";
 
 type Tstep = "email" | "authentication" | "password" | "name" | "phoneNumber" | "agreements" | "complete";
 
@@ -52,9 +53,13 @@ function Page() {
   const pathName = usePathname();
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
   checkRedirect(pathName) ?? redirect("/login");
-  const { informations } = useJoinStore();
-  const { code } = useAuthenticationStore();
-  const stepPath = pathName.split("/")[3];
+
+  useEffect(() => {
+    if (!navigator.cookieEnabled) {
+      alert("쿠키를 허용해주세요");
+      redirect("/");
+    }
+  }, []);
 
   return (
     <>

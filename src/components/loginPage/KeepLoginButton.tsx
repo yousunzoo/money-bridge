@@ -7,6 +7,7 @@ function KeepLoginButton() {
 
   const clickRememberLoginStatus = () => {
     localStorage.setItem("AutoLogin", (!autoLogin).toString());
+    sessionStorage.setItem("AutoLogin", (!autoLogin).toString());
     setAutoLogin(!autoLogin);
   };
 

@@ -46,7 +46,6 @@ const navItems = [
 function Navbar() {
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
   const path = usePathname();
-  console.log(path === "/");
   return (
     <nav className="fixed bottom-0 left-1/2 flex h-[70px] w-full max-w-[768px] -translate-x-1/2 justify-around bg-white p-2">
       {navItems.map(item => {

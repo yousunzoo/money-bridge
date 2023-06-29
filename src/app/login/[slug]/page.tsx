@@ -4,11 +4,17 @@ import ButtonToAccountSetting from "@/components/loginPage/ButtonToAccountSettin
 import DoubleInputForm from "@/components/common/DoubleInputForm";
 import KeepLoginButton from "@/components/loginPage/KeepLoginButton";
 import { InputFormType } from "@/constants/enum";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 function Login() {
   const pathName = usePathname();
-
+  useEffect(() => {
+    if (!navigator.cookieEnabled) {
+      alert("쿠키를 허용해주세요");
+      redirect("/");
+    }
+  }, []);
   return (
     <>
       <TopNav title={`${pathName.split("/")[2] === "user" ? "유저 로그인" : "PB 로그인"}`} hasBack backGroundWhite />

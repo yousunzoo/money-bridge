@@ -64,7 +64,12 @@ function JoinInformation({ type }: { type: JoinFormType }) {
           />
           {dirtyFields.text && (
             <>
-              <button type="button" className="input_button" tabIndex={-1} onClick={() => reset()}></button>
+              <button
+                type="button"
+                className="input_button  bg-[url('/assets/images/clear.svg')]"
+                tabIndex={-1}
+                onClick={() => reset()}
+              ></button>
               <Image src={errors.text ? alert : correct} alt="input_status" className="input_status" />
             </>
           )}

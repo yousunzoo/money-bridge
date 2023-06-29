@@ -2,7 +2,6 @@ import { getLoginedUserInfo, userLogout } from "@/app/apis/services/auth";
 import { ILoginedUserInfo, IModalContents } from "@/types/common";
 import { getCookie, removeCookie } from "@/utils/cookies";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
@@ -14,7 +13,11 @@ export const useMyPageCheck = () => {
   const [modalContents, setModalContents] = useState<IModalContents>({ content: "", confirmText: "" });
 
   const token = getCookie("Authorization");
-  const { data: loginedUserInfo, isLoading: userLoading } = useQuery<ILoginedUserInfo, AxiosError>({
+  const {
+    data: loginedUserInfo,
+    isLoading: userLoading,
+    isError: userError,
+  } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["loginedUserInfo"],
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: true,
@@ -40,5 +43,5 @@ export const useMyPageCheck = () => {
     });
   };
 
-  return { loginedUserInfo, userLoading, logout, isOpen, setIsOpen, modalContents, handleLogout };
+  return { loginedUserInfo, userLoading, userError, logout, isOpen, setIsOpen, modalContents, handleLogout };
 };

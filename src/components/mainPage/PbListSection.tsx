@@ -20,15 +20,14 @@ function PbListSection() {
       coordinate: { latitude, longitude },
     },
   } = useLocationStore();
-
   const {
     data: pbList,
     isError,
     isLoading,
   } = useQuery<PbListSectionPorps[], AxiosError>(["pbSuggestionPB"], () =>
     getSuggestionPB({
-      latitude,
-      longitude,
+      latitude: latitude,
+      longitude: longitude,
     }),
   );
 

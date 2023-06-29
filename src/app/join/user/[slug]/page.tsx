@@ -46,7 +46,6 @@ const checkRedirect = (pathName: string) => {
   if (path2 === "user") {
     res.res2 = true;
   }
-
   return res.res1 && res.res2;
 };
 
@@ -64,7 +63,9 @@ function Page() {
   }, []);
 
   if (isLogined && !userLoading) {
-    redirect("/");
+    if (path !== "complete") {
+      redirect("/");
+    }
   }
 
   return (

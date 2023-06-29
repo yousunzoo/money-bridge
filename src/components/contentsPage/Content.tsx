@@ -14,8 +14,8 @@ import edit from "/public/assets/images/icon/edit.svg";
 import trash from "/public/assets/images/icon/delete.svg";
 import { getMyId } from "@/utils/pbMyId";
 import { deleteContent } from "@/app/apis/services/common";
-import useDelete from "@/hooks/useDelete";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useContentDelete from "@/hooks/useContentDelete";
+import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { ILoginedUserInfo } from "@/types/common";
 import { IContentData } from "@/types/contents";
@@ -29,11 +29,9 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
   const base: string = "https://money-bridge.vercel.app";
   const urlToCopy: string = base + pathname;
   const myId: number | undefined = getMyId(userData?.role, userData?.id, pbId);
-  const queryClient = useQueryClient();
 
   const { mutate: deletecontent } = useMutation(deleteContent, {
-    onSuccess: () => {
-    },
+    onSuccess: () => {},
     onError: (err: AxiosError) => {},
   });
 
@@ -54,7 +52,7 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
     setIsCopyOpen,
     copyContents,
   } = useShare(urlToCopy, title, content, thumbnail);
-  const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useDelete(userData);
+  const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useContentDelete(userData);
   return (
     <div>
       <div className="card mt-[33px] flex h-[52px] flex-row items-center rounded-md bg-white font-bold">
@@ -94,10 +92,7 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
             <button onClick={shareHandler} className="flex w-9 justify-end">
               <Image src={share} alt="공유" width={24} height={24} className="icon" />
             </button>
-            <button
-              onClick={() => bookMarkHandler(id)}
-              className="flex w-9 justify-end"
-            >
+            <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
               {isBookmark ? (
                 <Image src={bookmark_filled} alt="북마크 활성화" width={24} height={24} className="icon" />
               ) : (

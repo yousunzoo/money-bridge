@@ -35,7 +35,9 @@ function ContentsDetail() {
       {userData
         ? contents && (
             <>
+              <div className="relative h-[390px]">
               <Poster img={contents.data.thumbnail} />
+              </div>
               <Content contentData={contents.data} userData={userData} />
               <Comments commentData={contents.data} userData={userData} />
             </>

@@ -217,18 +217,43 @@ export const editPBMyProfile = async (formData: FormData) => {
   }
 };
 
-export const updatePBContents = async ({id,thumbnail,update}:{id: number; thumbnail:any; update:any;}) => {
+export const updatePBContents = async ({
+  id,
+  formData,
+  thumbnailFile,
+}: {
+  id: number;
+  formData: FormData;
+  thumbnailFile: File | null;
+}) => {
+  const formDatas = new FormData();
+  formDatas.append("boardInDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
+  if (thumbnailFile) {
+    formDatas.append("thumbnail", thumbnailFile);
+  }
   try {
-    const res = await instance.put(`pb/board/${id}`,{});
+    const res = await formInstance.put(`pb/board/${id}`, formDatas);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
   }
 };
 
-export const postPBContents = async ({ thumbnail, update }: {thumbnail: any; update: any }) => {
+export const postPBContents = async ({
+  formData,
+  thumbnailFile,
+}: {
+  formData: FormData;
+  thumbnailFile: File | null;
+}) => {
+  const formDatas = new FormData();
+  formDatas.append("boardInDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
+  if (thumbnailFile) {
+    formDatas.append("thumbnail", thumbnailFile);
+  }
+
   try {
-    const res = await instance.post("/pb/board",{});
+    const res = await formInstance.post("/pb/board", formDatas);
     return res.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
@@ -247,6 +272,20 @@ export const getTemp = async (id: number) => {
 export const getTempList = async () => {
   try {
     const res = await instance.get("pb/boards/temp");
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const postTemp = async ({ formData, thumbnailFile }: { formData: FormData; thumbnailFile: File | null }) => {
+  const formDatas = new FormData();
+  formDatas.append("boardInDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
+  if (thumbnailFile) {
+    formDatas.append("thumbnail", thumbnailFile);
+  }
+  try {
+    const res = await formInstance.post("pb/boards/temp", formDatas);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);

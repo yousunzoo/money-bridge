@@ -2,7 +2,9 @@ import Image from "next/image";
 import React from "react";
 
 function Poster({ img }: { img: string } ) {
-  return <Image src={img} alt="poster" width={0} height={390} className="mx-auto h-[390px] w-auto" priority={true} />;
+  return (
+    <Image src={img} alt="poster" width={0} height={390} sizes="100vw" className="h-[390px] w-full object-contain" />
+  );
 }
 
 export default Poster;

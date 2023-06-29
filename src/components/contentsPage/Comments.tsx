@@ -136,7 +136,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
         <div className="mb-[16px] flex-1 text-base font-bold">댓글 {commentData?.reply.length}개</div>
         <button
           onClick={() => addComment()}
-          className="h-[30px] w-[72px] rounded-md border-[2px] bg-white text-secondary-heavy"
+          className="flex items-center justify-center h-[30px] w-[72px] rounded-md border-[2px] bg-white text-secondary-heavy"
         >
           등록
         </button>
@@ -176,7 +176,9 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
                     수정
                   </button>
                 )}
-                <button onClick={() => deleteHandler(item.id, deletereply)}>삭제</button>
+                <button className="mr-[8px]" onClick={() => deleteHandler(item.id, deletereply)}>
+                  삭제
+                </button>
               </>
             )}
             {isReply ? (
@@ -205,14 +207,14 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
           {isReply && reID === item.id && (
             <>
               <input
-                className="mb-[12px] h-[50px] w-full bg-white"
+                className="mb-[12px] mt-2 h-[50px] w-full bg-white"
                 placeholder="답글을 남겨보세요"
                 type="text"
                 value={newReComment}
                 onChange={e => setNewReComment(e.target.value)}
               />
               <button
-                className="h-[20px] w-[52px] rounded-md border-[2px] bg-white text-secondary-heavy"
+                className="h-[30px] w-[52px] rounded-md border-[2px] bg-white text-secondary-heavy flex items-center justify-center"
                 onClick={() => addReComment(item.id)}
               >
                 등록

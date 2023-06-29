@@ -13,7 +13,15 @@ import { speciality } from "@/components/joinPage/pb/EnterCareer";
 import usePbBookMark from "@/hooks/usePbBookMark";
 import ButtonModal from "@/components/common/ButtonModal";
 
-function PbCardItem({ item, queryKey, bookmarks }: { item: IPbCard; queryKey?: string[] | string; bookmarks: boolean }) {
+function PbCardItem({
+  item,
+  queryKey,
+  bookmarks,
+}: {
+  item: IPbCard;
+  queryKey?: string[] | string;
+  bookmarks: boolean;
+}) {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
     queryFn: getLoginedUserInfo,
@@ -48,16 +56,14 @@ function PbCardItem({ item, queryKey, bookmarks }: { item: IPbCard; queryKey?: s
           />
           <div className="flex flex-1 flex-col">
             <div className="mb-[6px] text-base font-bold">{item.name} PB</div>
-            <div className="text-xs">
-              {item.companyName}&nbsp;{item.branchName}
-            </div>
+            <div className="text-xs">{item.branchName}</div>
             <div className="flex text-xs text-gray-normal">
               <p className="font-bold">분야</p>&nbsp;{isSpeciality(item.speciality1)}&nbsp;
               {item.speciality2 ? isSpeciality(item.speciality2) : null}&nbsp;・&nbsp;
               {item.career}년차
             </div>
           </div>
-          {userData?.role !== undefined && bookmarks && (
+          {userData?.role === "USER" && bookmarks && (
             <button
               onClick={() => bookMarkHandler(item.id)}
               className="flex-2 flex w-12 items-start justify-center pt-1"
@@ -89,9 +95,11 @@ function PbCardItem({ item, queryKey, bookmarks }: { item: IPbCard; queryKey?: s
               <p className="font-bold">상담 후기</p>&nbsp;{item.reviewCount ? item.reviewCount : 0}건
             </div>
           </div>
-          <button onClick={goToDetail} className="flex-2 h-[34px] w-[110px] rounded-md bg-primary-normal text-white">
-            자세히 보기
-          </button>
+          {userData?.role === "USER" && (
+            <button onClick={goToDetail} className="flex-2 h-[34px] w-[110px] rounded-md bg-primary-normal text-white">
+              자세히 보기
+            </button>
+          )}
         </div>
       </li>
       {isBookmarkedOpen && isBookmark && (

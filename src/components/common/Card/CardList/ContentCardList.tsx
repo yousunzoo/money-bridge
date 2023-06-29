@@ -4,6 +4,7 @@ import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import { IContentCard } from "@/types/card";
+import { usePathname } from "next/navigation";
 
 function ContentCardList({
   queryKey,
@@ -47,19 +48,20 @@ function ContentCardList({
       setResult && setResult(false);
     }
   }, [list.length, setResult]);
+  const pathname = usePathname();
 
   return (
     <>
       <ul>
-        {list.length > 0 ? (
-          list.map((item: IContentCard) => (
-            <ContentCardItem key={item.id} item={item} queryKey={queryKey} bookmarks={bookmarks} />
-          ))
-        ) : (
-          <li className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">
-            작성한 콘텐츠가 없습니다
-          </li>
-        )}
+        {list.length > 0
+          ? list.map((item: IContentCard) => (
+              <ContentCardItem key={item.id} item={item} queryKey={queryKey} bookmarks={bookmarks} />
+            ))
+          : pathname !== "/lounge/search" && pathname !== "/bookmark/content" && (
+              <li className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">
+                작성한 콘텐츠가 없습니다
+              </li>
+            )}
       </ul>
       {hasNextPage && <div ref={ref} className="h-1" />}
     </>

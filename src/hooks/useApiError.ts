@@ -1,6 +1,6 @@
 "use client";
 import { IModalContents } from "@/types/common";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 interface ErrorProps {
@@ -26,7 +26,8 @@ const useApiError = () => {
     const status = errorResponse.status;
     const data = errorResponse.data;
 
-    if (data == "투자성향 분석이 되지않았습니다.") return;
+    if (data === "투자성향 분석이 되지않았습니다.") return;
+    if (data === "이미 로그아웃한 액세스 토큰입니다") return;
     if (ERROR_MESSAGES[status]) {
       setModalContents({
         content: ERROR_MESSAGES[status],

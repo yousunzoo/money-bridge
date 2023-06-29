@@ -24,11 +24,7 @@ export const useSetQuestions = (step: 0 | 1 | 2 | 3 | 4 | 5, isOpen?: boolean) =
       return;
     }
 
-    if (isChoosable) {
-      console.log("choose");
-    }
     if (step !== 0 && answers[step] && isChoosable) {
-      console.log("hi");
       sectionRef.current.classList.add("h-screen");
       sectionRef.current.scrollIntoView({
         behavior: "smooth",

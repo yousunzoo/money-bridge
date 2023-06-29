@@ -28,7 +28,7 @@ function Content() {
       setAll(All.list?.slice(0, 2));
     }
   }, [NewAndHot, All]);
-  
+
   return (
     <>
       <div>
@@ -72,8 +72,8 @@ function Content() {
             <br />
             만나보세요
           </div>
-          <Link href="/findPb/list" className="link">
-            PB 포트폴리오 보러가기
+          <Link href="/pblist?company=1&sort=career" className="link">
+            경험 많은 PB 보러가기
           </Link>
         </div>
         <div className="pb_banner bg-secondary-heavy">
@@ -82,7 +82,7 @@ function Content() {
             <br />
             바로 만나보세요
           </div>
-          <Link href="/findPb/list" className="link">
+          <Link href="/pblist?speciality=ALL&sort=distance" className="link">
             가까운 거리의 PB 찾기
           </Link>
         </div>
@@ -92,7 +92,7 @@ function Content() {
             <br />
             증권사별 PB를 찾아보세요
           </div>
-          <Link href="/findPb/list" className="link">
+          <Link href="/pblist?company=ALL&sort=distance" className="link">
             증권사별 PB 보러가기
           </Link>
         </div>

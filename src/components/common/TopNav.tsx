@@ -10,6 +10,7 @@ import SelectLocationModal from "../mainPage/SelectLocationModal";
 import { useLocationStore } from "@/store/location";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { useLogout } from "@/hooks/useLogout";
+import Link from "next/link";
 
 const logoPath = ["/", "/lounge"];
 
@@ -56,13 +57,13 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
           )}
         </div>
         {logoPath.includes(currentPath) ? (
-          <div className="flex self-center justify-self-center text-center font-bold leading-[22px]">
+          <Link href={"/"} className="flex self-center justify-self-center text-center font-bold leading-[22px]">
             <Image src={logo} alt="logo" width={120} height={20} onClick={() => router.push("/")} />
-          </div>
+          </Link>
         ) : (
           <span className="justify-self-center text-center font-bold leading-[22px]">{title}</span>
         )}
-        <div className="flex min-w-[100px] justify-self-end">
+        <div className="flex min-w-[100px] justify-end font-bold">
           {logoPath.includes(currentPath) && (
             <>
               {userInfo ? (

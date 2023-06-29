@@ -5,9 +5,7 @@ export interface SearchLocationProps {
 export interface SearchListProps {
   x: number;
   y: number;
-  address: {
-    address_name: string;
-  };
+  address_name: string;
 }
 
 export interface PositionProps {

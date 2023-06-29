@@ -55,7 +55,7 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
     <div className="fixed bottom-[70px] left-1/2 z-50 w-full max-w-[736px] -translate-x-1/2 rounded-t-md bg-white px-6 py-5 shadow-md">
       <div className="flex">
         <input
-          placeholder="동, 읍, 면 단위로 검색해주세요."
+          placeholder="도로명, 동, 읍, 면 단위로 검색해주세요."
           onChange={onChangeInput}
           className="mr-4 h-[50px] w-full bg-background-primary px-4 py-2"
           type="text"
@@ -71,10 +71,10 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
           searchList.map(item => (
             <li
               className="flex w-full items-center justify-between border-b-1 border-gray-normal p-4 hover:bg-background-secondary"
-              key={item.x}
+              key={item.address_name}
               onClick={() => selectLocation({ x: item.x, y: item.y })}
             >
-              <p>{item.address.address_name}</p>
+              <p>{item.address_name}</p>
               <span className="p-2">선택</span>
             </li>
           ))}

@@ -217,18 +217,43 @@ export const editPBMyProfile = async (formData: FormData) => {
   }
 };
 
-export const updatePBContents = async ({ id, formData }: { id: number; formData: FormData; }) => {
+export const updatePBContents = async ({
+  id,
+  formData,
+  thumbnailFile,
+}: {
+  id: number;
+  formData: FormData;
+  thumbnailFile: File | null;
+}) => {
+  const formDatas = new FormData();
+  formDatas.append("boardInDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
+  if (thumbnailFile) {
+    formDatas.append("thumbnail", thumbnailFile);
+  }
   try {
-    const res = await instance.put(`pb/board/${id}`,formData);
+    const res = await formInstance.put(`pb/board/${id}`, formDatas);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
   }
 };
 
-export const postPBContents = async (formData: FormData) => {
+export const postPBContents = async ({
+  formData,
+  thumbnailFile,
+}: {
+  formData: FormData;
+  thumbnailFile: File | null;
+}) => {
+  const formDatas = new FormData();
+  formDatas.append("boardInDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
+  if (thumbnailFile) {
+    formDatas.append("thumbnail", thumbnailFile);
+  }
+
   try {
-    const res = await instance.post("/pb/board",formData);
+    const res = await formInstance.post("/pb/board", formDatas);
     return res.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
@@ -253,9 +278,14 @@ export const getTempList = async () => {
   }
 };
 
-export const postTemp = async (formData: FormData) => {
+export const postTemp = async ({ formData, thumbnailFile }: { formData: FormData; thumbnailFile: File | null }) => {
+  const formDatas = new FormData();
+  formDatas.append("boardInDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
+  if (thumbnailFile) {
+    formDatas.append("thumbnail", thumbnailFile);
+  }
   try {
-    const res = await instance.post("pb/boards/temp",formData);
+    const res = await formInstance.post("pb/boards/temp", formDatas);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);

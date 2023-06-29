@@ -24,15 +24,21 @@ function PbReviewList({ id }: { id: number }) {
       fetchNextPage();
     }
   });
-
+  if (!list) return;
   return (
     <>
-      <ul>
-        {list?.map((item: IPbReview) => (
-          <PbReviewItem key={item.reviewId} item={item} />
-        ))}
-      </ul>
-      {hasNextPage && <div ref={ref} className="h-1" />}
+      {list.length > 0 ? (
+        <>
+          <ul>
+            {list?.map((item: IPbReview) => (
+              <PbReviewItem key={item.reviewId} item={item} />
+            ))}
+          </ul>
+          {hasNextPage && <div ref={ref} className="h-1" />}
+        </>
+      ) : (
+        <div className="font-bold">작성 된 후기가 없습니다.</div>
+      )}
     </>
   );
 }

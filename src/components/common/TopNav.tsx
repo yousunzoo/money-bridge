@@ -17,6 +17,7 @@ const logoPath = ["/", "/lounge"];
 function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: boolean; backGroundWhite?: boolean }) {
   const router = useRouter();
   const currentPath = usePathname();
+
   const current = useGeoLocation();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { locations } = useLocationStore();

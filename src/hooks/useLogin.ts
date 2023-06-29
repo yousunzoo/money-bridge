@@ -2,20 +2,21 @@ import { userLogin } from "@/app/apis/services/auth";
 import { IModalContent } from "@/types/common";
 import { IResponseErrorData400, IResponseErrorData404 } from "@/types/login";
 import { setCookie } from "@/utils/cookies";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const useLogin = (
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setModalContent: React.Dispatch<React.SetStateAction<IModalContent>>,
 ) => {
   const router = useRouter();
-  const pathName = usePathname();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation(userLogin, {
     onSuccess: data => {
       setCookie("Authorization", data.headers.authorization);
+      queryClient.refetchQueries(["loginedUserInfo"]);
       router.push("/");
     },
     onError: (err: AxiosError) => {

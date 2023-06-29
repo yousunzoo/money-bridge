@@ -20,15 +20,17 @@ function StockFirmSection() {
     staleTime: Infinity,
     cacheTime: Infinity,
   });
-  if (!companyList) return;
+
+  if (!companyList || isLoading) return null;
+
   const chunkedCompanyList = chunkArray([{ id: "ALL", logo: null, name: "전체보기" }, ...companyList], 8);
 
   return (
-    <section className="relative w-full mt-3 ">
+    <section className="relative mt-3 w-full ">
       <h3 className="text-xl font-bold">
         선호하는 증권사의 <br /> PB를 만나보세요.
       </h3>
-      <Carousel draggable={true} className="p-6 m-4 bg-white rounded-md shadow-md">
+      <Carousel draggable={true} className="m-4 rounded-md bg-white p-6 shadow-md">
         {chunkedCompanyList.map((companyList, index) => (
           <div key={index}>
             <ul className="grid grid-cols-4 gap-6">

@@ -12,7 +12,6 @@ export const useMyPageCheck = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [modalContents, setModalContents] = useState<IModalContents>({ content: "", confirmText: "" });
-  const [loading, setLoading] = useState(true);
 
   const token = getCookie("Authorization");
   const {
@@ -25,7 +24,6 @@ export const useMyPageCheck = () => {
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
     enabled: !!token,
-    staleTime: Infinity,
   });
 
   const { mutate: logout } = useMutation<unknown, AxiosError>(userLogout, {
@@ -48,15 +46,11 @@ export const useMyPageCheck = () => {
   };
 
   useEffect(() => {
+    if (token) return;
     if (!userLoading && !isLogined) {
       redirect("/login");
     }
-    if (userLoading) {
-      setLoading(true);
-      return;
-    }
-    setLoading(false);
   }, [userLoading, isLogined]);
 
-  return { loginedUserInfo, loading, logout, isOpen, setIsOpen, modalContents, handleLogout };
+  return { loginedUserInfo, userLoading, logout, isOpen, setIsOpen, modalContents, handleLogout };
 };

@@ -16,6 +16,7 @@ function ContentResult({ contentValue}: { contentValue: string; }) {
             api={getSearchContent}
             etc={contentValue}
             setResult={setResult}
+            bookmarks={false}
           />
         </>
       )}

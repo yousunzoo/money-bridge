@@ -14,7 +14,7 @@ function PbBookMark() {
     <div className="mb-10">
       <BookMark />
       {res !== null ? (
-        <PbCardList queryKey={"/user/bookmarks/pb"} api={getBookMarkPB} />
+        <PbCardList queryKey={"/user/bookmarks/pb"} api={getBookMarkPB} bookmarks={true} />
       ) : (
         <div className="flex justify-center">북마크 한 콘텐츠 없음</div>
       )}

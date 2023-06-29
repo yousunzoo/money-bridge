@@ -7,7 +7,7 @@ export interface IContentCard {
   tag1: string;
   tag2: string;
   msg: string;
-  isBookmarked?: boolean;
+  isBookmarked: boolean;
 }
 
 export interface IPbCard {
@@ -22,7 +22,7 @@ export interface IPbCard {
   career: number;
   reserveCount: number;
   reviewCount: number;
-  isBookmarked?: boolean;
+  isBookmarked: boolean;
   branchLat?: number;
   branchLon?: number;
 }

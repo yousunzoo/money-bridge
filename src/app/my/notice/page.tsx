@@ -1,6 +1,10 @@
 import TopNav from "@/components/common/TopNav";
 import AccrodianList from "@/components/myPage/serviceCenterPage/AccordianList";
-import noticeData from "@/mocks/seon/notice.json";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "공지사항",
+};
 
 function NoticePage() {
   return (

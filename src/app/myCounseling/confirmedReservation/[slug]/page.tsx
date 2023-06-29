@@ -62,13 +62,13 @@ function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
 
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />
         <div className="flex flex-col items-center py-6 text-xs">
-          <p className="font-bold text-primary-normal">PB가 유선연락을 통해 일정과 장소를 확인해드립니다.</p>
-          <p className="text-primary-normal">(영업일 1일 이내)</p>
+          <p className="font-bold text-secondary-heavy">PB가 유선연락을 통해 일정과 장소를 확인해드립니다.</p>
+          <p className="text-secondary-heavy">(영업일 1일 이내)</p>
         </div>
         <SingleButton title={"확인"} role={role} ClickFunc={checkClickHandler} />
       </section>

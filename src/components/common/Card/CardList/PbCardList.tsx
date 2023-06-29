@@ -11,11 +11,13 @@ function PbCardList({
   api,
   etc,
   setResult,
+  bookmarks,
 }: {
   queryKey: string[] | string;
   api: any;
   etc?: string;
   setResult?: Dispatch<SetStateAction<boolean>>;
+  bookmarks: boolean;
 }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
@@ -57,7 +59,7 @@ function PbCardList({
           </>
         )}
         {list?.map((item: IPbCard) => (
-          <PbCardItem key={item.id} item={item} />
+          <PbCardItem key={item.id} item={item} queryKey={queryKey} bookmarks={bookmarks} />
         ))}
       </ul>
       {hasNextPage && <div ref={ref} className="h-1" />}

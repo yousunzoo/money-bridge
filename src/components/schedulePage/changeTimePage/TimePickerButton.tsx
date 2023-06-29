@@ -21,14 +21,14 @@ function TimePickerButton({ timeSelect, selectTime, isOpenModal }: TimePickerBut
   return (
     <button
       onClick={timeSelect}
-      className="relative mt-3 flex h-[36px] w-[120px] items-center justify-center gap-4 rounded-md border-1 border-background-secondary px-2 shadow-md"
+      className="relative mt-3 flex h-[36px] w-[120px] items-center justify-center gap-4 rounded-md border-1 border-background-secondary bg-white px-2 shadow-md"
     >
       <span>{selectTime ? selectTime.slice(0, 5) : "00:00"}</span>
       <Image src={arrowbutton} alt={"arrow"} width={18} height={28} />
       {isOpenModal && (
         <ul className="absolute top-10 h-[200px] w-[120px] overflow-auto rounded-md bg-white p-2 shadow-md">
           {timeOptions().map(time => (
-            <li key={time} id={time} className="p-1 pl-4 text-left rounded-md hover:bg-background-normal">
+            <li key={time} id={time} className="rounded-md p-1 pl-4 text-left hover:bg-background-normal">
               {time}
             </li>
           ))}

@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";
-import useBookMark from "@/hooks/useContentBookMark";
 import usePbBookMark from "@/hooks/usePbBookMark";
 import useShare from "@/hooks/useShare";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
@@ -12,27 +11,18 @@ import PbContentButton from "@/components/pbdetailPage/PbContentButton";
 import { IIntroData } from "@/types/pb";
 
 function Intro({ introData }: { introData: IIntroData }) {
-  const {
-    id,
-    profile,
-    name,
-    isBookmarked,
-    branchName,
-    msg,
-    companyId,
-    companyLogo,
-    reserveCount,
-    reviewCount,
-  } = introData;
+  const { id, profile, name, isBookmarked, branchName, msg, companyId, companyLogo, reserveCount, reviewCount } =
+    introData;
 
   const pathname: string = usePathname();
   const router = useRouter();
   const base: string = "https://money-bridge.vercel.app";
   const urlToCopy: string = base + pathname;
+
   const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
     isBookmarked,
     "/bookmark/pb",
-    id,
+    "getPbProfile",
   );
   const {
     isShare,
@@ -56,9 +46,9 @@ function Intro({ introData }: { introData: IIntroData }) {
         <Image
           src={companyLogo}
           alt="증권사 로고"
-          width={112}
+          width={42}
           height={42}
-          className="absolute left-[19px] top-3 z-10 h-[42px] w-[112px] cursor-pointer object-cover"
+          className="absolute left-2  z-10 h-[42px] cursor-pointer object-contain"
           onClick={goToCompany}
           priority
         />
@@ -95,7 +85,7 @@ function Intro({ introData }: { introData: IIntroData }) {
           <button onClick={shareHandler} className="flex w-9 justify-end">
             <Image src={share} alt="공유하기" width={25} height={25} priority className="h-[25px] w-[25px]" />
           </button>
-          <button onClick={bookMarkHandler} className="flex w-9 justify-end">
+          <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
             {isBookmarked ? (
               <Image
                 src={bookmark_filled}

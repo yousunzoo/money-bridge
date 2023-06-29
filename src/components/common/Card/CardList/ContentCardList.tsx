@@ -10,11 +10,13 @@ function ContentCardList({
   api,
   etc,
   setResult,
+  bookmarks,
 }: {
   queryKey: string[] | string;
   api: any;
   etc?: number | string;
   setResult?: Dispatch<SetStateAction<boolean>>;
+  bookmarks:boolean;
 }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
@@ -38,21 +40,21 @@ function ContentCardList({
     }
   });
 
-  useEffect(()=>{
-if (list.length > 0) {
-    setResult && setResult(true);
-  } else {
-    setResult && setResult(false);
-  }
-
-  },[list.length, setResult])
-
+  useEffect(() => {
+    if (list.length > 0) {
+      setResult && setResult(true);
+    } else {
+      setResult && setResult(false);
+    }
+  }, [list.length, setResult]);
 
   return (
     <>
       <ul>
         {list.length > 0 ? (
-          list.map((item: IContentCard) => <ContentCardItem key={item.id} item={item} />)
+          list.map((item: IContentCard) => (
+            <ContentCardItem key={item.id} item={item} queryKey={queryKey} bookmarks={bookmarks} />
+          ))
         ) : (
           <li className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">
             작성한 콘텐츠가 없습니다

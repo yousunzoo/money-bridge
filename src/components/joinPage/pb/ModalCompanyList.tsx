@@ -33,7 +33,7 @@ function ModalCompanyList({
         className="scroll_hidden -mx-4 flex h-[200px] flex-col overflow-y-scroll pr-px text-center"
         onClick={handleSelect}
       >
-        {getCompanyList.data &&
+        {getCompanyList.data?.data.list &&
           getCompanyList.data?.data.list.map(company => (
             <li
               key={company.id}

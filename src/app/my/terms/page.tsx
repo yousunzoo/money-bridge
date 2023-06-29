@@ -1,23 +1,17 @@
 import TopNav from "@/components/common/TopNav";
-import PbPersonalInformation from "@/constants/provisions/pb/PbPersonalInformation";
+import CommonPersonalInformation from "@/constants/provisions/common/CommonPersonalInformation";
 import PbSysmetic from "@/constants/provisions/pb/PbSysmetic";
-import PbThirdParty from "@/constants/provisions/pb/PbThirdParty";
-import UserPersonalInformation from "@/constants/provisions/user/UserPersonalInformation";
 import UserSysmetic from "@/constants/provisions/user/UserSysmetic";
-import UserThirdParty from "@/constants/provisions/user/UserThirdParty";
+import { Metadata } from "next";
 import React from "react";
 
+export const metadata: Metadata = {
+  title: "이용약관",
+};
+
 function TermsPage() {
-  const userProvisions = [
-    <UserSysmetic key="sysmetic" />,
-    <UserPersonalInformation key="userInfo" />,
-    <UserThirdParty key="userThird" />,
-  ];
-  const PbProvisions = [
-    <PbSysmetic key="sysmetic" />,
-    <PbPersonalInformation key="pbInfo" />,
-    <PbThirdParty key="pbThird" />,
-  ];
+  const userProvisions = [<UserSysmetic key="sysmetic" />, <CommonPersonalInformation key={"personalInformation"} />];
+  const PbProvisions = [<PbSysmetic key="sysmetic" />, <CommonPersonalInformation key={"personalInformation"} />];
 
   return (
     <>

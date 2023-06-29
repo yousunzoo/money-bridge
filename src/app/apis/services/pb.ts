@@ -217,18 +217,18 @@ export const editPBMyProfile = async (formData: FormData) => {
   }
 };
 
-export const updatePBContents = async ({id,thumbnail,update}:{id: number; thumbnail:any; update:any;}) => {
+export const updatePBContents = async ({ id, formData }: { id: number; formData: FormData; }) => {
   try {
-    const res = await instance.put(`pb/board/${id}`,{});
+    const res = await instance.put(`pb/board/${id}`,formData);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
   }
 };
 
-export const postPBContents = async ({ thumbnail, update }: {thumbnail: any; update: any }) => {
+export const postPBContents = async (formData: FormData) => {
   try {
-    const res = await instance.post("/pb/board",{});
+    const res = await instance.post("/pb/board",formData);
     return res.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
@@ -247,6 +247,15 @@ export const getTemp = async (id: number) => {
 export const getTempList = async () => {
   try {
     const res = await instance.get("pb/boards/temp");
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const postTemp = async (formData: FormData) => {
+  try {
+    const res = await instance.post("pb/boards/temp",formData);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);

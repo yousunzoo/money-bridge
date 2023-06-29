@@ -81,3 +81,12 @@ interface IAgreements {
   type: string;
   isAgreed: boolean;
 }
+
+export interface IResponseErrorData {
+  data: {
+    key: string;
+    value: string;
+  };
+  msg: string;
+  status: number;
+}

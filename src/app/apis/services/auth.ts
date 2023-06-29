@@ -2,7 +2,6 @@ import { IJoinInformation, joinInDTO } from "@/types/join";
 import { formInstance, instance } from "../axios";
 import { IUser, IUserLogin } from "@/types/login";
 import { AxiosError } from "axios";
-import { removeCookie } from "@/utils/cookies";
 
 export const userLogin = async (user: IUserLogin) => {
   const res = await instance.post("/login", user);

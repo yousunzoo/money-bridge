@@ -1,9 +1,18 @@
 "use client";
+import { removeCookie } from "@/utils/cookies";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 function Main({ children }: { children: ReactNode }) {
   const path = usePathname();
+
+  useEffect(() => {
+    if (sessionStorage.getItem("AutoLogin") === null) {
+      removeCookie("Authorization");
+      removeCookie("refreshToken");
+    }
+  }, []);
+
   const background = (() => {
     if (
       path === "/" ||

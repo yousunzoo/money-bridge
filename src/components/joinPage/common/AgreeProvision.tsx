@@ -9,6 +9,8 @@ import { useUserJoin } from "@/hooks/useUserJoin";
 import { usePBJoin } from "@/hooks/usePBJoin";
 import DetailProvision from "./DetailProvision";
 import ProvisionContent from "./ProvisionContent";
+import ButtonModal from "@/components/common/ButtonModal";
+import { IModalContent } from "@/types/common";
 
 interface IProvision {
   id: number;
@@ -16,15 +18,13 @@ interface IProvision {
 }
 
 export const userRequired: IProvision[] = [
-  { id: 0, title: "시스메틱 이용약관 동의" },
-  { id: 1, title: "개인정보 취급방침 동의" },
-  { id: 2, title: "개인정보 제 3자 제공 동의" },
+  { id: 0, title: "일반투자자 이용약관 동의" },
+  { id: 1, title: "개인정보 처리방침 동의" },
 ];
 
 export const pbRequired: IProvision[] = [
-  { id: 0, title: "시스메틱 이용약관 동의" },
-  { id: 1, title: "개인정보 취급방침 동의" },
-  { id: 2, title: "개인정보 제 3자 제공 동의" },
+  { id: 0, title: "파트너(PB) 이용약관 동의" },
+  { id: 1, title: "개인정보 처리방침 동의" },
 ];
 const optional: IProvision[] = [
   // { id: required.length, title: "위치기반 서비스 이용 동의" },
@@ -37,11 +37,21 @@ function AgreeProvision() {
   const pathName = usePathname();
   const required = pathName.split("/")[2] === "user" ? userRequired : pbRequired;
   const { informations, setInformations } = useJoinStore();
-  const userJoin = useUserJoin();
-  const pbJoin = usePBJoin();
-  const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>(required.concat(optional).map(() => false));
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [provisionId, setProvisionId] = useState<number>(0);
+  const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>(required.concat(optional).map(() => false));
+  const modalContents_Default = {
+    content: "일시적인 오류가 발생했습니다.",
+    confirmText: "확인",
+    confirmFn: () => {
+      setIsOpen(false);
+    },
+  };
+  const [modalContent, setModalContent] = useState<IModalContent>(modalContents_Default);
+
+  const pbJoin = usePBJoin(setIsModalOpen, setModalContent);
+  const userJoin = useUserJoin(setIsModalOpen, setModalContent);
 
   const handleOpenProvision = (e: MouseEvent<HTMLElement>) => {
     setIsOpen(true);
@@ -140,6 +150,11 @@ function AgreeProvision() {
           >
             회원가입 완료
           </button>
+          {isModalOpen && (
+            <ButtonModal modalContents={modalContent} isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+              <p>정보를 확인해 주세요.</p>
+            </ButtonModal>
+          )}
         </>
       )}
     </>

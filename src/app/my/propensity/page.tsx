@@ -29,7 +29,7 @@ function PropensityPage() {
     if (isSuccess && !data.propensity) {
       setIsOpen(true);
     }
-    if (!isSuccess) {
+    if (!isLoading && !isSuccess) {
       router.replace("/my");
     }
   }, [data, isSuccess]);

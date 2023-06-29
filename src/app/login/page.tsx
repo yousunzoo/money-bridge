@@ -1,15 +1,26 @@
 "use client";
 import TopNav from "@/components/common/TopNav";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { useJoinStore } from "@/store/joinStore";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React, { useEffect } from "react";
 
 function SelectLoginType() {
   const { resetInformations } = useJoinStore();
+  const { isLogined, userLoading } = useGetUserInfo();
+
   useEffect(() => {
     resetInformations();
+    if (!navigator.cookieEnabled) {
+      alert("쿠키를 허용해주세요");
+      redirect("/");
+    }
   }, []);
 
+  if (isLogined && !userLoading) {
+    redirect("/");
+  }
   return (
     <>
       <TopNav title="로그인" hasBack backGroundWhite />

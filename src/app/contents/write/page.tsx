@@ -5,7 +5,6 @@ import Write from "@/components/contentsPage/Write";
 import { ILoginedUserInfo } from "@/types/common";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { Metadata } from "next";
 import React from "react";
 
 function ContentsWrite() {

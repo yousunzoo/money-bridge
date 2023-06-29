@@ -49,10 +49,10 @@ function ContentCardItem({
               </div>
               <div className="text-2xl font-bold">{item.title}</div>
             </div>
-            {userData?.role !== undefined && bookmarks && (
+            {userData?.role === "USER" && bookmarks && (
               <button
                 onClick={event => {
-                  event.stopPropagation(); // Prevent event propagation
+                  event.stopPropagation();
                   bookMarkHandler(item.id);
                 }}
                 className="flex-3 flex w-12 items-center justify-center"

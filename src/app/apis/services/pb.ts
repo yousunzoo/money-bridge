@@ -232,7 +232,7 @@ export const updatePBContents = async ({
     formDatas.append("thumbnail", thumbnailFile);
   }
   try {
-    const res = await formInstance.put(`pb/board/${id}`, formDatas);
+    const res = await formInstance.put(`/pb/board/${id}`, formDatas);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
@@ -262,7 +262,7 @@ export const postPBContents = async ({
 
 export const getTemp = async (id: number) => {
   try {
-    const res = await instance.get(`pb/board/${id}`);
+    const res = await instance.get(`/pb/board/${id}`);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
@@ -271,7 +271,7 @@ export const getTemp = async (id: number) => {
 
 export const getTempList = async () => {
   try {
-    const res = await instance.get("pb/boards/temp");
+    const res = await instance.get("/pb/boards/temp");
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
@@ -285,8 +285,8 @@ export const postTemp = async ({ formData, thumbnailFile }: { formData: FormData
     formDatas.append("thumbnail", thumbnailFile);
   }
   try {
-    const res = await formInstance.post("pb/boards/temp", formDatas);
-    return res.data.data;
+    const res = await formInstance.post("/pb/board/temp", formDatas);
+    return res.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);
   }

@@ -1,6 +1,7 @@
 import ModalCompanyList from "@/components/joinPage/pb/ModalCompanyList";
 import ModalCompanyLocation from "@/components/joinPage/pb/ModalCompanyLocation";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
+import { useGetCompanyList } from "@/hooks/useGetCompanyList";
 import { ICompanyInputProps } from "@/types/editProfile";
 import { ICompanyInput } from "@/types/join";
 import { MouseEvent, useEffect, useState } from "react";
@@ -11,6 +12,7 @@ function CompanyInput({ getValues, setValue, branchName }: ICompanyInputProps) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [modalType, setModalType] = useState<"location" | "company" | null>(null);
+  const companyList = useGetCompanyList();
 
   const handleOpenCompanyModal = () => {
     setIsOpen(true);
@@ -66,7 +68,11 @@ function CompanyInput({ getValues, setValue, branchName }: ICompanyInputProps) {
       {isOpen && (
         <ModalLayout handleCloseModal={() => setIsOpen(false)}>
           {modalType === "company" ? (
-            <ModalCompanyList handleChangeCompany={handleChangeCompany} handleCloseModal={handleCloseModal} />
+            <ModalCompanyList
+              handleChangeCompany={handleChangeCompany}
+              handleCloseModal={handleCloseModal}
+              companyList={companyList.data}
+            />
           ) : (
             <ModalCompanyLocation
               companyId={company.id}

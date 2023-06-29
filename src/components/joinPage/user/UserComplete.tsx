@@ -21,7 +21,7 @@ function UserComplete() {
         <Link href={"/analysis"}>1분 만에 투자 성향 알아보기</Link>
       </div>
       <div className="mb-[60px] mt-4 flex justify-center text-center text-sm leading-5 text-gray-heavy">
-        <Link className="cursor-pointer border-b-1" href={"/"}>
+        <Link className="cursor-pointer border-b-1" href="/">
           홈으로 가기
         </Link>
       </div>

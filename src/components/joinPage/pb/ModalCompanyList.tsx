@@ -1,19 +1,19 @@
-import { useGetCompanyList } from "@/hooks/useGetCompanyList";
-import { ICompanyInput } from "@/types/join";
+import { ICompanyInput, ICompanyNameList } from "@/types/join";
 import React, { MouseEvent, useState } from "react";
 
 function ModalCompanyList({
   handleChangeCompany,
   handleCloseModal,
+  companyList,
 }: {
   handleChangeCompany: (item: ICompanyInput) => void;
   handleCloseModal: () => void;
+  companyList: ICompanyNameList | undefined;
 }) {
   const [selectedItem, setSelectedItem] = useState<ICompanyInput>({
     name: "",
     id: 0,
   });
-  const getCompanyList = useGetCompanyList();
 
   const handleSelect = (e: MouseEvent<HTMLUListElement>) => {
     const liEl = e.target as HTMLLIElement;
@@ -33,8 +33,8 @@ function ModalCompanyList({
         className="scroll_hidden -mx-4 flex h-[200px] flex-col overflow-y-scroll pr-px text-center"
         onClick={handleSelect}
       >
-        {getCompanyList.data?.data.list &&
-          getCompanyList.data?.data.list.map(company => (
+        {companyList?.data.list &&
+          companyList?.data.list.map(company => (
             <li
               key={company.id}
               id={`${company.id}`}

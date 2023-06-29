@@ -59,8 +59,8 @@ function PbComplete() {
         <p className="font-normal">투자자 매칭이 시작됩니다.</p>
       </div>
       <Link
+        href="/"
         className="my-24 flex h-14 w-full items-center justify-center rounded-[8px] bg-primary-normal text-xl font-bold text-white"
-        href={"/"}
       >
         홈으로 가기
       </Link>

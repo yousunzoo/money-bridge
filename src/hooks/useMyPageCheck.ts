@@ -14,15 +14,10 @@ export const useMyPageCheck = () => {
   const [modalContents, setModalContents] = useState<IModalContents>({ content: "", confirmText: "" });
 
   const token = getCookie("Authorization");
-  const {
-    data: loginedUserInfo,
-    isLoading: userLoading,
-    isSuccess: isLogined,
-    isError: isLoginError,
-  } = useQuery<ILoginedUserInfo, AxiosError>({
+  const { data: loginedUserInfo, isLoading: userLoading } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["loginedUserInfo"],
     queryFn: getLoginedUserInfo,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
     enabled: !!token,
   });
 
@@ -44,13 +39,6 @@ export const useMyPageCheck = () => {
       },
     });
   };
-
-  useEffect(() => {
-    if (token) return;
-    if (!userLoading && !isLogined) {
-      redirect("/login");
-    }
-  }, [userLoading, isLogined]);
 
   return { loginedUserInfo, userLoading, logout, isOpen, setIsOpen, modalContents, handleLogout };
 };

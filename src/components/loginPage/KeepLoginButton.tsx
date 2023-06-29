@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import check from "/public/assets/images/check.svg";
 
@@ -7,9 +7,14 @@ function KeepLoginButton() {
 
   const clickRememberLoginStatus = () => {
     localStorage.setItem("AutoLogin", (!autoLogin).toString());
+    sessionStorage.setItem("AutoLogin", (!autoLogin).toString());
     setAutoLogin(!autoLogin);
   };
 
+  useEffect(() => {
+    localStorage.setItem("AutoLogin", autoLogin.toString());
+    sessionStorage.setItem("AutoLogin", autoLogin.toString());
+  }, []);
   return (
     <div className="flex h-[50px] items-center justify-center gap-1">
       <button

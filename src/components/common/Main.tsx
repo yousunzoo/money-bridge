@@ -7,14 +7,9 @@ function Main({ children }: { children: ReactNode }) {
   const path = usePathname();
 
   useEffect(() => {
-    window.addEventListener("beforeunload", () => {
-      if (localStorage.getItem("AutoLogin") === "false") {
-        if (document.readyState == "complete") {
-          return;
-        }
-        removeCookie("Authorization");
-      }
-    });
+    if (sessionStorage.getItem("AutoLogin") === null) {
+      removeCookie("Authorization");
+    }
   }, []);
 
   const background = (() => {

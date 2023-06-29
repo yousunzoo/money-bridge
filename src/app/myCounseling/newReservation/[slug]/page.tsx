@@ -20,7 +20,6 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
   const { reservationInfo, reservationLoading, reservationError } = useUserReservationInfo(slug);
   const [isButtonOpen, setIsButtonOpen] = useState(false);
-
   if (!isLogined && !userLoading) {
     redirect("/");
   }

@@ -9,6 +9,7 @@ function Main({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (sessionStorage.getItem("AutoLogin") === null) {
       removeCookie("Authorization");
+      removeCookie("refreshToken");
     }
   }, []);
 

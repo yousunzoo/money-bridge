@@ -8,10 +8,6 @@ import { AxiosError } from "axios";
 import { Metadata } from "next";
 import React from "react";
 
-export const metadata: Metadata = {
-  title: "콘텐츠 작성하기",
-};
-
 function ContentsWrite() {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],

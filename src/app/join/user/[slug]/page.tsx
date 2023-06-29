@@ -10,6 +10,7 @@ import { useJoinStore } from "@/store/joinStore";
 import SetPasswordForm from "@/components/joinPage/common/SetPasswordForm";
 import { useAuthenticationStore } from "@/store/authenticationStore";
 import { useEffect } from "react";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 type Tstep = "email" | "authentication" | "password" | "name" | "phoneNumber" | "agreements" | "complete";
 
@@ -53,6 +54,7 @@ function Page() {
   const pathName = usePathname();
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
   checkRedirect(pathName) ?? redirect("/login");
+  const { isLogined, userLoading } = useGetUserInfo();
 
   useEffect(() => {
     if (!navigator.cookieEnabled) {
@@ -60,6 +62,10 @@ function Page() {
       redirect("/");
     }
   }, []);
+
+  if (isLogined && !userLoading) {
+    redirect("/");
+  }
 
   return (
     <>

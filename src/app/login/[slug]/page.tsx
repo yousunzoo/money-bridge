@@ -6,15 +6,23 @@ import KeepLoginButton from "@/components/loginPage/KeepLoginButton";
 import { InputFormType } from "@/constants/enum";
 import { redirect, usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 function Login() {
   const pathName = usePathname();
+  const { isLogined, userLoading } = useGetUserInfo();
+
   useEffect(() => {
     if (!navigator.cookieEnabled) {
       alert("쿠키를 허용해주세요");
       redirect("/");
     }
   }, []);
+
+  if (isLogined && !userLoading) {
+    redirect("/");
+  }
+
   return (
     <>
       <TopNav title={`${pathName.split("/")[2] === "user" ? "유저 로그인" : "PB 로그인"}`} hasBack backGroundWhite />

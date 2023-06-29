@@ -8,6 +8,8 @@ import React, { useEffect } from "react";
 
 function SelectLoginType() {
   const { resetInformations } = useJoinStore();
+  const { isLogined, userLoading } = useGetUserInfo();
+
   useEffect(() => {
     resetInformations();
     if (!navigator.cookieEnabled) {
@@ -16,8 +18,9 @@ function SelectLoginType() {
     }
   }, []);
 
-  const { userInfo } = useGetUserInfo();
-
+  if (isLogined && !userLoading) {
+    redirect("/");
+  }
   return (
     <>
       <TopNav title="로그인" hasBack backGroundWhite />

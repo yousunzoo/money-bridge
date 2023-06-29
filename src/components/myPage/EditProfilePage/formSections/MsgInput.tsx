@@ -13,7 +13,7 @@ function MsgInput({ register, errors, msg }: IMsgInputProps) {
         })}
       />
       <p className="mr-2 text-right text-xs">
-        <span className={`${errors["msg"] && "text-status-error"}`}>{msg.length}</span>/20
+        <span className={`${errors["msg"] && "text-status-error"}`}>{msg?.length}</span>/20
       </p>
     </section>
   );

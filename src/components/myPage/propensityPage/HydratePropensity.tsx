@@ -17,7 +17,7 @@ function HydratePropensity({ propensityData }: { propensityData: IPropensityData
         <br />
         <span className="text-primary-normal">{userPropensity.propensity}</span>입니다.
       </h2>
-      {userPropensity && <PropensityInfoCard propensity={propensity} info={userPropensity.info} />}
+      {userPropensity && <PropensityInfoCard propensity={userPropensity.propensity} info={userPropensity.info} />}
       <PropensityChart propensity={userPropensity.propensity} />
       <RiskGrades grade={userPropensity.grade} />
       <RecommendPBList list={list} />

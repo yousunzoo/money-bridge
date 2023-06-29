@@ -7,9 +7,10 @@ function Main({ children }: { children: ReactNode }) {
   const path = usePathname();
 
   useEffect(() => {
-    window.addEventListener("beforeunload", () => {
-      if (localStorage.getItem("AutoLogin") === "false") removeCookie("Authorization");
-    });
+    if (sessionStorage.getItem("AutoLogin") === null) {
+      removeCookie("Authorization");
+      removeCookie("refreshToken");
+    }
   }, []);
 
   const background = (() => {

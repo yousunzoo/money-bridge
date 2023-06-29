@@ -20,6 +20,7 @@ const createInstance = (ContentType: string) => {
     request => {
       const token = getCookie("Authorization");
       if (token) request.headers["Authorization"] = `${token}`;
+      if (!token) request.headers["Authorization"] = "";
       return request;
     },
     (error: AxiosError) => {

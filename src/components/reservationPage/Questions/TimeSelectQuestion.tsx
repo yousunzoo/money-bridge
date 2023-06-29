@@ -39,7 +39,7 @@ function TimeSelectQuestion({ isOpen, consultTime, handleOpenModal }: ITimeSelec
           <div className="info_card">
             <p className="font-bold">상담 가능 시간을 확인해주세요.</p>
             <p>
-              업무시간 : 월~금 {consultStart} ~ {consultEnd}
+              업무시간 : 월~금 {consultStart || "09:00"} ~ {consultEnd || "18:00"}
             </p>
             {notice && <p>유의사항 : {notice}</p>}
           </div>

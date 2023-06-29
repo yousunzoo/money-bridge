@@ -8,7 +8,12 @@ function Main({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     window.addEventListener("beforeunload", () => {
-      if (localStorage.getItem("AutoLogin") === "false") removeCookie("Authorization");
+      if (localStorage.getItem("AutoLogin") === "false") {
+        if (document.readyState == "complete") {
+          return;
+        }
+        removeCookie("Authorization");
+      }
     });
   }, []);
 

@@ -9,10 +9,11 @@ import PBJoinGuide from "@/components/joinPage/pb/PBJoinGuide";
 import { JoinFormType } from "@/constants/enum";
 import { useJoinStore } from "@/store/joinStore";
 import { redirect, usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import SelectCompany from "@/components/joinPage/pb/SelectCompany";
 import EnterCareer from "@/components/joinPage/pb/EnterCareer";
 import PbComplete from "@/components/joinPage/pb/PbComplete";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 type Tstep =
   | "pbJoinGuide"
@@ -68,7 +69,19 @@ function Page() {
   const pathName = usePathname();
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
   checkRedirect(pathName) ?? redirect("/login");
-  const { informations } = useJoinStore();
+  const { isLogined, userLoading } = useGetUserInfo();
+
+  useEffect(() => {
+    if (!navigator.cookieEnabled) {
+      alert("쿠키를 허용해주세요");
+      redirect("/");
+    }
+  }, []);
+
+  if (isLogined && !userLoading) {
+    redirect("/");
+  }
+
   return (
     <>
       <TopNav title="PB 회원가입" hasBack backGroundWhite />

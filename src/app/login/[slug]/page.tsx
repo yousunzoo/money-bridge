@@ -4,10 +4,24 @@ import ButtonToAccountSetting from "@/components/loginPage/ButtonToAccountSettin
 import DoubleInputForm from "@/components/common/DoubleInputForm";
 import KeepLoginButton from "@/components/loginPage/KeepLoginButton";
 import { InputFormType } from "@/constants/enum";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 function Login() {
   const pathName = usePathname();
+  const { isLogined, userLoading } = useGetUserInfo();
+
+  useEffect(() => {
+    if (!navigator.cookieEnabled) {
+      alert("쿠키를 허용해주세요");
+      redirect("/");
+    }
+  }, []);
+
+  if (isLogined && !userLoading) {
+    redirect("/");
+  }
 
   return (
     <>

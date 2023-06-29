@@ -14,7 +14,7 @@ function IntroInput({ register, errors, intro }: IIntroInputProps) {
         })}
       />
       <p className="mr-2 text-right text-xs">
-        <span className={`${errors["intro"] && "text-status-error"}`}>{intro.length}</span>/100
+        <span className={`${errors["intro"] && "text-status-error"}`}>{intro?.length}</span>/100
       </p>
     </section>
   );

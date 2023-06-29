@@ -12,7 +12,7 @@ import { yup_password } from "@/constants/yupSchema";
 import Image from "next/image";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
-import { useMyPageCheck } from "@/hooks/useMyPageCheck";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 type Tinput = "first" | "second";
 
@@ -21,7 +21,7 @@ function ResetPasswordForm() {
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const currentPath = pathName.split("/")[1];
-  const { loginedUserInfo } = useMyPageCheck(currentPath === "my");
+  const { userInfo } = useGetUserInfo();
   const findPassword = useResetPassword();
   const queryClient = useQueryClient();
 
@@ -61,8 +61,8 @@ function ResetPasswordForm() {
         findPassword({ id: data.data.id, password: getValues("first"), role: pathName.split("/")[2].toUpperCase() });
         break;
       case "my":
-        if (!loginedUserInfo) return;
-        findPassword({ id: loginedUserInfo.id, password: getValues("first"), role: loginedUserInfo.role });
+        if (!userInfo) return;
+        findPassword({ id: userInfo.id, password: getValues("first"), role: userInfo.role });
     }
     setIsOpen(true);
   };

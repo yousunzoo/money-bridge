@@ -17,10 +17,9 @@ function TermsPage() {
     <>
       <TopNav title="서비스 약관" hasBack={true} />
       <h2 className="mb-4 text-2xl font-bold">이용 약관</h2>
-      <h3 className="mb-4 text-2xl font-bold">투자자 이용 약관</h3>
       {...userProvisions}
-
-      <h3 className="mb-4 text-2xl font-bold">PB 이용 약관</h3>
+      <br />
+      <br />
       {...PbProvisions}
     </>
   );

@@ -2,7 +2,7 @@ const shareKakao = (url: string, title: string, description: string, imageUrl: s
   if (window.Kakao) {
     const kakao = window.Kakao;
     if (!kakao.isInitialized()) {
-      kakao.init("a00d33a77c654313f467c84771f981c2");
+      kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
 
     kakao.Share.sendDefault({

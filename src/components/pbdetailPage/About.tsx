@@ -12,7 +12,7 @@ import { getSamePb, getPbReviewRecent, getReviewStyle, getPbReview } from "@/app
 import { useQuery } from "@tanstack/react-query";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
 import { getMyId } from "@/utils/pbMyId";
-import { styleCase } from "@/utils/ConsultationStyle";
+import { styleCase } from "@/utils/consultStyle";
 import PbReviewItem from "@/components/pbdetailPage/pbreviewPage/PbReviewItem";
 import { AxiosError } from "axios";
 import { IAboutData, IPbReview, IReviewStyles } from "@/types/pb";

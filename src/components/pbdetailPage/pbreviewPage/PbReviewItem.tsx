@@ -1,5 +1,5 @@
 import React from "react";
-import { styleCase } from "@/utils/ConsultationStyle";
+import { styleCase } from "@/utils/consultStyle";
 import { showName } from "@/utils/userNameFormat";
 import dayjs from "dayjs";
 import { IPbReview } from "@/types/pb";

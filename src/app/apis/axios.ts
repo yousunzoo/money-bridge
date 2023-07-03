@@ -4,9 +4,7 @@ import { reissueToken } from "./services/etc";
 
 const createInstance = (ContentType: string) => {
   const instance = axios.create({
-    // TODO: env
-    // baseURL: "http://ec2-3-37-11-7.ap-northeast-2.compute.amazonaws.com:8080/",
-    baseURL: "https://money-bridge.shop:8080/",
+    baseURL: process.env.NEXT_PUBLIC_API_KEY,
     timeout: 3000,
     headers: {
       "Content-Type": ContentType,

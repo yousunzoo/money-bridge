@@ -1,7 +1,8 @@
 # PB 투자자 매칭 플랫폼
 
 ## 💁🏻 프로젝트 소개
-> PB 투자자 매칭 플랫폼 <br />
+![머니브릿지](https://github.com/FINALALT1/money-bridge/assets/100064540/ad37937b-2f8e-4e17-aee7-d4606133ece3)
+> PB와 투자자를 이어주는 위치기반의 매칭 플랫폼 <br />
 
 #### ⏰ 개발 기간
 

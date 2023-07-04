@@ -7,7 +7,7 @@ function Main({ children }: { children: ReactNode }) {
   const path = usePathname();
 
   useEffect(() => {
-    if (sessionStorage.getItem("AutoLogin") === null) {
+    if (localStorage.getItem("AutoLogin") === "false" && sessionStorage.getItem("AutoLogin") === null) {
       removeCookie("Authorization");
       removeCookie("refreshToken");
     }

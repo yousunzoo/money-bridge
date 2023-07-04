@@ -5,7 +5,7 @@ import { reissueToken } from "./services/etc";
 const createInstance = (ContentType: string) => {
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_KEY,
-    timeout: 3000,
+    timeout: 10000,
     headers: {
       "Content-Type": ContentType,
       "Access-Control-Allow-Origin": "*",

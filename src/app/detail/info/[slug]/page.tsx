@@ -25,7 +25,7 @@ function PbDetailInfo() {
     queryFn: () => getPbProfile(id),
     enabled: !!token,
   });
-  const { data: userData, isLoading } = useQuery<ILoginedUserInfo, AxiosError>({
+  const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,

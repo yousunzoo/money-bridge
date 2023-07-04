@@ -13,10 +13,10 @@ function PbBookMark() {
   return (
     <div className="mb-10">
       <BookMark />
-      {res !== null ? (
+      {res && res?.list.length > 0 ? (
         <PbCardList queryKey={"/user/bookmarks/pb"} api={getBookMarkPB} bookmarks={true} />
       ) : (
-        <div className="flex justify-center">북마크 한 콘텐츠 없음</div>
+        <div className="flex justify-center">북마크 한 PB 없음</div>
       )}
     </div>
   );

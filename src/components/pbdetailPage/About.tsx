@@ -12,7 +12,7 @@ import { getSamePb, getPbReviewRecent, getReviewStyle, getPbReview } from "@/app
 import { useQuery } from "@tanstack/react-query";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
 import { getMyId } from "@/utils/pbMyId";
-import { styleCase } from "@/utils/ConsultationStyle";
+import { styleCase } from "@/utils/consultStyle";
 import PbReviewItem from "@/components/pbdetailPage/pbreviewPage/PbReviewItem";
 import { AxiosError } from "axios";
 import { IAboutData, IPbReview, IReviewStyles } from "@/types/pb";
@@ -118,18 +118,16 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         ))}
 
       <div className="mb-20">
-        <div className="flex w-full items-center">
-          {pbReviewData && pbReviewData.data && (
-            <>
-              <p className="w-full text-xs font-bold">
-                후기 {pbReviewData.totalElements ? pbReviewData.totalElements : 0}건
-              </p>
-              <Link href={`/detail/review/${id}`} className="flex w-full justify-end text-sm underline">
-                전체보기
-              </Link>
-            </>
-          )}
-        </div>
+        {pbReviewData && pbReviewData.data && (
+          <div className="flex w-full items-center">
+            <p className="w-full text-xs font-bold">
+              후기 {pbReviewData.totalElements ? pbReviewData.totalElements : 0}건
+            </p>
+            <Link href={`/detail/review/${id}`} className="flex w-full justify-end text-sm underline">
+              전체보기
+            </Link>
+          </div>
+        )}
         {pbRecentData && pbRecentData.length > 0 && (
           <ul>
             <Carousel autoplay draggable={true}>

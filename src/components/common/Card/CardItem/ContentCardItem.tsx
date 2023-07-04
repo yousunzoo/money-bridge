@@ -12,7 +12,15 @@ import { AxiosError } from "axios";
 import useContentBookMark from "@/hooks/useContentBookMark";
 import ButtonModal from "@/components/common/ButtonModal";
 
-function ContentCardItem({ item, queryKey, bookmarks }: { item: IContentCard; queryKey?: string | string[]; bookmarks: boolean; }) {
+function ContentCardItem({
+  item,
+  queryKey,
+  bookmarks,
+}: {
+  item: IContentCard;
+  queryKey?: string | string[];
+  bookmarks: boolean;
+}) {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
     queryFn: getLoginedUserInfo,
@@ -41,10 +49,10 @@ function ContentCardItem({ item, queryKey, bookmarks }: { item: IContentCard; qu
               </div>
               <div className="text-2xl font-bold">{item.title}</div>
             </div>
-            {userData?.role !== undefined && bookmarks && (
+            {userData?.role === "USER" && bookmarks && (
               <button
                 onClick={event => {
-                  event.stopPropagation(); // Prevent event propagation
+                  event.stopPropagation();
                   bookMarkHandler(item.id);
                 }}
                 className="flex-3 flex w-12 items-center justify-center"
@@ -67,8 +75,8 @@ function ContentCardItem({ item, queryKey, bookmarks }: { item: IContentCard; qu
             <Image
               src={item.companyLogo}
               alt="증권사로고"
-              className="ml-[45px] h-[40px] w-[114px] object-cover"
-              width={114}
+              className="ml-[45px] max-h-[40px] object-contain"
+              width={40}
               height={40}
             />
           </div>

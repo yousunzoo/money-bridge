@@ -20,7 +20,7 @@ function Search({
       <input
         className="search_input mt-6 h-[56px] w-full"
         type="text"
-        placeholder="궁금한 정보를 검색해보세요"
+        placeholder={isPB ?"궁금한 PB를 검색해보세요":"궁금한 콘텐츠를 검색해보세요"}
         value={isPB ? searchPb : searchContent}
         onChange={onSearchChange}
         onKeyDown={onSearch}

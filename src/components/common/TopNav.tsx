@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import arrayBack from "/public/assets/images/arrayBack.svg";
 import logo from "/public/assets/images/logo.png";
 import { useGeoLocation } from "@/hooks/useGeoLacation";
@@ -36,7 +36,6 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
   }, []);
 
   if (!mounted) return null;
-
   return (
     <>
       <div
@@ -81,4 +80,10 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
   );
 }
 
-export default TopNav;
+export default memo(TopNav, (prevProps, nextProps) => {
+  return (
+    prevProps.title === nextProps.title &&
+    prevProps.hasBack === nextProps.hasBack &&
+    prevProps.backGroundWhite === nextProps.backGroundWhite
+  );
+});

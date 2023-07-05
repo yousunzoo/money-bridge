@@ -31,12 +31,12 @@ function ReservationCompletePage() {
   return (
     <section className="flex h-[100%] w-full flex-col py-[100px]">
       <div>
-        <p className="mb-6 text-3xl font-bold">
+        <p className="mb-6 text-2xl font-bold">
           {userInfo.name}님의
           <br />
           상담 예약이 완료되었어요.
         </p>
-        <p className="mb-6">
+        <p className="mb-6 break-keep">
           PB가 예약가능 여부를 확인중에 있습니다.
           <br />
           빠른 시간 내로 확정결과를 <span className="font-semibold">전화</span>로 안내해드리겠습니다.

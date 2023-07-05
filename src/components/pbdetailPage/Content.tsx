@@ -55,18 +55,20 @@ function Content({ contentData }: { contentData: IContentData }) {
           ))}
         </ul>
       </div>
-      <div className={`mb-${award ? "7" : "[68px]"}`}>
-        <p className="header">경력</p>
-        <ul className="flex flex-col">
-          {career?.map((item: any) => (
-            <li key={item.id} className="flex text-xs">
-              <div>{item.start}&nbsp;-</div>
-              <div>&nbsp;{item.end}</div>
-              <div>&nbsp;&nbsp;{item.career}</div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {career && award?.length > 0 && (
+        <div className={`mb-${award ? "7" : "[68px]"}`}>
+          <p className="header">경력</p>
+          <ul className="flex flex-col">
+            {career?.map((item: any) => (
+              <li key={item.id} className="flex text-xs">
+                <div>{item.start}&nbsp;-</div>
+                <div>&nbsp;{item.end}</div>
+                <div>&nbsp;&nbsp;{item.career}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {award && award?.length > 0 && (
         <div className="mb-[68px]">
           <p className="header">수상내역</p>

@@ -29,9 +29,7 @@ function PBInfo() {
       </h2>
       <article className="w-full rounded-md bg-white p-4 shadow-md">
         <div className="mb-6 flex">
-          <div className="relative mr-4 h-[60px] w-[60px] overflow-hidden rounded-[30px]">
-            <Image src={profile} width={60} height={60} alt={name} />
-          </div>
+          <Image width={60} height={60} className="mr-3 h-[60px] max-w-[60px] rounded-full" src={profile} alt={name} />
           <div>
             <p className="font-bold">{name} PB</p>
             <p className="text-xs">{branchName}</p>

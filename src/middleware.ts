@@ -1,9 +1,8 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("Authorization");
+  console.log(accessToken);
   if (!accessToken) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
@@ -11,5 +10,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/reservation/", "/analysis"],
+  matcher: ["/reservation/", "/analysis", "/my/"],
 };

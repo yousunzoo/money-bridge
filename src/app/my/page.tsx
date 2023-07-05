@@ -18,11 +18,11 @@ const nextIcon = "/assets/images/nextIcon.svg";
 function MyPage() {
   const { loginedUserInfo, isLoading, isError, handleLogout, isOpen, setIsOpen, modalContents } = useMyPageCheck();
 
-  useEffect(() => {
-    if (!loginedUserInfo && isError) {
-      redirect("/login");
-    }
-  }, [loginedUserInfo, isError]);
+  // useEffect(() => {
+  //   if (!loginedUserInfo && isError) {
+  //     redirect("/login");
+  //   }
+  // }, [loginedUserInfo, isError]);
 
   if (isLoading || !loginedUserInfo) return null;
   return (

@@ -9,13 +9,6 @@ interface ErrorProps {
   msg: string;
 }
 
-const ERROR_MESSAGES: { [key: number]: string } = {
-  400: "일시적인 문제가 발생했습니다. 다시 시도해주세요.",
-  403: "권한이 없습니다. 다시 시도해주세요.",
-  404: "일시적인 문제가 발생했습니다. 다시 시도해주세요.",
-  500: "일시적인 문제가 발생했습니다. 다시 시도해주세요.",
-};
-
 const useApiError = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +18,13 @@ const useApiError = () => {
     const errorResponse = axiosError.message as ErrorProps;
     const status = errorResponse.status;
     const data = errorResponse.data;
+    const ERROR_MESSAGES: { [key: number]: string } = {
+      400: data,
+      401: data,
+      403: data,
+      404: data,
+      500: data,
+    };
 
     if (data === "투자성향 분석이 되지않았습니다.") return;
     if (data === "이미 로그아웃한 액세스 토큰입니다") return;

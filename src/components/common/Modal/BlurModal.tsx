@@ -12,19 +12,19 @@ function BlurModal() {
         <div className="mb-8 flex w-full items-center justify-center">
           {pathname === "/detail/info" ? (
             <div className="flex items-center justify-center text-center">
-              회원가입 하고
+              로그인 후
               <br />
               프라이빗 뱅커의 프로필과 포트폴리오를 확인하세요
             </div>
           ) : (
             <div className="flex items-center justify-center text-center">
-              회원가입 후<br />
+              로그인 후<br />
               프라이빗 뱅커의 콘텐츠를 읽어보실 수 있습니다.
             </div>
           )}
         </div>
         <Link className="flex h-[52px] w-[195px] items-center justify-center rounded-md bg-primary-normal" href="/join">
-          회원가입
+          로그인
         </Link>
       </div>
     </div>

@@ -31,8 +31,10 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
     getPbReviewRecent(id),
   );
   const pbRecentData = PbRecentReview?.list;
-  const { data: PbReview } = useQuery<IDataResponse<IPbReview>, AxiosError>(["getPbReview"], () => getPbReview(id, 0));
-  const pbReviewData = PbReview;
+  const { data: pbReviewData } = useQuery<IListResponse<IPbReview>, AxiosError>(["getPbReview"], () =>
+    getPbReview(id, 0),
+  );
+
   const router = useRouter();
   const pathname: string = usePathname();
   const myId: number | undefined = getMyId(role, Id, id);
@@ -62,63 +64,61 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
   if (!reviewData || !sameData) return null;
   return (
     <div>
-      {reviewData.style1 ||
-        reviewData.style2 ||
-        (reviewData.style3 && (
-          <>
-            <p className="info_header">
-              투자자 님들의
-              <br />
-              실제 상담 후기
+      {(reviewData.style1 || reviewData.style2 || reviewData.style3) && (
+        <>
+          <p className="info_header">
+            투자자 님들의
+            <br />
+            실제 상담 후기
+          </p>
+          <div className="card mb-[46px] flex h-[154px] w-full flex-col justify-center">
+            <p className="mx-auto mb-[15px] flex text-xs">
+              "투자자님들이 말하는&nbsp;<span className="font-bold">{name} PB의 매력</span>은?"
             </p>
-            <div className="card mb-[46px] flex h-[154px] w-full flex-col justify-center">
-              <p className="mx-auto mb-[15px] flex text-xs">
-                "투자자님들이 말하는&nbsp;<span className="font-bold">{name} PB의 매력</span>은?"
-              </p>
-              <div className="mx-auto flex w-full px-[51px]">
-                {reviewData.style1 && (
-                  <div className="review_section">
-                    <Image
-                      src={styleCase(reviewData.style1).image}
-                      alt={styleCase(reviewData.style1).style}
-                      width={56}
-                      height={56}
-                      className="mx-auto h-[56px] w-[56px]"
-                    />
-                    <p className="review_text">{styleCase(reviewData.style1).style}</p>
-                  </div>
-                )}
-                {reviewData.style2 && (
-                  <div className="review_section">
-                    <Image
-                      src={styleCase(reviewData.style2).image}
-                      alt={styleCase(reviewData.style2).style}
-                      width={56}
-                      height={56}
-                      className="mx-auto h-[56px] w-[56px]"
-                    />
-                    <p className="review_text">{styleCase(reviewData.style2).style}</p>
-                  </div>
-                )}
-                {reviewData.style3 && (
-                  <div className="review_section">
-                    <Image
-                      src={styleCase(reviewData.style3).image}
-                      alt={styleCase(reviewData.style3).style}
-                      width={56}
-                      height={56}
-                      className="mx-auto h-[56px] w-[56px]"
-                    />
-                    <p className="review_text">{styleCase(reviewData.style3).style}</p>
-                  </div>
-                )}
-              </div>
+            <div className="mx-auto flex w-full px-[51px]">
+              {reviewData.style1 && (
+                <div className="review_section">
+                  <Image
+                    src={styleCase(reviewData.style1).image}
+                    alt={styleCase(reviewData.style1).style}
+                    width={56}
+                    height={56}
+                    className="mx-auto h-[56px] w-[56px]"
+                  />
+                  <p className="review_text">{styleCase(reviewData.style1).style}</p>
+                </div>
+              )}
+              {reviewData.style2 && (
+                <div className="review_section">
+                  <Image
+                    src={styleCase(reviewData.style2).image}
+                    alt={styleCase(reviewData.style2).style}
+                    width={56}
+                    height={56}
+                    className="mx-auto h-[56px] w-[56px]"
+                  />
+                  <p className="review_text">{styleCase(reviewData.style2).style}</p>
+                </div>
+              )}
+              {reviewData.style3 && (
+                <div className="review_section">
+                  <Image
+                    src={styleCase(reviewData.style3).image}
+                    alt={styleCase(reviewData.style3).style}
+                    width={56}
+                    height={56}
+                    className="mx-auto h-[56px] w-[56px]"
+                  />
+                  <p className="review_text">{styleCase(reviewData.style3).style}</p>
+                </div>
+              )}
             </div>
-          </>
-        ))}
+          </div>
+        </>
+      )}
 
       <div className="mb-20">
-        {pbReviewData && pbReviewData.data && (
+        {pbReviewData && pbReviewData.list?.length > 0 && (
           <div className="flex w-full items-center">
             <p className="w-full text-xs font-bold">
               후기 {pbReviewData.totalElements ? pbReviewData.totalElements : 0}건

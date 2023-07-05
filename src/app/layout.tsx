@@ -46,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></Script>
         <Script
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&autoload=false`}
-          strategy="beforeInteractive"
         />
       </head>
       <body className={noto.className}>

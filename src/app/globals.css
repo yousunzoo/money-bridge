@@ -135,7 +135,7 @@
   }
 
   .popup .popup-button {
-    @apply h-[44px] rounded-md bg-primary-normal text-white;
+    @apply rounded-md bg-primary-normal text-white;
   }
 
   .popup .cancel-button {

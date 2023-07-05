@@ -66,7 +66,7 @@ function PbCardItem({
           {userData?.role === "USER" && bookmarks && (
             <button
               onClick={() => bookMarkHandler(item.id)}
-              className="flex-2 flex w-12 items-start justify-center pt-1"
+              className="flex-2 flex w-12 items-start justify-end pt-1"
             >
               {item.isBookmarked ? (
                 <Image
@@ -95,11 +95,11 @@ function PbCardItem({
               <p className="font-bold">상담 후기</p>&nbsp;{item.reviewCount ? item.reviewCount : 0}건
             </div>
           </div>
-          {userData?.role === "USER" && (
+       
             <button onClick={goToDetail} className="flex-2 h-[34px] w-[110px] rounded-md bg-primary-normal text-white">
               자세히 보기
             </button>
-          )}
+        
         </div>
       </li>
       {isBookmarkedOpen && isBookmark && (

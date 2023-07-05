@@ -7,15 +7,15 @@ import { getMyId } from "@/utils/pbMyId";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import useDelete from "@/hooks/useDelete";
-import { postReply, postReReply, deleteReply, deleteReReply, editReply, editReReply } from "@/app/apis/services/auth";
+import { postReply, postReReply, deleteReply, editReply } from "@/app/apis/services/auth";
 import ButtonModal from "@/components/common/ButtonModal";
 import { showName } from "@/utils/userNameFormat";
 import { ILoginedUserInfo } from "@/types/common";
 import { IContentsInfo, IReReply, IReply } from "@/types/contents";
+import Reply from "@/components/contentsPage/Reply";
 
 function Comments({ commentData, userData }: { commentData: IContentsInfo; userData: ILoginedUserInfo }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isReEdit, setIsReEdit] = useState<boolean>(false);
   const [isReply, setIsReply] = useState<boolean>(false);
   const [reID, setReID] = useState<number>(0);
   const [editID, setEditID] = useState<number>(0);
@@ -45,20 +45,6 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     onError: (err: AxiosError) => {},
   });
 
-  const { mutate: deleterereply } = useMutation(deleteReReply, {
-    onSuccess: () => {
-      queryClient.refetchQueries(["getContentsId"]);
-    },
-    onError: (err: AxiosError) => {},
-  });
-
-  const { mutate: editrereply } = useMutation(editReReply, {
-    onSuccess: () => {
-      queryClient.refetchQueries(["getContentsId"]);
-    },
-    onError: (err: AxiosError) => {},
-  });
-
   const { mutate: editreply } = useMutation(editReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
@@ -66,12 +52,8 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     onError: (err: AxiosError) => {},
   });
 
-  const editHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const editHandler = () => {
     setEditText(e.target.value);
-  };
-
-  const editReplyHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewComment(e.target.value);
   };
 
   const editItemClickHandler = (itemId: number) => {
@@ -86,20 +68,6 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     setIsEdit(false);
     setEditID(0);
     setEditText("");
-  };
-
-  const replyEditItemClickHandler = (itemId: number) => {
-    setIsReEdit(true);
-    setReID(itemId);
-  };
-
-  const replyEditEndHandler = (itemId: number) => {
-    if (newReComment.trim() !== "") {
-      editrereply({ id: itemId, rereply: newReComment });
-    }
-    setIsReEdit(false);
-    setReID(0);
-    setNewReComment("");
   };
 
   const replyPostHandler = (id: number) => {
@@ -142,12 +110,13 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
         </button>
       </div>
       <input
-        className="border-[2px] mb-[12px] h-[80px] w-full bg-white p-2"
+        className="mb-[12px] h-[80px] w-full border-[2px] bg-white p-2"
         placeholder="댓글을 남겨보세요"
         type="text"
         value={newComment}
         onChange={e => setNewComment(e.target.value)}
       />
+
       {commentData?.reply.map((item: IReply) => (
         <div className="mt-[33px]" key={item.id}>
           <div className="flex text-xs">
@@ -209,7 +178,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
             <>
               <input
                 autoFocus
-                className="mb-[12px] mt-2 h-[50px] w-full bg-white border-[2px] p-2"
+                className="mb-[12px] mt-2 h-[50px] w-full border-[2px] bg-white p-2"
                 placeholder="답글을 남겨보세요"
                 type="text"
                 value={newReComment}
@@ -225,48 +194,19 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
           )}
 
           {item.reReply?.map((reply: IReReply) => (
-            <div className="ml-auto mt-[33px] flex w-[90%] flex-col" key={reply.uniqueValue}>
-              <div className="flex text-xs">
-                <Image
-                  className="image"
-                  src={reply.profile ? reply.profile : profile}
-                  alt="프로필"
-                  width={18}
-                  height={18}
-                />
-                <div className="name">{showName(reply.name)} 님</div>
-                <div className="flex-1">{dayjs(reply.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
-                {getMyId(userData?.role, userData?.id, reply.authorId) && (
-                  <>
-                    {isReEdit ? (
-                      <button className="mr-[8px]" onClick={() => replyEditEndHandler(reply.uniqueValue)}>
-                        완료
-                      </button>
-                    ) : (
-                      <button className="mr-[8px]" onClick={() => replyEditItemClickHandler(reply.uniqueValue)}>
-                        수정
-                      </button>
-                    )}
-                    <button onClick={() => deleteHandler(reply.uniqueValue, deleterereply)}>삭제</button>
-                  </>
-                )}
-              </div>
-              {isReEdit ? (
-                <input
-                  autoFocus
-                  className="mt-[7px] w-full bg-white p-[14px]"
-                  defaultValue={reply.content}
-                  type="text"
-                  onChange={editReplyHandler}
-                  value={newComment ? newComment : reply.content}
-                />
-              ) : (
-                <div className="content">{reply.content}</div>
-              )}
-            </div>
+            <Reply
+              key={reply.uniqueValue}
+              reply={reply}
+              userData={userData}
+              isDeleteOpen={isDeleteOpen}
+              setIsDeleteOpen={setIsDeleteOpen}
+              deleteHandler={deleteHandler}
+              deleteContents={deleteContents}
+            />
           ))}
         </div>
       ))}
+
       {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}
     </>
   );

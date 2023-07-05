@@ -47,7 +47,7 @@ function ContentCardItem({
               <div className="text-base ">
                 {item.tag1}&nbsp;&nbsp;•&nbsp;&nbsp;{item.tag2}
               </div>
-              <div className="text-2xl font-bold break-keep">{item.title}</div>
+              <div className="break-keep text-2xl font-bold">{item.title}</div>
             </div>
             {userData?.role === "USER" && bookmarks && (
               <button
@@ -82,7 +82,7 @@ function ContentCardItem({
           </div>
         </div>
       </li>
-      {isBookmarkedOpen && isBookmark && (
+      {isBookmark && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
     </>

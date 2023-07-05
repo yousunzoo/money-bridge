@@ -64,10 +64,7 @@ function PbCardItem({
             </div>
           </div>
           {userData?.role === "USER" && bookmarks && (
-            <button
-              onClick={() => bookMarkHandler(item.id)}
-              className="flex-2 flex w-12 items-start justify-end pt-1"
-            >
+            <button onClick={() => bookMarkHandler(item.id)} className="flex-2 flex w-12 items-start justify-end pt-1">
               {item.isBookmarked ? (
                 <Image
                   src={bookmark_filled}
@@ -95,14 +92,12 @@ function PbCardItem({
               <p className="font-bold">상담 후기</p>&nbsp;{item.reviewCount ? item.reviewCount : 0}건
             </div>
           </div>
-       
-            <button onClick={goToDetail} className="flex-2 h-[34px] w-[110px] rounded-md bg-primary-normal text-white">
-              자세히 보기
-            </button>
-        
+          <button onClick={goToDetail} className="flex-2 h-[34px] w-[110px] rounded-md bg-primary-normal text-white">
+            자세히 보기
+          </button>
         </div>
       </li>
-      {isBookmarkedOpen && isBookmark && (
+      {isBookmark && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
     </>

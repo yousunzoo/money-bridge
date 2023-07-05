@@ -48,7 +48,7 @@ function Intro({ introData }: { introData: IIntroData }) {
           alt="증권사 로고"
           width={42}
           height={42}
-          className="absolute z-10 left-2 h-[42px] cursor-pointer object-contain top-5"
+          className="absolute left-2 top-5 z-10 h-[42px] cursor-pointer object-contain"
           onClick={goToCompany}
           priority
         />
@@ -66,7 +66,6 @@ function Intro({ introData }: { introData: IIntroData }) {
           priority
         />
       </div>
-
       <div className="flex flex-col items-center">
         <p className="mb-4 mt-[23px] text-2xl font-bold">{name} PB</p>
         <p className="mb-[18px] font-medium">{branchName}</p>
@@ -117,7 +116,7 @@ function Intro({ introData }: { introData: IIntroData }) {
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
       )}
-      {isBookmarkedOpen && isBookmark && (
+      {isBookmark && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
     </>

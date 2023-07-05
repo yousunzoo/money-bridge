@@ -15,16 +15,18 @@ function BookmarkPreviewCard({ type, bookmark }: IBookmarkPreviewCardProps) {
       <div className="flex h-[150px] w-full px-2 pt-5">
         {count > 0 && (
           <>
-            <div className="h-[50px] w-[50px] overflow-hidden rounded-[25px]">
-              <Image src={list[0].thumbnail} width={50} height={50} alt={list[0].thumbnail} />
+            <div className="relative h-[50px] w-[50px] overflow-hidden rounded-[25px]">
+              <Image src={list[0].thumbnail} className="object-cover" fill alt={list[0].thumbnail} />
             </div>
             {count > 1 && (
-              <div className="-ml-4 h-[50px] w-[50px] overflow-hidden rounded-[25px]">
-                <Image src={list[1].thumbnail} width={50} height={50} alt={list[1].thumbnail} />
+              <div className="relative -ml-4 h-[50px] w-[50px] overflow-hidden rounded-[25px]">
+                <Image src={list[1].thumbnail} className="object-cover" fill alt={list[1].thumbnail} />
               </div>
             )}
             {count > 2 && (
-              <div className={`-ml-4 flex h-[50px] w-[50px] items-center justify-center rounded-[25px] ${moreColor}`}>
+              <div
+                className={`relative -ml-4 flex h-[50px] w-[50px] items-center justify-center rounded-[25px] ${moreColor}`}
+              >
                 <p className="text-2xl font-bold text-white">+{count - 2}</p>
               </div>
             )}

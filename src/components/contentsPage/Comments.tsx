@@ -136,13 +136,13 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
         <div className="mb-[16px] flex-1 text-base font-bold">댓글 {commentData?.reply.length}개</div>
         <button
           onClick={() => addComment()}
-          className="flex items-center justify-center h-[30px] w-[72px] rounded-md border-[2px] bg-white text-secondary-heavy"
+          className="flex h-[30px] w-[72px] items-center justify-center rounded-md border-[2px] bg-white text-secondary-heavy"
         >
           등록
         </button>
       </div>
       <input
-        className="mb-[12px] h-[80px] w-full bg-white"
+        className="border-[2px] mb-[12px] h-[80px] w-full bg-white p-2"
         placeholder="댓글을 남겨보세요"
         type="text"
         value={newComment}
@@ -194,6 +194,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
 
           {isEdit && editID === item.id ? (
             <input
+              autoFocus
               className="mt-[7px] w-full bg-white p-[14px]"
               defaultValue={item.content}
               type="text"
@@ -207,14 +208,15 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
           {isReply && reID === item.id && (
             <>
               <input
-                className="mb-[12px] mt-2 h-[50px] w-full bg-white"
+                autoFocus
+                className="mb-[12px] mt-2 h-[50px] w-full bg-white border-[2px] p-2"
                 placeholder="답글을 남겨보세요"
                 type="text"
                 value={newReComment}
                 onChange={e => setNewReComment(e.target.value)}
               />
               <button
-                className="h-[30px] w-[52px] rounded-md border-[2px] bg-white text-secondary-heavy flex items-center justify-center"
+                className="flex h-[30px] w-[52px] items-center justify-center rounded-md border-[2px] bg-white text-secondary-heavy"
                 onClick={() => addReComment(item.id)}
               >
                 등록
@@ -251,6 +253,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
               </div>
               {isReEdit ? (
                 <input
+                  autoFocus
                   className="mt-[7px] w-full bg-white p-[14px]"
                   defaultValue={reply.content}
                   type="text"

@@ -37,7 +37,7 @@ function Intro({ introData }: { introData: IIntroData }) {
   } = useShare(urlToCopy, name + "PB", msg, profile);
 
   const goToCompany = () => {
-    router.push(`/pblist/financial/${companyId}`);
+    router.push(`pblist?company=${companyId}`);
   };
 
   return (
@@ -48,7 +48,7 @@ function Intro({ introData }: { introData: IIntroData }) {
           alt="증권사 로고"
           width={42}
           height={42}
-          className="absolute left-2  z-10 h-[42px] cursor-pointer object-contain"
+          className="absolute z-10 left-2 h-[42px] cursor-pointer object-contain top-5"
           onClick={goToCompany}
           priority
         />

@@ -56,7 +56,7 @@ function Content({ contentData }: { contentData: IContentData }) {
         </ul>
       </div>
       {career && award?.length > 0 && (
-        <div className={`mb-${award ? "7" : "[68px]"}`}>
+        <div className="mb-7">
           <p className="header">경력</p>
           <ul className="flex flex-col">
             {career?.map((item: any) => (

@@ -9,7 +9,7 @@ import { IContentData, IPortfolio } from "@/types/pb";
 
 function Content({ contentData }: { contentData: IContentData }) {
   const { id, name, intro, speciality1, speciality2, career, award } = contentData;
-  const { data: portfolio } = useQuery<IDataResponse<IPortfolio>, AxiosError>(["getPbPortfolio"], () =>
+  const { data: portfolio } = useQuery<IDataResponse<IPortfolio>, AxiosError>(["getPbPortfolio",id], () =>
     getPbPortfolio(id),
   );
   const portfolioData = portfolio?.data;

@@ -22,7 +22,7 @@ function PbDetailContent() {
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });
-  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>(["getPbProfile"], () =>
+  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>(["getPbProfile",id], () =>
     getPbProfile(id),
   );
 

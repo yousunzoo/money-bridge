@@ -21,17 +21,17 @@ import { IPbCard } from "@/types/card";
 
 function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; Id: number }) {
   const { id, name, branchAddress, branchName, branchLatitude, branchLongitude } = aboutData;
-  const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>(["getReviewStyle"], () =>
+  const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>(["getReviewStyle",id], () =>
     getReviewStyle(id),
   );
   const reviewData = review?.data;
-  const { data: same } = useQuery<IListResponse<IPbCard>, AxiosError>(["getSamePb"], () => getSamePb(id));
+  const { data: same } = useQuery<IListResponse<IPbCard>, AxiosError>(["getSamePb",id], () => getSamePb(id));
   const sameData = same?.list;
-  const { data: PbRecentReview } = useQuery<IListResponse<IPbReview>, AxiosError>(["getPbReviewRecent"], () =>
+  const { data: PbRecentReview } = useQuery<IListResponse<IPbReview>, AxiosError>(["getPbReviewRecent",id], () =>
     getPbReviewRecent(id),
   );
   const pbRecentData = PbRecentReview?.list;
-  const { data: pbReviewData } = useQuery<IListResponse<IPbReview>, AxiosError>(["getPbReview"], () =>
+  const { data: pbReviewData } = useQuery<IListResponse<IPbReview>, AxiosError>(["getPbReview",id], () =>
     getPbReview(id, 0),
   );
 

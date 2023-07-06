@@ -13,16 +13,17 @@ import { ILoginedUserInfo, IModalContent } from "@/types/common";
 import { IContentsInfo, IReReply, IReply } from "@/types/contents";
 import Reply from "@/components/contentsPage/Reply";
 import useErrorHandler from "@/hooks/useErrorHandler";
+import { AxiosError } from "axios";
 
 function Comments({ commentData, userData }: { commentData: IContentsInfo; userData: ILoginedUserInfo }) {
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isReply, setIsReply] = useState<boolean>(false);
-  const [reID, setReID] = useState<number>(0);
-  const [editID, setEditID] = useState<number>(0);
-  const [editText, setEditText] = useState<string>("");
-  const [newComment, setNewComment] = useState<string>("");
-  const [newReComment, setNewReComment] = useState<string>("");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [isReply, setIsReply] = useState(false);
+  const [reID, setReID] = useState(0);
+  const [editID, setEditID] = useState(0);
+  const [editText, setEditText] = useState("");
+  const [newComment, setNewComment] = useState("");
+  const [newReComment, setNewReComment] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<IModalContent>({
     content: "",
     confirmText: "확인",
@@ -34,7 +35,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useErrorHandler(err, setIsOpen, setError);
     },
@@ -44,7 +45,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useErrorHandler(err, setIsOpen, setError);
     },
@@ -54,7 +55,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useErrorHandler(err, setIsOpen, setError);
     },
@@ -64,7 +65,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useErrorHandler(err, setIsOpen, setError);
     },

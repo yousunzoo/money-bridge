@@ -1,5 +1,5 @@
 import { deleteReReply, editReReply } from "@/app/apis/services/auth";
-import { ILoginedUserInfo } from "@/types/common";
+import { ILoginedUserInfo, IModalContent } from "@/types/common";
 import { getMyId } from "@/utils/pbMyId";
 import { showName } from "@/utils/userNameFormat";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import profile from "/public/assets/images/profile.svg";
 import ButtonModal from "@/components/common/ButtonModal";
+import useErrorHandler from "@/hooks/useErrorHandler";
 
 function Reply({
   reply,
@@ -29,22 +30,34 @@ function Reply({
     confirmFn: () => void;
   };
 }) {
-  const [isReEdit, setIsReEdit] = useState<boolean>(false);
+  const [isReEdit, setIsReEdit] = useState(false);
   const [newReComment, setNewReComment] = useState<string>("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState<IModalContent>({
+    content: "",
+    confirmText: "확인",
+    confirmFn: () => setIsOpen(false),
+  });
   const queryClient = useQueryClient();
 
   const { mutate: deleterereply } = useMutation(deleteReReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {},
+    onError: (err: AxiosError) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useErrorHandler(err, setIsOpen, setError);
+    },
   });
 
   const { mutate: editrereply } = useMutation(editReReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {},
+    onError: (err: AxiosError) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useErrorHandler(err, setIsOpen, setError);
+    },
   });
 
   const editReReplyHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,6 +108,7 @@ function Reply({
         )}
       </div>
       {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}
+      {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </>
   );
 }

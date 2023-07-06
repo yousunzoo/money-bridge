@@ -1,6 +1,5 @@
 "use client";
 import QuestionSection from "@/components/analysisPage/QuestionSection";
-import TopNav from "@/components/common/TopNav";
 import analysisQuestions from "@/constants/propensityCheckQuestions.json";
 import { useCheckPropensity } from "@/hooks/useCheckPropensity";
 import { useAnalysisStore } from "@/store/analysisStore";
@@ -13,14 +12,15 @@ import { AxiosError } from "axios";
 import highlight from "/public/assets/images/highlight.svg";
 import Image from "next/image";
 import { ILoginedUserInfo } from "@/types/common";
+import LoadingBg from "@/components/common/LoadingBg";
 
 function AnalysisPage() {
   const questions: IAnalysisQuestions = analysisQuestions;
   const [step, setStep] = useState(0);
-  const { data: userData, isLoading } = useQuery<ILoginedUserInfo, AxiosError>(["loginedUserInfo"], getLoginedUserInfo);
+  const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>(["loginedUserInfo"], getLoginedUserInfo);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const { answers, setAnswers, resetAnswers } = useAnalysisStore();
-  const registerPropensity = useCheckPropensity();
+  const { registerPropensity, isSubmitting } = useCheckPropensity();
   const moveToNextStep = (nowStep: number, answer: string) => {
     setStep(nowStep + 1);
     setAnswers(nowStep, answer);
@@ -47,7 +47,6 @@ function AnalysisPage() {
 
   return (
     <>
-      <TopNav title="투자 성향 알아보기" hasBack={true} />
       <div className={`${answers[5] && "pb-40 pt-10"} mx-auto max-w-[600px]`} ref={sectionRef}>
         <section className="flex flex-col gap-y-4">
           <div className="font-bold">
@@ -82,6 +81,7 @@ function AnalysisPage() {
           등록하기
         </button>
       )}
+      {isSubmitting && <LoadingBg />}
     </>
   );
 }

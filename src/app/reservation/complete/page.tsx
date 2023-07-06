@@ -1,33 +1,28 @@
 "use client";
 
-import { getLoginedUserInfo } from "@/app/apis/services/auth";
+import { useReservationStore } from "@/store/reservationStore";
 import { ILoginedUserInfo } from "@/types/common";
-import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 import { redirect, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 function ReservationCompletePage() {
   const router = useRouter();
+  const { resetAnswers } = useReservationStore();
+  const userInfo = useQueryClient().getQueryData(["loginedUserInfo"]) as ILoginedUserInfo;
 
-  const {
-    data: userInfo,
-    isLoading: userLoading,
-    isSuccess: isLogined,
-  } = useQuery<ILoginedUserInfo, AxiosError>({
-    queryKey: ["loginedUserInfo"],
-    queryFn: getLoginedUserInfo,
-    refetchOnWindowFocus: false,
-  });
-
-  if (!isLogined) {
+  if (!userInfo) {
     redirect("/");
   }
+
+  useEffect(() => {
+    resetAnswers();
+  }, []);
 
   const handleClick = () => {
     router.back();
   };
 
-  if (userLoading) return null;
   return (
     <section className="flex h-[100%] w-full flex-col py-[100px]">
       <div>

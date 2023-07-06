@@ -36,7 +36,9 @@ function RecommendPage() {
       setModalContents({
         content: "투자성향을 분석하시겠어요?",
         confirmText: "분석하기",
+        cancelText: "취소",
         confirmFn: () => router.push("/analysis"),
+        cancelFn: () => router.back(),
       });
       return;
     }

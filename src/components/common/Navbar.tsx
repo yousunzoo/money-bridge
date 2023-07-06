@@ -47,7 +47,7 @@ function Navbar() {
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
   const path = usePathname();
   return (
-    <nav className="fixed bottom-0 left-1/2 flex h-[70px] w-full max-w-[768px] -translate-x-1/2 justify-around bg-white p-2">
+    <nav className="fixed bottom-0 left-1/2 flex h-[70px] w-full max-w-[768px] -translate-x-1/2 justify-around bg-white p-2 z-20">
       {navItems.map(item => {
         if (item.role === "ALL" || item.role === userInfo?.role) {
           return (

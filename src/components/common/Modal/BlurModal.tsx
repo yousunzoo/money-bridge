@@ -7,8 +7,8 @@ function BlurModal() {
   const pathname: string = usePathname();
 
   return (
-    <div className="custom-gradient fixed ml-[-16px] flex h-full w-full max-w-[768px] flex-col">
-      <div className="mb-16 mt-[330px] flex h-full w-full flex-col items-center text-base font-bold text-white">
+    <div className="custom-gradient fixed h-full ml-[-16px] flex w-full max-w-[768px] flex-col top-0">
+      <div className="mt-[460px] flex h-full w-full flex-col items-center text-base font-bold text-white">
         <div className="mb-8 flex w-full items-center justify-center">
           {pathname === "/detail/info" ? (
             <div className="flex items-center justify-center text-center">

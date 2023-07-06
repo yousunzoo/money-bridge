@@ -20,9 +20,7 @@ function EditPage({ params }: { params: { slug: string } }) {
     content: "",
     confirmText: "확인",
   });
-  const { data, isLoading } = useQuery<IUserEditableInfo, AxiosError>(["myInfo"], getMyInfo, {
-    staleTime: Infinity,
-  });
+  const data = queryClient.getQueryData(["MyInfo"]) as IUserEditableInfo;
 
   const { mutate } = useMutation<any, AxiosError, { [key: string]: string }>(editMyInfo, {
     onSuccess: () => {
@@ -65,7 +63,7 @@ function EditPage({ params }: { params: { slug: string } }) {
   return (
     <>
       <TopNav title="개인 정보 설정" hasBack={true} />
-      {!isLoading && category[nowPath]}
+      {category[nowPath]}
       {isOpen && <ButtonModal {...modalProps} />}
     </>
   );

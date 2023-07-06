@@ -57,11 +57,11 @@ function Content({ contentData }: { contentData: IContentData }) {
           ))}
         </ul>
       </div>
-      {career && award?.length > 0 && (
+      {career && career?.length > 0 && (
         <div className="mb-7">
           <p className="header">경력</p>
           <ul className="flex flex-col">
-            {career?.map((item: any) => (
+            {career?.map((item) => (
               <li key={item.id} className="flex text-xs">
                 <div>{item.start}&nbsp;-</div>
                 <div>&nbsp;{item.end}</div>
@@ -75,7 +75,7 @@ function Content({ contentData }: { contentData: IContentData }) {
         <div className="mb-[68px]">
           <p className="header">수상내역</p>
           <ul className="flex flex-col">
-            {award.map((item: any) => (
+            {award.map((item) => (
               <li key={item.id} className="flex text-xs">
                 <div>{item.year}&nbsp;&nbsp;</div>
                 <div>{item.record}</div>

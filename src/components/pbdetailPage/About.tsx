@@ -21,19 +21,29 @@ import { IPbCard } from "@/types/card";
 
 function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; Id: number }) {
   const { id, name, branchAddress, branchName, branchLatitude, branchLongitude } = aboutData;
-  const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>(["getReviewStyle",id], () =>
-    getReviewStyle(id),
-  );
+  const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>({
+    queryKey: ["getReviewStyle", id],
+    queryFn: () => getReviewStyle(id),
+    refetchOnWindowFocus: false,
+  });
   const reviewData = review?.data;
-  const { data: same } = useQuery<IListResponse<IPbCard>, AxiosError>(["getSamePb",id], () => getSamePb(id));
+  const { data: same } = useQuery<IListResponse<IPbCard>, AxiosError>({
+    queryKey: ["getSamePb", id],
+    queryFn: () => getSamePb(id),
+    refetchOnWindowFocus: false,
+  });
   const sameData = same?.list;
-  const { data: PbRecentReview } = useQuery<IListResponse<IPbReview>, AxiosError>(["getPbReviewRecent",id], () =>
-    getPbReviewRecent(id),
-  );
+  const { data: PbRecentReview } = useQuery<IListResponse<IPbReview>, AxiosError>({
+    queryKey: ["getPbReviewRecent", id],
+    queryFn: () => getPbReviewRecent(id),
+    refetchOnWindowFocus: false,
+  });
   const pbRecentData = PbRecentReview?.list;
-  const { data: pbReviewData } = useQuery<IListResponse<IPbReview>, AxiosError>(["getPbReview",id], () =>
-    getPbReview(id, 0),
-  );
+  const { data: pbReviewData } = useQuery<IListResponse<IPbReview>, AxiosError>({
+    queryKey: ["getPbReview", id],
+    queryFn: () => getPbReview(id, 0),
+    refetchOnWindowFocus: false,
+  });
 
   const router = useRouter();
   const pathname: string = usePathname();

@@ -1,15 +1,12 @@
 "use client";
 
-import TopNav from "@/components/common/TopNav";
 import PBInfo from "@/components/myPage/PBInfo";
 import UserInfo from "@/components/myPage/UserInfo";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ButtonModal from "@/components/common/ButtonModal";
 import { useMyPageCheck } from "@/hooks/useMyPageCheck";
 import { Skeleton } from "antd";
-import { redirect } from "next/navigation";
 
 const LINK_STYLE = "flex items-center text-sm justify-between py-2 mb-2 pr-1";
 const BUTTON_STYLE = "gray-heavy text-xs underline decoration-gray-heavy decoration-1";
@@ -27,7 +24,6 @@ function MyPage() {
   if (isLoading || !loginedUserInfo) return null;
   return (
     <>
-      <TopNav title="마이페이지" hasBack={true} />
       <Skeleton className="mb-10" active loading={isLoading} />
       {loginedUserInfo.role === "USER" && <UserInfo />}
       {loginedUserInfo.role === "PB" && <PBInfo />}

@@ -5,14 +5,14 @@ import profile from "/public/assets/images/profile.svg";
 import "@/styles/content.css";
 import { getMyId } from "@/utils/pbMyId";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import useDelete from "@/hooks/useDelete";
 import { postReply, postReReply, deleteReply, editReply } from "@/app/apis/services/auth";
 import ButtonModal from "@/components/common/ButtonModal";
 import { showName } from "@/utils/userNameFormat";
-import { ILoginedUserInfo } from "@/types/common";
+import { ILoginedUserInfo, IModalContent } from "@/types/common";
 import { IContentsInfo, IReReply, IReply } from "@/types/contents";
 import Reply from "@/components/contentsPage/Reply";
+import useErrorHandler from "@/hooks/useErrorHandler";
 
 function Comments({ commentData, userData }: { commentData: IContentsInfo; userData: ILoginedUserInfo }) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -22,34 +22,52 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
   const [editText, setEditText] = useState<string>("");
   const [newComment, setNewComment] = useState<string>("");
   const [newReComment, setNewReComment] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [error, setError] = useState<IModalContent>({
+    content: "",
+    confirmText: "확인",
+    confirmFn: () => setIsOpen(false),
+  });
   const queryClient = useQueryClient();
 
   const { mutate: postreply } = useMutation(postReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {},
+    onError: (err: any) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useErrorHandler(err, setIsOpen, setError);
+    },
   });
 
   const { mutate: postrereply } = useMutation(postReReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {},
+    onError: (err: any) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useErrorHandler(err, setIsOpen, setError);
+    },
   });
 
   const { mutate: deletereply } = useMutation(deleteReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {},
+    onError: (err: any) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useErrorHandler(err, setIsOpen, setError);
+    },
   });
 
   const { mutate: editreply } = useMutation(editReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
-    onError: (err: AxiosError) => {},
+    onError: (err: any) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useErrorHandler(err, setIsOpen, setError);
+    },
   });
 
   const editHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -206,8 +224,8 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
           ))}
         </div>
       ))}
-
       {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}
+      {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </>
   );
 }

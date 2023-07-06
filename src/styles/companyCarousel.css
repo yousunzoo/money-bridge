@@ -1,33 +1,37 @@
-.ant-carousel .slick-dots li {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.companyList .ant-carousel .slick-dots li {
   width: 6px !important;
   height: 6px !important;
 }
 
-.ant-carousel .slick-dots li button {
+.companyList .ant-carousel .slick-dots li button {
   width: 100% !important;
   height: 100% !important;
   border-radius: 50% !important;
 }
 
-.ant-carousel .slick-dots li.slick-active {
+.companyList .ant-carousel .slick-dots li.slick-active {
   width: 6px !important;
   height: 6px !important;
 }
 
 @media screen and (max-width: 767px) {
-  .ant-carousel .slick-prev,
-  .ant-carousel .slick-next,
-  .ant-carousel .slick-prev:hover,
-  .ant-carousel .slick-next:hover {
+  .companyList .ant-carousel .slick-prev,
+  .companyList .ant-carousel .slick-next,
+  .companyList .ant-carousel .slick-prev:hover,
+  .companyList .ant-carousel .slick-next:hover {
     display: none !important;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .ant-carousel .slick-prev,
-  .ant-carousel .slick-next,
-  .ant-carousel .slick-prev:hover,
-  .ant-carousel .slick-next:hover {
+  .companyList .ant-carousel .slick-prev,
+  .companyList .ant-carousel .slick-next,
+  .companyList .ant-carousel .slick-prev:hover,
+  .companyList .ant-carousel .slick-next:hover {
     width: 30px !important;
     height: 30px !important;
     color: #242424 !important;
@@ -35,10 +39,10 @@
     z-index: 1 !important;
   }
 }
-.ant-carousel .slick-prev {
+.companyList .ant-carousel .slick-prev {
   inset-inline-start: -8px !important;
 }
 
-.ant-carousel .slick-next {
+.companyList .ant-carousel .slick-next {
   inset-inline-end: -8px !important;
 }

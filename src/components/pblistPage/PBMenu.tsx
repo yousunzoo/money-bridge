@@ -26,7 +26,7 @@ function PBMenu() {
           증권사별
         </button>
       </div>
-      <div className="h-[190px] w-full rounded-b-md bg-white px-3 py-4">
+      <div className="companyList h-[190px] w-full overflow-hidden rounded-b-md bg-white px-3 py-4">
         {speciality && <SpecialityList nowSpeciality={speciality} handleIDClick={handleIDClick} />}
         {company && isLoading && (
           <div className="my-4 grid grid-cols-4 gap-6">

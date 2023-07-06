@@ -1,6 +1,6 @@
 "use client";
-import { removeCookie } from "@/utils/cookies";
-import { usePathname } from "next/navigation";
+import { getCookie, removeCookie } from "@/utils/cookies";
+import { redirect, usePathname } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 
 function Main({ children }: { children: ReactNode }) {
@@ -27,6 +27,7 @@ function Main({ children }: { children: ReactNode }) {
     }
     return "bg-white";
   })();
+
   return <main className={background}>{children}</main>;
 }
 

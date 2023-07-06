@@ -1,13 +1,15 @@
 import { IModalContent } from "@/types/common";
+import { IResponseErrorData400 } from "@/types/login";
+import { AxiosError } from "axios";
 import { Dispatch, SetStateAction } from "react";
 
 const useErrorHandler = (
-  err: any,
+  err: AxiosError,
   setIsOpen: Dispatch<SetStateAction<boolean>>,
   setError: Dispatch<SetStateAction<IModalContent>>,
 ) => {
-  if (err.message.response?.status === 400) {
-    const errorData = err.message.response?.data;
+  if (err.response?.status === 400) {
+    const errorData = err.response?.data as IResponseErrorData400;
     const contents = {
       content: errorData.data.value,
       confirmText: "확인",

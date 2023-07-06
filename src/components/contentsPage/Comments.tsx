@@ -52,7 +52,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     onError: (err: AxiosError) => {},
   });
 
-  const editHandler = () => {
+  const editHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditText(e.target.value);
   };
 

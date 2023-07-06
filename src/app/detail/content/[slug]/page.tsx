@@ -22,9 +22,11 @@ function PbDetailContent() {
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });
-  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>(["getPbProfile",id], () =>
-    getPbProfile(id),
-  );
+  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>({
+    queryKey: ["getPbProfile", id],
+    queryFn: () => getPbProfile(id),
+    refetchOnWindowFocus: false,
+  });
 
   const myId = getMyId(userData?.role, userData?.id, id);
   if (isLoading) return null;
@@ -34,7 +36,7 @@ function PbDetailContent() {
       <TopNav title="PB 상세프로필" hasBack={true} />
       {authProfile?.data && (
         <>
-          <Intro introData={authProfile?.data} />
+          <Intro introData={authProfile.data} />
           <ContentCardList queryKey={`/auth/boards/${id}`} api={getPbContent} etc={id} bookmarks={true} />
         </>
       )}

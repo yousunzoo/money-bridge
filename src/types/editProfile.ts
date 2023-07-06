@@ -47,6 +47,7 @@ export interface ICareersInputProps {
   register: UseFormRegister<IEditProfileFormValues>;
   removeItems: (type: string, nowId: string) => void;
   careers: ICareer[];
+  getValues: UseFormGetValues<IEditProfileFormValues>;
   addCareers: () => void;
   errors: FieldErrors<IEditProfileFormValues>;
 }
@@ -96,6 +97,7 @@ export interface IAwardFormProps {
 
 export interface ICareerFormProps {
   careerData: ICareer;
+  getValues: UseFormGetValues<IEditProfileFormValues>;
   errors: FieldErrors<IEditProfileFormValues>;
   removeItems: (type: string, nowId: string) => void;
   register: UseFormRegister<any>;

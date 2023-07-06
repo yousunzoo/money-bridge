@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 function PBInfo() {
   const { data, isLoading } = useQuery<IPBInfo, AxiosError>({
@@ -29,7 +28,9 @@ function PBInfo() {
       </h2>
       <article className="w-full rounded-md bg-white p-4 shadow-md">
         <div className="mb-6 flex">
-          <Image width={60} height={60} className="mr-3 h-[60px] max-w-[60px] rounded-full" src={profile} alt={name} />
+          <div className="relative mr-3 h-[60px] w-[60px] overflow-hidden rounded-full">
+            <Image fill className="object-cover" src={profile} alt={name} />
+          </div>
           <div>
             <p className="font-bold">{name} PB</p>
             <p className="text-xs">{branchName}</p>

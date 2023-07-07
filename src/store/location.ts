@@ -2,10 +2,10 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 const initialState = {
-  location: "강남",
+  location: "",
   coordinate: {
-    latitude: 0,
-    longitude: 0,
+    latitude: 37.4953666908089,
+    longitude: 127.03306536185,
   },
 };
 

@@ -4,13 +4,13 @@ import { Carousel, ConfigProvider } from "antd";
 import { chunkArray } from "@/utils/chunkArray";
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
 import "@/styles/companyCarousel.css";
-import { useCallback } from "react";
+import { useMemo } from "react";
 
 const LI_STYLE =
   "flex flex-col py-2 justify-between w-full h-[64px] justify-center items-center rounded-sm cursor-pointer";
 
 function CompanyList({ companyList, nowCompany, handleIDClick }: ICompanyListProps) {
-  const chunkedCompanyList = useCallback(() => {
+  const chunkedCompanyList = useMemo(() => {
     return chunkArray([{ id: "ALL", logo: null, name: "전체보기" }, ...companyList], 8);
   }, [companyList]);
 
@@ -35,7 +35,7 @@ function CompanyList({ companyList, nowCompany, handleIDClick }: ICompanyListPro
         draggable={true}
         initialSlide={nowCard}
       >
-        {chunkedCompanyList().map((companyList, index) => (
+        {chunkedCompanyList.map((companyList, index) => (
           <div key={index}>
             <ul className="mx-auto grid max-w-[680px] grid-cols-4 gap-4 px-4 pb-6">
               {companyList.map(company => (

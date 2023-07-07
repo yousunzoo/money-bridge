@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 import UserReservationItem from "../common/Card/CardItem/UserReservationItem";
-import profile from "/public/assets/images/profile.svg";
 import myLocation from "/public/assets/images/myLocation.svg";
 
 import Image from "next/image";
@@ -25,6 +24,7 @@ function PbListSection() {
     data: pbList,
     isError,
     isLoading,
+    refetch,
   } = useQuery<PbListSectionPorps[], AxiosError>(
     ["pbSuggestionPB"],
     () =>
@@ -32,10 +32,13 @@ function PbListSection() {
         latitude: latitude,
         longitude: longitude,
       }),
-    { refetchOnWindowFocus: false, staleTime: 0 },
+    { refetchOnWindowFocus: false },
   );
 
-  useEffect(() => {}, [latitude]);
+  useEffect(() => {
+    refetch();
+  }, [latitude, longitude]);
+
   if (!pbList) return;
   if (isError)
     return <ErrorModal isError={true} path={"/"} content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."} />;

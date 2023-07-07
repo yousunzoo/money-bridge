@@ -34,16 +34,6 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
     }
   };
 
-  const { refetch } = useQuery<PbListSectionPorps[], AxiosError>(
-    ["pbSuggestionPB"],
-    () =>
-      getSuggestionPB({
-        latitude: locations.coordinate.latitude,
-        longitude: locations.coordinate.longitude,
-      }),
-    { refetchOnWindowFocus: false, staleTime: 0 },
-  );
-
   const selectLocation = async ({ x, y }: { x: number; y: number }) => {
     try {
       const latitude = y;
@@ -52,7 +42,6 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
       const data = await getLocationName({ latitude, longitude });
       setLocation(data);
       setIsOpenSearch(false);
-      refetch();
     } catch (error) {}
   };
 

@@ -1,15 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import plus from "/public/assets/images/plus.svg";
 import bottomArrow from "/public/assets/images/bottomArrow.svg";
 import Image from "next/image";
 import SearchLocation from "./SearchLocation";
 import close from "/public/assets/images/close.svg";
 import { useLocationStore } from "@/store/location";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { PbListSectionPorps } from "@/types/main";
-import { AxiosError } from "axios";
-import { getSuggestionPB } from "@/app/apis/services/common";
 
 export interface SearchLocationProps {
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,20 +13,9 @@ export interface SearchLocationProps {
 function SelectLocationModal({ setIsOpenModal }: SearchLocationProps) {
   const [isOpenSearch, setIsOpenSearch] = useState(false);
   const { locations, setLocation, setCoordinate } = useLocationStore();
-  const queryClient = useQueryClient();
   const onClickLocation = () => {
     setIsOpenSearch(!isOpenSearch);
   };
-
-  const { refetch } = useQuery<PbListSectionPorps[], AxiosError>(
-    ["pbSuggestionPB"],
-    () =>
-      getSuggestionPB({
-        latitude: locations.coordinate.latitude,
-        longitude: locations.coordinate.longitude,
-      }),
-    { refetchOnWindowFocus: false, staleTime: 0 },
-  );
 
   const closedHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -40,7 +25,6 @@ function SelectLocationModal({ setIsOpenModal }: SearchLocationProps) {
   const deleteLocation = () => {
     setLocation("");
     setCoordinate({ latitude: 37.4953666908089, longitude: 127.03306536185 });
-    refetch();
   };
 
   return (

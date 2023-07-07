@@ -1,28 +1,10 @@
 import { getPBList } from "@/app/apis/services/etc";
 import { useLocationStore } from "@/store/location";
-import { ISpeciality } from "@/types/join";
+import { IPBListData, IParams } from "@/types/pblist";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { IPbCard } from "@/types/card";
-
-export interface IParams {
-  sort: "distance" | "career";
-  location: { latitude: number; longitude: number };
-  speciality?: string;
-  company?: string;
-}
-
-export interface IPBListData {
-  list: IPbCard[];
-  totalElements: number;
-  totalPages: number;
-  curPage: number;
-  first: boolean;
-  last: boolean;
-  empty: boolean;
-}
 
 export const useGetFilteredPBlist = () => {
   const searchParams = useSearchParams();

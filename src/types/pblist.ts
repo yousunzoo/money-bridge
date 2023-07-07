@@ -1,5 +1,6 @@
 import { MouseEvent } from "react";
 import { ISpeciality } from "./join";
+import { IPbCard } from "./card";
 
 export interface ICompanyListProps {
   companyList: ICompanyList;
@@ -69,4 +70,21 @@ export interface IPBListParams {
   speciality?: string;
   company?: string;
   page: number;
+}
+
+export interface IParams {
+  sort: "distance" | "career";
+  location: { latitude: number; longitude: number };
+  speciality?: string;
+  company?: string;
+}
+
+export interface IPBListData {
+  list: IPbCard[];
+  totalElements: number;
+  totalPages: number;
+  curPage: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
 }

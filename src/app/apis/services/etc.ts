@@ -42,8 +42,8 @@ export const getPBList = async (data: IPBListRequest, page: number) => {
   try {
     const params: IPBListParams = { page };
     if (data.sort === "distance") {
-      params.latitude = data.location.latitude.toFixed(5);
-      params.longitude = data.location.longitude.toFixed(5);
+      params.latitude = Number(data.location.latitude).toFixed(5);
+      params.longitude = Number(data.location.longitude).toFixed(5);
     }
     if (data.speciality && data.speciality !== "ALL") {
       params.speciality = data.speciality;

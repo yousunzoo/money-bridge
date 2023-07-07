@@ -15,7 +15,7 @@ function InformationCheck() {
   };
   return (
     <>
-      <p className="mb-10 mt-14 text-xl font-bold leading-7">회원 정보를 확인해 주세요.</p>
+      <p className="mb-10 mt-14 text-xl font-bold leading-7">회원 정보를 확인해주세요.</p>
       <ul>{data.data && data.data.map(item => <InformationItem information={item} key={item.email} />)}</ul>
       <button
         className="mb-24 mt-[60px] h-14 w-full rounded-[8px] bg-primary-normal text-xl font-bold leading-7 text-white"

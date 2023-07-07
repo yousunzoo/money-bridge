@@ -43,12 +43,12 @@ function EnterCareer() {
 
   return (
     <>
-      <p className="mb-6 mt-14 text-xl font-bold leading-7">경력을 입력해 주세요.</p>
+      <p className="mb-6 mt-14 text-xl font-bold leading-7">경력을 입력해주세요.</p>
       <div className="mb-14 flex items-center gap-8">
         <input type="number" className="input_authentication" ref={inputRef} />
         <span>년</span>
       </div>
-      <p className="mb-2 text-xl font-bold leading-7">전문분야를 선택해 주세요.</p>
+      <p className="mb-2 text-xl font-bold leading-7">전문분야를 선택해주세요.</p>
       <p className="mb-6 text-xs text-gray-heavy ">2개까지 중복선택이 가능합니다.</p>
       <ul className="flex w-full flex-wrap gap-3">
         {speciality.map(item => (

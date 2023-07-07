@@ -1,10 +1,16 @@
-import { useAuthentication } from "@/hooks/useAuthentication";
+import ButtonModal from "@/components/common/ButtonModal";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { usePasswordAuthentication } from "@/hooks/usePasswordAuthentication";
+import { useSetModalContent } from "@/hooks/useSetModalContent";
 import React from "react";
 
 function CheckUserEmail({ email, moveToAuthentication }: { email: string; moveToAuthentication: () => void }) {
-  const authentication = useAuthentication();
+  const { isOpen, modalContent, modalSubContent, setIsOpen, setModalContent, setModalSubContent } =
+    useSetModalContent();
+  const authentication = usePasswordAuthentication(setIsOpen, setModalContent, setModalSubContent);
+  const { userInfo } = useGetUserInfo();
   const handleClick = () => {
-    authentication(email);
+    authentication({ email: email, name: userInfo?.name, role: userInfo!.role });
     moveToAuthentication();
   };
   return (
@@ -15,6 +21,11 @@ function CheckUserEmail({ email, moveToAuthentication }: { email: string; moveTo
       <button onClick={handleClick} className="button">
         인증코드 받기
       </button>
+      {isOpen && (
+        <ButtonModal modalContents={modalContent} isOpen={isOpen} setIsOpen={setIsOpen}>
+          <p>{modalSubContent}</p>
+        </ButtonModal>
+      )}
     </section>
   );
 }

@@ -54,7 +54,7 @@
   }
 
   .input_authentication {
-    @apply w-full min-w-[302px] max-w-[425px] rounded-sm border-1 border-background-secondary px-3 py-2;
+    @apply w-full min-w-[287px] max-w-[425px] rounded-sm border-1 border-background-secondary px-3 py-2;
   }
 
   .input_authentication:focus-visible {

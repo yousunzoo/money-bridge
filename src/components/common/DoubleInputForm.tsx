@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, MouseEvent, useState } from "react";
+import React, { FormEvent, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -13,24 +13,16 @@ import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
 import { usePasswordAuthentication } from "@/hooks/usePasswordAuthentication";
 import { yup_email, yup_name, yup_password, yup_phone } from "@/constants/yupSchema";
-import { IModalContent } from "@/types/common";
+import { useSetModalContent } from "@/hooks/useSetModalContent";
 
 type Tinput = "first" | "second";
 
 function DoubleInputForm({ type }: { type: InputFormType }) {
   const pathName = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, modalContent, modalSubContent, setIsOpen, setModalContent, setModalSubContent } =
+    useSetModalContent();
 
-  const modalContents_Default = {
-    content: "일시적인 오류가 발생했습니다.",
-    confirmText: "확인",
-    confirmFn: () => {
-      setIsOpen(false);
-    },
-  };
-  const [modalContent, setModalContent] = useState<IModalContent>(modalContents_Default);
-
-  const authentication = usePasswordAuthentication(setIsOpen, setModalContent);
+  const authentication = usePasswordAuthentication(setIsOpen, setModalContent, setModalSubContent);
   const login = useLogin(setIsOpen, setModalContent);
   const findEmail = useFindEmail(setIsOpen, setModalContent);
 
@@ -158,7 +150,7 @@ function DoubleInputForm({ type }: { type: InputFormType }) {
       </form>
       {isOpen && (
         <ButtonModal modalContents={modalContent} isOpen={isOpen} setIsOpen={setIsOpen}>
-          <p>정보를 확인해 주세요.</p>
+          <p>{modalSubContent}</p>
         </ButtonModal>
       )}
     </div>
@@ -174,8 +166,8 @@ const getNotice = (type: InputFormType) => {
         data: {
           header1: "이메일",
           header2: "비밀번호",
-          notice1: "@를 포함하여 작성해 주세요.",
-          notice2: "영문(대소문자), 숫자 포함하여 8자 이상 입력해 주세요.",
+          notice1: "@를 포함하여 작성해주세요.",
+          notice2: "영문(대소문자), 숫자 포함하여 8자 이상 입력해주세요.",
           submit: "로그인",
           func: "",
         },
@@ -197,7 +189,7 @@ const getNotice = (type: InputFormType) => {
           header1: "이름",
           header2: "이메일",
           notice1: "",
-          notice2: "@를 포함하여 작성해 주세요.",
+          notice2: "@를 포함하여 작성해주세요.",
           submit: "인증코드 받기",
           func: "",
         },

@@ -1,43 +1,34 @@
 "use client";
-import React, { FormEvent, MouseEvent, useState } from "react";
+import React, { FormEvent, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useResetPassword } from "@/hooks/useResetPassword";
-import { useQueryClient } from "@tanstack/react-query";
-import { IFindPassword } from "@/types/login";
 import ButtonModal from "./ButtonModal";
 import { yup_password } from "@/constants/yupSchema";
 import Image from "next/image";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { useSetModalContent } from "@/hooks/useSetModalContent";
+import { useFindPasswordStore } from "@/store/findPasswordStore";
 
 type Tinput = "first" | "second";
 
 function ResetPasswordForm() {
-  const router = useRouter();
   const pathName = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
-  const currentPath = pathName.split("/")[1];
   const { userInfo } = useGetUserInfo();
-  const findPassword = useResetPassword();
-  const queryClient = useQueryClient();
+  const currentPath = pathName.split("/")[1];
+  const { data } = useFindPasswordStore();
+  const { isOpen, modalContent, modalSubContent, setIsOpen, setModalContent, setModalSubContent } =
+    useSetModalContent();
+  const findPassword = useResetPassword(setIsOpen, setModalContent, setModalSubContent);
 
   const schema = yup.object().shape({
     first: yup_password,
     second: yup.string().oneOf([yup.ref("first")]),
   });
-
-  const modalContents = {
-    content: "비밀번호가 재설정 되었습니다.",
-    confirmText: currentPath === "findPassword" ? "로그인" : "확인",
-    confirmFn: () => {
-      setIsOpen(false);
-      currentPath === "findPassword" ? router.push("/login") : router.back();
-    },
-  };
 
   const {
     register,
@@ -57,14 +48,12 @@ function ResetPasswordForm() {
     e.preventDefault();
     switch (currentPath) {
       case "findPassword":
-        const data = queryClient.getQueryData(["findPassword"]) as IFindPassword;
-        findPassword({ id: data.data.id, password: getValues("first"), role: pathName.split("/")[2].toUpperCase() });
+        findPassword({ id: data.id, password: getValues("first"), role: pathName.split("/")[2].toUpperCase() });
         break;
       case "my":
         if (!userInfo) return;
         findPassword({ id: userInfo.id, password: getValues("first"), role: userInfo.role });
     }
-    setIsOpen(true);
   };
 
   errors.first?.type === "required" ? (errors.first = undefined) : "";
@@ -77,7 +66,7 @@ function ResetPasswordForm() {
     <div className="mt-6">
       <form onSubmit={onSubmit}>
         <div className="mb-2.5">
-          <h2 className="mb-4 text-xs leading-[18px]">기존과 다른 비밀번호를 입력해 주세요.</h2>
+          <h2 className="mb-4 text-xs leading-[18px]">기존과 다른 비밀번호를 입력해주세요.</h2>
           <div className="relative flex items-center">
             <input
               type="password"
@@ -98,19 +87,19 @@ function ResetPasswordForm() {
           </div>
           <div className="mt-0.5 h-[18px] pl-2">
             <p className={`text-xs leading-[18px] ${errors.first ? "text-status-alert" : "text-status-positive"}`}>
-              {dirtyFields.first ? "*영문(대소문자), 숫자 포함하여 8자 이상으로 작성해 주세요." : ""}
+              {dirtyFields.first ? "*영문(대소문자), 숫자 포함하여 8자 이상으로 작성해주세요." : ""}
             </p>
             <p
               className={`text-xs leading-[18px] ${
                 getValues("first").includes(" ") ? "text-status-alert" : "text-status-positive"
               }`}
             >
-              {dirtyFields.first ? "*공백없이 작성해 주세요." : ""}
+              {dirtyFields.first ? "*공백없이 작성해주세요." : ""}
             </p>
           </div>
         </div>
         <div className="mb-2.5">
-          <h2 className="mb-4 mt-6 text-xs leading-[18px]">다시 한 번 입력해 주세요</h2>
+          <h2 className="mb-4 mt-6 text-xs leading-[18px]">다시 한 번 입력해주세요</h2>
           <div className="relative flex items-center">
             <input
               type="password"
@@ -131,7 +120,7 @@ function ResetPasswordForm() {
           </div>
           <div className="h-[18px] pl-2">
             <span className={`text-xs leading-[18px] ${errors.second ? "text-status-alert" : "text-status-positive"}`}>
-              {dirtyFields.second ? "동일한 비밀번호를 입력해 주세요" : ""}
+              {dirtyFields.second ? "동일한 비밀번호를 입력해주세요" : ""}
             </span>
           </div>
         </div>
@@ -146,8 +135,8 @@ function ResetPasswordForm() {
         </button>
       </form>
       {isOpen && (
-        <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen}>
-          {currentPath === "findPassword" && <p>로그인 후 MONEY BRIDGE를 이용해주세요.</p>}
+        <ButtonModal modalContents={modalContent} isOpen={isOpen} setIsOpen={setIsOpen}>
+          <p>{modalSubContent}</p>
         </ButtonModal>
       )}
     </div>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 import share from "/public/assets/images/icon/share.svg";
@@ -17,18 +17,12 @@ import { deleteContent } from "@/app/apis/services/common";
 import useContentDelete from "@/hooks/useContentDelete";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { ILoginedUserInfo, IModalContent } from "@/types/common";
+import { ILoginedUserInfo } from "@/types/common";
 import { IContentData } from "@/types/contents";
 import { timeShow } from "@/utils/timeShow";
-import useErrorHandler from "@/hooks/useErrorHandler";
+import useErrorShow from "@/utils/errorShow";
 
-function Content({ contentData, userData }: { contentData: IContentData; userData: ILoginedUserInfo }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState<IModalContent>({
-    content: "",
-    confirmText: "확인",
-    confirmFn: () => setIsOpen(false),
-  });
+function Content({ contentData, userData,bookmarks }: { contentData: IContentData; userData: ILoginedUserInfo;bookmarks:boolean; }) {
   const { id, thumbnail, title, content, createdAt, updatedAt, tag1, tag2, pbId, name, isBookmarked, profile } =
     contentData;
   const pathname: string = usePathname();
@@ -36,11 +30,10 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
   const base: string = "https://money-bridge.vercel.app";
   const urlToCopy: string = base + pathname;
   const myId: number | undefined = getMyId(userData?.role, userData?.id, pbId);
-
+  const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onError: (err: AxiosError) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useErrorHandler(err, setIsOpen, setError);
+      errorHandler(err);
     },
   });
 
@@ -101,13 +94,13 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
             <button onClick={shareHandler} className="flex w-9 justify-end">
               <Image src={share} alt="공유" width={24} height={24} className="icon" />
             </button>
-            <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
+            {userData?.role === "USER" && bookmarks &&(<button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
               {isBookmark ? (
                 <Image src={bookmark_filled} alt="북마크 활성화" width={24} height={24} className="icon" />
               ) : (
                 <Image src={bookmark} alt="북마크" width={24} height={24} className="icon" />
               )}
-            </button>
+            </button>)}
           </div>
         </div>
         <div className="mb-[103px] p-4 text-sm">{content}</div>

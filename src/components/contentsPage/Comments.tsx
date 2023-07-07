@@ -9,11 +9,11 @@ import useDelete from "@/hooks/useDelete";
 import { postReply, postReReply, deleteReply, editReply } from "@/app/apis/services/auth";
 import ButtonModal from "@/components/common/ButtonModal";
 import { showName } from "@/utils/userNameFormat";
-import { ILoginedUserInfo, IModalContent } from "@/types/common";
+import { ILoginedUserInfo } from "@/types/common";
 import { IContentsInfo, IReReply, IReply } from "@/types/contents";
 import Reply from "@/components/contentsPage/Reply";
-import useErrorHandler from "@/hooks/useErrorHandler";
 import { AxiosError } from "axios";
+import useErrorShow from "@/utils/errorShow";
 
 function Comments({ commentData, userData }: { commentData: IContentsInfo; userData: ILoginedUserInfo }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -23,21 +23,15 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
   const [editText, setEditText] = useState("");
   const [newComment, setNewComment] = useState("");
   const [newReComment, setNewReComment] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState<IModalContent>({
-    content: "",
-    confirmText: "확인",
-    confirmFn: () => setIsOpen(false),
-  });
   const queryClient = useQueryClient();
+  const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
 
   const { mutate: postreply } = useMutation(postReply, {
     onSuccess: () => {
       queryClient.refetchQueries(["getContentsId"]);
     },
     onError: (err: AxiosError) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useErrorHandler(err, setIsOpen, setError);
+      errorHandler(err);
     },
   });
 
@@ -46,8 +40,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
       queryClient.refetchQueries(["getContentsId"]);
     },
     onError: (err: AxiosError) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useErrorHandler(err, setIsOpen, setError);
+      errorHandler(err);
     },
   });
 
@@ -56,8 +49,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
       queryClient.refetchQueries(["getContentsId"]);
     },
     onError: (err: AxiosError) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useErrorHandler(err, setIsOpen, setError);
+      errorHandler(err);
     },
   });
 
@@ -66,8 +58,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
       queryClient.refetchQueries(["getContentsId"]);
     },
     onError: (err: AxiosError) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useErrorHandler(err, setIsOpen, setError);
+      errorHandler(err);
     },
   });
 

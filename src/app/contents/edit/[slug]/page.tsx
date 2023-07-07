@@ -19,7 +19,7 @@ function ContentsEdit() {
     refetchOnWindowFocus: false,
   });
   const { data: tempData } = useQuery<ITemp>({
-    queryKey: ["getTemp"],
+    queryKey: ["getTemp",id],
     queryFn: () => getTemp(id),
     refetchOnWindowFocus: false,
   });
@@ -27,7 +27,7 @@ function ContentsEdit() {
   return (
     <>
       <TopNav title="콘텐츠 수정하기" hasBack={true} />
-      {tempData && userData?.id && <Write data={tempData} id={userData?.id} />}
+      {tempData && userData?.id && <Write data={tempData} id={id} userData={userData} />}
     </>
   );
 }

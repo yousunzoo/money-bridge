@@ -176,9 +176,11 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         </ul>
       </div>
 
-      <button className="button_fixed" onClick={() => goToPage()}>
-        {text}
-      </button>
+      {(role === "USER" || myId) && (
+        <button className="button_fixed" onClick={() => goToPage()}>
+          {text}
+        </button>
+      )}
     </div>
   );
 }

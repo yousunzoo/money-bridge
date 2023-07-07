@@ -1,36 +1,47 @@
-"use client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BoardStatus } from "@/constants/enum";
-import { usePathname, useRouter, redirect } from "next/navigation";
-import { ITemp } from "@/types/contents";
+import { usePathname, useRouter } from "next/navigation";
+import { ITemp, IContentsSave, IContentsEdit } from "@/types/contents";
 import "@/styles/content.css";
 import { validateFileSize } from "@/utils/validateFileSize";
 import { postTemp, postPBContents, updatePBContents } from "@/app/apis/services/pb";
 import { useMutation } from "@tanstack/react-query";
 import "@/app/globals.css";
+import { AxiosError } from "axios";
+import ButtonModal from "@/components/common/ButtonModal";
+import useErrorShow from "@/utils/errorShow";
+import { ILoginedUserInfo } from "@/types/common";
 
-function Write({ data, id }: { data?: ITemp; id: number }) {
+function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: ILoginedUserInfo; }) {
+  const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const router = useRouter();
-  const pathname: string = usePathname();
-  const pid: number = Number(pathname.split("/").pop());
   const isStatus = data?.status === BoardStatus.ACTIVE || BoardStatus.TEMP;
 
   const { mutate: postPBcontents } = useMutation(postPBContents, {
     onSuccess: () => {
-      router.push(`/detail/content/${id}`);
+      router.push(`/detail/content/${userData?.id}`);
+    },
+    onError: (err: AxiosError) => {
+      errorHandler(err);
     },
   });
 
   const { mutate: updatePBcontents } = useMutation(updatePBContents, {
     onSuccess: () => {
-      router.push(`/detail/content/${id}`);
+      router.push(`/detail/content/${userData?.id}`);
+    },
+    onError: (err: AxiosError) => {
+      errorHandler(err);
     },
   });
 
   const { mutate: posttemp } = useMutation(postTemp, {
     onSuccess: () => {
       router.push("/contents/temporary");
+    },
+    onError: (err: AxiosError) => {
+      errorHandler(err);
     },
   });
 
@@ -48,16 +59,22 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
     }
   };
 
-  const postSubmit = (formData: any) => {
+  const postSubmit = (formData: IContentsSave) => {
     postPBcontents({ formData: formData, thumbnailFile: thumbnailFile });
   };
 
-  const tempSubmit = (formData: any) => {
+  const tempSubmit = (formData: IContentsSave) => {
     posttemp({ formData: formData, thumbnailFile: thumbnailFile });
   };
 
-  const updateSubmit = (formData: any) => {
-    updatePBcontents({ id: id, formData: formData, thumbnailFile: thumbnailFile });
+  const updateSubmit = (formData: IContentsEdit) => {
+    if (thumbnailFile === null) {
+      formData.deleteThumbnail = true;
+      updatePBcontents({ id: id, formData: formData, thumbnailFile: thumbnailFile });
+    } else {
+      formData.deleteThumbnail = false;
+      updatePBcontents({ id: id, formData: formData, thumbnailFile: thumbnailFile });
+    }
   };
 
   return (
@@ -155,12 +172,16 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
             <>
               <button
                 type="button"
-                onClick={() => router.replace(`/contents/${pid}`)}
+                onClick={() => router.replace(`/contents/${id}`)}
                 className="button_outlined mr-10 min-w-[175px] max-w-[350px]"
               >
                 취소
               </button>
-              <button type="submit" disabled={isSubmitting} className="button min-w-[175px] max-w-[350px]">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="button min-w-[175px] max-w-[350px] bg-primary-normal"
+              >
                 수정 완료
               </button>
             </>
@@ -181,6 +202,7 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
           )}
         </div>
       </form>
+      {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </>
   );
 }

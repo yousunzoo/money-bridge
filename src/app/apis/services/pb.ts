@@ -2,7 +2,7 @@ import { ConsultationTimeCardProps } from "@/types/schedule";
 import { AxiosError } from "axios";
 import { ChangeReservationProps, ConsultationListProps, GetScheduleInfoProps } from "@/types/pb";
 import { formInstance, instance } from "../axios";
-import { IContentsSave } from "@/types/contents";
+import { IContentsEdit, IContentsSave } from "@/types/contents";
 
 export const getPBInfo = async () => {
   try {
@@ -224,13 +224,12 @@ export const updatePBContents = async ({
   thumbnailFile,
 }: {
   id: number;
-  formData: FormData | IContentsSave;
-  thumbnailFile: File;
+  formData: FormData | IContentsEdit;
+  thumbnailFile: File | null;
 }) => {
   const formDatas = new FormData();
   formDatas.append("boardUpdateDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
-
-  formDatas.append("thumbnail", thumbnailFile);
+  if (thumbnailFile) formDatas.append("thumbnail", thumbnailFile);
 
   try {
     const res = await formInstance.put(`/pb/board/${id}`, formDatas);

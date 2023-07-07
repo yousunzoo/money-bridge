@@ -5,13 +5,13 @@ import { CoordinateProps, PositionProps } from "@/types/location";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-const logoPath = ["/", "/lounge"];
+const LOCATION_PAGE = ["/", "/lounge"];
 export const useGeoLocation = () => {
   const { locations, setLocation, setCoordinate } = useLocationStore();
   const currentPath = usePathname();
 
   useEffect(() => {
-    if (!logoPath.includes(currentPath)) return;
+    if (!LOCATION_PAGE.includes(currentPath)) return;
     const { geolocation } = navigator;
     if (!geolocation) {
       alert("위치가 지원되지 않습니다.");
@@ -25,8 +25,8 @@ export const useGeoLocation = () => {
       }
     }
 
-    geolocation.getCurrentPosition(onGeoOkay);
     if (!locations.location) {
+      geolocation.getCurrentPosition(onGeoOkay);
       geoLocationFunc({ ...locations.coordinate });
     }
   }, []);

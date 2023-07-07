@@ -14,16 +14,16 @@ function debounce<T extends (...args: any[]) => any>(func: T, delay: number): T 
 
 function ModalCompanyLocation({
   setLocation,
-  companyId,
+  company,
   handleCloseModal,
 }: {
   setLocation: Dispatch<SetStateAction<ICompanyInput>>;
-  companyId: number;
+  company: ICompanyInput;
   handleCloseModal: () => void;
 }) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(company.name);
   const inputRef = useRef<HTMLInputElement>(null);
-  const companyLocationList = useGetCompnayLocation(companyId, value);
+  const companyLocationList = useGetCompnayLocation(company.id, value);
 
   const debouncedSetValue = debounce((newValue: string) => {
     setValue(newValue);

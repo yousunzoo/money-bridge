@@ -74,11 +74,7 @@ function CompanyInput({ getValues, setValue, branchName }: ICompanyInputProps) {
               companyList={companyList.data}
             />
           ) : (
-            <ModalCompanyLocation
-              companyId={company.id}
-              setLocation={setLocation}
-              handleCloseModal={handleCloseModal}
-            />
+            <ModalCompanyLocation company={company} setLocation={setLocation} handleCloseModal={handleCloseModal} />
           )}
         </ModalLayout>
       )}

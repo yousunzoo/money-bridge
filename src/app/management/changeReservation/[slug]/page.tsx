@@ -76,7 +76,6 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
       type: type,
       category: type === "CALL" ? null : "BRANCH",
     });
-    console.log(changeState);
   }, [reservationInfo]);
 
   if (!userInfo) return;
@@ -120,7 +119,6 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
 
     setIsOpenLocation(false);
   };
-  console.log(changeState);
   // 상담 일정 변경 캘린더 오픈 버튼
   const calendarOpenHandler = () => {
     setIsOpenCalendar(!isOpenCalendar);
@@ -226,7 +224,6 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
   const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
   const noteSectionProps = { role, goal, question };
-  console.log(isDateCheck);
   const timeModalProps = {
     timeOpenHandler,
     consultTime: { consultStart, consultEnd, notice },

@@ -27,7 +27,9 @@ export const useGeoLocation = () => {
 
     if (!locations.location) {
       geolocation.getCurrentPosition(onGeoOkay);
-      geoLocationFunc({ ...locations.coordinate });
+      if (locations.coordinate.latitude !== 0) {
+        geoLocationFunc({ ...locations.coordinate });
+      }
     }
   }, []);
 

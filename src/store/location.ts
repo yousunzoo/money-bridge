@@ -4,8 +4,8 @@ import { persist } from "zustand/middleware";
 const initialState = {
   location: "",
   coordinate: {
-    latitude: 37.4953666908089,
-    longitude: 127.03306536185,
+    latitude: 0,
+    longitude: 0,
   },
 };
 

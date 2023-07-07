@@ -39,6 +39,7 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
   const [isOpenTime, setIsOpenTime] = useState(false);
   const [isOpenLocation, setIsOpenLocation] = useState(false);
   const [isButtonOpen, setIsButtonOpen] = useState(false);
+  const [isDateCheck, setIsDateCheck] = useState(false);
 
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
 
@@ -113,13 +114,11 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
   const selectLocationHandler = (clickType: string | null) => {
     setChangeState(prevState => ({
       ...prevState,
-      type: clickType === null ? "CALL" : "VISIT",
       category: clickType,
     }));
 
     setIsOpenLocation(false);
   };
-
   // 상담 일정 변경 캘린더 오픈 버튼
   const calendarOpenHandler = () => {
     setIsOpenCalendar(!isOpenCalendar);
@@ -144,10 +143,24 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
   const handleTimeSelect = (time: string) => {
     const hour = Number(time.split(":")[0]);
     const candidate = dayjs(changeState.time, "YYYY-MM-DD").set("hour", hour).format("YYYY-MM-DDTHH:mm:ss");
+
+    const date = new Date(candidate);
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const hours = date.getHours();
+
+    const meridiem = hours >= 12 ? "오후" : "오전";
+    const formattedHour = hours % 12 === 0 ? 12 : hour % 12;
+
+    const formattedDatetime = `${year}년 ${month}월 ${day}일 ${meridiem} ${formattedHour}시 00분`;
     setChangeState(prevState => ({
       ...prevState,
-      time: candidate,
+      time: formattedDatetime,
     }));
+    setIsDateCheck(true);
   };
 
   // 날짜 선택
@@ -211,7 +224,6 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
   const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
   const noteSectionProps = { role, goal, question };
-
   const timeModalProps = {
     timeOpenHandler,
     consultTime: { consultStart, consultEnd, notice },
@@ -236,19 +248,14 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
     );
   return (
     <div>
-      <TopNav title="예약 변경" hasBack={true} />
+      <TopNav title="예약 변경" hasBack={true} path={"/management?process=APPLY"} />
 
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">예약일자를 확정지어야 상담예약이 확정됩니다.</span>
       </div>
-      <UserReservationItem
-        buttonName="고객 정보"
-        href={`tel:${formattedPhoneNumber}`}
-        isRole={"USER"}
-        profileImage={profileImage}
-      >
+      <UserReservationItem buttonName="고객 정보" disabled={true} isRole={"USER"} profileImage={profileImage}>
         <p className="font-bold">{name}</p>
-        <p className="text-xs ">{phoneNumber}</p>
+        <p className="text-xs ">{formattedPhoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
 
@@ -263,7 +270,8 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
             selectTimeHandler={selectTimeHandler}
           />
         )}
-        <section className="mb-4 mt-8 flex justify-between border-b-1 pb-4">
+        <div className="mr-2 mt-6 flex justify-end">{isDateCheck && <p>{changeState.time}</p>}</div>
+        <section className="mb-4 mt-1 flex justify-between border-b-1 pb-4">
           <h3 className="font-bold">상담 일정이 변경되셨나요?</h3>
           <button
             onClick={calendarOpenHandler}

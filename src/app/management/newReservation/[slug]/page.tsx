@@ -112,16 +112,11 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
     );
   return (
     <div>
-      <TopNav title="신규예약" hasBack={true} />
+      <TopNav title="신규예약" hasBack={true} path={"/management?process=APPLY"} />
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">투자자와 유선으로 상담 일정을 확정해주세요.</span>
       </div>
-      <UserReservationItem
-        buttonName="고객 정보"
-        href={`tel:${formattedPhoneNumber}`}
-        isRole={"USER"}
-        profileImage={profileImage}
-      >
+      <UserReservationItem buttonName="고객 정보" disabled={true} isRole={"USER"} profileImage={profileImage}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{formattedPhoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>

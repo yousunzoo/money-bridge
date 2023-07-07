@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import arrayBack from "/public/assets/images/arrayBack.svg";
 import logo from "/public/assets/images/logo.png";
 import { useGeoLocation } from "@/hooks/useGeoLacation";
@@ -12,7 +12,7 @@ import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { useLogout } from "@/hooks/useLogout";
 import Link from "next/link";
 
-const logoPath = ["/", "/lounge"];
+const LOGO_PAGES = ["/", "/lounge"];
 
 function TopNav({
   title,
@@ -50,7 +50,6 @@ function TopNav({
   }, []);
 
   if (!mounted) return null;
-
   return (
     <>
       <div
@@ -59,7 +58,7 @@ function TopNav({
         }`}
       >
         <div className="flex min-w-[100px] justify-self-start">
-          {(logoPath.includes(currentPath) || currentPath === "/pblist") && (
+          {(LOGO_PAGES.includes(currentPath) || currentPath === "/pblist") && (
             <div className="flex cursor-pointer text-base font-bold" onClick={modalOpenHandler}>
               {locations.location ? locations.location : <span>위치 선택</span>}
               <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />
@@ -71,7 +70,7 @@ function TopNav({
             </button>
           )}
         </div>
-        {logoPath.includes(currentPath) ? (
+        {LOGO_PAGES.includes(currentPath) ? (
           <Link href={"/"} className="flex self-center justify-self-center text-center font-bold leading-[22px]">
             <Image src={logo} alt="logo" width={120} height={20} onClick={() => router.push("/")} />
           </Link>
@@ -79,7 +78,7 @@ function TopNav({
           <span className="justify-self-center text-center font-bold leading-[22px]">{title}</span>
         )}
         <div className="flex min-w-[100px] justify-end font-bold">
-          {logoPath.includes(currentPath) && (
+          {LOGO_PAGES.includes(currentPath) && (
             <>
               {userInfo ? (
                 <button onClick={() => logout()}>로그아웃</button>
@@ -95,4 +94,10 @@ function TopNav({
   );
 }
 
-export default TopNav;
+export default memo(TopNav, (prevProps, nextProps) => {
+  return (
+    prevProps.title === nextProps.title &&
+    prevProps.hasBack === nextProps.hasBack &&
+    prevProps.backGroundWhite === nextProps.backGroundWhite
+  );
+});

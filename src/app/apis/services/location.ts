@@ -5,16 +5,14 @@ interface getLocationNameProps {
   longitude: number;
 }
 
-const REST_API_KEY = "cf4c99ac4f07f1ac5a415b41b1ecdb1d";
-const KAKAO_API_COORD_URL = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json";
-const KAKAO_API_SEARCH_URL = "https://dapi.kakao.com/v2/local/search/address.json";
 const options = {
   headers: {
-    Authorization: `KakaoAK ${REST_API_KEY}`,
+    Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}`,
   },
 };
 export const getLocationName = async ({ latitude, longitude }: getLocationNameProps) => {
-  const url = `${KAKAO_API_COORD_URL}?x=${longitude}&y=${latitude}`;
+  if (latitude === 0) return;
+  const url = `${process.env.NEXT_PUBLIC_KAKAO_API_COORD_URL}?x=${longitude}&y=${latitude}`;
   try {
     const response = await axios.get(url, options);
     const res = response.data;
@@ -28,7 +26,7 @@ export const getLocationName = async ({ latitude, longitude }: getLocationNamePr
 
 export const searchLocation = async (searchWord: string) => {
   const encodedQuery = encodeURIComponent(searchWord);
-  const url = `${KAKAO_API_SEARCH_URL}?query=${encodedQuery}`;
+  const url = `${process.env.NEXT_PUBLIC_KAKAO_API_SEARCH_URL}?query=${encodedQuery}`;
   try {
     const res = await axios.get(url, options);
     const data = res.data;

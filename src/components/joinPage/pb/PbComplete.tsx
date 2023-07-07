@@ -19,7 +19,7 @@ function PbComplete() {
       <div className=" mt-14 flex items-center justify-center gap-6 px-[26px]">
         <div className=" relative flex h-[86px] w-[54px] flex-col items-center">
           <div className="absolute top-[-35px] flex w-[106px] items-center justify-center rounded-[8px] bg-primary-light px-2.5 py-1">
-            <span className="text-tiny text-white">메일을 확인해 주세요.</span>
+            <span className="text-tiny text-white">메일을 확인해주세요.</span>
             <Image src={polygon} alt="polygon" width={12} height={12} className="absolute -bottom-2" />
           </div>
           <div className="flex h-[54px] w-full items-center justify-center rounded-full bg-primary-normal">

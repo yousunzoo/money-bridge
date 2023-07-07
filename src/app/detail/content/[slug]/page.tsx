@@ -17,7 +17,7 @@ import Link from "next/link";
 function PbDetailContent() {
   const pathname: string = usePathname();
   const id: number = Number(pathname.split("/").pop());
-  const { data: userData, isLoading } = useQuery<ILoginedUserInfo, AxiosError>({
+  const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
@@ -29,14 +29,13 @@ function PbDetailContent() {
   });
 
   const myId = getMyId(userData?.role, userData?.id, id);
-  if (isLoading) return null;
 
   return (
     <div className="mb-32">
       <TopNav title="PB 상세프로필" hasBack={true} />
-      {authProfile?.data && (
+      {userData?.role !== undefined && authProfile?.data && (
         <>
-          <Intro introData={authProfile.data} />
+          <Intro introData={authProfile.data} userData={userData} />
           <ContentCardList queryKey={`/auth/boards/${id}`} api={getPbContent} etc={id} bookmarks={true} />
         </>
       )}

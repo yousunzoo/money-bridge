@@ -1,6 +1,5 @@
 import Navbar from "@/components/common/Navbar";
 import Script from "next/script";
-import Head from "next/head";
 import ReactQueryProvider from "./ReactQueryProvider";
 import "./globals.css";
 import { Noto_Sans_KR } from "next/font/google";

@@ -54,7 +54,7 @@ function SelectCompany() {
     <>
       <p className="mb-6 mt-14 text-xl font-bold leading-7">
         소속되어있는 증권사를
-        <br /> 선택해 주세요
+        <br /> 선택해주세요
       </p>
       <div
         className={`relative flex h-14 w-full cursor-pointer items-center rounded-sm border-1 ${
@@ -67,7 +67,7 @@ function SelectCompany() {
         </span>
         <Image src={dropDown} alt="dropDown" width={24} height={24} className="absolute right-3" />
       </div>
-      <p className="mb-6 mt-[58px] text-xl font-bold leading-7">지점을 입력해 주세요</p>
+      <p className="mb-6 mt-[58px] text-xl font-bold leading-7">지점을 입력해주세요</p>
       <div className="flex gap-2">
         <div
           className={`flex h-14 w-full items-center rounded-sm border-1  pl-3 ${

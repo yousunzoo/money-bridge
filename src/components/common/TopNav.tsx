@@ -14,7 +14,17 @@ import Link from "next/link";
 
 const logoPath = ["/", "/lounge"];
 
-function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: boolean; backGroundWhite?: boolean }) {
+function TopNav({
+  title,
+  hasBack,
+  backGroundWhite,
+  path,
+}: {
+  title: string;
+  hasBack?: boolean;
+  backGroundWhite?: boolean;
+  path?: string;
+}) {
   const router = useRouter();
   const currentPath = usePathname();
 
@@ -23,6 +33,10 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
   const { locations } = useLocationStore();
   const modalOpenHandler = () => {
     setIsOpenModal(!isOpenModal);
+  };
+
+  const routingHandler = () => {
+    path ? router.push(path) : router.back();
   };
 
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
@@ -52,7 +66,7 @@ function TopNav({ title, hasBack, backGroundWhite }: { title: string; hasBack?: 
             </div>
           )}
           {hasBack && (
-            <button className="flex h-6 w-6 items-center justify-center" onClick={() => router.back()}>
+            <button className="flex h-6 w-6 items-center justify-center" onClick={routingHandler}>
               <Image src={arrayBack} alt="Back" height={24} />
             </button>
           )}

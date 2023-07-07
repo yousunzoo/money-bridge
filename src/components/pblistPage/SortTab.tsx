@@ -35,7 +35,7 @@ function SortTab() {
       {mounted && (
         <div className="flex w-full justify-between text-sm">
           <p className="flex">
-            <span className="mr-1">{locations.location}</span>
+            <span className="mr-1">{locations.location || "위치 미지정"}</span>
             <Image className="mr-2" src={myLocation} alt={"myLocation"} width={14} height={14} />
           </p>
           <div className="flex gap-1" onClick={handleClick}>

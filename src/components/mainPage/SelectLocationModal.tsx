@@ -43,7 +43,6 @@ function SelectLocationModal({ setIsOpenModal }: SearchLocationProps) {
     refetch();
   };
 
-  console.log("SelectLocationModal");
   return (
     <>
       <div className="fixed bottom-[70px] left-1/2 z-50 w-full max-w-[768px] -translate-x-1/2 rounded-t-md bg-primary-normal px-3 py-5 text-white shadow-md">

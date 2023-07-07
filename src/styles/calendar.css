@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .ant-picker-calendar {
   padding: 20px 16px 10px;
   border-radius: 30px;
@@ -35,6 +31,9 @@
 }
 .ant-picker-content thead tr th {
   padding: 0 0 10px !important;
+}
+.ant-picker-calendar .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border: 1px solid #242424;
 }
 
 .ant-picker-calendar.ant-picker-calendar-full .ant-picker-calendar-date {

@@ -16,6 +16,7 @@ export const useAuthentication = (
   const { setData } = useFindPasswordStore();
   const router = useRouter();
   const pathName = usePathname();
+  const currentPath = pathName.split("/")[3];
 
   const { mutate } = useMutation(joinAuthentication, {
     onSuccess: data => {
@@ -26,11 +27,13 @@ export const useAuthentication = (
       setModalSubContent && setModalSubContent("5분 안에 인증코드를 입력해주세요");
       setModalContent &&
         setModalContent({
-          content: "인증코드가 발송되었습니다.",
+          content: `인증코드가 ${currentPath === "authentication" ? "재" : ""}발송되었습니다.`,
           confirmText: "확인",
           confirmFn: () => {
             setIsOpen && setIsOpen(false);
-            router.push(`/join/${pathName.split("/")[2]}/authentication`);
+            if (currentPath === "email") {
+              router.push(`/join/${pathName.split("/")[2]}/authentication`);
+            }
           },
         });
     },

@@ -12,7 +12,7 @@ import { ILoginedUserInfo } from "@/types/common";
 import { AxiosError } from "axios";
 import { IloginProfile } from "@/types/pb";
 import { IDataResponse } from "@/types/common";
-import Link from 'next/link';
+import Link from "next/link";
 
 function PbDetailContent() {
   const pathname: string = usePathname();
@@ -22,17 +22,24 @@ function PbDetailContent() {
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });
-  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>(["getPbProfile"], () =>
-    getPbProfile(id),
-  );
+  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>({
+    queryKey: ["getPbProfile", id],
+    queryFn: () => getPbProfile(id),
+    refetchOnWindowFocus: false,
+  });
+
   const myId = getMyId(userData?.role, userData?.id, id);
   if (isLoading) return null;
 
   return (
     <div className="mb-32">
       <TopNav title="PB 상세프로필" hasBack={true} />
-      {authProfile?.data && <Intro introData={authProfile?.data} />}
-      <ContentCardList queryKey={`/auth/boards/${id}`} api={getPbContent} etc={id} bookmarks={true} />
+      {authProfile?.data && (
+        <>
+          <Intro introData={authProfile.data} />
+          <ContentCardList queryKey={`/auth/boards/${id}`} api={getPbContent} etc={id} bookmarks={true} />
+        </>
+      )}
       {myId && (
         <Link className="button_fixed" href="/contents/write">
           콘텐츠 작성하기

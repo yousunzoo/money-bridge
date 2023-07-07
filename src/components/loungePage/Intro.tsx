@@ -33,12 +33,12 @@ function Intro({ userData }: { userData: ILoginedUserInfo | undefined }) {
   return (
     <div className="mx-[-16px] flex h-[190px] items-center bg-secondary-heavy px-[16px]">
       <div className="flex w-full flex-col">
-        <div className="mb-1 ml-2 text-3xl font-bold text-white">Lounge</div>
-        <div className="ml-2 text-xs text-white">
+        <h3 className="mb-1 ml-2 text-3xl font-bold text-white">Lounge</h3>
+        <p className="ml-2 text-xs text-white">
           프라이빗 뱅커들의
           <br />
           고급정보를 만나보세요
-        </div>
+        </p>
         {userData?.role === CommonROLE.PB ? (
           <div className="flex justify-end">
             <Link

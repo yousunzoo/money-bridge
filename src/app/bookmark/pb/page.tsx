@@ -8,7 +8,11 @@ import { IListResponse } from "@/types/common";
 import { IPbCard } from "@/types/card";
 
 function PbBookMark() {
-  const { data: res } = useQuery<IListResponse<IPbCard>>(["getBookMarkPB"], () => getBookMarkPB(0));
+  const { data: res } = useQuery<IListResponse<IPbCard>>({
+    queryKey: ["getBookMarkPB"],
+    queryFn: () => getBookMarkPB(0),
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <div className="mb-10">

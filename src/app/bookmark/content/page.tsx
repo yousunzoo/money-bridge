@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import BookMark from "@/components/bookmarkPage/BookMark";
@@ -8,7 +8,11 @@ import { IContentCard } from "@/types/card";
 import { IListResponse } from "@/types/common";
 
 function ContentBookMark() {
-  const { data: res } = useQuery<IListResponse<IContentCard>>(["getBookMarkContent"], () => getBookMarkContent(0));
+  const { data: res } = useQuery<IListResponse<IContentCard>>({
+    queryKey: ["getBookMarkContent"],
+    queryFn: () => getBookMarkContent(0),
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <div className="mb-10">

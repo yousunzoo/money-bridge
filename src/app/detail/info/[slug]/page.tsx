@@ -19,11 +19,16 @@ function PbDetailInfo() {
   const token = getCookie("Authorization");
   const pathname: string = usePathname();
   const id: number = Number(pathname.split("/").pop());
-  const { data: profile } = useQuery<IDataResponse<IProfile>, AxiosError>(["getPbNotLogin"], () => getPbNotLogin(id));
+  const { data: profile } = useQuery<IDataResponse<IProfile>, AxiosError>({
+    queryKey: ["getPbNotLogin",id],
+    queryFn: () => getPbNotLogin(id),
+    refetchOnWindowFocus: false,
+  });
   const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>({
-    queryKey: ["getPbProfile"],
+    queryKey: ["getPbProfile",id],
     queryFn: () => getPbProfile(id),
     enabled: !!token,
+    refetchOnWindowFocus: false,
   });
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],

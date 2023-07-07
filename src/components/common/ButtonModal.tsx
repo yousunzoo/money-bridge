@@ -24,16 +24,16 @@ function ButtonModal({ modalContents, isOpen, setIsOpen, children }: ButtonModal
 
   if (!isOpen) return <></>;
   return (
-    <div className="fixed top-0 left-0 z-30 w-full h-full">
-      <div className="modal_background" />
-      <div className="flex flex-col justify-between popup">
+    <div className="fixed left-0 top-0 z-30 h-full w-full">
+      <div className="modal_background" onClick={() => setIsOpen(false)} />
+      <div className="popup flex flex-col justify-between">
         <div className="text-center">
           <h3 className={`text-lg mb-2 break-keep text-center ${children ? "pt-14" : "pt-20"}`}>{content}</h3>
           {children}
         </div>
         <div className="flex w-full gap-4">
           {cancelText && (
-            <button onClick={handleCancelButton} className="font-bold cancel-button">
+            <button onClick={handleCancelButton} className="cancel-button font-bold">
               {cancelText}
             </button>
           )}

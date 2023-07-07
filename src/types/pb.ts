@@ -126,9 +126,10 @@ export interface IReviewStyles {
 export interface UserReservationItemProps {
   children: ReactNode;
   buttonName: string;
-  href: string;
+  href?: string;
   isRole: string;
   profileImage: string;
+  disabled?: boolean;
 }
 
 export interface ReservationData {

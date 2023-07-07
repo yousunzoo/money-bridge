@@ -14,6 +14,7 @@ export const useGetReservationInfo = (slug: number) => {
       getReservationInfo({
         id: slug,
       }),
+    refetchOnWindowFocus: false,
   });
 
   return { reservationInfo, reservationLoading, reservationError };

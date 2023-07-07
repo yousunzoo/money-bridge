@@ -87,7 +87,7 @@ function MyCounselingPage() {
 
   return (
     <div>
-      <TopNav title={"나의 상담"} />
+      <TopNav title={"나의 상담"} hasBack={true} />
       <UserConsultationStatus {...consultationStatus} />
       <ProcessList role={userInfo.role} linkHref={"myCounseling"} />
 

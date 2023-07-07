@@ -12,7 +12,7 @@ function ModalLayout({ children, handleCloseModal }: IModalLayoutProps) {
 
   return (
     <div className="fixed left-0 top-0 z-30 h-full w-full">
-      <div className="modal_background" />
+      <div className="modal_background" onClick={handleCloseModal} />
       <section className="modal flex flex-col">
         <button className="absolute right-6" onClick={handleCloseModal}>
           닫기

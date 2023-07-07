@@ -2,7 +2,7 @@ import { yup_name, yup_phone } from "@/constants/yupSchema";
 import { IEditInfoFormProps } from "@/types/my";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
-import React, { FormEvent } from "react";
+import { FormEvent } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import alert from "/public/assets/images/alert.svg";

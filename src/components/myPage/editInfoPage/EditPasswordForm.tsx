@@ -1,6 +1,6 @@
 import Authentication from "@/components/findPasswordPage/Authentication";
 import ResetPassword from "@/components/findPasswordPage/ResetPassword";
-import React, { useState } from "react";
+import { useState } from "react";
 import CheckUserEmail from "./CheckUserEmail";
 
 function EditPasswordForm({ email }: { email: string }) {

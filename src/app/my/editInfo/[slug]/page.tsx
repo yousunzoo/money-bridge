@@ -1,12 +1,12 @@
 "use client";
-import { editMyInfo, getMyInfo } from "@/app/apis/services/auth";
+import { editMyInfo } from "@/app/apis/services/auth";
 import ButtonModal from "@/components/common/ButtonModal";
 import TopNav from "@/components/common/TopNav";
 import EditInfoForm from "@/components/myPage/editInfoPage/EditInfoForm";
 import EditPasswordForm from "@/components/myPage/editInfoPage/EditPasswordForm";
 import { ButtonModalProps } from "@/types/common";
 import { IUserEditableInfo } from "@/types/my";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";

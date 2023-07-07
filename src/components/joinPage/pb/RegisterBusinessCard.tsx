@@ -31,7 +31,7 @@ function BusinessCard() {
       <p className="mb-2 mt-14 text-xl font-bold leading-7">
         PB 인증을 위해
         <br />
-        명함 사진을 등록해 주세요.
+        명함 사진을 등록해주세요.
       </p>
       <p className="mb-16 text-xs leading-[18px]">명함 사진은 PB 인증을 위해서만 수집됩니다.</p>
       {selectedCard && (

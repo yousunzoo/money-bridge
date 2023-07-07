@@ -14,16 +14,21 @@ function AwardForm({ errors, award, removeItems, register }: IAwardFormProps) {
       <button onClick={handleClick} type="button" className="absolute -right-[12px] -top-[14px]">
         <Image src={minusIcon} alt="삭제" width={28} height={28} />
       </button>
-      <input
-        className={`edit_input mb-4 flex-1 ${errors[`award-${id}-record`] && "warnning"}`}
-        placeholder="수상 내역을 작성해주세요."
-        defaultValue={record}
-        {...register(`award-${id}-record`, {
-          required: true,
-        })}
-      />
+      <div className="relative pb-8">
+        <input
+          className={`edit_input flex-1 ${errors[`award-${id}-record`] && "warnning"}`}
+          placeholder="수상 내역을 작성해주세요."
+          defaultValue={record}
+          {...register(`award-${id}-record`, {
+            required: true,
+          })}
+        />
+        {errors[`award-${id}-record`] && (
+          <p className="absolute bottom-2 text-xs text-status-error">수상 내역은 필수 입력 사항입니다.</p>
+        )}
+      </div>
       <div className="flex items-center justify-between gap-4 pr-8">
-        <div className="relative w-1/2">
+        <div className="relative w-1/2 pb-6">
           <p className="mb-2 text-sm">수상년도</p>
           <input
             type="number"
@@ -36,6 +41,9 @@ function AwardForm({ errors, award, removeItems, register }: IAwardFormProps) {
               pattern: /^[12]\d{3}$/,
             })}
           />
+          {errors[`award-${id}-awardYear`] && (
+            <p className="absolute bottom-0 text-xs text-status-error">연도는 4자리의 숫자로 작성해주세요.</p>
+          )}
         </div>
       </div>
     </li>

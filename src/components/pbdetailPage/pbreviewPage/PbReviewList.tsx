@@ -8,7 +8,7 @@ import { IPbReview } from "@/types/pb";
 
 function PbReviewList({ id }: { id: number }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
-    ["getPbReview"],
+    ["getPbReview",id],
     ({ pageParam = 0 }) => {
       return getPbReview(id, pageParam);
     },

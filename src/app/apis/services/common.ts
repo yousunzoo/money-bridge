@@ -53,7 +53,7 @@ export const deleteContent = async ({ id }: { id: number }) => {
     const res = await instance.delete(`pb/board/${id}`);
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response.data);
+    throw new AxiosError(error.response);
   }
 };
 

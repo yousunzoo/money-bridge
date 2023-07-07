@@ -1,3 +1,4 @@
+import TopNav from "@/components/common/TopNav";
 import { Metadata } from "next";
 import React, { ReactNode } from "react";
 
@@ -6,7 +7,12 @@ export const metadata: Metadata = {
 };
 
 function MyLayout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <TopNav title="마이페이지" hasBack={true} />
+      {children}
+    </>
+  );
 }
 
 export default MyLayout;

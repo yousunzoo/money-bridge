@@ -30,11 +30,11 @@
 
 @layer components {
   .search_input {
-    @apply w-[358px] rounded-sm border-1 px-3 py-2 pl-[50px];
+    @apply w-[343px] rounded-sm border-1 px-3 py-2 pl-[50px];
   }
 
   .form_input {
-    @apply w-full min-w-[358px] rounded-sm border-1 border-background-secondary px-3 py-2 pr-[70px];
+    @apply w-full min-w-[343px] rounded-sm border-1 border-background-secondary px-3 py-2 pr-[70px];
   }
 
   .form_input:focus-visible {
@@ -54,7 +54,7 @@
   }
 
   .input_authentication {
-    @apply w-full min-w-[302px] max-w-[425px] rounded-sm border-1 border-background-secondary px-3 py-2;
+    @apply w-full min-w-[287px] max-w-[425px] rounded-sm border-1 border-background-secondary px-3 py-2;
   }
 
   .input_authentication:focus-visible {
@@ -87,11 +87,11 @@
   }
 
   .button {
-    @apply flex h-[56px] w-full min-w-[358px] items-center justify-center rounded-md bg-primary-normal font-bold text-white;
+    @apply flex h-[56px] w-full min-w-[343px] items-center justify-center rounded-md bg-primary-normal font-bold text-white;
   }
 
   .button_outlined {
-    @apply flex h-[56px] w-full min-w-[358px] items-center justify-center rounded-md border-1 border-primary-normal font-bold text-primary-normal;
+    @apply flex h-[56px] w-full min-w-[343px] items-center justify-center rounded-md border-1 border-primary-normal font-bold text-primary-normal;
   }
 
   .button_small {
@@ -111,7 +111,7 @@
   }
 
   .button_fixed {
-    @apply fixed bottom-[70px] left-1/2 flex h-20 w-full min-w-[390px] max-w-[768px] -translate-x-1/2 items-center justify-center rounded-t-lg bg-primary-normal text-2xl font-bold text-white;
+    @apply fixed bottom-[70px] left-1/2 flex h-20 w-full min-w-[375px] max-w-[768px] -translate-x-1/2 items-center justify-center rounded-t-lg bg-primary-normal text-2xl font-bold text-white;
   }
 
   .modal_background {
@@ -119,11 +119,11 @@
   }
 
   .modal {
-    @apply fixed bottom-[70px] left-1/2 w-full min-w-[390px] max-w-[425px] -translate-x-1/2 rounded-t-md bg-white px-4 py-8;
+    @apply fixed bottom-0 left-1/2 w-full min-w-[375px] max-w-[425px] -translate-x-1/2 rounded-t-md bg-white px-4 py-8;
   }
 
   .card {
-    @apply mx-auto my-2 flex w-full flex-col rounded-md shadow-md;
+    @apply mx-auto my-4 flex w-full flex-col rounded-md shadow-md;
   }
 
   .popup {
@@ -139,7 +139,7 @@
   }
 
   .popup .cancel-button {
-    @apply w-1/2 rounded-md border-1 border-black py-3;
+    @apply h-[44px] w-1/2 rounded-md border-1 border-black;
   }
 
   .pb_top_Phrase {

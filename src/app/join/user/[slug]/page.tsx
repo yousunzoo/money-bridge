@@ -6,9 +6,7 @@ import AgreeProvision from "@/components/joinPage/common/AgreeProvision";
 import { JoinFormType } from "@/constants/enum";
 import { redirect, usePathname } from "next/navigation";
 import UserComplete from "@/components/joinPage/user/UserComplete";
-import { useJoinStore } from "@/store/joinStore";
 import SetPasswordForm from "@/components/joinPage/common/SetPasswordForm";
-import { useAuthenticationStore } from "@/store/authenticationStore";
 import { useEffect } from "react";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 

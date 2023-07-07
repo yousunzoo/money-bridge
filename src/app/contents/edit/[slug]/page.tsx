@@ -18,7 +18,11 @@ function ContentsEdit() {
     queryFn: getLoginedUserInfo,
     refetchOnWindowFocus: false,
   });
-  const { data: tempData } = useQuery<ITemp>(["getTemp"], () => getTemp(id));
+  const { data: tempData } = useQuery<ITemp>({
+    queryKey: ["getTemp"],
+    queryFn: () => getTemp(id),
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <>

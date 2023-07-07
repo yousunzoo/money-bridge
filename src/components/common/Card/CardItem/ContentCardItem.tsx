@@ -47,7 +47,7 @@ function ContentCardItem({
               <div className="text-base ">
                 {item.tag1}&nbsp;&nbsp;•&nbsp;&nbsp;{item.tag2}
               </div>
-              <div className="text-2xl font-bold">{item.title}</div>
+              <div className="break-keep text-2xl font-bold">{item.title}</div>
             </div>
             {userData?.role === "USER" && bookmarks && (
               <button
@@ -55,7 +55,7 @@ function ContentCardItem({
                   event.stopPropagation();
                   bookMarkHandler(item.id);
                 }}
-                className="flex-3 flex w-12 items-center justify-center"
+                className="flex-3 flex w-12 items-center justify-end"
               >
                 {item.isBookmarked ? (
                   <Image src={bookmark_filled} alt="북마크 해제" />
@@ -65,8 +65,8 @@ function ContentCardItem({
               </button>
             )}
           </div>
-          <div className="mt-20 flex">
-            <div className="flex h-[31px] flex-1 flex-col text-[10px]">
+          <div className="flex">
+            <div className="flex flex-1 flex-col text-[10px]">
               <div className="flex text-base">
                 <p className="font-bold">{item.pbName}PB</p> &nbsp;| {item.career}년차
               </div>
@@ -82,7 +82,7 @@ function ContentCardItem({
           </div>
         </div>
       </li>
-      {isBookmarkedOpen && isBookmark && (
+      {isBookmark && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
     </>

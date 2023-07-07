@@ -10,11 +10,17 @@ import * as yup from "yup";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
 import { FormEvent } from "react";
+import ButtonModal from "@/components/common/ButtonModal";
+import { useSetModalContent } from "@/hooks/useSetModalContent";
 
 function JoinInformation({ type }: { type: JoinFormType }) {
   const router = useRouter();
   const pathName = usePathname();
-  const authentication = useAuthentication();
+  const joinType = pathName.split("/")[2];
+  const { isOpen, modalContent, modalSubContent, setIsOpen, setModalContent, setModalSubContent } =
+    useSetModalContent();
+
+  const authentication = useAuthentication(setIsOpen, setModalContent, setModalSubContent);
   const { setInformations } = useJoinStore();
 
   const schema = yup.object().shape({
@@ -30,14 +36,12 @@ function JoinInformation({ type }: { type: JoinFormType }) {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const joinType = pathName.split("/")[2];
     const currentPath = pathName.split("/")[3];
 
     setInformations(currentPath, getValues("text"));
     switch (type) {
       case JoinFormType.EMAIL:
-        authentication(getValues("text"));
-        router.push(`/join/${joinType}/authentication`);
+        authentication({ email: getValues("text"), role: joinType.toUpperCase() });
         break;
       case JoinFormType.NAME:
         router.push(`/join/${joinType}/phoneNumber`);
@@ -81,7 +85,6 @@ function JoinInformation({ type }: { type: JoinFormType }) {
         </div>
         <button
           className={`mt-[150px] h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"}`}
-          onClick={onSubmit}
           disabled={!isValid}
         >
           <span className={`text-xl font-bold leading-7 ${isValid ? "text-white" : "text-gray-heavy"}`}>
@@ -89,6 +92,11 @@ function JoinInformation({ type }: { type: JoinFormType }) {
           </span>
         </button>
       </form>
+      {isOpen && (
+        <ButtonModal modalContents={modalContent} isOpen={isOpen} setIsOpen={setIsOpen}>
+          <p>{modalSubContent}</p>
+        </ButtonModal>
+      )}
     </>
   );
 }
@@ -107,15 +115,15 @@ interface IJoinStepRenderer {
 
 const joinStepRenderer: IJoinStepRenderer = {
   EMAIL: {
-    title: "이메일을 입력해 주세요",
+    title: "이메일을 입력해주세요",
     sub: "이메일은 수정이 불가함으로 신중하게 적어주세요.",
-    validation: "@를 포함하여 작성해 주세요.",
+    validation: "@를 포함하여 작성해주세요.",
   },
   NAME: {
-    title: "이름을 입력해 주세요",
+    title: "이름을 입력해주세요",
   },
   PHONENUMBER: {
-    title: "휴대폰번호를 입력해 주세요",
-    validation: "‘-’ 없이 숫자만 입력해 주세요.",
+    title: "휴대폰번호를 입력해주세요",
+    validation: "‘-’ 없이 숫자만 입력해주세요.",
   },
 };

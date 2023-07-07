@@ -57,5 +57,5 @@ export interface ILoginedUserInfo {
 export interface IModalContent {
   content: string;
   confirmText: string;
-  confirmFn: () => void;
+  confirmFn?: () => void;
 }

@@ -52,7 +52,7 @@ function SetPasswordForm() {
 
   return (
     <>
-      <p className="my-14 text-xl font-bold leading-7">비밀번호를 입력해 주세요</p>
+      <p className="my-14 text-xl font-bold leading-7">비밀번호를 입력해주세요</p>
       <form onSubmit={onSubmit}>
         <div className="mb-2.5">
           <div className="relative flex items-center">
@@ -64,6 +64,7 @@ function SetPasswordForm() {
             {dirtyFields.first && (
               <>
                 <button
+                  type="button"
                   className="input_button bg-[url('/assets/images/clear.svg')]"
                   tabIndex={-1}
                   onClick={handleClear}
@@ -74,19 +75,19 @@ function SetPasswordForm() {
           </div>
           <div className="mt-0.5 h-[18px] pl-2">
             <p className={`text-xs leading-[18px] ${errors.first ? "text-status-alert" : "text-status-positive"}`}>
-              {dirtyFields.first ? "*영문(대소문자), 숫자 포함하여 8자 이상으로 작성해 주세요." : ""}
+              {dirtyFields.first ? "*영문(대소문자), 숫자 포함하여 8자 이상으로 작성해주세요." : ""}
             </p>
             <p
               className={`text-xs leading-[18px] ${
                 getValues("first").includes(" ") ? "text-status-alert" : "text-status-positive"
               }`}
             >
-              {dirtyFields.first ? "*공백없이 작성해 주세요." : ""}
+              {dirtyFields.first ? "*공백없이 작성해주세요." : ""}
             </p>
           </div>
         </div>
         <div className="mb-2.5">
-          <h2 className="mb-4 mt-6 text-xs leading-[18px]">다시 한 번 입력해 주세요</h2>
+          <h2 className="mb-4 mt-6 text-xs leading-[18px]">다시 한 번 입력해주세요</h2>
           <div className="relative flex items-center">
             <input
               type="password"
@@ -96,6 +97,7 @@ function SetPasswordForm() {
             {dirtyFields.second && (
               <>
                 <button
+                  type="button"
                   className="input_button bg-[url('/assets/images/clear.svg')]"
                   tabIndex={-1}
                   onClick={handleClear}
@@ -106,7 +108,7 @@ function SetPasswordForm() {
           </div>
           <div className="h-[18px] pl-2">
             <span className={`text-xs leading-[18px] ${errors.second ? "text-status-alert" : "text-status-positive"}`}>
-              {dirtyFields.second ? "동일한 비밀번호를 입력해 주세요" : ""}
+              {dirtyFields.second ? "동일한 비밀번호를 입력해주세요" : ""}
             </span>
           </div>
         </div>

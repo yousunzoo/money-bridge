@@ -8,7 +8,7 @@ import React from "react";
 
 function UserInfoList() {
   const { data: userInfo, isLoading } = useQuery<IUserEditableInfo, AxiosError>({
-    queryKey: ["getMyInfo"],
+    queryKey: ["MyInfo"],
     queryFn: getMyInfo,
     staleTime: Infinity,
     cacheTime: Infinity,

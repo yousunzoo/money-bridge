@@ -7,7 +7,7 @@ export const useCheckPropensity = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { resetAnswers } = useAnalysisStore();
-  const { mutate: registerPropensity } = useMutation(checkPropensity, {
+  const { mutate: registerPropensity, isLoading: isSubmitting } = useMutation(checkPropensity, {
     onSuccess: () => {
       router.replace("/my/propensity");
       queryClient.refetchQueries(["myPropensity"]);
@@ -15,5 +15,5 @@ export const useCheckPropensity = () => {
       resetAnswers();
     },
   });
-  return registerPropensity;
+  return { registerPropensity, isSubmitting };
 };

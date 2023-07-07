@@ -47,7 +47,7 @@ function LocationChangeModal({
           </button>
           <div className="w-[80px] border-t-1"></div>
           <button
-            onClick={() => selectLocationHandler(null)}
+            onClick={() => selectLocationHandler("CALL")}
             className="my-1 px-5 py-1 text-[14px] font-bold text-gray-heavy hover:text-primary-normal"
           >
             전화로 결정

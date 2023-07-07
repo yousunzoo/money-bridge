@@ -79,16 +79,11 @@ function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number
 
   return (
     <div>
-      <TopNav title="확정된 상담" hasBack={true} />
+      <TopNav title="확정된 상담" hasBack={true} path={"/management?process=CONFIRM"} />
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">상담이 확정되었습니다. 상담 일정을 확인해 주세요.</span>
       </div>
-      <UserReservationItem
-        buttonName={"고객 정보"}
-        href={`tel:${formattedPhoneNumber}`}
-        isRole={"USER"}
-        profileImage={profileImage}
-      >
+      <UserReservationItem buttonName={"고객 정보"} disabled={true} isRole={"USER"} profileImage={profileImage}>
         <p className="font-bold">{name}</p>
         <p className="text-xs ">{formattedPhoneNumber}</p>
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>

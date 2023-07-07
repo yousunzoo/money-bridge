@@ -58,7 +58,6 @@ export const deleteContent = async ({ id }: { id: number }) => {
 };
 
 export const getSuggestionPB = async ({ latitude, longitude }: CoordinateProps): Promise<PbListSectionPorps[]> => {
-  console.log(latitude, longitude);
   try {
     const res = await instance.get("/main/pb", {
       params: {

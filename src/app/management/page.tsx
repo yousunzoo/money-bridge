@@ -72,7 +72,7 @@ function ManagementPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <TopNav title={"고객관리"} />
+      <TopNav title={"고객관리"} hasBack={true} />
       <ConsultationStatus consultationStatus={consultationStatus} pbId={userInfo.id} />
       <ProcessList role={"pb"} linkHref="management" />
 

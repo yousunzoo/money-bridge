@@ -36,7 +36,7 @@ function PbReviewList({ id }: { id: number }) {
           {hasNextPage && <div ref={ref} className="h-1" />}
         </>
       ) : (
-        <div className="font-bold flex items-center justify-center w-full mt-5">작성 된 후기가 없습니다.</div>
+        <div className="mt-5 flex w-full items-center justify-center font-bold">작성된 후기가 없습니다.</div>
       )}
     </>
   );

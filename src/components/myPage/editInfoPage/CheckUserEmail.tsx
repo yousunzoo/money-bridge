@@ -2,7 +2,6 @@ import ButtonModal from "@/components/common/ButtonModal";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { usePasswordAuthentication } from "@/hooks/usePasswordAuthentication";
 import { useSetModalContent } from "@/hooks/useSetModalContent";
-import React from "react";
 
 function CheckUserEmail({ email, moveToAuthentication }: { email: string; moveToAuthentication: () => void }) {
   const { isOpen, modalContent, modalSubContent, setIsOpen, setModalContent, setModalSubContent } =

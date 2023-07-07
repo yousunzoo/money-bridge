@@ -20,19 +20,23 @@ function PbListSection() {
       coordinate: { latitude, longitude },
     },
   } = useLocationStore();
+
   const {
     data: pbList,
     isError,
     isLoading,
-  } = useQuery<PbListSectionPorps[], AxiosError>(["pbSuggestionPB"], () =>
-    getSuggestionPB({
-      latitude: latitude,
-      longitude: longitude,
-    }),
+  } = useQuery<PbListSectionPorps[], AxiosError>(
+    ["pbSuggestionPB"],
+    () =>
+      getSuggestionPB({
+        latitude: latitude,
+        longitude: longitude,
+      }),
+    { refetchOnWindowFocus: false, staleTime: 0 },
   );
 
+  useEffect(() => {}, [latitude]);
   if (!pbList) return;
-
   if (isError)
     return <ErrorModal isError={true} path={"/"} content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."} />;
 

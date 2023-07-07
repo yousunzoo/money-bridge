@@ -5,10 +5,15 @@ import Image from "next/image";
 import close from "/public/assets/images/close.svg";
 import { SearchListProps, SearchLocationProps } from "@/types/location";
 import { useLocationStore } from "@/store/location";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { PbListSectionPorps } from "@/types/main";
+import { AxiosError } from "axios";
+import { getSuggestionPB } from "@/app/apis/services/common";
 
 function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
   const [searchList, setSearchList] = useState<SearchListProps[]>([]);
-  const { setLocation, setCoordinate } = useLocationStore();
+  const { locations, setLocation, setCoordinate } = useLocationStore();
+  const queryClient = useQueryClient();
 
   let debounceTimer: NodeJS.Timeout;
   const fetchData = async (search: string) => {
@@ -29,14 +34,25 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
     }
   };
 
+  const { refetch } = useQuery<PbListSectionPorps[], AxiosError>(
+    ["pbSuggestionPB"],
+    () =>
+      getSuggestionPB({
+        latitude: locations.coordinate.latitude,
+        longitude: locations.coordinate.longitude,
+      }),
+    { refetchOnWindowFocus: false, staleTime: 0 },
+  );
+
   const selectLocation = async ({ x, y }: { x: number; y: number }) => {
     try {
       const latitude = y;
       const longitude = x;
+      setCoordinate({ latitude, longitude });
       const data = await getLocationName({ latitude, longitude });
       setLocation(data);
-      setCoordinate({ latitude, longitude });
       setIsOpenSearch(false);
+      refetch();
     } catch (error) {}
   };
 

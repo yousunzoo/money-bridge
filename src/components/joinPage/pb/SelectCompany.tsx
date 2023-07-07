@@ -100,11 +100,7 @@ function SelectCompany() {
       {isOpen && (
         <ModalLayout handleCloseModal={handleCloseModal}>
           {isLocation ? (
-            <ModalCompanyLocation
-              setLocation={setLocation}
-              companyId={company.id}
-              handleCloseModal={handleCloseModal}
-            />
+            <ModalCompanyLocation setLocation={setLocation} company={company} handleCloseModal={handleCloseModal} />
           ) : (
             <ModalCompanyList
               handleChangeCompany={handleChangeCompany}

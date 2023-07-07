@@ -12,21 +12,20 @@ export const useFindEmail = (
   const pathName = usePathname();
   const queryClient = useQueryClient();
 
-  const modalContents_NotExist = {
-    content: "사용자가 존재하지 않습니다.",
-    confirmText: "재입력",
-    confirmFn: () => {
-      setIsOpen(false);
-    },
-  };
-
   const { mutate } = useMutation(findEmail, {
     onSuccess: data => {
       queryClient.setQueryData(["findEmail"], data);
+
       if (data.data[0].email) {
         router.push(`/findEmail/${pathName.split("/")[2]}/informationCheck`);
       } else {
-        setModalContent(modalContents_NotExist);
+        setModalContent({
+          content: "사용자가 존재하지 않습니다.",
+          confirmText: "재입력",
+          confirmFn: () => {
+            setIsOpen(false);
+          },
+        });
         setIsOpen(true);
       }
     },

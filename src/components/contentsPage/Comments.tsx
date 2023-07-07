@@ -13,7 +13,7 @@ import { ILoginedUserInfo } from "@/types/common";
 import { IContentsInfo, IReReply, IReply } from "@/types/contents";
 import Reply from "@/components/contentsPage/Reply";
 import { AxiosError } from "axios";
-import useErrorShow from "@/utils/errorShow";
+import useErrorShow from "@/hooks/useErrorShow";
 
 function Comments({ commentData, userData }: { commentData: IContentsInfo; userData: ILoginedUserInfo }) {
   const [isEdit, setIsEdit] = useState(false);

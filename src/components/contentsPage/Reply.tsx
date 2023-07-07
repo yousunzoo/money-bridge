@@ -9,7 +9,7 @@ import Image from "next/image";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import profile from "/public/assets/images/profile.svg";
 import ButtonModal from "@/components/common/ButtonModal";
-import useErrorShow from "@/utils/errorShow";
+import useErrorShow from "@/hooks/useErrorShow";
 
 function Reply({
   reply,

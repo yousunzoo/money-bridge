@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteBookMarkContent, postBookMarkContent } from "@/app/apis/services/user";
 import { AxiosError } from "axios";
-import useErrorShow from "@/utils/errorShow";
+import useErrorShow from "@/hooks/useErrorShow";
 
 const useContentBookMark = (isBookmarked: boolean, link: string, queryKey?: string | string[]) => {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();

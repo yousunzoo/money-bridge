@@ -20,9 +20,17 @@ import { AxiosError } from "axios";
 import { ILoginedUserInfo } from "@/types/common";
 import { IContentData } from "@/types/contents";
 import { timeShow } from "@/utils/timeShow";
-import useErrorShow from "@/utils/errorShow";
+import useErrorShow from "@/hooks/useErrorShow";
 
-function Content({ contentData, userData,bookmarks }: { contentData: IContentData; userData: ILoginedUserInfo;bookmarks:boolean; }) {
+function Content({
+  contentData,
+  userData,
+  bookmarks,
+}: {
+  contentData: IContentData;
+  userData: ILoginedUserInfo;
+  bookmarks: boolean;
+}) {
   const { id, thumbnail, title, content, createdAt, updatedAt, tag1, tag2, pbId, name, isBookmarked, profile } =
     contentData;
   const pathname: string = usePathname();
@@ -94,13 +102,15 @@ function Content({ contentData, userData,bookmarks }: { contentData: IContentDat
             <button onClick={shareHandler} className="flex w-9 justify-end">
               <Image src={share} alt="공유" width={24} height={24} className="icon" />
             </button>
-            {userData?.role === "USER" && bookmarks &&(<button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
-              {isBookmark ? (
-                <Image src={bookmark_filled} alt="북마크 활성화" width={24} height={24} className="icon" />
-              ) : (
-                <Image src={bookmark} alt="북마크" width={24} height={24} className="icon" />
-              )}
-            </button>)}
+            {userData?.role === "USER" && bookmarks && (
+              <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
+                {isBookmark ? (
+                  <Image src={bookmark_filled} alt="북마크 활성화" width={24} height={24} className="icon" />
+                ) : (
+                  <Image src={bookmark} alt="북마크" width={24} height={24} className="icon" />
+                )}
+              </button>
+            )}
           </div>
         </div>
         <div className="mb-[103px] p-4 text-sm">{content}</div>

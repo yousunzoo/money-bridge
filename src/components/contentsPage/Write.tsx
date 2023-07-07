@@ -10,10 +10,10 @@ import { useMutation } from "@tanstack/react-query";
 import "@/app/globals.css";
 import { AxiosError } from "axios";
 import ButtonModal from "@/components/common/ButtonModal";
-import useErrorShow from "@/utils/errorShow";
+import useErrorShow from "@/hooks/useErrorShow";
 import { ILoginedUserInfo } from "@/types/common";
 
-function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: ILoginedUserInfo; }) {
+function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: ILoginedUserInfo }) {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const router = useRouter();
   const isStatus = data?.status === BoardStatus.ACTIVE || BoardStatus.TEMP;

@@ -20,7 +20,7 @@ interface IResponseLoginConfig {
 }
 
 export interface IUser {
-  role: string;
+  role: string | undefined;
   id?: number;
   email?: string;
   name?: string;

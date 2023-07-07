@@ -1,7 +1,6 @@
 import React, { MouseEvent, useState } from "react";
 import checkProvision from "/public/assets/images/checkProvision.svg";
 import uncheckProvision from "/public/assets/images/uncheckProvision.svg";
-import openProvision from "/public/assets/images/openProvision.svg";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useJoinStore } from "@/store/joinStore";
@@ -10,7 +9,7 @@ import { usePBJoin } from "@/hooks/usePBJoin";
 import DetailProvision from "./DetailProvision";
 import ProvisionContent from "./ProvisionContent";
 import ButtonModal from "@/components/common/ButtonModal";
-import { IModalContent } from "@/types/common";
+import { useSetModalContent } from "@/hooks/useSetModalContent";
 
 interface IProvision {
   id: number;
@@ -38,17 +37,9 @@ function AgreeProvision() {
   const required = pathName.split("/")[2] === "user" ? userRequired : pbRequired;
   const { informations, setInformations } = useJoinStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, modalContent, modalSubContent, setIsOpen, setModalContent } = useSetModalContent();
   const [provisionId, setProvisionId] = useState<number>(0);
   const [isChecked, setIsChecked] = useState<{ [key: number]: boolean }>(required.concat(optional).map(() => false));
-  const modalContents_Default = {
-    content: "일시적인 오류가 발생했습니다.",
-    confirmText: "확인",
-    confirmFn: () => {
-      setIsOpen(false);
-    },
-  };
-  const [modalContent, setModalContent] = useState<IModalContent>(modalContents_Default);
 
   const pbJoin = usePBJoin(setIsModalOpen, setModalContent);
   const userJoin = useUserJoin(setIsModalOpen, setModalContent);
@@ -113,16 +104,13 @@ function AgreeProvision() {
         <DetailProvision handleCloseProvision={handleCloseProvision} provisionId={provisionId} />
       ) : (
         <>
-          <p className="my-14 text-xl font-bold leading-7">약관을 확인해 주세요</p>
+          <p className="my-14 text-xl font-bold leading-7">약관을 확인해주세요</p>
           <div className="border mb-6 rounded-sm border-1 border-button-inactive">
             <div className="border relative flex h-14 w-full min-w-[358px] items-center gap-4 pl-6 pr-4">
               <button className="flex h-6 w-6 items-center justify-center" onClick={handleAllClick}>
                 <Image src={isAllChecked() ? checkProvision : uncheckProvision} alt="check" width={18} height={24} />
               </button>
               <span className="text-xl font-bold leading-7">약관 전체 동의</span>
-              <button className="absolute right-6 flex h-6 w-6 items-center justify-center">
-                <Image src={openProvision} alt="open" width={13} height={21} />
-              </button>
             </div>
           </div>
           <div className="border mb-6 rounded-sm border-1 border-button-inactive">
@@ -152,7 +140,7 @@ function AgreeProvision() {
           </button>
           {isModalOpen && (
             <ButtonModal modalContents={modalContent} isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-              <p>정보를 확인해 주세요.</p>
+              <p>{modalSubContent}</p>
             </ButtonModal>
           )}
         </>

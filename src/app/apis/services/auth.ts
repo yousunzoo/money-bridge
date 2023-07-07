@@ -39,8 +39,8 @@ export const pbJoin = async (joinData: IJoinInformation) => {
   return res.data;
 };
 
-export const joinAuthentication = async (email: string) => {
-  const res = await instance.post("/email/authentication", { email: email });
+export const joinAuthentication = async (data: IUser) => {
+  const res = await instance.post("/email/authentication", data);
   return res.data;
 };
 

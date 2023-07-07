@@ -95,6 +95,9 @@ function Reply({
             type="text"
             onChange={editReReplyHandler}
             value={newReComment ? newReComment : reply.content}
+            onKeyDown={e => {
+              if (e.key === "Enter") replyEditEndHandler(reply.id);
+            }}
           />
         ) : (
           <div className="content">{reply.content}</div>

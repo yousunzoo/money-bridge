@@ -42,13 +42,18 @@ export interface IReReply {
 }
 
 export interface IContentsSave {
-  title: string;
-  content: string;
-  tag1: string;
-  tag2: string;
-  thumbnail: string;
+  title?: string;
+  content?: string;
+  tag1?: string;
+  tag2?: string;
 }
-
+export interface IContentsEdit {
+  title?: string;
+  content?: string;
+  tag1?: string;
+  tag2?: string;
+  deleteThumbnail?:boolean;
+}
 export interface ITempList {
   id: number;
   title: string;

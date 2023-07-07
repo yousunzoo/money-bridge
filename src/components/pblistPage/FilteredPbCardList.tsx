@@ -17,7 +17,6 @@ function FilteredPbCardList() {
       fetchNextPage();
     }
   });
-
   return (
     <>
       {isFetching && (

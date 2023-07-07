@@ -1,18 +1,39 @@
 import { getPBList } from "@/app/apis/services/etc";
 import { useLocationStore } from "@/store/location";
-import { IPBListData, IParams } from "@/types/pblist";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IPbCard } from "@/types/card";
+
+export interface IParams {
+  sort: "distance" | "career";
+  speciality?: string;
+  company?: string;
+}
+
+export interface IPBListData {
+  list: IPbCard[];
+  totalElements: number;
+  totalPages: number;
+  curPage: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+}
 
 export const useGetFilteredPBlist = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const searchParams = useSearchParams();
-  const { locations } = useLocationStore();
+  const {
+    locations: {
+      coordinate: { latitude, longitude },
+    },
+  } = useLocationStore();
   const sortParam = (searchParams.get("sort") || "distance") as "distance" | "career";
   const speciality = searchParams.get("speciality");
   const company = searchParams.get("company");
-  const [params, setParams] = useState<IParams>({ sort: sortParam, location: { ...locations.coordinate } });
+  const [params, setParams] = useState<IParams>({ sort: sortParam });
   const [queryKey, setQueryKey] = useState<string[]>([]);
 
   const {
@@ -20,19 +41,25 @@ export const useGetFilteredPBlist = () => {
     fetchNextPage,
     hasNextPage,
     isFetching,
+    refetch,
   } = useInfiniteQuery<IPBListData, AxiosError>(
     queryKey,
     ({ pageParam = 0 }) => {
-      return getPBList(params, pageParam);
+      const locatedParams = { ...params, location: { latitude, longitude } };
+      return getPBList(locatedParams, pageParam);
     },
     {
       getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),
       refetchOnWindowFocus: false,
-      cacheTime: 100000,
+      staleTime: Infinity,
     },
   );
 
   useEffect(() => {
+    if (!isMounted) setIsMounted(true);
+  }, []);
+  useEffect(() => {
+    if (!isMounted) return;
     if (company) {
       const newParams = { ...params, sort: sortParam, company };
       if (newParams["speciality"]) {
@@ -50,6 +77,11 @@ export const useGetFilteredPBlist = () => {
       setQueryKey(["speciality", sortParam, speciality]);
     }
   }, [company, speciality, sortParam]);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    refetch();
+  }, [latitude, longitude]);
 
   return { pbListData, fetchNextPage, hasNextPage, isFetching };
 };

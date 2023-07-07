@@ -6,7 +6,6 @@ import { Carousel } from "antd";
 import { chunkArray } from "@/utils/chunkArray";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { ICompanyList } from "@/types/pblist";
 import { AxiosError } from "axios";
 import { getCompanyListwithLogo } from "@/app/apis/services/etc";
 
@@ -16,17 +15,15 @@ const LI_STYLE =
 function StockFirmSection() {
   const { handleIDClick } = usePBListQueries();
 
-  const { data: companyList, isLoading } = useQuery<ICompanyList, AxiosError>(["companyList"], getCompanyListwithLogo, {
+  const { data: companyList, isLoading } = useQuery<any, AxiosError>(["companyList"], getCompanyListwithLogo, {
     staleTime: Infinity,
     cacheTime: Infinity,
   });
-
   if (!companyList || isLoading) return null;
-
   const chunkedCompanyList = chunkArray([{ id: "ALL", logo: null, name: "전체보기" }, ...companyList], 8);
 
   return (
-    <section className="relative mt-3 w-full ">
+    <section className="companylist relative mt-3 w-full">
       <h3 className="text-xl font-bold">
         선호하는 증권사의 <br /> PB를 만나보세요.
       </h3>

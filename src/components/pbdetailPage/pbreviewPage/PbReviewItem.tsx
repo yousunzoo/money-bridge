@@ -14,7 +14,7 @@ function PbReviewItem({ item }: { item: IPbReview }) {
       <div className="h-[90px] whitespace-normal rounded-md bg-background-secondary p-3.5 text-xs">{item.content?item.content:"작성된 후기가 없습니다."}</div>
       <ul className="mt-3 flex">
         {item.list.map((styles: any, idx: number) => (
-          <li key={idx} className="option mr-[8px] flex h-[35px] items-center">
+          <li key={idx} className="option mr-[8px] flex h-[35px] items-center p-0 w-[78px] justify-center">
             {styleCase(styles?.style)?.style}
           </li>
         ))}

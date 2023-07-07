@@ -123,7 +123,7 @@
   }
 
   .card {
-    @apply mx-auto my-2 flex w-full flex-col rounded-md shadow-md;
+    @apply mx-auto my-4 flex w-full flex-col rounded-md shadow-md;
   }
 
   .popup {

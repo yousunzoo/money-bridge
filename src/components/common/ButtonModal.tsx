@@ -1,5 +1,4 @@
 "use client";
-
 import { ButtonModalProps } from "@/types/common";
 import { useEffect } from "react";
 
@@ -25,7 +24,7 @@ function ButtonModal({ modalContents, isOpen, setIsOpen, children }: ButtonModal
 
   if (!isOpen) return <></>;
   return (
-    <div className="fixed top-0 left-0 z-20 w-full h-full">
+    <div className="fixed top-0 left-0 z-30 w-full h-full">
       <div className="modal_background" />
       <div className="flex flex-col justify-between popup">
         <div className="text-center">

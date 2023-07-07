@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteBookMarkContent, postBookMarkContent } from "@/app/apis/services/user";
 import { AxiosError } from "axios";
 
-const useContentBookMark = (isBookmarked: boolean, link: string, queryKey?: string|string[]) => {
+const useContentBookMark = (isBookmarked: boolean, link: string, queryKey?: string | string[]) => {
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
   const router = useRouter();
@@ -27,16 +27,14 @@ const useContentBookMark = (isBookmarked: boolean, link: string, queryKey?: stri
   const bookMarkHandler = (id: number) => {
     setIsBookmarkedOpen(true);
     if (isBookmarked) {
-      setIsBookmark(false);
       deletebookMarkContent({ id: id });
     } else {
-      setIsBookmark(true);
       postbookMarkContent({ id: id });
     }
   };
 
   const bookMarkContents = {
-    content: "북마크에 추가되었습니다.",
+    content: isBookmarked ? "북마크에 추가되었습니다." : "북마크가 해제되었습니다.",
     confirmText: "확인",
     cancelText: "북마크 바로가기",
     confirmFn: () => {

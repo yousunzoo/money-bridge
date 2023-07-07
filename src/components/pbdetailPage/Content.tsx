@@ -9,9 +9,11 @@ import { IContentData, IPortfolio } from "@/types/pb";
 
 function Content({ contentData }: { contentData: IContentData }) {
   const { id, name, intro, speciality1, speciality2, career, award } = contentData;
-  const { data: portfolio } = useQuery<IDataResponse<IPortfolio>, AxiosError>(["getPbPortfolio"], () =>
-    getPbPortfolio(id),
-  );
+  const { data: portfolio } = useQuery<IDataResponse<IPortfolio>, AxiosError>({
+    queryKey: ["getPbPortfolio", id],
+    queryFn: () => getPbPortfolio(id),
+    refetchOnWindowFocus: false,
+  });
   const portfolioData = portfolio?.data;
   const {
     cumulativeReturn,
@@ -55,23 +57,25 @@ function Content({ contentData }: { contentData: IContentData }) {
           ))}
         </ul>
       </div>
-      <div className={`mb-${award ? "7" : "[68px]"}`}>
-        <p className="header">경력</p>
-        <ul className="flex flex-col">
-          {career?.map((item: any) => (
-            <li key={item.id} className="flex text-xs">
-              <div>{item.start}&nbsp;-</div>
-              <div>&nbsp;{item.end}</div>
-              <div>&nbsp;&nbsp;{item.career}</div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {career && career?.length > 0 && (
+        <div className="mb-7">
+          <p className="header">경력</p>
+          <ul className="flex flex-col">
+            {career?.map((item) => (
+              <li key={item.id} className="flex text-xs">
+                <div>{item.start}&nbsp;-</div>
+                <div>&nbsp;{item.end}</div>
+                <div>&nbsp;&nbsp;{item.career}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {award && award?.length > 0 && (
         <div className="mb-[68px]">
           <p className="header">수상내역</p>
           <ul className="flex flex-col">
-            {award.map((item: any) => (
+            {award.map((item) => (
               <li key={item.id} className="flex text-xs">
                 <div>{item.year}&nbsp;&nbsp;</div>
                 <div>{item.record}</div>

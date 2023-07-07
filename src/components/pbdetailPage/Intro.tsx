@@ -37,7 +37,7 @@ function Intro({ introData }: { introData: IIntroData }) {
   } = useShare(urlToCopy, name + "PB", msg, profile);
 
   const goToCompany = () => {
-    router.push(`/pblist/financial/${companyId}`);
+    router.push(`pblist?company=${companyId}`);
   };
 
   return (
@@ -48,7 +48,7 @@ function Intro({ introData }: { introData: IIntroData }) {
           alt="증권사 로고"
           width={42}
           height={42}
-          className="absolute left-2  z-10 h-[42px] cursor-pointer object-contain"
+          className="absolute left-2 top-5 z-10 h-[42px] cursor-pointer object-contain"
           onClick={goToCompany}
           priority
         />
@@ -66,7 +66,6 @@ function Intro({ introData }: { introData: IIntroData }) {
           priority
         />
       </div>
-
       <div className="flex flex-col items-center">
         <p className="mb-4 mt-[23px] text-2xl font-bold">{name} PB</p>
         <p className="mb-[18px] font-medium">{branchName}</p>
@@ -117,7 +116,7 @@ function Intro({ introData }: { introData: IIntroData }) {
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
       )}
-      {isBookmarkedOpen && isBookmark && (
+      {isBookmark && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
     </>

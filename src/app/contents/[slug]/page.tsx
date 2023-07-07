@@ -22,11 +22,13 @@ function ContentsDetail() {
     queryKey: ["getContentsId"],
     queryFn: () => getContentsId(id),
     enabled: !!token,
+    refetchOnWindowFocus: false,
   });
-  const { data: notLoginContents } = useQuery<IDataResponse<INotLoginContentsInfo>, AxiosError>(
-    ["getNotLoginContents"],
-    () => getNotLoginContents(id),
-  );
+  const { data: notLoginContents } = useQuery<IDataResponse<INotLoginContentsInfo>, AxiosError>({
+    queryKey: ["getNotLoginContents"],
+    queryFn: () => getNotLoginContents(id),
+    refetchOnWindowFocus: false,
+  });
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
     queryFn: getLoginedUserInfo,

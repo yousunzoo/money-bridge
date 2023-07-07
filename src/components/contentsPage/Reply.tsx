@@ -1,5 +1,5 @@
 import { deleteReReply, editReReply } from "@/app/apis/services/auth";
-import { ILoginedUserInfo, IModalContent } from "@/types/common";
+import { ILoginedUserInfo } from "@/types/common";
 import { getMyId } from "@/utils/pbMyId";
 import { showName } from "@/utils/userNameFormat";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -9,7 +9,7 @@ import Image from "next/image";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import profile from "/public/assets/images/profile.svg";
 import ButtonModal from "@/components/common/ButtonModal";
-import useErrorHandler from "@/hooks/useErrorHandler";
+import useErrorShow from "@/hooks/useErrorShow";
 
 function Reply({
   reply,
@@ -32,12 +32,7 @@ function Reply({
 }) {
   const [isReEdit, setIsReEdit] = useState(false);
   const [newReComment, setNewReComment] = useState<string>("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState<IModalContent>({
-    content: "",
-    confirmText: "확인",
-    confirmFn: () => setIsOpen(false),
-  });
+  const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const queryClient = useQueryClient();
 
   const { mutate: deleterereply } = useMutation(deleteReReply, {
@@ -45,8 +40,7 @@ function Reply({
       queryClient.refetchQueries(["getContentsId"]);
     },
     onError: (err: AxiosError) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useErrorHandler(err, setIsOpen, setError);
+      errorHandler(err);
     },
   });
 
@@ -55,8 +49,7 @@ function Reply({
       queryClient.refetchQueries(["getContentsId"]);
     },
     onError: (err: AxiosError) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useErrorHandler(err, setIsOpen, setError);
+      errorHandler(err);
     },
   });
 

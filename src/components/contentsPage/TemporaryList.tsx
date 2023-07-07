@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import TemporaryItem from "@/components/contentsPage/TemporaryItem";
 import { ITempList } from "@/types/contents";

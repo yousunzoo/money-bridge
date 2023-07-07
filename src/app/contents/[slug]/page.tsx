@@ -22,7 +22,7 @@ function ContentsDetail() {
     queryKey: ["getContentsId"],
     queryFn: () => getContentsId(id),
     enabled: !!token,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: false,   
   });
   const { data: notLoginContents } = useQuery<IDataResponse<INotLoginContentsInfo>, AxiosError>({
     queryKey: ["getNotLoginContents"],
@@ -44,7 +44,7 @@ function ContentsDetail() {
               <div className="relative h-[390px]">
                 <Poster img={contents.data.thumbnail} />
               </div>
-              <Content contentData={contents.data} userData={userData} />
+              <Content contentData={contents.data} userData={userData} bookmarks={userData?.role === "PB"? false:true} />
               <Comments commentData={contents.data} userData={userData} />
             </>
           )

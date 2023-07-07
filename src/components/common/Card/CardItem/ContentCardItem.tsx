@@ -32,11 +32,16 @@ function ContentCardItem({
     router.push(`/contents/${item.id}`);
   };
 
-  const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
-    item.isBookmarked,
-    "/bookmark/content",
-    queryKey,
-  );
+  const {
+    isBookmark,
+    isBookmarkedOpen,
+    setIsBookmarkedOpen,
+    bookMarkHandler,
+    bookMarkContents,
+    isOpen,
+    setIsOpen,
+    error,
+  } = useContentBookMark(item.isBookmarked, "/bookmark/content", queryKey);
 
   return (
     <>
@@ -85,6 +90,7 @@ function ContentCardItem({
       {isBookmark && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
+      {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </>
   );
 }

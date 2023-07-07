@@ -2,6 +2,7 @@ import { ConsultationTimeCardProps } from "@/types/schedule";
 import { AxiosError } from "axios";
 import { ChangeReservationProps, ConsultationListProps, GetScheduleInfoProps } from "@/types/pb";
 import { formInstance, instance } from "../axios";
+import { IContentsEdit, IContentsSave } from "@/types/contents";
 
 export const getPBInfo = async () => {
   try {
@@ -223,14 +224,13 @@ export const updatePBContents = async ({
   thumbnailFile,
 }: {
   id: number;
-  formData: FormData;
+  formData: FormData | IContentsEdit;
   thumbnailFile: File | null;
 }) => {
   const formDatas = new FormData();
-  formDatas.append("boardInDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
-  if (thumbnailFile) {
-    formDatas.append("thumbnail", thumbnailFile);
-  }
+  formDatas.append("boardUpdateDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
+  if (thumbnailFile) formDatas.append("thumbnail", thumbnailFile);
+
   try {
     const res = await formInstance.put(`/pb/board/${id}`, formDatas);
     return res.data.data;
@@ -243,7 +243,7 @@ export const postPBContents = async ({
   formData,
   thumbnailFile,
 }: {
-  formData: FormData;
+  formData: FormData | IContentsSave;
   thumbnailFile: File | null;
 }) => {
   const formDatas = new FormData();
@@ -278,7 +278,13 @@ export const getTempList = async () => {
   }
 };
 
-export const postTemp = async ({ formData, thumbnailFile }: { formData: FormData; thumbnailFile: File | null }) => {
+export const postTemp = async ({
+  formData,
+  thumbnailFile,
+}: {
+  formData: FormData | IContentsSave;
+  thumbnailFile: File | null;
+}) => {
   const formDatas = new FormData();
   formDatas.append("boardInDTO", new Blob([JSON.stringify(formData)], { type: "application/json" }));
   if (thumbnailFile) {

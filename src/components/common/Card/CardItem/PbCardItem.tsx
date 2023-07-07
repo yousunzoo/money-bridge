@@ -37,11 +37,16 @@ function PbCardItem({
     return speciality.filter(data => data.id === specialitys).map(item => item.name);
   };
 
-  const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
-    item.isBookmarked,
-    "/bookmark/pb",
-    queryKey,
-  );
+  const {
+    isBookmark,
+    isBookmarkedOpen,
+    setIsBookmarkedOpen,
+    bookMarkHandler,
+    bookMarkContents,
+    isOpen,
+    setIsOpen,
+    error,
+  } = usePbBookMark(item.isBookmarked, "/bookmark/pb", queryKey);
 
   return (
     <>
@@ -100,6 +105,7 @@ function PbCardItem({
       {isBookmark && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
+      {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </>
   );
 }

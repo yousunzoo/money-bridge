@@ -58,8 +58,8 @@ export const useGetFilteredPBlist = () => {
   useEffect(() => {
     if (!isMounted) setIsMounted(true);
   }, []);
+
   useEffect(() => {
-    if (!isMounted) return;
     if (company) {
       const newParams = { ...params, sort: sortParam, company };
       if (newParams["speciality"]) {

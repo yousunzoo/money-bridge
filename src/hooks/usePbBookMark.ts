@@ -27,16 +27,14 @@ const usePbBookMark = (isBookmarked: boolean, link: string, queryKey?: string[] 
   const bookMarkHandler = (id: number) => {
     setIsBookmarkedOpen(true);
     if (isBookmarked) {
-      setIsBookmark(false);
       deletebookMarkPB({ id: id });
     } else {
-      setIsBookmark(true);
       postbookMarkPB({ id: id });
     }
   };
 
   const bookMarkContents = {
-    content: "북마크에 추가되었습니다.",
+    content: isBookmarked ? "북마크에 추가되었습니다." : "북마크가 해제되었습니다.",
     confirmText: "확인",
     cancelText: "북마크 바로가기",
     confirmFn: () => {

@@ -17,17 +17,17 @@ import { reserve } from "@/app/apis/services/user";
 import { useRouter } from "next/navigation";
 import highlight from "/public/assets/images/highlight.svg";
 import Image from "next/image";
+import LoadingBg from "../common/LoadingBg";
 
 function ReservationChat({ reservationData, pbId }: IReservationChatProps) {
   const router = useRouter();
-  const { answers, setAnswers, resetAnswers } = useReservationStore();
+  const { answers, setAnswers } = useReservationStore();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [isPhoneConsult, setIsPhoneConsult] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const { mutate: makeReserve } = useMutation(reserve, {
+  const { mutate: makeReserve, isLoading } = useMutation(reserve, {
     onSuccess: () => {
-      resetAnswers();
       router.replace("/reservation/complete");
     },
   });
@@ -142,6 +142,7 @@ function ReservationChat({ reservationData, pbId }: IReservationChatProps) {
       {(step === 3 || step === 4 || step === 5) && isOpen && (
         <ModalLayout handleCloseModal={handleCloseModal}>{stepModals[step]}</ModalLayout>
       )}
+      {isLoading && <LoadingBg />}
     </>
   );
 }

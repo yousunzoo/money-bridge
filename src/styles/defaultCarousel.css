@@ -1,11 +1,11 @@
-.ant-carousel .slick-dots{
+.ant-carousel .slick-dots {
   position: static !important;
 }
 .ant-carousel .slick-dots-bottom li {
   width: 6px !important;
   height: 6px;
 }
-.ant-carousel .slick-dots li.slick-active button{
+.ant-carousel .slick-dots li.slick-active button {
   background: red;
 }
 

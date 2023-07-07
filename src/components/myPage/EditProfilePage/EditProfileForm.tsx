@@ -47,8 +47,9 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
     handleSubmit,
     setValue,
     register,
-    formState: { errors },
-  } = useForm({
+    unregister,
+    formState: { errors, isValid },
+  } = useForm<any>({
     mode: "onChange",
     defaultValues: {
       intro: existingProfile.intro,
@@ -83,9 +84,14 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
 
     if (type === "career") {
       setCareers(sortedArr);
+      unregister(`careers-${nowId}-career`);
+      unregister(`careers-${nowId}-start`);
+      unregister(`careers-${nowId}-end`);
       return;
     }
     setAwards(sortedArr);
+    unregister(`award-${nowId}-record`);
+    unregister(`award-${nowId}-year`);
     return;
   };
 
@@ -139,6 +145,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
         <CareerInput errors={errors} register={register} defaultValue={getValues("career")} />
         <CareersInput
           errors={errors}
+          getValues={getValues}
           register={register}
           removeItems={removeItems}
           careers={careers}
@@ -161,7 +168,9 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
         />
         <IntroInput errors={errors} register={register} intro={watch("intro")} />
         <MsgInput errors={errors} register={register} msg={watch("msg")} />
-        <button className="button_fixed">등록 완료</button>
+        <button disabled={!isValid} className={`button_fixed ${!isValid && "bg-button-inactive"}`}>
+          등록 완료
+        </button>
       </form>
     </>
   );

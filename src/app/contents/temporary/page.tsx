@@ -8,7 +8,11 @@ import { ITempList } from "@/types/contents";
 import { AxiosError } from "axios";
 
 function ContentsTemp() {
-  const { data: tempData } = useQuery<ITempList[], AxiosError>(["getTempList"], getTempList);
+  const { data: tempData } = useQuery<ITempList[], AxiosError>({
+    queryKey: ["getTempList"],
+    queryFn: getTempList,
+    refetchOnWindowFocus: false,
+  });
   if (!tempData) return null;
 
   return (

@@ -1,36 +1,34 @@
 "use client";
 
-import TopNav from "@/components/common/TopNav";
 import PBInfo from "@/components/myPage/PBInfo";
 import UserInfo from "@/components/myPage/UserInfo";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ButtonModal from "@/components/common/ButtonModal";
-import { useMyPageCheck } from "@/hooks/useMyPageCheck";
-import { Skeleton } from "antd";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { useLogout } from "@/hooks/useLogout";
 import { redirect } from "next/navigation";
+import { useEffect } from "react";
+import { getCookie } from "@/utils/cookies";
 
 const LINK_STYLE = "flex items-center text-sm justify-between py-2 mb-2 pr-1";
 const BUTTON_STYLE = "gray-heavy text-xs underline decoration-gray-heavy decoration-1";
 const nextIcon = "/assets/images/nextIcon.svg";
 
 function MyPage() {
-  const { loginedUserInfo, isLoading, isError, handleLogout, isOpen, setIsOpen, modalContents } = useMyPageCheck();
+  const { userInfo, userLoading, isLoginError } = useGetUserInfo();
+  const logout = useLogout();
+  const authorization = getCookie("Authorization");
 
   useEffect(() => {
-    if (!loginedUserInfo && isError) {
-      redirect("/login");
-    }
-  }, [loginedUserInfo, isError]);
+    if (!authorization || isLoginError) redirect("/login");
+  }, []);
 
-  if (isLoading || !loginedUserInfo) return null;
+  if (userLoading || !userInfo) return null;
+
   return (
     <>
-      <TopNav title="마이페이지" hasBack={true} />
-      <Skeleton className="mb-10" active loading={isLoading} />
-      {loginedUserInfo.role === "USER" && <UserInfo />}
-      {loginedUserInfo.role === "PB" && <PBInfo />}
+      {userInfo.role === "USER" && <UserInfo />}
+      {userInfo.role === "PB" && <PBInfo />}
       <section className="mb-10">
         <h3 className="mb-2 text-xl font-bold">나의 관리</h3>
         <ul>
@@ -40,7 +38,7 @@ function MyPage() {
               <Image src={nextIcon} width={14} height={14} alt="개인 정보 설정 이동" />
             </Link>
           </li>
-          {loginedUserInfo.role === "USER" && (
+          {userInfo.role === "USER" && (
             <li>
               <Link href="/my/propensity" className={LINK_STYLE}>
                 <span>나의 투자 성향</span>
@@ -74,11 +72,10 @@ function MyPage() {
         <Link href="/withdraw" className={BUTTON_STYLE}>
           탈퇴하기
         </Link>
-        <button onClick={handleLogout} className={BUTTON_STYLE}>
+        <button onClick={() => logout()} className={BUTTON_STYLE}>
           로그아웃
         </button>
       </section>
-      {isOpen && <ButtonModal modalContents={modalContents} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </>
   );
 }

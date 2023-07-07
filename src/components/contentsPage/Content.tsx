@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 import share from "/public/assets/images/icon/share.svg";
@@ -17,11 +17,18 @@ import { deleteContent } from "@/app/apis/services/common";
 import useContentDelete from "@/hooks/useContentDelete";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { ILoginedUserInfo } from "@/types/common";
+import { ILoginedUserInfo, IModalContent } from "@/types/common";
 import { IContentData } from "@/types/contents";
 import { timeShow } from "@/utils/timeShow";
+import useErrorHandler from "@/hooks/useErrorHandler";
 
 function Content({ contentData, userData }: { contentData: IContentData; userData: ILoginedUserInfo }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState<IModalContent>({
+    content: "",
+    confirmText: "확인",
+    confirmFn: () => setIsOpen(false),
+  });
   const { id, thumbnail, title, content, createdAt, updatedAt, tag1, tag2, pbId, name, isBookmarked, profile } =
     contentData;
   const pathname: string = usePathname();
@@ -31,8 +38,10 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
   const myId: number | undefined = getMyId(userData?.role, userData?.id, pbId);
 
   const { mutate: deletecontent } = useMutation(deleteContent, {
-    onSuccess: () => {},
-    onError: (err: AxiosError) => {},
+    onError: (err: AxiosError) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useErrorHandler(err, setIsOpen, setError);
+    },
   });
 
   const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
@@ -109,10 +118,11 @@ function Content({ contentData, userData }: { contentData: IContentData; userDat
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
       )}
-      {isBookmarkedOpen && isBookmark && (
+      {isBookmark && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
       {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}
+      {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </div>
   );
 }

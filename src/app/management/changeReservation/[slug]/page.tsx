@@ -248,7 +248,7 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
     );
   return (
     <div>
-      <TopNav title="예약 변경" path={"/management?process=APPLY"} />
+      <TopNav title="예약 변경" hasBack={true} path={"/management?process=APPLY"} />
 
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">예약일자를 확정지어야 상담예약이 확정됩니다.</span>

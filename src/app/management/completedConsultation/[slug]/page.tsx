@@ -54,7 +54,7 @@ function CompletedConsultationPage({ params: { slug } }: { params: { slug: numbe
     );
   return (
     <div>
-      <TopNav title="완료된 상담" path={"/management?process=COMPLETE"} />
+      <TopNav title="완료된 상담" hasBack={true} path={"/management?process=COMPLETE"} />
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">상담이 완료되었습니다.</span>
       </div>

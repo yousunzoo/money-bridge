@@ -40,19 +40,23 @@ function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number
 
   if (userInfo?.role !== "USER")
     return (
-      <ErrorModal isError={true} path={"/myCounseling?process=APPLY"} content={"권한이 없습니다. 다시 시도해주세요."} />
+      <ErrorModal
+        isError={true}
+        path={"/myCounseling?process=CONFIRM"}
+        content={"권한이 없습니다. 다시 시도해주세요."}
+      />
     );
   if (reservationError)
     return (
       <ErrorModal
         isError={true}
-        path={"/myCounseling?process=APPLY"}
+        path={"/myCounseling?process=CONFIRM"}
         content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."}
       />
     );
   return (
     <div>
-      <TopNav title="확정된 예약" hasBack={true} />
+      <TopNav title="확정된 예약" path={"/myCounseling?process=CONFIRM"} />
       <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">상담이 확정되었습니다. 상담 일정을 확인해 주세요.</span>
       </div>

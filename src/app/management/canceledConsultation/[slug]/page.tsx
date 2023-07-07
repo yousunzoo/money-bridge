@@ -67,7 +67,7 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
     );
   return (
     <div>
-      <TopNav title="취소된 상담" hasBack={true} />
+      <TopNav title="취소된 상담" path={"/management?process=WITHDRAW"} />
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">취소된 상담입니다.</span>
       </div>

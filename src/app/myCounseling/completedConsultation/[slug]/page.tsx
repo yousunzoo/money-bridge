@@ -72,7 +72,7 @@ function CompletedConsultationPage({ params: { slug } }: { params: { slug: numbe
     );
   return (
     <div>
-      <TopNav title="완료된 상담" hasBack={true} />
+      <TopNav title="완료된 상담" path={"/myCounseling?process=COMPLETE"} />
       <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">상담이 완료되었습니다.</span>
       </div>
@@ -82,7 +82,7 @@ function CompletedConsultationPage({ params: { slug } }: { params: { slug: numbe
         <p className="text-xs ">{type === "VISIT" ? "방문상담" : "유선상담"} </p>
       </UserReservationItem>
 
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />

@@ -78,7 +78,7 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
     );
   return (
     <div>
-      <TopNav title="신규예약" hasBack={true} />
+      <TopNav title="신규예약" path={"/myCounseling?process=APPLY"} />
       <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">프라이빗 뱅커가 곧 유선으로 연락을 드립니다.</span>
       </div>

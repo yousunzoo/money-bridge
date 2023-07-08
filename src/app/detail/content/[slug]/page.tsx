@@ -28,7 +28,7 @@ function PbDetailContent() {
     refetchOnWindowFocus: false,
   });
 
-  const myId = getMyId(userData?.role, userData?.id, id);
+  const myId = getMyId(userData?.role, userData?.id, id, userData?.role);
 
   return (
     <div className="mb-32">

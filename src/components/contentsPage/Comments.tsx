@@ -151,7 +151,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
             <div className="name">{showName(item.name)} 님</div>
             <div className="flex-1">{dayjs(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
 
-            {getMyId(userData?.role, userData?.id, item.authorId) && (
+            {getMyId(userData?.role, userData?.id, item.authorId, item.role) && (
               <>
                 {isEdit && editID === item.id ? (
                   <button

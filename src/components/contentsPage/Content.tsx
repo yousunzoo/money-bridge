@@ -37,7 +37,7 @@ function Content({
   const router = useRouter();
   const base: string = "https://money-bridge.vercel.app";
   const urlToCopy: string = base + pathname;
-  const myId: number | undefined = getMyId(userData?.role, userData?.id, pbId);
+  const myId: number | undefined = getMyId(userData?.role, userData?.id, pbId, userData?.role);
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onError: (err: AxiosError) => {

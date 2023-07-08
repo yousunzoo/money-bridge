@@ -15,16 +15,16 @@ function LoungeSearch() {
   const [contentValue, setContentValue] = useState("");
 
   const debouncedSearchPb = useCallback(
-    debounce(search => {
+    debounce((search: string) => {
       setPbValue(search);
-    },300),
+    }, 300),
     [],
   );
 
   const debouncedSearchContent = useCallback(
-    debounce(search => {
+    debounce((search: string) => {
       setContentValue(search);
-    },300),
+    }, 300),
     [],
   );
 

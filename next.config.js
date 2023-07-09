@@ -14,8 +14,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/:path*",
-        destination: "https://www.moneybridge.co.kr/:path*",
+        source: "/api/:path*",
+        destination: "https://api.moneybridge.co.kr/:path*",
       },
     ];
   },

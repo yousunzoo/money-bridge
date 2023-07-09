@@ -22,7 +22,7 @@ import { IPbCard } from "@/types/card";
 function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; Id: number }) {
   const { id, name, branchAddress, branchName, branchLatitude, branchLongitude } = aboutData;
   const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>({
-    queryKey: ["getReviewStyle", id],
+      queryKey: ["getReviewStyle", id],
     queryFn: () => getReviewStyle(id),
     refetchOnWindowFocus: false,
   });
@@ -163,7 +163,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         </p>
         <ul>
           {sameData?.map(item => (
-            <PbCardItem key={item.id} item={item} queryKey={"getSamePb"} bookmarks={true} />
+            <PbCardItem key={item.id} item={item} queryKey={"getSamePb"} bookmarks={true} id={id} />
           ))}
         </ul>
       </div>

@@ -1,10 +1,11 @@
 import { getPBList } from "@/app/apis/services/etc";
 import { useLocationStore } from "@/store/location";
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IPbCard } from "@/types/card";
+import { getCookie } from "@/utils/cookies";
 
 export interface IParams {
   sort: "distance" | "career";
@@ -23,6 +24,7 @@ export interface IPBListData {
 }
 
 export const useGetFilteredPBlist = () => {
+  const isLogined = getCookie("Authorization");
   const [isMounted, setIsMounted] = useState(false);
   const searchParams = useSearchParams();
   const {
@@ -30,6 +32,7 @@ export const useGetFilteredPBlist = () => {
       coordinate: { latitude, longitude },
     },
   } = useLocationStore();
+
   const sortParam = (searchParams.get("sort") || "distance") as "distance" | "career";
   const speciality = searchParams.get("speciality");
   const company = searchParams.get("company");
@@ -46,7 +49,7 @@ export const useGetFilteredPBlist = () => {
     queryKey,
     ({ pageParam = 0 }) => {
       const locatedParams = { ...params, location: { latitude, longitude } };
-      return getPBList(locatedParams, pageParam);
+      return getPBList(locatedParams, pageParam, !!isLogined);
     },
     {
       getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),

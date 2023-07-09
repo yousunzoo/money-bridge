@@ -43,9 +43,9 @@ function PbDetailInfo() {
       <TopNav title="PB 상세프로필" hasBack={true} />
       {userData?.role !== undefined && authProfile?.data ? (
         <>
-          <Intro introData={authProfile?.data} />
-          <Content contentData={authProfile?.data} />
-          <About aboutData={authProfile?.data} role={userData?.role} Id={userData?.id} />
+          <Intro introData={authProfile.data} userData={userData} />
+          <Content contentData={authProfile.data} />
+          <About aboutData={authProfile.data} role={userData.role} Id={userData.id} />
         </>
       ) : (
         <Profile notLoginData={profile?.data} />

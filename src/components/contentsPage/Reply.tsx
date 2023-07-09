@@ -72,7 +72,7 @@ function Reply({
           <Image className="image" src={reply.profile ? reply.profile : profile} alt="프로필" width={18} height={18} />
           <div className="name">{showName(reply.name)} 님</div>
           <div className="flex-1">{dayjs(reply.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
-          {getMyId(userData?.role, userData?.id, reply.authorId) && (
+          {getMyId(userData?.role, userData?.id, reply.authorId, reply.role) && (
             <>
               {isReEdit ? (
                 <button className="mr-[8px]" onClick={() => replyEditEndHandler(reply.id)}>
@@ -95,6 +95,9 @@ function Reply({
             type="text"
             onChange={editReReplyHandler}
             value={newReComment ? newReComment : reply.content}
+            onKeyDown={e => {
+              if (e.key === "Enter") replyEditEndHandler(reply.id);
+            }}
           />
         ) : (
           <div className="content">{reply.content}</div>

@@ -106,6 +106,22 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     }
   };
 
+  const addCommentKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && newComment.trim() !== "") {
+      postreply({ id: commentData.id, reply: newComment });
+      setNewComment("");
+    }
+  };
+
+  const addReCommentKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, reId: number) => {
+    if (e.key === "Enter" && newReComment.trim() !== "") {
+      postrereply({ id: reId, rereply: newReComment });
+      setNewReComment("");
+      setIsReply(false);
+      setReID(0);
+    }
+  };
+
   const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useDelete();
 
   return (
@@ -125,6 +141,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
         type="text"
         value={newComment}
         onChange={e => setNewComment(e.target.value)}
+        onKeyDown={addCommentKeyDown}
       />
 
       {commentData?.reply.map((item: IReply) => (
@@ -134,7 +151,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
             <div className="name">{showName(item.name)} 님</div>
             <div className="flex-1">{dayjs(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
 
-            {getMyId(userData?.role, userData?.id, item.authorId) && (
+            {getMyId(userData?.role, userData?.id, item.authorId, item.role) && (
               <>
                 {isEdit && editID === item.id ? (
                   <button
@@ -179,6 +196,9 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
               type="text"
               onChange={editHandler}
               value={editText ? editText : item.content}
+              onKeyDown={e => {
+                if (e.key === "Enter") editEndHandler(item.id);
+              }}
             />
           ) : (
             <div className="content">{item.content}</div>
@@ -193,6 +213,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
                 type="text"
                 value={newReComment}
                 onChange={e => setNewReComment(e.target.value)}
+                onKeyDown={e => addReCommentKeyDown(e, item.id)}
               />
               <button
                 className="flex h-[30px] w-[52px] items-center justify-center rounded-md border-[2px] bg-white text-secondary-heavy"

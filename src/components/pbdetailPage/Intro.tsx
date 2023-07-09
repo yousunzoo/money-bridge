@@ -9,8 +9,9 @@ import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_fille
 import share from "/public/assets/images/icon/share.svg";
 import PbContentButton from "@/components/pbdetailPage/PbContentButton";
 import { IIntroData } from "@/types/pb";
+import { ILoginedUserInfo } from "@/types/common";
 
-function Intro({ introData }: { introData: IIntroData }) {
+function Intro({ introData, userData }: { introData: IIntroData; userData: ILoginedUserInfo; }) {
   const { id, profile, name, isBookmarked, branchName, msg, companyId, companyLogo, reserveCount, reviewCount } =
     introData;
 
@@ -84,20 +85,22 @@ function Intro({ introData }: { introData: IIntroData }) {
           <button onClick={shareHandler} className="flex w-9 justify-end">
             <Image src={share} alt="공유하기" width={25} height={25} priority className="h-[25px] w-[25px]" />
           </button>
-          <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
-            {isBookmarked ? (
-              <Image
-                src={bookmark_filled}
-                alt="북마크 활성화"
-                width={24}
-                height={25}
-                priority
-                className="h-[25px] w-[24px]"
-              />
-            ) : (
-              <Image src={bookmark} alt="북마크" width={24} height={25} priority className="h-[25px] w-[24px]" />
-            )}
-          </button>
+          {userData?.role === "USER" && (
+            <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
+              {isBookmarked ? (
+                <Image
+                  src={bookmark_filled}
+                  alt="북마크 활성화"
+                  width={24}
+                  height={25}
+                  priority
+                  className="h-[25px] w-[24px]"
+                />
+              ) : (
+                <Image src={bookmark} alt="북마크" width={24} height={25} priority className="h-[25px] w-[24px]" />
+              )}
+            </button>
+          )}
         </div>
         <PbContentButton
           path1={`/detail/info/${id}`}

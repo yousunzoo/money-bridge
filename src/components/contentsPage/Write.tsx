@@ -20,7 +20,7 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
 
   const { mutate: postPBcontents } = useMutation(postPBContents, {
     onSuccess: () => {
-      router.push(`/detail/content/${userData?.id}`);
+      router.push(`/detail/content/${id}`);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -52,6 +52,14 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
   } = useForm({ mode: "onChange" });
 
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [inputValues, setInputValues] = useState({
+    title: "",
+    content: "",
+    tag1: "",
+    tag2: "",
+  });
+
+  const isFormValid = Object.values(inputValues).every(value => value.trim() !== "");
 
   const onThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -99,6 +107,7 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
             },
           })}
           defaultValue={isStatus ? data?.title : ""}
+          onChange={e => setInputValues({ ...inputValues, title: e.target.value })}
         />
 
         <label htmlFor="content" className="title">
@@ -111,6 +120,7 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
           className="form_input mb-[24px] h-[131px] whitespace-normal"
           {...register("content")}
           defaultValue={isStatus ? data?.content : ""}
+          onChange={e => setInputValues({ ...inputValues, content: e.target.value })}
         />
 
         <label htmlFor="tag1" className="title">
@@ -129,6 +139,7 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
             },
           })}
           defaultValue={isStatus ? data?.tag1 : ""}
+          onChange={e => setInputValues({ ...inputValues, tag1: e.target.value })}
         />
 
         <label htmlFor="tag2" className="title">
@@ -147,6 +158,7 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
             },
           })}
           defaultValue={isStatus ? data?.tag2 : ""}
+          onChange={e => setInputValues({ ...inputValues, tag2: e.target.value })}
         />
 
         <div className="flex items-center">
@@ -195,7 +207,13 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
               >
                 임시 저장
               </button>
-              <button type="submit" disabled={isSubmitting} className="button min-w-[175px] max-w-[350px]">
+              <button
+                type="submit"
+                disabled={!isFormValid || isSubmitting}
+                className={`button min-w-[175px] max-w-[350px] ${
+                  !isFormValid ? "cursor-not-allowed bg-button-inactive" : "bg-primary-normal"
+                }`}
+              >
                 작성 완료
               </button>
             </>

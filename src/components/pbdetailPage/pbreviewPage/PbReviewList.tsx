@@ -7,12 +7,13 @@ import { IPbReview } from "@/types/pb";
 
 function PbReviewList({ id }: { id: number }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
-    ["getPbReview",id],
+    ["getPbReview", id],
     ({ pageParam = 0 }) => {
       return getPbReview(id, pageParam);
     },
     {
       getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),
+      refetchOnWindowFocus: false,
     },
   );
 

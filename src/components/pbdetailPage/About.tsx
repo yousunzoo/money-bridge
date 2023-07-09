@@ -47,17 +47,13 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
 
   const router = useRouter();
   const pathname: string = usePathname();
-  const myId: number | undefined = getMyId(role, Id, id);
+  const myId: number | null = getMyId(role, Id, id, role);
 
   const goToPage = () => {
     if (role === CommonROLE.USER) {
       router.push(`/reservation?pbId=${id}`);
     } else if (role === CommonROLE.PB) {
-      if (pathname === `/detail/info/${myId}`) {
-        router.push("/my/editProfile");
-      } else {
-        router.push(`/reservation?pbId=${id}`);
-      }
+      if (pathname === `/detail/info/${myId}`) router.push("/my/editProfile");
     }
   };
 
@@ -65,11 +61,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
   if (role === CommonROLE.USER) {
     text = "상담 신청하기";
   } else if (role === CommonROLE.PB) {
-    if (pathname === `/detail/info/${myId}`) {
-      text = "프로필 수정하기";
-    } else {
-      text = "상담 신청하기";
-    }
+    if (pathname === `/detail/info/${myId}`) text = "프로필 수정하기";
   }
   if (!reviewData || !sameData) return null;
   return (
@@ -176,9 +168,11 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         </ul>
       </div>
 
-      <button className="button_fixed" onClick={() => goToPage()}>
-        {text}
-      </button>
+      {(role === "USER" || myId) && (
+        <button className="button_fixed" onClick={() => goToPage()}>
+          {text}
+        </button>
+      )}
     </div>
   );
 }

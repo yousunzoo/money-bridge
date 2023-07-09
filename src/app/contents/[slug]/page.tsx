@@ -19,13 +19,13 @@ function ContentsDetail() {
   const pathname = usePathname();
   const id = Number(pathname.split("/").pop());
   const { data: contents } = useQuery<IDataResponse<IContentsInfo>, AxiosError>({
-    queryKey: ["getContentsId"],
+    queryKey: ["getContentsId",id],
     queryFn: () => getContentsId(id),
     enabled: !!token,
     refetchOnWindowFocus: false,   
   });
   const { data: notLoginContents } = useQuery<IDataResponse<INotLoginContentsInfo>, AxiosError>({
-    queryKey: ["getNotLoginContents"],
+    queryKey: ["getNotLoginContents",id],
     queryFn: () => getNotLoginContents(id),
     refetchOnWindowFocus: false,
   });

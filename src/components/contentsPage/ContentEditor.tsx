@@ -1,9 +1,14 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Editor } from "react-draft-wysiwyg";
-import { ContentState, EditorState, convertToRaw } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
 import draftjsToHtml from "draftjs-to-html";
+import dynamic from "next/dynamic";
+import { EditorState, convertToRaw, ContentState } from "draft-js";
+import { EditorProps } from "react-draft-wysiwyg";
+
+const Editor = dynamic<EditorProps>(() => import("react-draft-wysiwyg").then(mod => mod.Editor), {
+  ssr: false,
+});
 
 function ContentEditor({
   initialState,
@@ -13,7 +18,6 @@ function ContentEditor({
   setContent: Dispatch<SetStateAction<string>>;
 }) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
   const updateTextDescription = (state: EditorState) => {
     setEditorState(state);
     const html = draftjsToHtml(convertToRaw(state.getCurrentContent()));

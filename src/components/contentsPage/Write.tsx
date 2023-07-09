@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BoardStatus } from "@/constants/enum";
 import { useRouter } from "next/navigation";
@@ -10,7 +10,9 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import ButtonModal from "@/components/common/ButtonModal";
 import useErrorShow from "@/hooks/useErrorShow";
-import ContentEditor from "./ContentEditor";
+import LoadingBg from "../common/LoadingBg";
+import dynamic from "next/dynamic";
+const ContentEditor = dynamic(() => import("./ContentEditor"));
 
 function Write({ data, id }: { data?: ITemp; id: number }) {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
@@ -112,8 +114,8 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
           aria-invalid={!isDirty ? undefined : errors.title ? "true" : "false"}
           {...register("title", {
             maxLength: {
-              value: 40,
-              message: "제목은 40자 이내로 작성해주세요.",
+              value: 20,
+              message: "제목은 20자 이내로 작성해주세요.",
             },
           })}
           defaultValue={isStatus ? data?.title : ""}
@@ -177,7 +179,9 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
             </label>
             <input
               type="file"
-              {...(register("thumbnail"), { validate: validateFileSize })}
+              {...register("thumbnail", {
+                validate: validateFileSize,
+              })}
               id="thumbnail"
               className="hidden"
               onChange={onThumbnailChange}
@@ -201,10 +205,8 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
               </button>
               <button
                 type="submit"
-                disabled={!isFormValid || isSubmitting}
-                className={`button min-w-[175px] max-w-[350px] ${
-                  !isFormValid ? "cursor-not-allowed bg-button-inactive" : "bg-primary-normal"
-                }`}
+                disabled={isSubmitting}
+                className="button min-w-[175px] max-w-[350px] bg-primary-normal"
               >
                 수정 완료
               </button>

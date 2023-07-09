@@ -11,7 +11,7 @@ import PbContentButton from "@/components/pbdetailPage/PbContentButton";
 import { IIntroData } from "@/types/pb";
 import { ILoginedUserInfo } from "@/types/common";
 
-function Intro({ introData, userData }: { introData: IIntroData; userData: ILoginedUserInfo; }) {
+function Intro({ introData, userData }: { introData: IIntroData; userData: ILoginedUserInfo }) {
   const { id, profile, name, isBookmarked, branchName, msg, companyId, companyLogo, reserveCount, reviewCount } =
     introData;
 
@@ -20,9 +20,10 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
   const base: string = "https://money-bridge.vercel.app";
   const urlToCopy: string = base + pathname;
 
-  const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
     isBookmarked,
     "/bookmark/pb",
+    id,
     "getPbProfile",
   );
   const {
@@ -119,7 +120,7 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
       )}
-      {isBookmark && (
+      {isBookmarkedOpen && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
     </>

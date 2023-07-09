@@ -2,7 +2,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import profile from "/public/assets/images/profile.svg";
-import "@/styles/content.css";
 import { getMyId } from "@/utils/pbMyId";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useDelete from "@/hooks/useDelete";
@@ -147,8 +146,14 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
       {commentData?.reply.map((item: IReply) => (
         <div className="mt-[33px]" key={item.id}>
           <div className="flex text-xs">
-            <Image className="image" src={item.profile ? item.profile : profile} alt="프로필" width={18} height={18} />
-            <div className="name">{showName(item.name)} 님</div>
+            <Image
+              className="contentImage"
+              src={item.profile ? item.profile : profile}
+              alt="프로필"
+              width={18}
+              height={18}
+            />
+            <div className="authorName">{showName(item.name)} 님</div>
             <div className="flex-1">{dayjs(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
 
             {getMyId(userData?.role, userData?.id, item.authorId, item.role) && (

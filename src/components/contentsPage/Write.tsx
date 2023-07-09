@@ -50,6 +50,7 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
     formState: { isSubmitting, isDirty, errors, isValid },
   } = useForm({ mode: "onChange" });
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [thumbnailText, setThumbnailText] = useState(data?.thumbnail || "");
   const [inputValues, setInputValues] = useState({
     title: "",
     tag1: "",
@@ -61,6 +62,7 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
   const onThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setThumbnailFile(e.target.files[0]);
+      setThumbnailText(e.target.files[0].name);
     }
   };
 
@@ -88,13 +90,18 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
     }
   };
 
+  const deleteThumbnail = () => {
+    setThumbnailFile(null);
+    setThumbnailText("");
+  };
+
   return (
     <>
       <form
         className="flex flex-col"
         onSubmit={handleSubmit(isStatus !== BoardStatus.TEMP ? updateSubmit : postSubmit)}
       >
-        <label htmlFor="title" className="title">
+        <label htmlFor="title" className="label">
           제목
         </label>
         <input
@@ -113,11 +120,11 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
           onChange={e => setInputValues({ ...inputValues, title: e.target.value })}
         />
 
-        <label htmlFor="content" className="title">
+        <label htmlFor="content" className="label">
           본문(글상세)
         </label>
         <ContentEditor initialState={content} setContent={setContent} />
-        <label htmlFor="tag1" className="title">
+        <label htmlFor="tag1" className="label">
           태그1
         </label>
         <input
@@ -136,7 +143,7 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
           onChange={e => setInputValues({ ...inputValues, tag1: e.target.value })}
         />
 
-        <label htmlFor="tag2" className="title">
+        <label htmlFor="tag2" className="label">
           태그2
         </label>
         <input
@@ -155,23 +162,32 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
           onChange={e => setInputValues({ ...inputValues, tag2: e.target.value })}
         />
 
-        <div className="flex items-center">
-          <div className="title flex-1">대표 이미지 업로드</div>
-          <label htmlFor="thumbnail" className="file_button flex items-center justify-center text-center">
-            이미지 찾기
-          </label>
-          <input
-            type="file"
-            {...(register("thumbnail"), { validate: validateFileSize })}
-            id="thumbnail"
-            className="hidden"
-            onChange={onThumbnailChange}
-            multiple={false}
-          />
+        <div className="flex items-center justify-between">
+          <div className="label flex-1">대표 이미지 업로드</div>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={deleteThumbnail}
+              className="file_button flex items-center justify-center bg-primary-light text-center text-white"
+            >
+              삭제
+            </button>
+            <label htmlFor="thumbnail" className="file_button flex items-center justify-center text-center">
+              이미지 찾기
+            </label>
+            <input
+              type="file"
+              {...(register("thumbnail"), { validate: validateFileSize })}
+              id="thumbnail"
+              className="hidden"
+              onChange={onThumbnailChange}
+              multiple={false}
+            />
+          </div>
         </div>
-        <div className="form_input mb-[24px] h-[48px] text-placeholder">
-          {data?.thumbnail ? data?.thumbnail : thumbnailFile?.name}
-        </div>
+        <p className="form_input mb-[24px] min-h-[48px] break-all text-placeholder">
+          {thumbnailText || "이미지를 선택해주세요"}
+        </p>
 
         <div className="flex items-center justify-center">
           {isStatus !== BoardStatus.TEMP ? (

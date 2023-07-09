@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BoardStatus } from "@/constants/enum";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ITemp, IContentsSave, IContentsEdit } from "@/types/contents";
 import "@/styles/content.css";
 import { validateFileSize } from "@/utils/validateFileSize";
 import { postTemp, postPBContents, updatePBContents } from "@/app/apis/services/pb";
 import { useMutation } from "@tanstack/react-query";
-import "@/app/globals.css";
 import { AxiosError } from "axios";
 import ButtonModal from "@/components/common/ButtonModal";
 import useErrorShow from "@/hooks/useErrorShow";
-import { ILoginedUserInfo } from "@/types/common";
+import ContentEditor from "./ContentEditor";
 
-function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: ILoginedUserInfo }) {
+function Write({ data, id }: { data?: ITemp; id: number }) {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const router = useRouter();
   const isStatus = data?.status === BoardStatus.ACTIVE || BoardStatus.TEMP;
-
+  const [content, setContent] = useState(data?.content || "");
   const { mutate: postPBcontents } = useMutation(postPBContents, {
     onSuccess: () => {
-      router.push(`/detail/content/${id}`);
+      router.push(`/contents/${id}`);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -29,7 +28,7 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
 
   const { mutate: updatePBcontents } = useMutation(updatePBContents, {
     onSuccess: () => {
-      router.push(`/detail/content/${userData?.id}`);
+      router.push(`/contents/${id}`);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -48,18 +47,16 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, isDirty, errors },
+    formState: { isSubmitting, isDirty, errors, isValid },
   } = useForm({ mode: "onChange" });
-
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [inputValues, setInputValues] = useState({
     title: "",
-    content: "",
     tag1: "",
     tag2: "",
   });
 
-  const isFormValid = Object.values(inputValues).every(value => value.trim() !== "");
+  const isFormValid = isValid && content;
 
   const onThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -68,20 +65,26 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
   };
 
   const postSubmit = (formData: IContentsSave) => {
-    postPBcontents({ formData: formData, thumbnailFile: thumbnailFile });
+    const SumFormData = { ...formData };
+    SumFormData.content = content;
+    postPBcontents({ formData: SumFormData, thumbnailFile: thumbnailFile });
   };
 
   const tempSubmit = (formData: IContentsSave) => {
-    posttemp({ formData: formData, thumbnailFile: thumbnailFile });
+    const SumFormData = { ...formData };
+    SumFormData.content = content;
+    posttemp({ formData: SumFormData, thumbnailFile: thumbnailFile });
   };
 
   const updateSubmit = (formData: IContentsEdit) => {
+    const SumFormData = { ...formData };
+    SumFormData.content = content;
     if (thumbnailFile === null) {
-      formData.deleteThumbnail = true;
-      updatePBcontents({ id: id, formData: formData, thumbnailFile: thumbnailFile });
+      SumFormData.deleteThumbnail = true;
+      updatePBcontents({ id: id, formData: SumFormData, thumbnailFile: thumbnailFile });
     } else {
-      formData.deleteThumbnail = false;
-      updatePBcontents({ id: id, formData: formData, thumbnailFile: thumbnailFile });
+      SumFormData.deleteThumbnail = false;
+      updatePBcontents({ id: id, formData: SumFormData, thumbnailFile: thumbnailFile });
     }
   };
 
@@ -113,16 +116,7 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
         <label htmlFor="content" className="title">
           본문(글상세)
         </label>
-        <input
-          id="content"
-          type="text"
-          placeholder="본문을 작성해 주세요."
-          className="form_input mb-[24px] h-[131px] whitespace-normal"
-          {...register("content")}
-          defaultValue={isStatus ? data?.content : ""}
-          onChange={e => setInputValues({ ...inputValues, content: e.target.value })}
-        />
-
+        <ContentEditor initialState={content} setContent={setContent} />
         <label htmlFor="tag1" className="title">
           태그1
         </label>

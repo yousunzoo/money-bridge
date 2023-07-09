@@ -24,7 +24,6 @@ export interface IPBListData {
 }
 
 export const useGetFilteredPBlist = () => {
-  const isLogined = getCookie("Authorization");
   const [isMounted, setIsMounted] = useState(false);
   const searchParams = useSearchParams();
   const {
@@ -48,6 +47,7 @@ export const useGetFilteredPBlist = () => {
   } = useInfiniteQuery<IPBListData, AxiosError>(
     queryKey,
     ({ pageParam = 0 }) => {
+      const isLogined = getCookie("Authorization");
       const locatedParams = { ...params, location: { latitude, longitude } };
       return getPBList(locatedParams, pageParam, !!isLogined);
     },
@@ -86,5 +86,5 @@ export const useGetFilteredPBlist = () => {
     refetch();
   }, [latitude, longitude]);
 
-  return { pbListData, fetchNextPage, hasNextPage, isFetching };
+  return { pbListData, fetchNextPage, hasNextPage, isFetching, queryKey };
 };

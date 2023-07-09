@@ -102,8 +102,8 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
           aria-invalid={!isDirty ? undefined : errors.title ? "true" : "false"}
           {...register("title", {
             maxLength: {
-              value: 20,
-              message: "제목은 20자 이내로 작성해주세요.",
+              value: 40,
+              message: "제목은 40자 이내로 작성해주세요.",
             },
           })}
           defaultValue={isStatus ? data?.title : ""}
@@ -191,8 +191,10 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
               </button>
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="button min-w-[175px] max-w-[350px] bg-primary-normal"
+                disabled={!isFormValid || isSubmitting}
+                className={`button min-w-[175px] max-w-[350px] ${
+                  !isFormValid ? "cursor-not-allowed bg-button-inactive" : "bg-primary-normal"
+                }`}
               >
                 수정 완료
               </button>

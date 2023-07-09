@@ -5,7 +5,7 @@ import { deleteBookMarkPB, postBookMarkPB } from "@/app/apis/services/user";
 import { AxiosError } from "axios";
 import useErrorShow from "@/hooks/useErrorShow";
 
-const usePbBookMark = (isBookmarked: boolean, link: string, queryKey?: string[] | string) => {
+const usePbBookMark = (isBookmarked: boolean, link: string, id: number, queryKey?: string[] | string) => {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
@@ -14,7 +14,7 @@ const usePbBookMark = (isBookmarked: boolean, link: string, queryKey?: string[] 
 
   const { mutate: postbookMarkPB } = useMutation(postBookMarkPB, {
     onSuccess: () => {
-      queryClient.refetchQueries([queryKey]);
+      queryClient.refetchQueries([queryKey, id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -23,7 +23,7 @@ const usePbBookMark = (isBookmarked: boolean, link: string, queryKey?: string[] 
 
   const { mutate: deletebookMarkPB } = useMutation(deleteBookMarkPB, {
     onSuccess: () => {
-      queryClient.refetchQueries([queryKey]);
+      queryClient.refetchQueries([queryKey, id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);

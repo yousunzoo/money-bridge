@@ -11,7 +11,7 @@ import PbContentButton from "@/components/pbdetailPage/PbContentButton";
 import { IIntroData } from "@/types/pb";
 import { ILoginedUserInfo } from "@/types/common";
 
-function Intro({ introData, userData }: { introData: IIntroData; userData: ILoginedUserInfo; }) {
+function Intro({ introData, userData }: { introData: IIntroData; userData: ILoginedUserInfo }) {
   const { id, profile, name, isBookmarked, branchName, msg, companyId, companyLogo, reserveCount, reviewCount } =
     introData;
 
@@ -23,6 +23,7 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
   const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
     isBookmarked,
     "/bookmark/pb",
+    id,
     "getPbProfile",
   );
   const {

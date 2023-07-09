@@ -41,7 +41,7 @@ function ContentCardItem({
     isOpen,
     setIsOpen,
     error,
-  } = useContentBookMark(item.isBookmarked, "/bookmark/content", queryKey);
+  } = useContentBookMark(item.isBookmarked, "/bookmark/content", item.id, queryKey);
 
   return (
     <>

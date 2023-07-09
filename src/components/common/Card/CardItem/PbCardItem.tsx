@@ -46,7 +46,7 @@ function PbCardItem({
     isOpen,
     setIsOpen,
     error,
-  } = usePbBookMark(item.isBookmarked, "/bookmark/pb", queryKey);
+  } = usePbBookMark(item.isBookmarked, "/bookmark/pb", item.id, queryKey);
 
   return (
     <>

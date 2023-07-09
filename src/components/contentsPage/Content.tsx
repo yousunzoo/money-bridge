@@ -48,6 +48,7 @@ function Content({
   const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
+    id,
     "getContentsId",
   );
 

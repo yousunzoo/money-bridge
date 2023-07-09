@@ -45,9 +45,10 @@ function Content({
     },
   });
 
-  const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
+    id,
     "getContentsId",
   );
 
@@ -104,7 +105,7 @@ function Content({
             </button>
             {userData?.role === "USER" && bookmarks && (
               <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
-                {isBookmark ? (
+                {isBookmarked ? (
                   <Image src={bookmark_filled} alt="북마크 활성화" width={24} height={24} className="icon" />
                 ) : (
                   <Image src={bookmark} alt="북마크" width={24} height={24} className="icon" />
@@ -121,7 +122,7 @@ function Content({
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
       )}
-      {isBookmark && (
+      {isBookmarkedOpen && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
       {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}

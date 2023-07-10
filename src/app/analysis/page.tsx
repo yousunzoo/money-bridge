@@ -13,8 +13,11 @@ import highlight from "/public/assets/images/highlight.svg";
 import Image from "next/image";
 import { ILoginedUserInfo } from "@/types/common";
 import LoadingBg from "@/components/common/LoadingBg";
+import { getCookie } from "@/utils/cookies";
+import { redirect } from "next/navigation";
 
 function AnalysisPage() {
+  const authorization = getCookie("Authorization");
   const questions: IAnalysisQuestions = analysisQuestions;
   const [step, setStep] = useState(0);
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>(["loginedUserInfo"], getLoginedUserInfo);
@@ -27,6 +30,9 @@ function AnalysisPage() {
   };
 
   useEffect(() => {
+    if (!authorization) {
+      redirect("/login");
+    }
     resetAnswers();
   }, []);
 
@@ -77,7 +83,11 @@ function AnalysisPage() {
         {answers[4] && <QuestionSection nowStep={5} nowQuestion={questions[5]} moveToNextStep={moveToNextStep} />}
       </div>
       {answers[5] && (
-        <button className="button_fixed" onClick={handleSubmit}>
+        <button
+          className={`button_fixed ${isSubmitting && "bg-button-inactive"}`}
+          disabled={isSubmitting}
+          onClick={handleSubmit}
+        >
           등록하기
         </button>
       )}

@@ -1,10 +1,11 @@
 import { getPBList } from "@/app/apis/services/etc";
 import { useLocationStore } from "@/store/location";
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IPbCard } from "@/types/card";
+import { getCookie } from "@/utils/cookies";
 
 export interface IParams {
   sort: "distance" | "career";
@@ -30,6 +31,7 @@ export const useGetFilteredPBlist = () => {
       coordinate: { latitude, longitude },
     },
   } = useLocationStore();
+
   const sortParam = (searchParams.get("sort") || "distance") as "distance" | "career";
   const speciality = searchParams.get("speciality");
   const company = searchParams.get("company");
@@ -45,8 +47,9 @@ export const useGetFilteredPBlist = () => {
   } = useInfiniteQuery<IPBListData, AxiosError>(
     queryKey,
     ({ pageParam = 0 }) => {
+      const isLogined = getCookie("Authorization");
       const locatedParams = { ...params, location: { latitude, longitude } };
-      return getPBList(locatedParams, pageParam);
+      return getPBList(locatedParams, pageParam, !!isLogined);
     },
     {
       getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),
@@ -83,5 +86,5 @@ export const useGetFilteredPBlist = () => {
     refetch();
   }, [latitude, longitude]);
 
-  return { pbListData, fetchNextPage, hasNextPage, isFetching };
+  return { pbListData, fetchNextPage, hasNextPage, isFetching, queryKey };
 };

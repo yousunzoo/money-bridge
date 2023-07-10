@@ -17,7 +17,7 @@ import { convertEditFormData } from "@/utils/convertEditFormData";
 import { useEditProfile } from "@/hooks/useEditProfile";
 
 function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
-  const editProfile = useEditProfile();
+  const { mutate: editProfile, isLoading } = useEditProfile();
   const [filePreviews, setFilePreviews] = useState({
     profile: (existingProfile.profile as string).split("_")[1],
     portfolio: existingProfile.portfolio && (existingProfile.portfolio as string).split("_")[1],
@@ -168,7 +168,10 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
         />
         <IntroInput errors={errors} register={register} intro={watch("intro")} />
         <MsgInput errors={errors} register={register} msg={watch("msg")} />
-        <button disabled={!isValid} className={`button_fixed ${!isValid && "bg-button-inactive"}`}>
+        <button
+          disabled={!isValid || isLoading}
+          className={`button_fixed ${(!isValid || isLoading) && "bg-button-inactive"}`}
+        >
           등록 완료
         </button>
       </form>

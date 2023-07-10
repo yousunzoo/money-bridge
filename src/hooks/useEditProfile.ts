@@ -8,11 +8,11 @@ export const useEditProfile = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { id } = queryClient.getQueryData(["loginedUserInfo"]) as ILoginedUserInfo;
-  const { mutate } = useMutation<null, AxiosError, FormData>(["editProfile"], editPBMyProfile, {
+  const { mutate, isLoading } = useMutation<null, AxiosError, FormData>(["editProfile"], editPBMyProfile, {
     onSuccess: () => {
       router.push(`/detail/info/${id}`);
       queryClient.refetchQueries(["getPBInfo"]);
     },
   });
-  return mutate;
+  return { mutate, isLoading };
 };

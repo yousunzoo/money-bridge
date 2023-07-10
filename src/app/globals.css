@@ -5,7 +5,7 @@
 @layer utilities {
   body {
     background-color: #f8f8f8;
-    height: auto;
+    height: 100%;
     letter-spacing: -0.6px;
     color: #242424;
   }
@@ -15,11 +15,14 @@
     min-width: 375px;
     max-width: 768px;
     width: 100%;
+    height: 100%;
     min-height: 100vh;
     margin: auto;
     padding: 0 16px;
     padding-top: 70px;
-    padding-bottom: 100px;
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: column;
   }
 
   input[type="number"]::-webkit-inner-spin-button {
@@ -70,7 +73,7 @@
   }
 
   .user_bubble {
-    @apply w-fit self-end bg-primary-light px-6 py-3 text-sm text-white shadow-md;
+    @apply self-end px-6 py-3 text-sm text-white shadow-md w-fit bg-primary-light;
     border-radius: 20px 4px 20px 20px;
   }
 
@@ -79,7 +82,7 @@
   }
 
   .chip {
-    @apply rounded-sm border-1 border-primary-normal px-4 py-2 font-bold text-primary-normal;
+    @apply px-4 py-2 font-bold rounded-sm border-1 border-primary-normal text-primary-normal;
   }
 
   .selected {
@@ -99,7 +102,7 @@
   }
 
   .info_card {
-    @apply w-full rounded-xl border-1 border-primary-normal bg-white p-4;
+    @apply w-full p-4 bg-white rounded-xl border-1 border-primary-normal;
   }
 
   .button_cancel {
@@ -115,7 +118,7 @@
   }
 
   .modal_background {
-    @apply fixed left-0 top-0 h-full w-full bg-black opacity-40;
+    @apply fixed top-0 left-0 w-full h-full bg-black opacity-40;
   }
 
   .modal {
@@ -123,7 +126,7 @@
   }
 
   .card {
-    @apply mx-auto my-4 flex w-full flex-col rounded-md shadow-md;
+    @apply flex flex-col w-full mx-auto my-4 rounded-md shadow-md;
   }
 
   .popup {
@@ -131,7 +134,7 @@
   }
 
   .popup h3 {
-    @apply text-center text-xl font-bold;
+    @apply text-xl font-bold text-center;
   }
 
   .popup .popup-button {
@@ -143,11 +146,11 @@
   }
 
   .pb_top_Phrase {
-    @apply mb-6 mt-4 w-full bg-primary-normal px-4 py-2 text-center text-xs;
+    @apply w-full px-4 py-2 mt-4 mb-6 text-xs text-center bg-primary-normal;
   }
 
   .user_top_Phrase {
-    @apply mb-6 mt-4 w-full bg-secondary-heavy px-4 py-2 text-center text-xs;
+    @apply w-full px-4 py-2 mt-4 mb-6 text-xs text-center bg-secondary-heavy;
   }
 
   .propensity_circle {
@@ -159,7 +162,7 @@
   }
 
   .input_button {
-    @apply absolute right-10 h-4 w-4;
+    @apply absolute w-4 h-4 right-10;
   }
 
   .input_status {
@@ -167,7 +170,7 @@
   }
 
   .edit_input {
-    @apply block w-full rounded-sm border-1 border-button-inactive bg-white p-4 text-gray-heavy;
+    @apply block w-full p-4 bg-white rounded-sm border-1 border-button-inactive text-gray-heavy;
   }
 
   .edit_input:focus-visible {

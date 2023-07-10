@@ -10,7 +10,6 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import ButtonModal from "@/components/common/ButtonModal";
 import useErrorShow from "@/hooks/useErrorShow";
-import LoadingBg from "../common/LoadingBg";
 import dynamic from "next/dynamic";
 const ContentEditor = dynamic(() => import("./ContentEditor"));
 

@@ -16,8 +16,8 @@ function Profile({ notLoginData }: { notLoginData: IProfile }) {
           className="absolute left-1 top-4 z-10 h-[42px] w-[112px] cursor-pointer object-contain"
           priority
         />
-        <div className="absolute h-full w-full bg-gradient-to-t from-black from-0%"></div>
-        <div className="absolute bottom-[74px] left-[19px] h-[70px] w-[285px] text-[26px] text-white">{msg}</div>
+        <div className="absolute h-full w-full bg-gradient-to-t from-[rgba(0,0,0,0.6)] from-0% to-60%"></div>
+        <div className="absolute bottom-[60px] left-[24px] h-[70px] w-[285px] text-[26px] text-white">{msg}</div>
         <Image
           src={profile}
           alt="프로필 이미지"

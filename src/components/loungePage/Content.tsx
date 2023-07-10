@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MainCarousel from "@/components/common/Carousel/MainCarousel";
-import "@/styles/carousel.css";
 import "@/styles/lounge.css";
 import { getLoungeBoard, getLoungeNew } from "@/app/apis/services/common";
 import { useQuery } from "@tanstack/react-query";

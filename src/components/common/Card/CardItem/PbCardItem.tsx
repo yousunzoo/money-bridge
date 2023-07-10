@@ -22,7 +22,7 @@ function PbCardItem({
   item: IPbCard;
   queryKey?: string[] | string;
   bookmarks: boolean;
-  id?:number;
+  id?: number;
 }) {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
@@ -43,6 +43,7 @@ function PbCardItem({
     isBookmarkedOpen,
     setIsBookmarkedOpen,
     bookMarkHandler,
+    isBookmark,
     bookMarkContents,
     isOpen,
     setIsOpen,
@@ -71,7 +72,7 @@ function PbCardItem({
           </div>
           {userData?.role === "USER" && bookmarks && (
             <button onClick={() => bookMarkHandler(item.id)} className="flex-2 flex w-12 items-start justify-end pt-1">
-              {item.isBookmarked ? (
+              {isBookmark ? (
                 <Image
                   src={bookmark_filled}
                   alt="북마크 해제"

@@ -1,20 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteBookMarkPB, postBookMarkPB } from "@/app/apis/services/user";
 import { AxiosError } from "axios";
 import useErrorShow from "@/hooks/useErrorShow";
 
-const usePbBookMark = (isBookmarked: boolean, link: string, id: number|undefined, queryKey?: string[] | string) => {
+const usePbBookMark = (bookmarkState: boolean, link: string, id: number | undefined, queryKey?: string[] | string) => {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
-  const [isBookmark, setIsBookMark] = useState(isBookmarked);
+  const [isBookmark, setIsBookMark] = useState(bookmarkState);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
-  const router = useRouter();
-  const queryClient = useQueryClient();
 
+  const router = useRouter();
   const { mutate: postbookMarkPB } = useMutation(postBookMarkPB, {
     onSuccess: () => {
-      queryClient.refetchQueries([queryKey, id]);
+      setIsBookMark(true);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -23,7 +22,7 @@ const usePbBookMark = (isBookmarked: boolean, link: string, id: number|undefined
 
   const { mutate: deletebookMarkPB } = useMutation(deleteBookMarkPB, {
     onSuccess: () => {
-      queryClient.refetchQueries([queryKey, id]);
+      setIsBookMark(false);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -32,11 +31,9 @@ const usePbBookMark = (isBookmarked: boolean, link: string, id: number|undefined
 
   const bookMarkHandler = (id: number) => {
     setIsBookmarkedOpen(true);
-    if (isBookmarked) {
-      setIsBookMark(false);
+    if (isBookmark) {
       deletebookMarkPB({ id: id });
     } else {
-      setIsBookMark(true);
       postbookMarkPB({ id: id });
     }
   };
@@ -60,6 +57,7 @@ const usePbBookMark = (isBookmarked: boolean, link: string, id: number|undefined
     bookMarkHandler,
     bookMarkContents,
     isOpen,
+    isBookmark,
     setIsOpen,
     error,
   };

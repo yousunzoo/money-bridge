@@ -50,7 +50,7 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
   };
 
   const checkClickHandler = () => {
-    router.back();
+    router.push("/myCounseling?process=WITHDRAW");
   };
 
   if (userInfo?.role !== "USER")
@@ -76,7 +76,7 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
         <p className="text-xs ">{"취소된 상담"}</p>
       </UserReservationItem>
 
-      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
+      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />

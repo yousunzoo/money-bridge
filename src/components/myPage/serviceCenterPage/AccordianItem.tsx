@@ -53,7 +53,7 @@ function AccordianItem({ listItem, nowClicked, setNowClicked }: IAccordianItemPr
       </div>
       <div ref={contentRef} className="h-0 overflow-hidden break-keep">
         <p className="py-4 font-bold">{listItem.title}</p>
-        <p className="break-keep pb-4 text-sm leading-6">{listItem.content}</p>
+        <div className="break-keep pb-4 text-sm leading-6" dangerouslySetInnerHTML={{ __html: listItem.content }} />
       </div>
     </li>
   );

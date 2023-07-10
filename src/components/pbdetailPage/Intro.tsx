@@ -54,8 +54,8 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
           onClick={goToCompany}
           priority
         />
-        <div className="absolute h-full w-full bg-gradient-to-t from-black from-0%"></div>
-        <p className="absolute bottom-[74px] left-[19px] h-[70px] w-[285px] whitespace-normal text-[26px] text-white">
+        <div className="absolute h-full w-full bg-gradient-to-t from-[rgba(0,0,0,0.6)] from-0% to-60%"></div>
+        <p className="absolute bottom-[60px] left-[24px] h-[70px] w-[285px] whitespace-normal text-[26px] text-white">
           {msg}
         </p>
         <Image

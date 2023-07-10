@@ -24,6 +24,7 @@ function ReservationChat({ reservationData, pbId }: IReservationChatProps) {
   const { answers, setAnswers } = useReservationStore();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPhoneConsult, setIsPhoneConsult] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const { mutate: makeReserve, isLoading } = useMutation(reserve, {
@@ -53,6 +54,7 @@ function ReservationChat({ reservationData, pbId }: IReservationChatProps) {
     setStep(step + 2);
   };
   const handleSubmit = () => {
+    setIsSubmitting(true);
     const convertedAnswers = convertReservationAnswer(answers);
     makeReserve({ pbId, answers: convertedAnswers });
   };
@@ -134,7 +136,11 @@ function ReservationChat({ reservationData, pbId }: IReservationChatProps) {
           />
         )}
         {validate && (
-          <button onClick={handleSubmit} className="button_fixed">
+          <button
+            onClick={handleSubmit}
+            className={`button_fixed ${isSubmitting && "bg-button-inactive"}`}
+            disabled={isSubmitting}
+          >
             등록하기
           </button>
         )}
@@ -142,7 +148,7 @@ function ReservationChat({ reservationData, pbId }: IReservationChatProps) {
       {(step === 3 || step === 4 || step === 5) && isOpen && (
         <ModalLayout handleCloseModal={handleCloseModal}>{stepModals[step]}</ModalLayout>
       )}
-      {isLoading && <LoadingBg />}
+      {isSubmitting && <LoadingBg />}
     </>
   );
 }

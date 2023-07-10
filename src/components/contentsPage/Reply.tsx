@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import dayjs from "dayjs";
 import Image from "next/image";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import profile from "/public/assets/images/profile.svg";
 import ButtonModal from "@/components/common/ButtonModal";
 import useErrorShow from "@/hooks/useErrorShow";
@@ -14,21 +14,13 @@ import useErrorShow from "@/hooks/useErrorShow";
 function Reply({
   reply,
   userData,
-  isDeleteOpen,
-  setIsDeleteOpen,
-  deleteHandler,
-  deleteContents,
+  id,
+  replyHandler,
 }: {
   reply: any;
   userData: ILoginedUserInfo;
-  isDeleteOpen: boolean;
-  setIsDeleteOpen: Dispatch<SetStateAction<boolean>>;
-  deleteHandler: (id: number, mutate: any) => void;
-  deleteContents: {
-    content: string;
-    confirmText: string;
-    confirmFn: () => void;
-  };
+  id: number;
+  replyHandler: (id: number, mutate: any) => void;
 }) {
   const [isReEdit, setIsReEdit] = useState(false);
   const [newReComment, setNewReComment] = useState<string>("");
@@ -37,7 +29,7 @@ function Reply({
 
   const { mutate: deleterereply } = useMutation(deleteReReply, {
     onSuccess: () => {
-      queryClient.refetchQueries(["getContentsId"]);
+      queryClient.refetchQueries(["getContentsId", id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -46,7 +38,7 @@ function Reply({
 
   const { mutate: editrereply } = useMutation(editReReply, {
     onSuccess: () => {
-      queryClient.refetchQueries(["getContentsId"]);
+      queryClient.refetchQueries(["getContentsId", id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -72,7 +64,7 @@ function Reply({
           <Image className="image" src={reply.profile ? reply.profile : profile} alt="프로필" width={18} height={18} />
           <div className="name">{showName(reply.name)} 님</div>
           <div className="flex-1">{dayjs(reply.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
-          {getMyId(userData?.role, userData?.id, reply.authorId) && (
+          {getMyId(userData?.role, userData?.id, reply.authorId, reply.role) && (
             <>
               {isReEdit ? (
                 <button className="mr-[8px]" onClick={() => replyEditEndHandler(reply.id)}>
@@ -83,7 +75,7 @@ function Reply({
                   수정
                 </button>
               )}
-              <button onClick={() => deleteHandler(reply.id, deleterereply)}>삭제</button>
+              <button onClick={() => replyHandler(reply.id, deleterereply)}>삭제</button>
             </>
           )}
         </div>
@@ -95,12 +87,15 @@ function Reply({
             type="text"
             onChange={editReReplyHandler}
             value={newReComment ? newReComment : reply.content}
+            onKeyDown={e => {
+              if (e.key === "Enter") replyEditEndHandler(reply.id);
+            }}
           />
         ) : (
           <div className="content">{reply.content}</div>
         )}
       </div>
-      {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}
+
       {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </>
   );

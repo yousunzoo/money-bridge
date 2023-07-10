@@ -5,7 +5,7 @@ import { useGetFilteredPBlist } from "@/hooks/useGetFilteredPBList";
 import PBCardSkeletonItem from "../common/Card/CardItem/PBCardSkeletonItem";
 
 function FilteredPbCardList() {
-  const { pbListData, fetchNextPage, hasNextPage, isFetching } = useGetFilteredPBlist();
+  const { pbListData, fetchNextPage, hasNextPage, isFetching, queryKey } = useGetFilteredPBlist();
 
   const list = useMemo(
     () => (pbListData ? (pbListData.pages || []).flatMap(pbListData => pbListData.list) : []),
@@ -28,7 +28,7 @@ function FilteredPbCardList() {
       {list.length > 0 ? (
         <ul>
           {list.map((item: any) => (
-            <PbCardItem key={item.id} item={item} bookmarks={true} />
+            <PbCardItem key={item.id} item={item} bookmarks={true} queryKey={queryKey} />
           ))}
         </ul>
       ) : (

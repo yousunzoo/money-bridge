@@ -38,7 +38,7 @@ export const getCompanyListwithLogo = async () => {
   }
 };
 
-export const getPBList = async (data: IPBListRequest, page: number) => {
+export const getPBList = async (data: IPBListRequest, page: number, isLogined: boolean) => {
   try {
     const params: IPBListParams = { page };
     if (data.sort === "distance") {
@@ -51,8 +51,8 @@ export const getPBList = async (data: IPBListRequest, page: number) => {
     if (data.company && data.company !== "ALL") {
       params.company = data.company;
     }
-
-    const res = await instance.get(`/list/pb/${data.sort}`, { params });
+    const url = isLogined ? `/auth/list/pb/${data.sort}` : `/list/pb/${data.sort}`;
+    const res = await instance.get(url, { params });
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);

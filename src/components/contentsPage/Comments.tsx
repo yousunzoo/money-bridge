@@ -2,7 +2,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import profile from "/public/assets/images/profile.svg";
-import "@/styles/content.css";
 import { getMyId } from "@/utils/pbMyId";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useDelete from "@/hooks/useDelete";
@@ -14,6 +13,7 @@ import { IContentsInfo, IReReply, IReply } from "@/types/contents";
 import Reply from "@/components/contentsPage/Reply";
 import { AxiosError } from "axios";
 import useErrorShow from "@/hooks/useErrorShow";
+import useReplyDelete from "@/hooks/useReplyDelete";
 
 function Comments({ commentData, userData }: { commentData: IContentsInfo; userData: ILoginedUserInfo }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -28,7 +28,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
 
   const { mutate: postreply } = useMutation(postReply, {
     onSuccess: () => {
-      queryClient.refetchQueries(["getContentsId"]);
+      queryClient.refetchQueries(["getContentsId", commentData.id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -37,7 +37,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
 
   const { mutate: postrereply } = useMutation(postReReply, {
     onSuccess: () => {
-      queryClient.refetchQueries(["getContentsId"]);
+      queryClient.refetchQueries(["getContentsId", commentData.id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -46,7 +46,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
 
   const { mutate: deletereply } = useMutation(deleteReply, {
     onSuccess: () => {
-      queryClient.refetchQueries(["getContentsId"]);
+      queryClient.refetchQueries(["getContentsId", commentData.id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -55,7 +55,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
 
   const { mutate: editreply } = useMutation(editReply, {
     onSuccess: () => {
-      queryClient.refetchQueries(["getContentsId"]);
+      queryClient.refetchQueries(["getContentsId", commentData.id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -106,7 +106,24 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     }
   };
 
+  const addCommentKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && newComment.trim() !== "") {
+      postreply({ id: commentData.id, reply: newComment });
+      setNewComment("");
+    }
+  };
+
+  const addReCommentKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, reId: number) => {
+    if (e.key === "Enter" && newReComment.trim() !== "") {
+      postrereply({ id: reId, rereply: newReComment });
+      setNewReComment("");
+      setIsReply(false);
+      setReID(0);
+    }
+  };
+
   const { isDeleteOpen, setIsDeleteOpen, deleteHandler, deleteContents } = useDelete();
+  const { isReplyOpen, setIsReplyOpen, replyHandler, replyContents } = useReplyDelete();
 
   return (
     <>
@@ -125,16 +142,21 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
         type="text"
         value={newComment}
         onChange={e => setNewComment(e.target.value)}
+        onKeyDown={addCommentKeyDown}
       />
-
       {commentData?.reply.map((item: IReply) => (
         <div className="mt-[33px]" key={item.id}>
           <div className="flex text-xs">
-            <Image className="image" src={item.profile ? item.profile : profile} alt="프로필" width={18} height={18} />
-            <div className="name">{showName(item.name)} 님</div>
+            <Image
+              className="contentImage"
+              src={item.profile ? item.profile : profile}
+              alt="프로필"
+              width={18}
+              height={18}
+            />
+            <div className="authorName">{showName(item.name)} 님</div>
             <div className="flex-1">{dayjs(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
-
-            {getMyId(userData?.role, userData?.id, item.authorId) && (
+            {getMyId(userData?.role, userData?.id, item.authorId, item.role) && (
               <>
                 {isEdit && editID === item.id ? (
                   <button
@@ -170,7 +192,6 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
               </button>
             )}
           </div>
-
           {isEdit && editID === item.id ? (
             <input
               autoFocus
@@ -179,11 +200,13 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
               type="text"
               onChange={editHandler}
               value={editText ? editText : item.content}
+              onKeyDown={e => {
+                if (e.key === "Enter") editEndHandler(item.id);
+              }}
             />
           ) : (
             <div className="content">{item.content}</div>
           )}
-
           {isReply && reID === item.id && (
             <>
               <input
@@ -193,6 +216,7 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
                 type="text"
                 value={newReComment}
                 onChange={e => setNewReComment(e.target.value)}
+                onKeyDown={e => addReCommentKeyDown(e, item.id)}
               />
               <button
                 className="flex h-[30px] w-[52px] items-center justify-center rounded-md border-[2px] bg-white text-secondary-heavy"
@@ -202,20 +226,18 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
               </button>
             </>
           )}
-
           {item.reReply?.map((reply: IReReply) => (
             <Reply
               key={reply.uniqueValue}
               reply={reply}
               userData={userData}
-              isDeleteOpen={isDeleteOpen}
-              setIsDeleteOpen={setIsDeleteOpen}
-              deleteHandler={deleteHandler}
-              deleteContents={deleteContents}
+              id={commentData.id}
+              replyHandler={replyHandler}
             />
           ))}
         </div>
       ))}
+      {isReplyOpen && <ButtonModal modalContents={replyContents} isOpen={isReplyOpen} setIsOpen={setIsReplyOpen} />}
       {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}
       {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </>

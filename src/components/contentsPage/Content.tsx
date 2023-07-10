@@ -9,7 +9,6 @@ import useShare from "@/hooks/useShare";
 import { usePathname, useRouter } from "next/navigation";
 import ButtonModal from "@/components/common/ButtonModal";
 import user_profile from "/public/assets/images/profile.svg";
-import "@/styles/content.css";
 import edit from "/public/assets/images/icon/edit.svg";
 import trash from "/public/assets/images/icon/delete.svg";
 import { getMyId } from "@/utils/pbMyId";
@@ -35,9 +34,9 @@ function Content({
     contentData;
   const pathname: string = usePathname();
   const router = useRouter();
-  const base: string = "https://money-bridge.vercel.app";
+  const base: string = "https://www.moneybridge.co.kr/";
   const urlToCopy: string = base + pathname;
-  const myId: number | undefined = getMyId(userData?.role, userData?.id, pbId);
+  const myId: number | null = getMyId(userData?.role, userData?.id, pbId, userData?.role);
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onError: (err: AxiosError) => {
@@ -45,9 +44,10 @@ function Content({
     },
   });
 
-  const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
+    id,
     "getContentsId",
   );
 
@@ -104,7 +104,7 @@ function Content({
             </button>
             {userData?.role === "USER" && bookmarks && (
               <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
-                {isBookmark ? (
+                {isBookmarked ? (
                   <Image src={bookmark_filled} alt="북마크 활성화" width={24} height={24} className="icon" />
                 ) : (
                   <Image src={bookmark} alt="북마크" width={24} height={24} className="icon" />
@@ -113,7 +113,7 @@ function Content({
             )}
           </div>
         </div>
-        <div className="mb-[103px] p-4 text-sm">{content}</div>
+        <div className="mb-10" dangerouslySetInnerHTML={{ __html: content }} />
       </div>
       {isShareOpen && isShare && (
         <ButtonModal modalContents={shareContents} isOpen={isShareOpen} setIsOpen={setIsShareOpen} />
@@ -121,7 +121,7 @@ function Content({
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
       )}
-      {isBookmark && (
+      {isBookmarkedOpen && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
       {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}

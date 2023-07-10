@@ -33,7 +33,7 @@ function EditPage({ params }: { params: { slug: string } }) {
         confirmFn: () => router.back(),
       });
       queryClient.refetchQueries(["loginedUserInfo"]);
-      queryClient.refetchQueries(["getMyInfo"]);
+      queryClient.refetchQueries(["MyInfo"]);
     },
   });
 

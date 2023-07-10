@@ -16,10 +16,12 @@ function ContentCardItem({
   item,
   queryKey,
   bookmarks,
+  id,
 }: {
   item: IContentCard;
   queryKey?: string | string[];
-  bookmarks: boolean;
+    bookmarks: boolean;
+    id?: number;
 }) {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
@@ -33,7 +35,6 @@ function ContentCardItem({
   };
 
   const {
-    isBookmark,
     isBookmarkedOpen,
     setIsBookmarkedOpen,
     bookMarkHandler,
@@ -41,7 +42,7 @@ function ContentCardItem({
     isOpen,
     setIsOpen,
     error,
-  } = useContentBookMark(item.isBookmarked, "/bookmark/content", queryKey);
+  } = useContentBookMark(item.isBookmarked, "/bookmark/content", id, queryKey);
 
   return (
     <>
@@ -87,7 +88,7 @@ function ContentCardItem({
           </div>
         </div>
       </li>
-      {isBookmark && (
+      {isBookmarkedOpen && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
       {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}

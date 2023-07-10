@@ -17,10 +17,12 @@ function PbCardItem({
   item,
   queryKey,
   bookmarks,
+  id,
 }: {
   item: IPbCard;
   queryKey?: string[] | string;
   bookmarks: boolean;
+  id?: number;
 }) {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
@@ -38,15 +40,15 @@ function PbCardItem({
   };
 
   const {
-    isBookmark,
     isBookmarkedOpen,
     setIsBookmarkedOpen,
     bookMarkHandler,
+    isBookmark,
     bookMarkContents,
     isOpen,
     setIsOpen,
     error,
-  } = usePbBookMark(item.isBookmarked, "/bookmark/pb", queryKey);
+  } = usePbBookMark(item.isBookmarked, "/bookmark/pb", id, queryKey);
 
   return (
     <>
@@ -70,7 +72,7 @@ function PbCardItem({
           </div>
           {userData?.role === "USER" && bookmarks && (
             <button onClick={() => bookMarkHandler(item.id)} className="flex-2 flex w-12 items-start justify-end pt-1">
-              {item.isBookmarked ? (
+              {isBookmark ? (
                 <Image
                   src={bookmark_filled}
                   alt="북마크 해제"
@@ -102,7 +104,7 @@ function PbCardItem({
           </button>
         </div>
       </li>
-      {isBookmark && (
+      {isBookmarkedOpen && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
       {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}

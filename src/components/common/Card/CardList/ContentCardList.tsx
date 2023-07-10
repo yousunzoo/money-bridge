@@ -30,6 +30,7 @@ function ContentCardList({
     },
     {
       getNextPageParam: ({ curPage, last }) => (last ? false : curPage + 1),
+      refetchOnWindowFocus: false,
     },
   );
 

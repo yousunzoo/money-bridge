@@ -20,7 +20,7 @@ const FOOTER_CUSTOMER_INFO = [
 
 const FOOTER_COMPANY_INFO = [
   { id: 1, title: "공지사항", href: "/notice" },
-  { id: 2, title: "FAQ", href: "/fap" },
+  { id: 2, title: "FAQ", href: "/faq" },
   { id: 3, title: "이용약관", href: "/terms" },
 ];
 const FOOTER_UNLIST = ["login", "join"];

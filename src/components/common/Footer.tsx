@@ -13,7 +13,7 @@ const FOOTER_NOTICE_INFO = [
 
 const FOOTER_CUSTOMER_INFO = [
   { id: 1, title: "1:1 문의", text: "help@sysmetic.co.kr" },
-  { id: 2, title: "제휴문의", text: "contact@sysmetic.co.kr" },
+  { id: 2, title: "제휴문의", text: "ceo@sysmetic.co.kr" },
   { id: 3, title: "TEL", text: "02-6348-1880" },
   { id: 4, title: "FAX", text: "02-6338-1880" },
 ];

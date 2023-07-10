@@ -83,7 +83,11 @@ function AnalysisPage() {
         {answers[4] && <QuestionSection nowStep={5} nowQuestion={questions[5]} moveToNextStep={moveToNextStep} />}
       </div>
       {answers[5] && (
-        <button className="button_fixed" onClick={handleSubmit}>
+        <button
+          className={`button_fixed ${isSubmitting && "bg-button-inactive"}`}
+          disabled={isSubmitting}
+          onClick={handleSubmit}
+        >
           등록하기
         </button>
       )}

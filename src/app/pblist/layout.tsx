@@ -1,4 +1,3 @@
-import TopNav from "@/components/common/TopNav";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +10,6 @@ export const metadata: Metadata = {
 function PBListLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <TopNav title="PB 찾기" />
       <h2 className="mb-7 text-xl font-bold">
         관심 있는 증권사의
         <br />

@@ -22,7 +22,7 @@ import { IPbCard } from "@/types/card";
 function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; Id: number }) {
   const { id, name, branchAddress, branchName, branchLatitude, branchLongitude } = aboutData;
   const { data: review } = useQuery<IDataResponse<IReviewStyles>, AxiosError>({
-      queryKey: ["getReviewStyle", id],
+    queryKey: ["getReviewStyle", id],
     queryFn: () => getReviewStyle(id),
     refetchOnWindowFocus: false,
   });
@@ -143,13 +143,13 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
 
       <div>
         <p className="info_header">방문 상담을 원하시나요?</p>
-        <div className="card h-[240px] p-[18px]">
+        <div className="card h-[380px] p-[18px]">
           <p className="text-base font-bold">{branchName}</p>
           <div className="flex text-xs">
             <p className="flex-1">{branchAddress}</p>
             <LocationCopyButton location={branchAddress} />
           </div>
-          <div className="mt-4 h-[140px]">
+          <div className="mt-4 h-[280px]">
             <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
           </div>
         </div>

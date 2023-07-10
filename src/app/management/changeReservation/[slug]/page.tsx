@@ -1,6 +1,5 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import TopNav from "@/components/common/TopNav";
 import React, { useEffect, useState } from "react";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
 import DoubleButton from "@/components/common/DoubleButton";
@@ -54,7 +53,7 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
     redirect("/");
   }
 
-  const { reservationInfo, reservationLoading, reservationError } = useGetReservationInfo(slug);
+  const { reservationInfo, reservationError } = useGetReservationInfo(slug);
 
   const { mutate: changeMutate } = useMutation<null, AxiosError, ChangeReservationProps>(changeReservation, {
     onSuccess: () => {
@@ -248,8 +247,6 @@ function ChangeReservationPage({ params: { slug } }: { params: { slug: number } 
     );
   return (
     <div>
-      <TopNav title="예약 변경" hasBack={true} path={"/management?process=APPLY"} />
-
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">예약일자를 확정지어야 상담예약이 확정됩니다.</span>
       </div>

@@ -1,11 +1,9 @@
 import React from "react";
-import TopNav from "@/components/common/TopNav";
 import PbContentButton from "@/components/pbdetailPage/PbContentButton";
 
 function BookMark() {
   return (
     <div className="mb-[24px]">
-      <TopNav title="북마크 목록" hasBack={true} />
       <PbContentButton
         path1="/bookmark/content"
         path2="/bookmark/pb"

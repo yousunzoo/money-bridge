@@ -1,6 +1,5 @@
 "use client";
 import { getMyPropensity } from "@/app/apis/services/user";
-import TopNav from "@/components/common/TopNav";
 import HydratePropensity from "@/components/myPage/propensityPage/HydratePropensity";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import { IPropensityData } from "@/types/my";
@@ -36,7 +35,6 @@ function PropensityPage() {
 
   return (
     <>
-      <TopNav title="나의 투자 성향 분석" hasBack={true} />
       {isSuccess && (
         <>
           <HydratePropensity propensityData={data} />

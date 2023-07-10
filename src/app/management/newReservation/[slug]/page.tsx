@@ -1,6 +1,5 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import TopNav from "@/components/common/TopNav";
 import React, { useEffect, useState } from "react";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
@@ -112,7 +111,6 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
     );
   return (
     <div>
-      <TopNav title="신규예약" hasBack={true} path={"/management?process=APPLY"} />
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">투자자와 유선으로 상담 일정을 확정해주세요.</span>
       </div>

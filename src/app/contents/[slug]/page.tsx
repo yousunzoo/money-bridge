@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Poster from "@/components/contentsPage/Poster";
-import TopNav from "@/components/common/TopNav";
 import Content from "@/components/contentsPage/Content";
 import Comments from "@/components/contentsPage/Comments";
 import BlurModal from "@/components/common/Modal/BlurModal";
@@ -19,13 +18,13 @@ function ContentsDetail() {
   const pathname = usePathname();
   const id = Number(pathname.split("/").pop());
   const { data: contents } = useQuery<IDataResponse<IContentsInfo>, AxiosError>({
-    queryKey: ["getContentsId",id],
+    queryKey: ["getContentsId", id],
     queryFn: () => getContentsId(id),
     enabled: !!token,
-    refetchOnWindowFocus: false,   
+    refetchOnWindowFocus: false,
   });
   const { data: notLoginContents } = useQuery<IDataResponse<INotLoginContentsInfo>, AxiosError>({
-    queryKey: ["getNotLoginContents",id],
+    queryKey: ["getNotLoginContents", id],
     queryFn: () => getNotLoginContents(id),
     refetchOnWindowFocus: false,
   });
@@ -37,14 +36,17 @@ function ContentsDetail() {
 
   return (
     <>
-      <TopNav title="콘텐츠" hasBack={true} />
       {userData
         ? contents && (
             <>
               <div className="relative h-[390px]">
                 <Poster img={contents.data.thumbnail} />
               </div>
-              <Content contentData={contents.data} userData={userData} bookmarks={userData?.role === "PB"? false:true} />
+              <Content
+                contentData={contents.data}
+                userData={userData}
+                bookmarks={userData?.role === "PB" ? false : true}
+              />
               <Comments commentData={contents.data} userData={userData} />
             </>
           )

@@ -17,7 +17,7 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
 
   const pathname: string = usePathname();
   const router = useRouter();
-  const base: string = "https://money-bridge.vercel.app";
+  const base: string = "https://www.moneybridge.co.kr";
   const urlToCopy: string = base + pathname;
 
   const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(

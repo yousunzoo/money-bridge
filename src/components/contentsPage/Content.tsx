@@ -35,7 +35,7 @@ function Content({
     contentData;
   const pathname: string = usePathname();
   const router = useRouter();
-  const base: string = "https://money-bridge.vercel.app";
+  const base: string = "https://www.moneybridge.co.kr";
   const urlToCopy: string = base + pathname;
   const myId: number | null = getMyId(userData?.role, userData?.id, pbId, userData?.role);
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();

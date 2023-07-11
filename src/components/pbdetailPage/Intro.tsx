@@ -88,7 +88,7 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
           </button>
           {userData?.role === "USER" && (
             <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
-              {isBookmark ? (
+              {isBookmarked ? (
                 <Image
                   src={bookmark_filled}
                   alt="북마크 활성화"

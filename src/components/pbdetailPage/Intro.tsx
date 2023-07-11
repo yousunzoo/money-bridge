@@ -20,7 +20,7 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
   const base: string = "https://www.moneybridge.co.kr";
   const urlToCopy: string = base + pathname;
 
-  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents, isBookmark } = usePbBookMark(
     isBookmarked,
     "/bookmark/pb",
     id,
@@ -88,7 +88,7 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
           </button>
           {userData?.role === "USER" && (
             <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
-              {isBookmarked ? (
+              {isBookmark ? (
                 <Image
                   src={bookmark_filled}
                   alt="북마크 활성화"

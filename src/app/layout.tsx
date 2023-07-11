@@ -41,15 +41,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicons/favicon-96x96.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
         <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content="머니브릿지" />
+        <meta property="og:title" content="머니브릿지 - Money Bridge" />
+        <meta property="og:site_name" content="머니브릿지 - Money Bridge" />
         <meta property="og:description" content="위치기반 투자자 PB 매칭 플랫폼" />
         <meta property="og:url" content="https://www.moneybridge.co.kr/" />
         <meta property="og:image" content="https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png" />
         <meta property="og:image:alt" content="머니브릿지" />
+        <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="moneybridge.co.kr" />
         <meta property="twitter:url" content="https://www.moneybridge.co.kr/" />
-        <meta name="twitter:title" content="머니브릿지" />
+        <meta name="twitter:title" content="머니브릿지 - Money Bridge" />
         <meta name="twitter:description" content="위치기반 투자자 PB 매칭 플랫폼" />
         <meta name="twitter:image" content="https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png" />
         <meta name="msapplication-TileColor" content="#ffffff" />

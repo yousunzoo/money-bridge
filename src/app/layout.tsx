@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={noto.className}>
         <ReactQueryProvider>
           <Main>
-            {children}
+            <div className="flex-1">{children}</div>
             <Footer />
             <Navbar />
           </Main>

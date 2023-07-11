@@ -36,7 +36,7 @@ function Content({
   const router = useRouter();
   const base: string = "https://www.moneybridge.co.kr";
   const urlToCopy: string = base + pathname;
-  const myId: number | null = getMyId(userData?.role, userData?.id, pbId, userData?.role);
+  const myId: number | null = getMyId(userData?.role, userData?.id, pbId, "PB");
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onError: (err: AxiosError) => {

@@ -1,6 +1,5 @@
 import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 function PbContentButton({
   path1,
@@ -20,15 +19,22 @@ function PbContentButton({
   subStyle2: string;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <div className={mainStyle}>
-      <Link href={path1} className={`${subStyle1} ${pathname === path1 ? "bg-primary-normal text-white" : ""}`}>
+      <button
+        onClick={() => router.replace(path1)}
+        className={`${subStyle1} ${pathname === path1 ? "bg-primary-normal text-white" : ""}`}
+      >
         {text1}
-      </Link>
-      <Link href={path2} className={`${subStyle2} ${pathname === path2 ? "bg-primary-normal text-white" : ""}`}>
+      </button>
+      <button
+        onClick={() => router.replace(path2)}
+        className={`${subStyle2} ${pathname === path2 ? "bg-primary-normal text-white" : ""}`}
+      >
         {text2}
-      </Link>
+      </button>
     </div>
   );
 }

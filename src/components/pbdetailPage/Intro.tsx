@@ -17,10 +17,10 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
 
   const pathname: string = usePathname();
   const router = useRouter();
-  const base: string = "https://money-bridge.vercel.app";
+  const base: string = "https://www.moneybridge.co.kr";
   const urlToCopy: string = base + pathname;
 
-  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = usePbBookMark(
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents, isBookmark } = usePbBookMark(
     isBookmarked,
     "/bookmark/pb",
     id,
@@ -54,8 +54,8 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
           onClick={goToCompany}
           priority
         />
-        <div className="absolute h-full w-full bg-gradient-to-t from-black from-0%"></div>
-        <p className="absolute bottom-[74px] left-[19px] h-[70px] w-[285px] whitespace-normal text-[26px] text-white">
+        <div className="absolute h-full w-full bg-gradient-to-t from-[rgba(0,0,0,0.6)] from-0% to-60%"></div>
+        <p className="absolute bottom-[60px] left-[24px] h-[70px] w-[285px] whitespace-normal text-[26px] text-white">
           {msg}
         </p>
         <Image
@@ -88,7 +88,7 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
           </button>
           {userData?.role === "USER" && (
             <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
-              {isBookmarked ? (
+              {isBookmark ? (
                 <Image
                   src={bookmark_filled}
                   alt="북마크 활성화"

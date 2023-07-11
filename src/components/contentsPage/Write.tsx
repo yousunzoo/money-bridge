@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BoardStatus } from "@/constants/enum";
 import { useRouter } from "next/navigation";
@@ -10,7 +10,6 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import ButtonModal from "@/components/common/ButtonModal";
 import useErrorShow from "@/hooks/useErrorShow";
-import LoadingBg from "../common/LoadingBg";
 import dynamic from "next/dynamic";
 const ContentEditor = dynamic(() => import("./ContentEditor"));
 
@@ -53,6 +52,9 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
   } = useForm({ mode: "onChange" });
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [thumbnailText, setThumbnailText] = useState(data?.thumbnail || "");
+  const [title, setTitle] = useState(isStatus ? data?.title : "");
+  const [tag1, setTag1] = useState(isStatus ? data?.tag1 : "");
+  const [tag2, setTag2] = useState(isStatus ? data?.tag2 : "");
   const [inputValues, setInputValues] = useState({
     title: "",
     tag1: "",
@@ -109,17 +111,20 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
         <input
           id="title"
           type="text"
-          placeholder="제목을 작성해주세요.(20자 이내)"
+          placeholder="제목을 작성해주세요.(40자 이내)"
           className="form_input mb-[24px] h-[56px]"
           aria-invalid={!isDirty ? undefined : errors.title ? "true" : "false"}
           {...register("title", {
             maxLength: {
-              value: 20,
-              message: "제목은 20자 이내로 작성해주세요.",
+              value: 40,
+              message: "제목은 40자 이내로 작성해주세요.",
             },
           })}
-          defaultValue={isStatus ? data?.title : ""}
-          onChange={e => setInputValues({ ...inputValues, title: e.target.value })}
+          value={title}
+          onChange={e => {
+            setTitle(e.target.value);
+            setInputValues({ ...inputValues, title: e.target.value });
+          }}
         />
 
         <label htmlFor="content" className="label">
@@ -141,8 +146,11 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
               message: "태그는 7자 이내로 작성해주세요.",
             },
           })}
-          defaultValue={isStatus ? data?.tag1 : ""}
-          onChange={e => setInputValues({ ...inputValues, tag1: e.target.value })}
+          value={tag1}
+          onChange={e => {
+            setTag1(e.target.value);
+            setInputValues({ ...inputValues, tag1: e.target.value });
+          }}
         />
 
         <label htmlFor="tag2" className="label">
@@ -160,8 +168,11 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
               message: "태그는 7자 이내로 작성해주세요.",
             },
           })}
-          defaultValue={isStatus ? data?.tag2 : ""}
-          onChange={e => setInputValues({ ...inputValues, tag2: e.target.value })}
+          value={tag2}
+          onChange={e => {
+            setTag2(e.target.value);
+            setInputValues({ ...inputValues, tag2: e.target.value });
+          }}
         />
 
         <div className="flex items-center justify-between">
@@ -205,8 +216,10 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
               </button>
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="button min-w-[175px] max-w-[350px] bg-primary-normal"
+                disabled={!isFormValid || isSubmitting}
+                className={`button min-w-[175px] max-w-[350px] ${
+                  !isFormValid ? "cursor-not-allowed bg-button-inactive" : "bg-primary-normal"
+                }`}
               >
                 수정 완료
               </button>

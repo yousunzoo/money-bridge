@@ -9,11 +9,12 @@ const usePbBookMark = (bookmarkState: boolean, link: string, id: number | undefi
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const [isBookmark, setIsBookMark] = useState(bookmarkState);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
-
+  const queryClient = useQueryClient();
   const router = useRouter();
+  
   const { mutate: postbookMarkPB } = useMutation(postBookMarkPB, {
     onSuccess: () => {
-      setIsBookMark(true);
+      queryClient.refetchQueries([queryKey, id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -22,7 +23,7 @@ const usePbBookMark = (bookmarkState: boolean, link: string, id: number | undefi
 
   const { mutate: deletebookMarkPB } = useMutation(deleteBookMarkPB, {
     onSuccess: () => {
-      setIsBookMark(false);
+      queryClient.refetchQueries([queryKey, id]);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);

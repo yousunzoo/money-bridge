@@ -32,7 +32,7 @@ function FilteredPbCardList() {
           ))}
         </ul>
       ) : (
-        <p className="pt-20 text-center">해당 조건에 맞는 PB가 없습니다.</p>
+        <p className="py-40 text-center">해당 조건에 맞는 PB가 없습니다.</p>
       )}
       {hasNextPage && <div ref={ref} className="h-1" />}
     </>

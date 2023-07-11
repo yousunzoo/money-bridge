@@ -3,7 +3,6 @@ import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { getRecommendedPBList } from "@/app/apis/services/user";
 import ButtonModal from "@/components/common/ButtonModal";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
-import TopNav from "@/components/common/TopNav";
 import PropensityCard from "@/components/pblistPage/PropensityCard";
 import { ILoginedUserInfo, IModalContents } from "@/types/common";
 import { useQuery } from "@tanstack/react-query";
@@ -46,7 +45,6 @@ function RecommendPage() {
 
   return (
     <>
-      <TopNav title="추천 PB 리스트" hasBack={true} />
       {data && data.role === "USER" && (
         <>
           <section className="mb-20">

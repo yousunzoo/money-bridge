@@ -1,6 +1,5 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import TopNav from "@/components/common/TopNav";
 import React, { useState } from "react";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
@@ -26,7 +25,7 @@ function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number
     redirect("/");
   }
 
-  const { reservationInfo, reservationLoading, reservationError } = useGetReservationInfo(slug);
+  const { reservationInfo, reservationError } = useGetReservationInfo(slug);
 
   const { mutate: completeMutate } = useMutation<null, AxiosError, number>(completedReservation, {
     onSuccess: () => {
@@ -79,7 +78,6 @@ function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number
 
   return (
     <div>
-      <TopNav title="확정된 상담" hasBack={true} path={"/management?process=CONFIRM"} />
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">상담이 확정되었습니다. 상담 일정을 확인해 주세요.</span>
       </div>

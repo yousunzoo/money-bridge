@@ -1,5 +1,4 @@
 "use client";
-import TopNav from "@/components/common/TopNav";
 import Authentication from "@/components/findPasswordPage/Authentication";
 import JoinInformation from "@/components/joinPage/common/JoinInformation";
 import AgreeProvision from "@/components/joinPage/common/AgreeProvision";
@@ -66,16 +65,7 @@ function Page() {
     }
   }
 
-  return (
-    <>
-      <TopNav
-        title={`${pathName.split("/")[2] === "user" ? "일반 회원가입" : "PB 회원가입"}`}
-        hasBack
-        backGroundWhite
-      />
-      {step[path]}
-    </>
-  );
+  return <>{step[path]}</>;
 }
 
 export default Page;

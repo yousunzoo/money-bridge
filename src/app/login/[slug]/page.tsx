@@ -1,15 +1,13 @@
 "use client";
-import TopNav from "@/components/common/TopNav";
 import ButtonToAccountSetting from "@/components/loginPage/ButtonToAccountSetting";
 import DoubleInputForm from "@/components/common/DoubleInputForm";
 import KeepLoginButton from "@/components/loginPage/KeepLoginButton";
 import { InputFormType } from "@/constants/enum";
-import { redirect, usePathname } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 function Login() {
-  const pathName = usePathname();
   const { isLogined, userLoading } = useGetUserInfo();
 
   useEffect(() => {
@@ -25,7 +23,6 @@ function Login() {
 
   return (
     <>
-      <TopNav title={`${pathName.split("/")[2] === "user" ? "유저 로그인" : "PB 로그인"}`} hasBack backGroundWhite />
       <div className="mt-10 text-black">
         <p>안녕하세요,</p>
         <p>

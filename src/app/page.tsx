@@ -1,4 +1,3 @@
-import TopNav from "@/components/common/TopNav";
 import AdminButtonSection from "@/components/mainPage/AdminButtonSection";
 import CarouselBanner from "@/components/mainPage/CarouselBanner";
 import CustomListSection from "@/components/mainPage/CustomListSection";
@@ -10,7 +9,6 @@ export default async function Home() {
   return (
     <div>
       <AdminButtonSection />
-      <TopNav title={"메인페이지"} />
       <CarouselBanner />
       <PbListSection />
       <SpecialtySection />

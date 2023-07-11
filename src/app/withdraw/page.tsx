@@ -1,5 +1,4 @@
 "use client";
-import TopNav from "@/components/common/TopNav";
 import CheckPassword from "@/components/myPage/editInfoPage/CheckPassword";
 import React, { useState } from "react";
 
@@ -11,7 +10,6 @@ function SecessionPage() {
   };
   return (
     <>
-      <TopNav title="탈퇴하기" hasBack={true} />
       {didAgree ? (
         <CheckPassword type="withdraw" />
       ) : (

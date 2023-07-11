@@ -1,9 +1,6 @@
 "use client";
-import DoubleInputForm from "@/components/common/DoubleInputForm";
-import TopNav from "@/components/common/TopNav";
 import EnterInformation from "@/components/findEmailPage/EnterInformation";
 import InformationCheck from "@/components/findEmailPage/InformationCheck";
-import { InputFormType } from "@/constants/enum";
 import { redirect, usePathname } from "next/navigation";
 import React from "react";
 
@@ -17,12 +14,7 @@ const step = {
 function Page() {
   const pathName = usePathname();
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
-  return (
-    <>
-      <TopNav title={`${pathName.split("/")[2] === "user" ? "유저" : "PB"} 이메일 찾기`} hasBack backGroundWhite />
-      {step[path]}
-    </>
-  );
+  return <>{step[path]}</>;
 }
 
 export default Page;

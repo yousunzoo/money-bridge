@@ -1,5 +1,4 @@
 "use client";
-import TopNav from "@/components/common/TopNav";
 import TemporaryList from "@/components/contentsPage/TemporaryList";
 import React from "react";
 import { getTempList } from "@/app/apis/services/pb";
@@ -17,7 +16,6 @@ function ContentsTemp() {
 
   return (
     <>
-      <TopNav title="임시저장 콘텐츠" hasBack={true} />
       <TemporaryList tempData={tempData} />
     </>
   );

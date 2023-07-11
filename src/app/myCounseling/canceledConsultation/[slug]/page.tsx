@@ -1,9 +1,6 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import TopNav from "@/components/common/TopNav";
 import React from "react";
-import res from "../../../../mocks/kjun/managementReservations.json";
-import ConsultingHistoryCard from "../../../../components/common/ConsultingHistoryCard";
 import DoubleButton from "@/components/common/DoubleButton";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
@@ -16,7 +13,7 @@ import ErrorModal from "@/components/common/ErrorModal";
 function CanceledConsultationPage({ params: { slug } }: { params: { slug: number } }) {
   const router = useRouter();
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
-  const { reservationInfo, reservationLoading, reservationError } = useUserReservationInfo(slug);
+  const { reservationInfo, reservationError } = useUserReservationInfo(slug);
 
   if (!isLogined && !userLoading) {
     redirect("/");
@@ -24,7 +21,6 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
 
   if (reservationInfo === undefined) return null;
   const {
-    reservationId,
     candidateTime1,
     candidateTime2,
     time,
@@ -67,7 +63,6 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
     );
   return (
     <div>
-      <TopNav title="취소된 상담" hasBack={true} path={"/myCounseling?process=WITHDRAW"} />
       <div className="user_top_Phrase  mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">취소된 상담입니다.</span>
       </div>
@@ -76,7 +71,7 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
         <p className="text-xs ">{"취소된 상담"}</p>
       </UserReservationItem>
 
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />

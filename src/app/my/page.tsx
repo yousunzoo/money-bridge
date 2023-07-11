@@ -34,7 +34,7 @@ function MyPage() {
         <ul>
           <li>
             <Link href="/my/editInfo" className={LINK_STYLE}>
-              <span>개인 정보 설정</span>
+              <span>개인 정보 수정</span>
               <Image src={nextIcon} width={14} height={14} alt="개인 정보 설정 이동" />
             </Link>
           </li>

@@ -1,4 +1,3 @@
-import TopNav from "@/components/common/TopNav";
 import CommonPersonalInformation from "@/constants/provisions/common/CommonPersonalInformation";
 import PbSysmetic from "@/constants/provisions/pb/PbSysmetic";
 import UserSysmetic from "@/constants/provisions/user/UserSysmetic";
@@ -30,7 +29,6 @@ function DetailProvision({
   const step = provisionId as Tstep;
   return (
     <>
-      <TopNav title={`${pathName.split("/")[2] === "user" ? "유저" : "PB"} 회원가입`} backGroundWhite />
       <div className="top-25 fixed w-full min-w-[358px] max-w-[732px] pr-5 text-right">
         <button className="bg-white text-2xl" onClick={handleCloseProvision}>
           <CgCloseR className="text-5xl" />

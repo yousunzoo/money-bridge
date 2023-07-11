@@ -1,6 +1,5 @@
 "use client";
 
-import TopNav from "@/components/common/TopNav";
 import React, { useEffect, useMemo, useState } from "react";
 import ProcessList from "@/components/common/ProcessList";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
@@ -36,11 +35,10 @@ function MyCounselingPage() {
   const [selectPath, setSelectPath] = useState("newReservation");
 
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
-  const {
-    data: consultationStatus,
-    isLoading: isStatusLoading,
-    isError: isStatusError,
-  } = useQuery<ConsultationStatusProps, AxiosError>(["userConsultationStatus"], getUserReservationRecent);
+  const { data: consultationStatus, isError: isStatusError } = useQuery<ConsultationStatusProps, AxiosError>(
+    ["userConsultationStatus"],
+    getUserReservationRecent,
+  );
 
   if (!isLogined && !userLoading) {
     redirect("/");
@@ -87,7 +85,6 @@ function MyCounselingPage() {
 
   return (
     <div>
-      <TopNav title={"나의 상담"} hasBack={true} />
       <UserConsultationStatus {...consultationStatus} />
       <ProcessList role={userInfo.role} linkHref={"myCounseling"} />
 

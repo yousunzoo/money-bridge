@@ -6,6 +6,7 @@ import { Noto_Sans_KR } from "next/font/google";
 import Main from "@/components/common/Main";
 import { Metadata } from "next";
 import Footer from "@/components/common/Footer";
+import { TopNav } from "@/components/common/TopNav";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={noto.className}>
         <ReactQueryProvider>
           <Main>
+            <TopNav />
             <div className="flex-1">{children}</div>
             <Footer />
             <Navbar />

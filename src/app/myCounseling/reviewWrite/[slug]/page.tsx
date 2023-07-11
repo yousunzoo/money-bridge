@@ -4,11 +4,10 @@ import { createReview } from "@/app/apis/services/user";
 import ButtonModal from "@/components/common/ButtonModal";
 import DoubleButton from "@/components/common/DoubleButton";
 import ErrorModal from "@/components/common/ErrorModal";
-import TopNav from "@/components/common/TopNav";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { useMutation } from "@tanstack/react-query";
 import { redirect, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const COUNSELING_STYLE: { [key: string]: string } = {
   METICULOUS: "꼼꼼한",
@@ -105,7 +104,6 @@ function ReviewWritePage({ params: { slug } }: { params: { slug: string } }) {
     );
   return (
     <div>
-      <TopNav title="후기 작성" hasBack={true} />
       <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">상담 후기를 남겨주세요.</span>
       </div>

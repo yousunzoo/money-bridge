@@ -1,6 +1,5 @@
 "use client";
 import React, { useCallback, useState } from "react";
-import TopNav from "@/components/common/TopNav";
 import PbResult from "@/components/searchPage/PbResult";
 import ContentResult from "@/components/searchPage/ContentResult";
 import debounce from "lodash/debounce";
@@ -50,7 +49,6 @@ function LoungeSearch() {
 
   return (
     <>
-      <TopNav title="검색하기" hasBack={true} />
       <div className="relative">
         <input
           className="search_input mt-6 h-[56px] w-full"

@@ -1,5 +1,4 @@
 "use client";
-import TopNav from "@/components/common/TopNav";
 import Authentication from "@/components/findPasswordPage/Authentication";
 import AgreeProvision from "@/components/joinPage/common/AgreeProvision";
 import JoinInformation from "@/components/joinPage/common/JoinInformation";
@@ -7,7 +6,6 @@ import SetPasswordForm from "@/components/joinPage/common/SetPasswordForm";
 import RegisterBusinessCard from "@/components/joinPage/pb/RegisterBusinessCard";
 import PBJoinGuide from "@/components/joinPage/pb/PBJoinGuide";
 import { JoinFormType } from "@/constants/enum";
-import { useJoinStore } from "@/store/joinStore";
 import { redirect, usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import SelectCompany from "@/components/joinPage/pb/SelectCompany";
@@ -82,12 +80,7 @@ function Page() {
     redirect("/");
   }
 
-  return (
-    <>
-      <TopNav title="PB 회원가입" hasBack backGroundWhite />
-      {step[path]}
-    </>
-  );
+  return <>{step[path]}</>;
 }
 
 export default Page;

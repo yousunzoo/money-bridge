@@ -1,6 +1,5 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import TopNav from "@/components/common/TopNav";
 import React from "react";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
@@ -19,23 +18,11 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
     redirect("/");
   }
 
-  const { reservationInfo, reservationLoading, reservationError } = useGetReservationInfo(slug);
+  const { reservationInfo, reservationError } = useGetReservationInfo(slug);
 
   if (reservationInfo === undefined) return null;
-  const {
-    candidateTime1,
-    candidateTime2,
-    name,
-    type,
-    location,
-    locationAddress,
-    goal,
-    question,
-    profileImage,
-    phoneNumber,
-    reviewCheck,
-  } = reservationInfo;
-  const formattedPhoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+  const { candidateTime1, candidateTime2, name, type, location, locationAddress, goal, question, profileImage } =
+    reservationInfo;
 
   if (!userInfo) return;
   const role = userInfo?.role;
@@ -67,7 +54,6 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
     );
   return (
     <div>
-      <TopNav title="취소된 상담" hasBack={true} path={"/management?process=WITHDRAW"} />
       <div className="pb_top_Phrase mx-[-16px] mt-4 box-content w-full ">
         <span className="text-white ">취소된 상담입니다.</span>
       </div>
@@ -77,7 +63,7 @@ function CanceledConsultationPage({ params: { slug } }: { params: { slug: number
         <p className="text-xs ">취소된 상담</p>
       </UserReservationItem>
 
-      <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
+      <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
         <ConsultationScheduleSection {...scheduleSectionProps} />
         <ConsultationLocationSection {...locationSectionProps} />
         <ConsultationNoteSection {...noteSectionProps} />

@@ -5,7 +5,6 @@ import ResetPassword from "@/components/findPasswordPage/ResetPassword";
 import EnterInformation from "@/components/findPasswordPage/EnterInformation";
 import SelectInformation from "@/components/findPasswordPage/SelectInformation";
 import { redirect, usePathname } from "next/navigation";
-import TopNav from "@/components/common/TopNav";
 
 type Tstep = "enterInformation" | "authentication" | "selectInformation" | "resetPassword";
 
@@ -47,12 +46,7 @@ function Page() {
   const path = (pathName.split("/")[3] as Tstep) ?? redirect("/login");
   checkRedirect(pathName) ?? redirect("/login");
 
-  return (
-    <>
-      <TopNav title={`${pathName.split("/")[2] === "user" ? "유저" : "PB"} 비밀번호 찾기`} hasBack backGroundWhite />
-      {step[path]}
-    </>
-  );
+  return <>{step[path]}</>;
 }
 
 export default Page;

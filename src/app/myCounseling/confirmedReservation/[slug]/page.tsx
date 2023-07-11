@@ -1,6 +1,5 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import TopNav from "@/components/common/TopNav";
 import React from "react";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
@@ -15,7 +14,7 @@ import SingleButton from "@/components/common/SingleButton";
 function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number } }) {
   const router = useRouter();
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
-  const { reservationInfo, reservationLoading, reservationError } = useUserReservationInfo(slug);
+  const { reservationInfo, reservationError } = useUserReservationInfo(slug);
 
   if (!isLogined && !userLoading) {
     redirect("/");
@@ -56,7 +55,6 @@ function ConfirmedReservationPage({ params: { slug } }: { params: { slug: number
     );
   return (
     <div>
-      <TopNav title="확정된 예약" hasBack={true} path={"/myCounseling?process=CONFIRM"} />
       <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">상담이 확정되었습니다. 상담 일정을 확인해 주세요.</span>
       </div>

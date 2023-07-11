@@ -10,7 +10,7 @@
 
 #### 🔗 배포 사이트
 
-- [💻 PB 투자자 매칭 플랫폼 💻](https://lupintech.netlify.app/)
+- [💻 PB 투자자 매칭 플랫폼 💻]([https://lupintech.netlify.app/](https://www.moneybridge.co.kr/))
 
 ## 👥 팀원 소개
 | 권범준(팀장)                                                                                        | 유선주(팀원)                                                                                 | 이병욱(팀원)                                                                                | 장현준(팀원)                                                                                                                                                          |

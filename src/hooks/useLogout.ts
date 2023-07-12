@@ -13,6 +13,14 @@ export const useLogout = () => {
       queryClient.resetQueries();
       router.replace("/");
     },
+    onError: (error: any) => {
+      if (error.message.status === 401) {
+        removeCookie("Authorization");
+        removeCookie("refreshToken");
+        queryClient.resetQueries();
+        router.replace("/");
+      }
+    },
   });
 
   return mutate;

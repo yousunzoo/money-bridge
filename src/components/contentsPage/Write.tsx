@@ -20,8 +20,8 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
   const isStatus = data?.status === BoardStatus.ACTIVE || BoardStatus.TEMP;
   const [content, setContent] = useState(data?.content || "");
   const { mutate: postPBcontents } = useMutation(postPBContents, {
-    onSuccess: () => {
-      router.push(`/detail/content/${id}`);
+    onSuccess: data => {
+      router.push(`/contents/${data.data}`);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -142,6 +142,7 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
           className="form_input mb-[10px] h-[56px]"
           aria-invalid={!isDirty ? undefined : errors.tag1 ? "true" : "false"}
           {...register("tag1", {
+            required: true,
             maxLength: {
               value: 7,
               message: "태그는 7자 이내로 작성해주세요.",
@@ -164,6 +165,7 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
           className="form_input mb-[24px] h-[56px]"
           aria-invalid={!isDirty ? undefined : errors.tag2 ? "true" : "false"}
           {...register("tag2", {
+            required: true,
             maxLength: {
               value: 7,
               message: "태그는 7자 이내로 작성해주세요.",

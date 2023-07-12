@@ -36,6 +36,9 @@ function ContentEditor({
 
   return (
     <Editor
+      toolbar={{
+        options: ["inline", "fontSize", "fontFamily", "list", "textAlign"],
+      }}
       placeholder="게시글을 작성해주세요"
       editorState={editorState}
       onEditorStateChange={updateTextDescription}

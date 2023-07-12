@@ -61,8 +61,10 @@ function Reply({
     <>
       <div className="ml-auto mt-[33px] flex w-[90%] flex-col">
         <div className="flex text-xs">
-          <Image className="image" src={reply.profile ? reply.profile : profile} alt="프로필" width={18} height={18} />
-          <div className="name">{showName(reply.name)} 님</div>
+          <div className="relative mr-2 h-[18px] w-[18px] overflow-hidden rounded-full">
+            <Image className="object-cover" src={reply.profile ? reply.profile : profile} alt="프로필" fill />
+          </div>
+          <div className="name mr-2 font-bold">{showName(reply.name)} 님</div>
           <div className="flex-1">{dayjs(reply.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
           {getMyId(userData?.role, userData?.id, reply.authorId, reply.role) && (
             <>

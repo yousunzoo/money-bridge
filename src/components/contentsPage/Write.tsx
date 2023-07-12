@@ -11,9 +11,10 @@ import { AxiosError } from "axios";
 import ButtonModal from "@/components/common/ButtonModal";
 import useErrorShow from "@/hooks/useErrorShow";
 import dynamic from "next/dynamic";
+import { ILoginedUserInfo } from "@/types/common";
 const ContentEditor = dynamic(() => import("./ContentEditor"));
 
-function Write({ data, id }: { data?: ITemp; id: number }) {
+function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: ILoginedUserInfo }) {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const router = useRouter();
   const isStatus = data?.status === BoardStatus.ACTIVE || BoardStatus.TEMP;
@@ -29,7 +30,7 @@ function Write({ data, id }: { data?: ITemp; id: number }) {
 
   const { mutate: updatePBcontents } = useMutation(updatePBContents, {
     onSuccess: () => {
-      router.push(`/contents/${id}`);
+      router.push(`/detail/content/${userData?.id}`);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);

@@ -23,7 +23,7 @@ function ContentsEdit() {
     refetchOnWindowFocus: false,
   });
 
-  return <>{tempData && userData?.id && <Write data={tempData} id={id} />}</>;
+  return <>{tempData && userData?.id && <Write data={tempData} id={id} userData={userData} />}</>;
 }
 
 export default ContentsEdit;

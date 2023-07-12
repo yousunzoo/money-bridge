@@ -18,18 +18,12 @@ const useContentBookMark = (
   const queryClient = useQueryClient();
 
   const { mutate: postbookMarkContent } = useMutation(postBookMarkContent, {
-    onSuccess: () => {
-      queryClient.refetchQueries([queryKey, id]);
-    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },
   });
 
   const { mutate: deletebookMarkContent } = useMutation(deleteBookMarkContent, {
-    onSuccess: () => {
-      queryClient.refetchQueries([queryKey, id]);
-    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },
@@ -38,12 +32,11 @@ const useContentBookMark = (
   const bookMarkHandler = (id: number) => {
     setIsBookmarkedOpen(true);
     if (isBookmarked) {
-      setIsBookMark(false);
       deletebookMarkContent({ id: id });
     } else {
-      setIsBookMark(true);
       postbookMarkContent({ id: id });
     }
+    setIsBookMark(!isBookmark);
   };
 
   const bookMarkContents = {
@@ -67,6 +60,7 @@ const useContentBookMark = (
     isOpen,
     setIsOpen,
     error,
+    isBookmark,
   };
 };
 

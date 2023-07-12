@@ -44,7 +44,7 @@ function Content({
     },
   });
 
-  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents, isBookmark } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
     id,
@@ -104,7 +104,7 @@ function Content({
             </button>
             {userData?.role === "USER" && bookmarks && (
               <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
-                {isBookmarked ? (
+                {isBookmark ? (
                   <Image src={bookmark_filled} alt="북마크 활성화" width={24} height={24} className="icon" />
                 ) : (
                   <Image src={bookmark} alt="북마크" width={24} height={24} className="icon" />

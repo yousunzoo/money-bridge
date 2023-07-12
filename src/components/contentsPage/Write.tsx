@@ -74,6 +74,12 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
   const postSubmit = (formData: IContentsSave) => {
     const SumFormData = { ...formData };
     SumFormData.content = content;
+    if (!formData.tag1) {
+      SumFormData.tag1 = "";
+    }
+    if (!formData.tag2) {
+      SumFormData.tag2 = "";
+    }
     postPBcontents({ formData: SumFormData, thumbnailFile: thumbnailFile });
   };
 
@@ -86,6 +92,12 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
   const updateSubmit = (formData: IContentsEdit) => {
     const SumFormData = { ...formData };
     SumFormData.content = content;
+    if (!formData.tag1) {
+      SumFormData.tag1 = "";
+    }
+    if (!formData.tag2) {
+      SumFormData.tag2 = "";
+    }
     if (thumbnailFile === null) {
       SumFormData.deleteThumbnail = true;
       updatePBcontents({ id: id, formData: SumFormData, thumbnailFile: thumbnailFile });
@@ -142,7 +154,6 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
           className="form_input mb-[10px] h-[56px]"
           aria-invalid={!isDirty ? undefined : errors.tag1 ? "true" : "false"}
           {...register("tag1", {
-            required: true,
             maxLength: {
               value: 7,
               message: "태그는 7자 이내로 작성해주세요.",
@@ -165,7 +176,6 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
           className="form_input mb-[24px] h-[56px]"
           aria-invalid={!isDirty ? undefined : errors.tag2 ? "true" : "false"}
           {...register("tag2", {
-            required: true,
             maxLength: {
               value: 7,
               message: "태그는 7자 이내로 작성해주세요.",
@@ -239,9 +249,9 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
               </button>
               <button
                 type="submit"
-                disabled={!isFormValid || isSubmitting}
+                disabled={!(isValid && content) || isSubmitting}
                 className={`button min-w-[175px] max-w-[350px] ${
-                  !isFormValid ? "cursor-not-allowed bg-button-inactive" : "bg-primary-normal"
+                  !(isValid && content) ? "cursor-not-allowed bg-button-inactive" : "bg-primary-normal"
                 }`}
               >
                 작성 완료

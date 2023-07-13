@@ -10,35 +10,50 @@ import { TopNav } from "@/components/common/TopNav";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: {
-    template: "머니브릿지 | %s",
-    default: "머니브릿지",
-  },
-  description: '위치기반 투자자 PB 매칭 플랫폼, "머니브릿지"',
-  openGraph: {
-    title: "머니브릿지 - Money Bridge",
-    description: "위치기반 투자자 PB 매칭 플랫폼",
-    url: "https://www.moneybridge.co.kr",
-    siteName: "머니브릿지 - Money Bridge",
-    images: [
-      {
-        url: "https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png",
-        width: 800,
-        height: 600,
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: {
+      template: "머니브릿지 | %s",
+      default: "머니브릿지",
+    },
+    description: '위치기반 투자자 PB 매칭 플랫폼, "머니브릿지"',
+    openGraph: {
+      title: "머니브릿지 - Money Bridge",
+      description: "위치기반 투자자 PB 매칭 플랫폼",
+      url: "https://www.moneybridge.co.kr",
+      siteName: "머니브릿지 - Money Bridge",
+      images: [
+        {
+          url: "https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png",
+          width: 800,
+          height: 600,
+        },
+      ],
+      locale: "ko_KR",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "https://www.moneybridge.co.kr",
+      title: "머니브릿지 - Money Bridge",
+      description: "위치기반 투자자 PB 매칭 플랫폼",
+      images: ["https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png"],
+    },
+    robots: {
+      index: false,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: false,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
-    ],
-    locale: "ko_KR",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "https://www.moneybridge.co.kr",
-    title: "머니브릿지 - Money Bridge",
-    description: "위치기반 투자자 PB 매칭 플랫폼",
-    images: ["https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png"],
-  },
-};
+    },
+  };
+}
 
 declare global {
   interface Window {

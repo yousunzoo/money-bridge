@@ -31,7 +31,7 @@ export const useGeoLocation = () => {
     if (locations.coordinate.latitude !== 0) {
       geoLocationFunc({ ...locations.coordinate });
     }
-  }, []);
+  }, [locations.location]);
 
   const geoLocationFunc = async ({ latitude, longitude }: CoordinateProps) => {
     const data = await getLocationName({ latitude, longitude });

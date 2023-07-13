@@ -10,7 +10,9 @@ const options = {
     Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}`,
   },
 };
+
 export const getLocationName = async ({ latitude, longitude }: getLocationNameProps) => {
+  if (latitude === 0) return;
   const url = `${process.env.NEXT_PUBLIC_KAKAO_API_COORD_URL}?x=${longitude}&y=${latitude}`;
   try {
     const response = await axios.get(url, options);

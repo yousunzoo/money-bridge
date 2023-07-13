@@ -11,6 +11,7 @@ export const OPTIONS = [
   { href: "/detail/info", title: "PB 상세프로필", hasBack: true },
   { href: "/detail/review", title: "후기 전체보기", hasBack: true },
   { href: "/faq", title: "자주 묻는 질문", hasBack: true },
+  { href: "/privacy", title: "개인정보 처리방침", hasBack: true },
   { href: "/login/user", title: "유저 로그인", hasBack: true, backGroundWhite: true },
   { href: "/login/pb", title: "PB 로그인", hasBack: true, backGroundWhite: true },
   { href: "/join/user", title: "유저 회원가입", hasBack: true, backGroundWhite: true },

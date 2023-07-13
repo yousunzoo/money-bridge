@@ -18,13 +18,13 @@ const LOGO_PAGES = ["/", "/lounge"];
 export function TopNav() {
   const router = useRouter();
   const currentPath = usePathname();
-
-  const location = useGeoLocation();
+  const locationCurrent = useGeoLocation();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [mounted, setMounted] = useState<boolean>(false);
   const { locations } = useLocationStore();
-  const modalOpenHandler = () => {
-    setIsOpenModal(!isOpenModal);
-  };
+  const { userInfo } = useGetUserInfo();
+  const logout = useLogout();
+
   let current: any = null;
 
   if (currentPath === "/") {
@@ -35,15 +35,14 @@ export function TopNav() {
     current = OPTIONS.find(option => currentPath.includes(option.href));
   }
 
-  const { userInfo, userLoading, isLogined } = useGetUserInfo();
-
-  const [mounted, setMounted] = useState<boolean>(false);
-
-  const logout = useLogout();
+  const modalOpenHandler = () => {
+    setIsOpenModal(!isOpenModal);
+  };
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
   if (!current) return;
   const routingHandler = () => {
     current.path ? router.push(current.path) : router.back();
@@ -59,7 +58,7 @@ export function TopNav() {
         <div className="flex min-w-[100px] justify-self-start">
           {(LOGO_PAGES.includes(currentPath) || currentPath === "/pblist") && (
             <div className="flex cursor-pointer text-base font-bold" onClick={modalOpenHandler}>
-              {locations.location ? locations.location : <span>위치 선택</span>}
+              {locations.location}
               <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />
             </div>
           )}

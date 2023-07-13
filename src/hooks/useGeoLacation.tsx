@@ -20,16 +20,16 @@ export const useGeoLocation = () => {
 
     function onGeoOkay(position: PositionProps) {
       const { latitude, longitude } = position.coords;
-      if (latitude) {
+      console.log(latitude, longitude);
+      if (latitude !== 0) {
         setCoordinate({ latitude, longitude });
       }
     }
 
-    if (!locations.location) {
-      geolocation.getCurrentPosition(onGeoOkay);
-      if (locations.coordinate.latitude !== 0) {
-        geoLocationFunc({ ...locations.coordinate });
-      }
+    geolocation.getCurrentPosition(onGeoOkay);
+
+    if (locations.coordinate.latitude !== 0) {
+      geoLocationFunc({ ...locations.coordinate });
     }
   }, []);
 

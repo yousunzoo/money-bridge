@@ -36,7 +36,7 @@ function Content({
   const router = useRouter();
   const base: string = "https://www.moneybridge.co.kr";
   const urlToCopy: string = base + pathname;
-  const myId: number | null = getMyId(userData?.role, userData?.id, pbId, userData?.role);
+  const myId: number | null = getMyId(userData?.role, userData?.id, pbId, "PB");
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onError: (err: AxiosError) => {
@@ -44,7 +44,7 @@ function Content({
     },
   });
 
-  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents, isBookmark } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
     id,
@@ -83,7 +83,7 @@ function Content({
       </div>
       <div className="mt-[24px]">
         <div className="text-xs font-bold">
-          {tag1}・{tag2}
+          {tag1} {tag2 && "•"} {tag2}
         </div>
         <div className="mb-[11px] text-2xl font-bold">{title}</div>
         <div className="mb-[15px] flex">
@@ -104,7 +104,7 @@ function Content({
             </button>
             {userData?.role === "USER" && bookmarks && (
               <button onClick={() => bookMarkHandler(id)} className="flex w-9 justify-end">
-                {isBookmarked ? (
+                {isBookmark ? (
                   <Image src={bookmark_filled} alt="북마크 활성화" width={24} height={24} className="icon" />
                 ) : (
                   <Image src={bookmark} alt="북마크" width={24} height={24} className="icon" />

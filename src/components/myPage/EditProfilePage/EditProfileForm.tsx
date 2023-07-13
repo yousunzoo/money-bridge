@@ -46,6 +46,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
     getValues,
     handleSubmit,
     setValue,
+    reset,
     register,
     unregister,
     formState: { errors, isValid },
@@ -111,6 +112,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   const onSubmit = (data: { [key: string]: unknown }) => {
     const formData = convertEditFormData(data, speciality, files);
     editProfile(formData);
+    reset();
   };
 
   useEffect(() => {

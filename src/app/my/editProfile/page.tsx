@@ -8,14 +8,19 @@ import { IPBMyProfile } from "@/types/my";
 import { redirect } from "next/navigation";
 
 function EditProfilePage() {
-  const { data: pbProfile, isError } = useQuery<IPBMyProfile, AxiosError>(["PBMyProfile"], getPBMyProfile, {
-    staleTime: Infinity,
+  const {
+    data: pbProfile,
+    isError,
+    isSuccess,
+  } = useQuery<IPBMyProfile, AxiosError>(["PBMyProfile"], getPBMyProfile, {
+    refetchOnWindowFocus: false,
+    cacheTime: 0,
   });
   if (isError) {
     redirect("/");
   }
 
-  return pbProfile && <EditProfileForm existingProfile={pbProfile} />;
+  return isSuccess && <EditProfileForm existingProfile={pbProfile} />;
 }
 
 export default EditProfilePage;

@@ -74,7 +74,7 @@ export const userLogout = async () => {
     const res = await instance.post("/auth/logout");
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response.data.data.value);
+    throw new AxiosError(error.response.data);
   }
 };
 

@@ -9,22 +9,15 @@ const usePbBookMark = (bookmarkState: boolean, link: string, id: number | undefi
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const [isBookmark, setIsBookMark] = useState(bookmarkState);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
-  const queryClient = useQueryClient();
   const router = useRouter();
-  
+
   const { mutate: postbookMarkPB } = useMutation(postBookMarkPB, {
-    onSuccess: () => {
-      queryClient.refetchQueries([queryKey, id]);
-    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },
   });
 
   const { mutate: deletebookMarkPB } = useMutation(deleteBookMarkPB, {
-    onSuccess: () => {
-      queryClient.refetchQueries([queryKey, id]);
-    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },
@@ -37,10 +30,13 @@ const usePbBookMark = (bookmarkState: boolean, link: string, id: number | undefi
     } else {
       postbookMarkPB({ id: id });
     }
+    setIsBookMark(!isBookmark);
   };
 
   const bookMarkContents = {
-    content: isBookmark ? "북마크에 추가되었습니다." : "북마크가 해제되었습니다.",
+    content: bookmarkState
+      ? `북마크${isBookmark === false ? "가 해제" : "가 추가"}되었습니다.`
+      : `북마크${isBookmark === true ? "가 추가" : "가 해제"}되었습니다.`,
     confirmText: "확인",
     cancelText: "북마크 바로가기",
     confirmFn: () => {

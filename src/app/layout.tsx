@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "머니브릿지 - Money Bridge",
     description: "위치기반 투자자 PB 매칭 플랫폼",
-    url: "https://www.moneybridge.co.kr/",
+    url: "https://www.moneybridge.co.kr",
     siteName: "머니브릿지 - Money Bridge",
     images: [
       {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "https://www.moneybridge.co.kr/",
+    site: "https://www.moneybridge.co.kr",
     title: "머니브릿지 - Money Bridge",
     description: "위치기반 투자자 PB 매칭 플랫폼",
     images: ["https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png"],

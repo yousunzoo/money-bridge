@@ -10,50 +10,49 @@ import { TopNav } from "@/components/common/TopNav";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: {
-      template: "머니브릿지 | %s",
-      default: "머니브릿지",
-    },
-    description: '위치기반 투자자 PB 매칭 플랫폼, "머니브릿지"',
-    openGraph: {
-      title: "머니브릿지 - Money Bridge",
-      description: "위치기반 투자자 PB 매칭 플랫폼",
-      url: "https://www.moneybridge.co.kr",
-      siteName: "머니브릿지 - Money Bridge",
-      images: [
-        {
-          url: "https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png",
-          width: 800,
-          height: 600,
-        },
-      ],
-      locale: "ko_KR",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      site: "https://www.moneybridge.co.kr",
-      title: "머니브릿지 - Money Bridge",
-      description: "위치기반 투자자 PB 매칭 플랫폼",
-      images: ["https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png"],
-    },
-    robots: {
-      index: false,
-      follow: true,
-      nocache: true,
-      googleBot: {
-        index: true,
-        follow: false,
-        noimageindex: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.moneybridge.co.kr"),
+  title: {
+    template: "머니브릿지 | %s",
+    default: "머니브릿지",
+  },
+  description: '위치기반 투자자 PB 매칭 플랫폼, "머니브릿지"',
+  openGraph: {
+    title: "머니브릿지 - Money Bridge",
+    description: "위치기반 투자자 PB 매칭 플랫폼",
+    url: "https://www.moneybridge.co.kr",
+    siteName: "머니브릿지 - Money Bridge",
+    images: [
+      {
+        url: "https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png",
+        width: 800,
+        height: 600,
       },
+    ],
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "https://www.moneybridge.co.kr",
+    title: "머니브릿지 - Money Bridge",
+    description: "위치기반 투자자 PB 매칭 플랫폼",
+    images: ["https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png"],
+  },
+  robots: {
+    index: false,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
-  };
-}
+  },
+};
 
 declare global {
   interface Window {
@@ -78,7 +77,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicons/favicon-96x96.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
         <link rel="icon" href="/favicon.ico" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/assets/favicons/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />

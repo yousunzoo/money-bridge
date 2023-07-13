@@ -14,7 +14,7 @@ export const useLogout = () => {
       router.replace("/");
     },
     onError: (error: any) => {
-      if (error.message.status === 401) {
+      if (error.message.status === 401 || error.message.status === 500) {
         removeCookie("Authorization");
         removeCookie("refreshToken");
         queryClient.resetQueries();

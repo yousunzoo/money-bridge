@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 const initialState = {
-  location: "",
+  location: "위치 선택",
   coordinate: {
     latitude: 0,
     longitude: 0,

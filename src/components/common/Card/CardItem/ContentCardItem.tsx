@@ -20,8 +20,8 @@ function ContentCardItem({
 }: {
   item: IContentCard;
   queryKey?: string | string[];
-    bookmarks: boolean;
-    id?: number;
+  bookmarks: boolean;
+  id?: number;
 }) {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
@@ -34,15 +34,8 @@ function ContentCardItem({
     router.push(`/contents/${item.id}`);
   };
 
-  const {
-    isBookmarkedOpen,
-    setIsBookmarkedOpen,
-    bookMarkHandler,
-    bookMarkContents,
-    isOpen,
-    setIsOpen,
-    error,
-  } = useContentBookMark(item.isBookmarked, "/bookmark/content", id, queryKey);
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents, isOpen, setIsOpen, error } =
+    useContentBookMark(item.isBookmarked, "/bookmark/content", id, queryKey);
 
   return (
     <>
@@ -51,7 +44,7 @@ function ContentCardItem({
           <div className="flex justify-between">
             <div className="flex flex-col ">
               <div className="text-base ">
-                {item.tag1}&nbsp;&nbsp;•&nbsp;&nbsp;{item.tag2}
+                {item.tag1}&nbsp;&nbsp;{item.tag2 && "•"}&nbsp;&nbsp;{item.tag2}
               </div>
               <div className="break-keep text-2xl font-bold">{item.title}</div>
             </div>

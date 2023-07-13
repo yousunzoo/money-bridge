@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 
 function EditProfilePage() {
   const { data: pbProfile, isError } = useQuery<IPBMyProfile, AxiosError>(["PBMyProfile"], getPBMyProfile, {
-    staleTime: Infinity,
+    refetchOnWindowFocus: false,
   });
   if (isError) {
     redirect("/");

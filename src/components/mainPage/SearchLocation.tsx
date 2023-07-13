@@ -8,7 +8,7 @@ import { useLocationStore } from "@/store/location";
 
 function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
   const [searchList, setSearchList] = useState<SearchListProps[]>([]);
-  const { setLocation, setCoordinate, setIsRequest } = useLocationStore();
+  const { setLocation, setCoordinate } = useLocationStore();
 
   let debounceTimer: NodeJS.Timeout;
   const fetchData = async (search: string) => {
@@ -37,7 +37,6 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
       const data = await getLocationName({ latitude, longitude });
       setLocation(data);
       setIsOpenSearch(false);
-      setIsRequest(true);
     } catch (error) {}
   };
 
@@ -71,7 +70,7 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
         {searchList.length !== 0 ? (
           searchList.map(item => (
             <li
-              className="flex items-center justify-between w-full p-4 cursor-pointer border-b-1 border-gray-normal hover:bg-background-secondary"
+              className="flex w-full cursor-pointer items-center justify-between border-b-1 border-gray-normal p-4 hover:bg-background-secondary"
               key={item.address_name}
               onClick={() => selectLocation({ x: item.x, y: item.y })}
             >

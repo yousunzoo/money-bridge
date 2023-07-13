@@ -20,7 +20,6 @@ export const useGeoLocation = () => {
 
     function onGeoOkay(position: PositionProps) {
       const { latitude, longitude } = position.coords;
-      console.log(latitude, longitude);
       if (latitude !== 0) {
         setCoordinate({ latitude, longitude });
       }
@@ -31,7 +30,7 @@ export const useGeoLocation = () => {
     if (locations.coordinate.latitude !== 0) {
       geoLocationFunc({ ...locations.coordinate });
     }
-  }, [locations.location]);
+  }, [locations.location, locations.coordinate.latitude]);
 
   const geoLocationFunc = async ({ latitude, longitude }: CoordinateProps) => {
     const data = await getLocationName({ latitude, longitude });

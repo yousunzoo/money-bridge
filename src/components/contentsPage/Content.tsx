@@ -83,7 +83,7 @@ function Content({
       </div>
       <div className="mt-[24px]">
         <div className="text-xs font-bold">
-          {tag1}・{tag2}
+          {tag1} {tag2 && "•"} {tag2}
         </div>
         <div className="mb-[11px] text-2xl font-bold">{title}</div>
         <div className="mb-[15px] flex">

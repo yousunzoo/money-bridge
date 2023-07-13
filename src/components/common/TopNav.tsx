@@ -41,7 +41,7 @@ export function TopNav() {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+  }, [locations.location]);
 
   if (!current) return;
   const routingHandler = () => {

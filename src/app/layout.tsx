@@ -75,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ReactQueryProvider>
           <Main>
             <TopNav />
-            <div className="flex-1">{children}</div>
+            <div className="mb-40 flex-1">{children}</div>
             <Footer />
             <Navbar />
           </Main>

@@ -22,7 +22,10 @@ function BlurModal() {
             </div>
           )}
         </div>
-        <Link className="flex h-[52px] w-[195px] items-center justify-center rounded-md bg-primary-normal" href="/join">
+        <Link
+          className="flex h-[52px] w-[195px] items-center justify-center rounded-md bg-primary-normal"
+          href="/login"
+        >
           로그인
         </Link>
       </div>

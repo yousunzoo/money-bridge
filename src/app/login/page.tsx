@@ -35,13 +35,13 @@ function SelectLoginType() {
           href={"/login/user"}
           className="flex h-14 w-full items-center  justify-center rounded-[8px] bg-secondary-heavy text-xl  font-bold leading-7 text-white"
         >
-          일반회원
+          일반회원 입니다
         </Link>
         <Link
           href={"/login/pb"}
           className="flex h-14 w-full items-center  justify-center rounded-[8px] bg-primary-normal text-xl font-bold leading-7 text-white"
         >
-          PB
+          PB 입니다
         </Link>
       </div>
     </>

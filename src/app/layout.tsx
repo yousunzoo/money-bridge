@@ -93,16 +93,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={noto.className}>
-        <ReactQueryProvider>
-          <Main>
-            <Suspense>
+        <Suspense>
+          <ReactQueryProvider>
+            <Main>
               <TopNav />
-            </Suspense>
-            <div className="mb-40 flex-1">{children}</div>
-            <Footer />
-            <Navbar />
-          </Main>
-        </ReactQueryProvider>
+              <div className="mb-40 flex-1">{children}</div>
+              <Footer />
+              <Navbar />
+            </Main>
+          </ReactQueryProvider>
+        </Suspense>
       </body>
     </html>
   );

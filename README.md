@@ -8,9 +8,11 @@
 
 - 2023.06.08 ~ 2023. 06. 28
 
+<br/>
+
 #### 🔗 배포 사이트
 
-- [💻 PB 투자자 매칭 플랫폼 💻]([https://lupintech.netlify.app/](https://www.moneybridge.co.kr/))
+- [💻 PB 투자자 매칭 플랫폼 💻](https://www.moneybridge.co.kr/)
 
 ## 👥 팀원 소개
 | 권범준(팀장)                                                                                        | 유선주(팀원)                                                                                 | 이병욱(팀원)                                                                                | 장현준(팀원)                                                                                                                                                          |
@@ -23,7 +25,7 @@
 
 ## 💻 개발 환경
 ### 🔧 스킬셋
-![FE_skillset](https://github.com/FINALALT1/money-bridge/assets/100064540/8d2b40c5-9c7f-44cf-ada3-62fb111be338)
+![FE_skillset](https://github.com/FINALALT1/money-bridge/assets/100064540/e0fd5ee7-874a-483c-a1f5-285d3b3cbfb5)
 
 
 <br /><br />
@@ -75,6 +77,8 @@ money-bridge
 └─ yarn.lock
 ```
 <br />
+
+## 🖥 프로젝트 미리보기
 
 |**유저 회원가입**|**PB 회원가입**|
 | --- | --- |

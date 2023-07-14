@@ -33,8 +33,16 @@ function ContentCardItem({
     router.push(`/contents/${item.id}`);
   };
 
-  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents, isOpen, setIsOpen, error } =
-    useContentBookMark(item.isBookmarked, "/bookmark/content", id, queryKey);
+  const {
+    isBookmarkedOpen,
+    setIsBookmarkedOpen,
+    bookMarkHandler,
+    bookMarkContents,
+    isOpen,
+    setIsOpen,
+    error,
+    isBookmark,
+  } = useContentBookMark(item.isBookmarked, "/bookmark/content", id, queryKey);
 
   return (
     <>
@@ -55,7 +63,7 @@ function ContentCardItem({
                 }}
                 className="flex-3 flex w-12 items-center justify-end"
               >
-                {item.isBookmarked ? (
+                {isBookmark ? (
                   <Image src={bookmark_filled} alt="북마크 해제" />
                 ) : (
                   <Image src={bookmark} alt="북마크" />

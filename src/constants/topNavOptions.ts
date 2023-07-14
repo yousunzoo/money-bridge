@@ -71,7 +71,7 @@ export const OPTIONS = [
   },
   { href: "/myCounseling/myReview", title: "나의 후기", hasBack: true },
   { href: "/myCounseling/reviewWrite", title: "후기 작성", hasBack: true },
-  { href: "/myCounseling", title: "고객관리", hasBack: true },
+  { href: "/myCounseling", title: "나의상담", hasBack: true },
   { href: "/reservation/complete", title: "상담 예약 완료", hasBack: true },
   { href: "/reservation", title: "상담 예약", hasBack: true },
   { href: "/my/editInfo", title: "개인 정보 수정", hasBack: true },

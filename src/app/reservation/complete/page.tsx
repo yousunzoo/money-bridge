@@ -20,7 +20,7 @@ function ReservationCompletePage() {
   }, []);
 
   const handleClick = () => {
-    router.back();
+    router.push("/myCounseling?process=APPLY");
   };
 
   return (

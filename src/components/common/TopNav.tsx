@@ -57,13 +57,13 @@ export function TopNav() {
       >
         <div className="flex min-w-[100px] justify-self-start">
           {(LOGO_PAGES.includes(currentPath) || currentPath === "/pblist") && (
-            <div className="flex cursor-pointer text-base font-bold" onClick={modalOpenHandler}>
+            <div className="flex text-base font-bold cursor-pointer" onClick={modalOpenHandler}>
               {locations.location}
               <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />
             </div>
           )}
           {current.hasBack && (
-            <button className="flex h-6 w-6 items-center justify-center" onClick={routingHandler}>
+            <button className="flex items-center justify-center w-6 h-6" onClick={routingHandler}>
               <Image src={arrayBack} alt="Back" height={24} />
             </button>
           )}

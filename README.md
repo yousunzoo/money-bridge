@@ -94,6 +94,12 @@ money-bridge
 |<p align="center">등록된 위치에 따라 PB를 추천받을 수 있으며</br> PB의 콘텐츠를 확인할 수 있습니다. </br> 그 외에도 분야, 증권사별 카테고리를 통해</br> PB리스트 페이지로 이동할 수 있습니다.</p>|<p align="center">Geolocation API를 사용해</br> 현재위치를 입력받거나,</br> kakao API를 통해 위치를 검색하여</br> 행정구역이름으로 위치를 설정할 수 있습니다.</p>|
 
 
+|**라운지**|**검색하기**|
+| --- | --- |
+|<p align="center"><img src="https://github.com/FINALALT1/money-bridge/assets/100064540/5b53f71c-5c2f-49cb-8bf2-fe695e422f03" width="380" height="500" style="object-fit: cover; object-position: center;"></p>|<p align="center"><img src="https://github.com/FINALALT1/money-bridge/assets/100064540/765c3fef-af1d-442e-b256-d2600b3cdc45" width="380" height="500" style="object-fit: cover; object-position: center;"></p>
+|<p align="center">PB가 등록한 콘텐츠를 라운지에서 </br> 간략하게 확인할 수 있습니다.</p>|<p align="center">PB검색 및 콘텐츠를 검색을 통해 찾아볼 수 있습니다.</p>|
+
+
 |**투자성향 분석(투자자)**|**상담 예약(투자자)**|
 | --- | --- |
 |<p align="center"><img src="https://github.com/lbw3973/money-bridge/assets/75530371/72a27f3b-1c0e-4096-9104-258c31f5b236" width="380" height="500" style="object-fit: cover; object-position: center;"></p>|<p align="center"><img src="https://github.com/lbw3973/money-bridge/assets/75530371/9b10b1de-20d4-4391-8722-7223cf60a1ea" width="380" height="500" style="object-fit: cover; object-position: center;"></p>

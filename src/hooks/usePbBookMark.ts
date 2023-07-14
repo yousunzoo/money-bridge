@@ -1,23 +1,30 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteBookMarkPB, postBookMarkPB } from "@/app/apis/services/user";
 import { AxiosError } from "axios";
 import useErrorShow from "@/hooks/useErrorShow";
 
-const usePbBookMark = (bookmarkState: boolean, link: string, id: number | undefined, queryKey?: string[] | string) => {
+const usePbBookMark = (bookmarkState: boolean, link: string, isRefetch:boolean, queryKey?: string[] | string) => {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const [isBookmark, setIsBookMark] = useState(bookmarkState);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
   const router = useRouter();
+ const queryClient = useQueryClient();
 
   const { mutate: postbookMarkPB } = useMutation(postBookMarkPB, {
+    onSuccess: () => {
+      if (isRefetch) queryClient.refetchQueries([queryKey]);
+    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },
   });
 
   const { mutate: deletebookMarkPB } = useMutation(deleteBookMarkPB, {
+    onSuccess: () => {
+      if (isRefetch) queryClient.refetchQueries([queryKey]);
+    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },

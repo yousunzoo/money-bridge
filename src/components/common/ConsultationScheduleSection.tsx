@@ -1,4 +1,3 @@
-import React from "react";
 interface ConsultationScheduleSectionProps {
   candidateTime1?: string;
   candidateTime2?: string;
@@ -7,7 +6,7 @@ interface ConsultationScheduleSectionProps {
 }
 function ConsultationScheduleSection({ candidateTime1, candidateTime2, role, time }: ConsultationScheduleSectionProps) {
   return (
-    <section className="flex justify-between pb-4 mb-4 border-b-1">
+    <section className="mb-4 flex justify-between border-b-1 pb-4">
       {time ? (
         <>
           <h3 className="font-bold">상담 일정</h3>

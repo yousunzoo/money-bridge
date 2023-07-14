@@ -13,6 +13,7 @@ import { IloginProfile, IProfile } from "@/types/pb";
 import { IDataResponse } from "@/types/common";
 import Profile from "@/components/pbdetailPage/Profile";
 import { getCookie } from "@/utils/cookies";
+import "@/styles/pb.css";
 
 function PbDetailInfo() {
   const token = getCookie("Authorization");

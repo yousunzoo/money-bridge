@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "머니브릿지 | PB 확정된 상담",

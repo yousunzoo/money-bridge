@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { usePBListQueries } from "@/hooks/usePBListQueries";
 import { Carousel, ConfigProvider } from "antd";
 import { chunkArray } from "@/utils/chunkArray";

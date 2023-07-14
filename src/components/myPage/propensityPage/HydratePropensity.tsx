@@ -1,5 +1,4 @@
 import { IPropensityData } from "@/types/my";
-import React from "react";
 import PropensityInfoCard from "./PropensityInfoCard";
 import PropensityChart from "./PropensityChart";
 import RiskGrades from "./RiskGrades";

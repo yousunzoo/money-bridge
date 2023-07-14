@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import arrow from "/public/assets/images/bottomArrow.svg";
 import { CounselingModalProps } from "@/types/management";
 

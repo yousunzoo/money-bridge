@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from "react";
+import { MouseEvent, useState } from "react";
 import checkProvision from "/public/assets/images/checkProvision.svg";
 import uncheckProvision from "/public/assets/images/uncheckProvision.svg";
 import Image from "next/image";

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import AddIcon from "/public/assets/images/addCircle.svg";
-import React from "react";
 import AwardForm from "../AwardForm";
 import { IAwardsInputProps } from "@/types/editProfile";
 

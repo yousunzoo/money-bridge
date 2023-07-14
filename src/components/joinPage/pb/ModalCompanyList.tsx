@@ -1,5 +1,5 @@
 import { ICompanyInput, ICompanyNameList } from "@/types/join";
-import React, { MouseEvent, useState } from "react";
+import { MouseEvent, useState } from "react";
 
 function ModalCompanyList({
   handleChangeCompany,

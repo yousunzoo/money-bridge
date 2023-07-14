@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import InformationItem from "./InformationItem";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

@@ -12,7 +12,6 @@ const options = {
 };
 
 export const getLocationName = async ({ latitude, longitude }: getLocationNameProps) => {
-  console.log(latitude);
   if (latitude === 0) return;
   const url = `${process.env.NEXT_PUBLIC_KAKAO_API_COORD_URL}?x=${longitude}&y=${latitude}`;
   try {

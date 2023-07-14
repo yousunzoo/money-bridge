@@ -1,4 +1,3 @@
-import React from "react";
 interface ConsultationStatue {
   applyCount: number;
   isNewApply: boolean;
@@ -20,28 +19,28 @@ function UserConsultationStatus({
   isNewComplete,
 }: ConsultationStatue) {
   return (
-    <section className="flex flex-col justify-between w-full h-auto px-6 py-6 mt-8 bg-white rounded-lg shadow-xl ">
+    <section className="mt-8 flex h-auto w-full flex-col justify-between rounded-lg bg-white px-6 py-6 shadow-xl ">
       <div>
-        <h2 className="py-2 mb-2 text-lg font-bold border-b-1 border-background-disabled ">상담현황</h2>
+        <h2 className="text-lg mb-2 border-b-1 border-background-disabled py-2 font-bold ">상담현황</h2>
       </div>
-      <div className="flex justify-between mt-2">
+      <div className="mt-2 flex justify-between">
         <div className={BOX_STYLE}>
-          <div className="relative w-8 h-8 text-xl">
-            {isNewApply && <div className="absolute top-0 right-0 w-2 h-2 rounded-xl bg-status-alert"></div>}
+          <div className="relative h-8 w-8 text-xl">
+            {isNewApply && <div className="absolute right-0 top-0 h-2 w-2 rounded-xl bg-status-alert"></div>}
             {applyCount}
           </div>
           예약신청
         </div>
         <div className={`mx-2 ${BOX_STYLE}`}>
-          <div className="relative w-8 h-8 text-xl">
-            {isNewConfirm && <div className="absolute top-0 right-0 w-2 h-2 rounded-xl bg-status-alert"></div>}
+          <div className="relative h-8 w-8 text-xl">
+            {isNewConfirm && <div className="absolute right-0 top-0 h-2 w-2 rounded-xl bg-status-alert"></div>}
             {confirmCount}
           </div>
           예약확정
         </div>
         <div className={BOX_STYLE}>
-          <div className="relative w-8 h-8 text-xl">
-            {isNewComplete && <div className="absolute top-0 right-0 w-2 h-2 rounded-xl bg-status-alert"></div>}
+          <div className="relative h-8 w-8 text-xl">
+            {isNewComplete && <div className="absolute right-0 top-0 h-2 w-2 rounded-xl bg-status-alert"></div>}
             {completeCount}
           </div>
           상담완료

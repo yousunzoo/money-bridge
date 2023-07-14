@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ConsultationStatus from "../../components/managementPage/ConsultationStatus";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import ProcessList from "@/components/common/ProcessList";

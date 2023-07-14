@@ -2,7 +2,6 @@ import CommonPersonalInformation from "@/constants/provisions/common/CommonPerso
 import PbSysmetic from "@/constants/provisions/pb/PbSysmetic";
 import UserSysmetic from "@/constants/provisions/user/UserSysmetic";
 import { usePathname } from "next/navigation";
-import React from "react";
 import { CgCloseR } from "react-icons/cg";
 
 type Tstep = 0 | 1;

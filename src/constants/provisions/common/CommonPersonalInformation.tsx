@@ -1,5 +1,3 @@
-import React from "react";
-
 function CommonPersonalInformation() {
   return (
     <div className="cont">

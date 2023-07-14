@@ -7,7 +7,6 @@ import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { redirect, useRouter } from "next/navigation";
-import React from "react";
 
 const COUNSELING_STYLE: { [key: string]: string } = {
   METICULOUS: "꼼꼼한",

@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import ButtonModal from "@/components/common/ButtonModal";
 import { usePathname, useRouter } from "next/navigation";

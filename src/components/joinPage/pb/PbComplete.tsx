@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import polygon from "/public/assets/images/polygon.svg";
 import arrayBackGray from "/public/assets/images/arrayBackGray.svg";
 import iconMail from "/public/assets/images/iconMail.svg";

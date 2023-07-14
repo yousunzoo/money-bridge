@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import dayjs from "dayjs";
 import { ReviewCardProps } from "@/types/common";
 
@@ -19,7 +18,7 @@ function ReviewCardItem({ profileImage, userName, content, createdAt }: ReviewCa
         />
         <h2 className="mb-4 text-center text-sm font-medium ">{userName} 님</h2>
       </div>
-      <div className="flex flex-col rounded-lg bg-gray-100 px-6 py-3">
+      <div className="bg-gray-100 flex flex-col rounded-lg px-6 py-3">
         <p className="text-gray-700">{content}</p>
         <span className="pt-8 text-xs font-medium">{formattedDate}</span>
       </div>

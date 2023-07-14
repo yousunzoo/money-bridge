@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -7,7 +6,7 @@ function BlurModal() {
   const pathname: string = usePathname();
 
   return (
-    <div className="custom-gradient fixed h-full ml-[-16px] flex w-full max-w-[768px] flex-col top-0">
+    <div className="custom-gradient fixed top-0 ml-[-16px] flex h-full w-full max-w-[768px] flex-col">
       <div className="mt-[460px] flex h-full w-full flex-col items-center text-base font-bold text-white">
         <div className="mb-8 flex w-full items-center justify-center">
           {pathname === "/detail/info" ? (

@@ -1,4 +1,3 @@
-import React from "react";
 import SelectSpeciality from "../SelectSpeciality";
 import { ISpecialityInputProps } from "@/types/editProfile";
 

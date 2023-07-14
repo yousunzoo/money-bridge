@@ -1,7 +1,5 @@
-import React from "react";
 import { getPbPortfolio } from "@/app/apis/services/pb";
 import { useQuery } from "@tanstack/react-query";
-import "@/styles/pb.css";
 import { speciality } from "@/components/joinPage/pb/EnterCareer";
 import { AxiosError } from "axios";
 import { IDataResponse } from "@/types/common";
@@ -61,7 +59,7 @@ function Content({ contentData }: { contentData: IContentData }) {
         <div className="mb-7">
           <p className="header">경력</p>
           <ul className="flex flex-col">
-            {career?.map((item) => (
+            {career?.map(item => (
               <li key={item.id} className="flex text-xs">
                 <div>{item.start}&nbsp;-</div>
                 <div>&nbsp;{item.end}</div>
@@ -75,7 +73,7 @@ function Content({ contentData }: { contentData: IContentData }) {
         <div className="mb-[68px]">
           <p className="header">수상내역</p>
           <ul className="flex flex-col">
-            {award.map((item) => (
+            {award.map(item => (
               <li key={item.id} className="flex text-xs">
                 <div>{item.year}&nbsp;&nbsp;</div>
                 <div>{item.record}</div>

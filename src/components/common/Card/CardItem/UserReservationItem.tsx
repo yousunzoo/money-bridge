@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import DefaultProfile from "/public/assets/images/profile.svg";
 import Image from "next/image";
 import Link from "next/link";

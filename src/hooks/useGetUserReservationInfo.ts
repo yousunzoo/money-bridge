@@ -1,4 +1,3 @@
-import { getReservationInfo } from "@/app/apis/services/pb";
 import { getUserReservationInfo } from "@/app/apis/services/user";
 import { UserReservationData } from "@/types/user";
 import { useQuery } from "@tanstack/react-query";

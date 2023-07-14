@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import React from "react";
 import MainCarousel from "../common/Carousel/MainCarousel";
 import { CAROUSEL_TEXT } from "@/constants/common";
 

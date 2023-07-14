@@ -7,7 +7,7 @@ import ErrorModal from "@/components/common/ErrorModal";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { useMutation } from "@tanstack/react-query";
 import { redirect, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const COUNSELING_STYLE: { [key: string]: string } = {
   METICULOUS: "꼼꼼한",

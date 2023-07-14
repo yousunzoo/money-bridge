@@ -1,7 +1,7 @@
 import { PBSpecialty } from "@/constants/enum";
 import { useJoinStore } from "@/store/joinStore";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, MouseEvent, useRef, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 
 export const speciality = [
   { id: PBSpecialty.KOREAN_STOCK, name: "한국주식" },

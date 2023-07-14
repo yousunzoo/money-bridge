@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import { IProfile } from "@/types/pb";
 import BlurModal from "@/components/common/Modal/BlurModal";

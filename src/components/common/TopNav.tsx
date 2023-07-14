@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import arrayBack from "/public/assets/images/arrayBack.svg";
 import logo from "/public/assets/images/logo.png";
 import { useGeoLocation } from "@/hooks/useGeoLacation";
@@ -57,13 +57,13 @@ export function TopNav() {
       >
         <div className="flex min-w-[100px] justify-self-start">
           {(LOGO_PAGES.includes(currentPath) || currentPath === "/pblist") && (
-            <div className="flex text-base font-bold cursor-pointer" onClick={modalOpenHandler}>
+            <div className="flex cursor-pointer text-base font-bold" onClick={modalOpenHandler}>
               {locations.location}
               <Image className="mr-2" src={arrowDown} alt={"arrowDown"} width={22} height={14} />
             </div>
           )}
           {current.hasBack && (
-            <button className="flex items-center justify-center w-6 h-6" onClick={routingHandler}>
+            <button className="flex h-6 w-6 items-center justify-center" onClick={routingHandler}>
               <Image src={arrayBack} alt="Back" height={24} />
             </button>
           )}

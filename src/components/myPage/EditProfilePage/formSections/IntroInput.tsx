@@ -1,5 +1,4 @@
 import { IIntroInputProps } from "@/types/editProfile";
-import { useState } from "react";
 
 function IntroInput({ register, errors, intro }: IIntroInputProps) {
   return (

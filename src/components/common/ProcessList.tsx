@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import React from "react";
 
 const LINKS = [
   { id: 1, text: "신규예약", href: "APPLY" },
@@ -29,7 +28,7 @@ function ProcessList({ role, linkHref }: ProcessListProps) {
   };
 
   return (
-    <ul className="flex justify-start w-full gap-2 mt-8 ">
+    <ul className="mt-8 flex w-full justify-start gap-2 ">
       {LINKS.map(item => (
         <Link
           href={`/${linkHref}?process=${item.href}`}

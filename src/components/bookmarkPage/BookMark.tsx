@@ -1,4 +1,3 @@
-import React from "react";
 import PbContentButton from "@/components/pbdetailPage/PbContentButton";
 
 function BookMark() {

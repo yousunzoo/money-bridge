@@ -2,7 +2,7 @@
 import { useLocationStore } from "@/store/location";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import myLocation from "/public/assets/images/myLocation.svg";
 
 function SortTab() {

@@ -2,7 +2,6 @@ import CommonPersonalInformation from "@/constants/provisions/common/CommonPerso
 import PbSysmetic from "@/constants/provisions/pb/PbSysmetic";
 import UserSysmetic from "@/constants/provisions/user/UserSysmetic";
 import { Metadata } from "next";
-import React from "react";
 
 export const metadata: Metadata = {
   title: "이용약관",

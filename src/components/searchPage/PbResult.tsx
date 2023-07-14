@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from "react";
 import PbCardList from "@/components/common/Card/CardList/PbCardList";
-import { getSearchPb } from '@/app/apis/services/common';
+import { getSearchPb } from "@/app/apis/services/common";
 
 function PbResult({ value }: { value: string }) {
   const [result, setResult] = useState(false);
@@ -24,4 +24,4 @@ function PbResult({ value }: { value: string }) {
   );
 }
 
-export default PbResult
+export default PbResult;

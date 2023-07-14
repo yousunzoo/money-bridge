@@ -1,7 +1,7 @@
 "use client";
 
 import { propensityList } from "@/constants/propensityList";
-import { IPropensityCardProps, IPropensityList } from "@/types/pblist";
+import { IPropensityCardProps } from "@/types/pblist";
 import Link from "next/link";
 
 function PropensityCard({ userPropensity }: IPropensityCardProps) {

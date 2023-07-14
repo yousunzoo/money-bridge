@@ -1,7 +1,6 @@
 import { IBookmarkPreviewCardProps } from "@/types/my";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 function BookmarkPreviewCard({ type, bookmark }: IBookmarkPreviewCardProps) {
   const moreColor = type === "board" ? "bg-secondary-normal" : "bg-primary-normal";

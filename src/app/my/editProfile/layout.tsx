@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "나의 프로필 수정하기",

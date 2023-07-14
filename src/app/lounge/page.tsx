@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Intro from "@/components/loungePage/Intro";
 import PbRecommend from "@/components/loungePage/PbRecommend";
 import Content from "@/components/loungePage/Content";

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "@/styles/selectCalendar.css";
 import { Calendar } from "antd";
 import dayjs from "dayjs";

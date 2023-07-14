@@ -1,5 +1,3 @@
-import React from "react";
-
 interface DoubleButtonProps {
   firstTitle: string;
   secondTitle: string;
@@ -18,7 +16,7 @@ function DoubleButton({
   secondClickFunc,
 }: DoubleButtonProps) {
   return (
-    <div className="flex justify-between gap-2 pt-6 mt-auto">
+    <div className="mt-auto flex justify-between gap-2 pt-6">
       <button
         onClick={firstClickFunc}
         className={`${

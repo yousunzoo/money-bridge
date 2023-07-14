@@ -1,10 +1,8 @@
-import React from "react";
 import Carousel from "antd/lib/carousel";
 import "@/styles/defaultCarousel.css";
 import LocationCard from "@/components/common/LocationCard";
 import Image from "next/image";
 import Link from "next/link";
-import "@/styles/pb.css";
 import { useRouter, usePathname } from "next/navigation";
 import { CommonROLE } from "@/constants/enum";
 import LocationCopyButton from "@/components/common/LocationCopyButton";

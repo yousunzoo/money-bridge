@@ -1,5 +1,4 @@
 import SelectCalendar from "@/components/reservationPage/SelectCalendar";
-import React from "react";
 import close from "/public/assets/images/close.svg";
 import Image from "next/image";
 import { CalendarModalProps } from "@/types/management";

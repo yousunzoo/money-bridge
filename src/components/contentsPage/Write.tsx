@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BoardStatus } from "@/constants/enum";
 import { useRouter } from "next/navigation";

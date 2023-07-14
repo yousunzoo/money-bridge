@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 import dayjs from "dayjs";
 import profile from "/public/assets/images/profile.svg";
 import { getMyId } from "@/utils/pbMyId";

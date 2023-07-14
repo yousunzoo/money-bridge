@@ -1,6 +1,6 @@
 "use client";
 import CheckPassword from "@/components/myPage/editInfoPage/CheckPassword";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function SecessionPage() {
   const [didAgree, setDidAgree] = useState(false);

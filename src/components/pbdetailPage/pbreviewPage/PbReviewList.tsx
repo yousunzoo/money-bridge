@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import PbReviewItem from "@/components/pbdetailPage/pbreviewPage/PbReviewItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";

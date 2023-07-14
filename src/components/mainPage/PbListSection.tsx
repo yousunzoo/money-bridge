@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import UserReservationItem from "../common/Card/CardItem/UserReservationItem";
 import myLocation from "/public/assets/images/myLocation.svg";
 
@@ -9,7 +9,6 @@ import { getSuggestionPB } from "@/app/apis/services/common";
 import { useLocationStore } from "@/store/location";
 import { AxiosError } from "axios";
 import { PbListSectionPorps } from "@/types/main";
-import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import ErrorModal from "../common/ErrorModal";
 
 function PbListSection() {

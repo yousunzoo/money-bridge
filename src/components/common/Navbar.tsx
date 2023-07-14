@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
 import home from "/public/assets/images/navbar/home.svg";
 import contacts from "/public/assets/images/navbar/contacts.svg";
 import list from "/public/assets/images/navbar/list.svg";
@@ -47,7 +46,7 @@ function Navbar() {
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
   const path = usePathname();
   return (
-    <nav className="fixed bottom-0 left-1/2 flex h-[70px] w-full max-w-[768px] -translate-x-1/2 justify-around bg-white p-2 z-20">
+    <nav className="fixed bottom-0 left-1/2 z-20 flex h-[70px] w-full max-w-[768px] -translate-x-1/2 justify-around bg-white p-2">
       {navItems.map(item => {
         if (item.role === "ALL" || item.role === userInfo?.role) {
           return (

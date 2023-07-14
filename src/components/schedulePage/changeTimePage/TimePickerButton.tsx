@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import arrowbutton from "/public/assets/images/selectArrow.svg";
 
 interface TimePickerButton {

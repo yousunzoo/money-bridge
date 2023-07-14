@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import PbResult from "@/components/searchPage/PbResult";
 import ContentResult from "@/components/searchPage/ContentResult";
 import debounce from "lodash/debounce";

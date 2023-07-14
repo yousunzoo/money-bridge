@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonModal from "./ButtonModal";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 interface ErrorModalProps {
   isError: boolean;
   path?: string;

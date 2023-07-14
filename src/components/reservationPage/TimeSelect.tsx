@@ -1,7 +1,7 @@
 import { ITimeSelectProps } from "@/types/reservation";
 import { timeSelectOptions } from "@/utils/timeSelectOptions";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const BUTTON_STYLE = "h-10 text-bold text-sm px-4 bg-gray-200 rounded-sm text-center border-1 border-primary-normal";
 function TimeSelect({ setIsDisabled, selectOptions, selectedDate, handleTimeSelect }: ITimeSelectProps) {

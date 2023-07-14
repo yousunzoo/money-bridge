@@ -1,12 +1,9 @@
 "use client";
-import React from "react";
 import ContentCardItem from "../common/Card/CardItem/ContentCardItem";
 import { getContents } from "@/app/apis/services/common";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { getUserContents } from "@/app/apis/services/user";
-import { ILoginedUserInfo } from "@/types/common";
-import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 interface BoardListProps {
@@ -31,7 +28,7 @@ function CustomListSection() {
   if (!userInfo || !boardList) return;
 
   return (
-    <section className="relative w-full mt-3 ">
+    <section className="relative mt-3 w-full ">
       <h3 className="text-xl font-bold">
         {userInfo.name} 님의 성향을 딱! 맞춘
         <br /> 실제 PB의 투자 정보

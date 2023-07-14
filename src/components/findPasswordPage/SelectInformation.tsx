@@ -1,4 +1,3 @@
-import React from "react";
 import { usePathname } from "next/navigation";
 import InformationItem from "../findEmailPage/InformationItem";
 import Link from "next/link";

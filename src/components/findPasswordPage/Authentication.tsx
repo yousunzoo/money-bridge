@@ -1,5 +1,5 @@
 import { usePathname, useRouter } from "next/navigation";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import help from "/public/assets/images/help.svg";
 import Image from "next/image";
 import { useAuthentication } from "@/hooks/useAuthentication";

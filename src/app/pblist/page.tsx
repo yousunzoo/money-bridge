@@ -5,7 +5,6 @@ import { usePBListQueries } from "@/hooks/usePBListQueries";
 import FilteredPbCardList from "@/components/pblistPage/FilteredPbCardList";
 import Link from "next/link";
 import Image from "next/image";
-import { Suspense } from "react";
 
 function PBListPage() {
   const { redirectPath } = usePBListQueries();

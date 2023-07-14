@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import "@/styles/specialty.css";
 import KOREAN_STOCK from "/public/assets/images/specialty/KOREAN_STOCK.svg";
@@ -24,7 +23,7 @@ const SPECIALTY_LIST = [
 
 function SpecialtySection() {
   return (
-    <section className="relative w-full mt-3 chart">
+    <section className="chart relative mt-3 w-full">
       <h3 className="text-xl font-bold">
         관심 있는 분야의 전문가를 <br /> 찾아보세요
       </h3>
@@ -32,10 +31,10 @@ function SpecialtySection() {
         {SPECIALTY_LIST.map(specialty => (
           <li key={specialty.key} className="mt-4 flex h-[68px] w-[68px] flex-col justify-center">
             <Link href={`/pblist?speciality=${specialty.key}`} className="flex flex-col items-center justify-center">
-              <div className="p-2 bg-white rounded-md shadow-md">
+              <div className="rounded-md bg-white p-2 shadow-md">
                 <Image src={specialty.src} alt={"KOREAN_STOCK"} width={54} height={54} />
               </div>
-              <span className="mt-1 text-sm text-center text-primary-normal">{specialty.name}</span>
+              <span className="mt-1 text-center text-sm text-primary-normal">{specialty.name}</span>
             </Link>
           </li>
         ))}

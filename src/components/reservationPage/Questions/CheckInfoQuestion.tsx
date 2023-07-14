@@ -1,4 +1,4 @@
-import { ICheckQuestionProps, IQuestions } from "@/types/reservation";
+import { ICheckQuestionProps } from "@/types/reservation";
 import UserBubble from "../UserBubble/UserBubble";
 import { useSetQuestions } from "@/hooks/useSetQuestions";
 import highlight from "/public/assets/images/highlight.svg";

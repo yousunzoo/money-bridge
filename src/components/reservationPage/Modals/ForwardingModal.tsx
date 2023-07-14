@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useReservationStore } from "@/store/reservationStore";
 import { IForwardingModalProps } from "@/types/reservation";
 
-const BUTTON_STYLE = "w-full py-2 rounded-lg";
 function ForwardingModal({ nowStep, moveToNextStep, handleCloseModal }: IForwardingModalProps) {
   const { setAnswers } = useReservationStore();
   const [forwarding, setForwarding] = useState("");

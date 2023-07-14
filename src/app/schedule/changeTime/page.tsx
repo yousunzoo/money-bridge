@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TimePickerButton from "@/components/schedulePage/changeTimePage/TimePickerButton";
 import DoubleButton from "@/components/common/DoubleButton";
 import { getConsultTime, updateConsultTime } from "@/app/apis/services/pb";

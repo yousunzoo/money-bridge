@@ -1,6 +1,6 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
 import DoubleButton from "@/components/common/DoubleButton";
 import ScheduleSection from "@/components/managementPage/changeReservationPage/ScheduleSection";

@@ -3,12 +3,10 @@
 import { getMyReview } from "@/app/apis/services/user";
 import ErrorModal from "@/components/common/ErrorModal";
 import SingleButton from "@/components/common/SingleButton";
-import TopNav from "@/components/common/TopNav";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { redirect, useRouter } from "next/navigation";
-import React from "react";
 
 const COUNSELING_STYLE: { [key: string]: string } = {
   METICULOUS: "꼼꼼한",
@@ -60,7 +58,6 @@ function MyReviewPage({ params: { slug } }: { params: { slug: number } }) {
     );
   return (
     <div>
-      <TopNav title="나의 후기" hasBack={true} />
       <section className="mt-6 flex w-full flex-col items-center rounded-md bg-white p-4 pb-6 text-xs shadow-2xl">
         <article className="w-full pt-3">
           <h3 className="font-bold">상담 일정은 잘 지켜졌나요?</h3>

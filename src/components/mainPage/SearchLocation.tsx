@@ -5,15 +5,10 @@ import Image from "next/image";
 import close from "/public/assets/images/close.svg";
 import { SearchListProps, SearchLocationProps } from "@/types/location";
 import { useLocationStore } from "@/store/location";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { PbListSectionPorps } from "@/types/main";
-import { AxiosError } from "axios";
-import { getSuggestionPB } from "@/app/apis/services/common";
 
 function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
   const [searchList, setSearchList] = useState<SearchListProps[]>([]);
-  const { locations, setLocation, setCoordinate } = useLocationStore();
-  const queryClient = useQueryClient();
+  const { setLocation, setCoordinate } = useLocationStore();
 
   let debounceTimer: NodeJS.Timeout;
   const fetchData = async (search: string) => {
@@ -72,17 +67,22 @@ function SearchLocation({ setIsOpenSearch }: SearchLocationProps) {
 
       <p className="py-2 pl-4 font-bold">검색한 지역</p>
       <ul className="h-[300px] overflow-auto">
-        {searchList &&
+        {searchList.length !== 0 ? (
           searchList.map(item => (
             <li
-              className="flex w-full items-center justify-between border-b-1 border-gray-normal p-4 hover:bg-background-secondary"
+              className="flex w-full cursor-pointer items-center justify-between border-b-1 border-gray-normal p-4 hover:bg-background-secondary"
               key={item.address_name}
               onClick={() => selectLocation({ x: item.x, y: item.y })}
             >
               <p>{item.address_name}</p>
               <span className="p-2">선택</span>
             </li>
-          ))}
+          ))
+        ) : (
+          <div className="flex h-[270px] items-center justify-center">
+            <p className="font-bold">검색 된 내역이 없습니다.</p>
+          </div>
+        )}
       </ul>
     </div>
   );

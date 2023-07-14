@@ -1,6 +1,5 @@
 "use client";
-import TopNav from "@/components/common/TopNav";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ConsultationStatus from "../../components/managementPage/ConsultationStatus";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import ProcessList from "@/components/common/ProcessList";
@@ -72,7 +71,6 @@ function ManagementPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <TopNav title={"고객관리"} hasBack={true} />
       <ConsultationStatus consultationStatus={consultationStatus} pbId={userInfo.id} />
       <ProcessList role={"pb"} linkHref="management" />
 

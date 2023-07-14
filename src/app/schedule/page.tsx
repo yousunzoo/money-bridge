@@ -1,5 +1,4 @@
 "use client";
-import TopNav from "@/components/common/TopNav";
 import { useState } from "react";
 import ManagementCalendar from "../../components/schedulePage/Calendar";
 import "@/styles/calendar.css";
@@ -67,7 +66,6 @@ function SchedulePage() {
         onClick={onClickHandler}
       />
       {isOpen && <InfoModal />}
-      <TopNav title={"일정관리"} hasBack={true}></TopNav>
       <ManagementCalendar reservationList={schedule} setIsClickDay={setClickDay} setClickDate={setClickDate} />
       <DayScheduleList clickDayList={clickDayList} isClickDay={clickDay} />
       <ConsultationTimeCard

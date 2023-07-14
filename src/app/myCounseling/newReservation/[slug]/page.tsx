@@ -1,7 +1,6 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import TopNav from "@/components/common/TopNav";
-import React, { useState } from "react";
+import { useState } from "react";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
@@ -18,7 +17,7 @@ import ErrorModal from "@/components/common/ErrorModal";
 function NewReservationPage({ params: { slug } }: { params: { slug: number } }) {
   const router = useRouter();
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
-  const { reservationInfo, reservationLoading, reservationError } = useUserReservationInfo(slug);
+  const { reservationInfo, reservationError } = useUserReservationInfo(slug);
   const [isButtonOpen, setIsButtonOpen] = useState(false);
   if (!isLogined && !userLoading) {
     redirect("/");
@@ -78,7 +77,6 @@ function NewReservationPage({ params: { slug } }: { params: { slug: number } }) 
     );
   return (
     <div>
-      <TopNav title="신규예약" hasBack={true} path={"/myCounseling?process=APPLY"} />
       <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">프라이빗 뱅커가 곧 유선으로 연락을 드립니다.</span>
       </div>

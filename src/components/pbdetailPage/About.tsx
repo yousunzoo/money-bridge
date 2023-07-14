@@ -1,10 +1,8 @@
-import React from "react";
 import Carousel from "antd/lib/carousel";
 import "@/styles/defaultCarousel.css";
 import LocationCard from "@/components/common/LocationCard";
 import Image from "next/image";
 import Link from "next/link";
-import "@/styles/pb.css";
 import { useRouter, usePathname } from "next/navigation";
 import { CommonROLE } from "@/constants/enum";
 import LocationCopyButton from "@/components/common/LocationCopyButton";
@@ -143,13 +141,13 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
 
       <div>
         <p className="info_header">방문 상담을 원하시나요?</p>
-        <div className="card h-[240px] p-[18px]">
+        <div className="card h-[380px] p-[18px]">
           <p className="text-base font-bold">{branchName}</p>
           <div className="flex text-xs">
             <p className="flex-1">{branchAddress}</p>
             <LocationCopyButton location={branchAddress} />
           </div>
-          <div className="mt-4 h-[140px]">
+          <div className="mt-4 h-[280px]">
             <LocationCard latitude={branchLatitude} longitude={branchLongitude} />
           </div>
         </div>
@@ -163,7 +161,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
         </p>
         <ul>
           {sameData?.map(item => (
-            <PbCardItem key={item.id} item={item} queryKey={"getSamePb"} bookmarks={true} />
+            <PbCardItem key={item.id} item={item} queryKey={"getSamePb"} bookmarks={true} id={id} />
           ))}
         </ul>
       </div>

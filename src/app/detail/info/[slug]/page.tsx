@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import TopNav from "@/components/common/TopNav";
 import Content from "@/components/pbdetailPage/Content";
 import Intro from "@/components/pbdetailPage/Intro";
 import About from "@/components/pbdetailPage/About";
@@ -14,18 +13,19 @@ import { IloginProfile, IProfile } from "@/types/pb";
 import { IDataResponse } from "@/types/common";
 import Profile from "@/components/pbdetailPage/Profile";
 import { getCookie } from "@/utils/cookies";
+import "@/styles/pb.css";
 
 function PbDetailInfo() {
   const token = getCookie("Authorization");
   const pathname: string = usePathname();
   const id: number = Number(pathname.split("/").pop());
   const { data: profile } = useQuery<IDataResponse<IProfile>, AxiosError>({
-    queryKey: ["getPbNotLogin",id],
+    queryKey: ["getPbNotLogin", id],
     queryFn: () => getPbNotLogin(id),
     refetchOnWindowFocus: false,
   });
   const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>({
-    queryKey: ["getPbProfile",id],
+    queryKey: ["getPbProfile", id],
     queryFn: () => getPbProfile(id),
     enabled: !!token,
     refetchOnWindowFocus: false,
@@ -40,7 +40,6 @@ function PbDetailInfo() {
 
   return (
     <div className="mb-24 flex w-full flex-col">
-      <TopNav title="PB 상세프로필" hasBack={true} />
       {userData?.role !== undefined && authProfile?.data ? (
         <>
           <Intro introData={authProfile.data} userData={userData} />

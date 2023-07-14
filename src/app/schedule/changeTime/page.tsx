@@ -1,6 +1,5 @@
 "use client";
-import TopNav from "@/components/common/TopNav";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TimePickerButton from "@/components/schedulePage/changeTimePage/TimePickerButton";
 import DoubleButton from "@/components/common/DoubleButton";
 import { getConsultTime, updateConsultTime } from "@/app/apis/services/pb";
@@ -115,7 +114,6 @@ function ChangeTimePage() {
     return <ErrorModal isError={true} path={"/"} content={"일시적인 문제가 발생했습니다. 다시 시도해주세요."} />;
   return (
     <div>
-      <TopNav title={"상담 가능 시간 변경하기"} hasBack={true} />
       <section>
         <h3 className="text-lg mt-10 font-bold">상담 가능 시간을 설정해주세요.</h3>
         <div className="mt-4 flex items-center justify-around rounded-md px-4 py-7 shadow-md">

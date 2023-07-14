@@ -1,4 +1,3 @@
-"use client";
 import { getLocationName } from "@/app/apis/services/location";
 import { useLocationStore } from "@/store/location";
 import { CoordinateProps, PositionProps } from "@/types/location";
@@ -20,18 +19,17 @@ export const useGeoLocation = () => {
 
     function onGeoOkay(position: PositionProps) {
       const { latitude, longitude } = position.coords;
-      if (latitude) {
+      if (latitude !== 0) {
         setCoordinate({ latitude, longitude });
       }
     }
 
-    if (!locations.location) {
-      geolocation.getCurrentPosition(onGeoOkay);
-      if (locations.coordinate.latitude !== 0) {
-        geoLocationFunc({ ...locations.coordinate });
-      }
+    geolocation.getCurrentPosition(onGeoOkay);
+
+    if (locations.coordinate.latitude !== 0) {
+      geoLocationFunc({ ...locations.coordinate });
     }
-  }, []);
+  }, [locations.location, locations.coordinate.latitude]);
 
   const geoLocationFunc = async ({ latitude, longitude }: CoordinateProps) => {
     const data = await getLocationName({ latitude, longitude });

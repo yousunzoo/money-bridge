@@ -3,39 +3,39 @@ import { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://money-bridge.vercel.app/",
+      url: "https://www.moneybridge.co.kr/",
       lastModified: new Date(),
     },
     {
-      url: "https://money-bridge.vercel.app/login",
+      url: "https://www.moneybridge.co.kr/login",
       lastModified: new Date(),
     },
     {
-      url: "https://money-bridge.vercel.app/lounge",
+      url: "https://www.moneybridge.co.kr/lounge",
       lastModified: new Date(),
     },
     {
-      url: "https://money-bridge.vercel.app/analysis",
+      url: "https://www.moneybridge.co.kr/analysis",
       lastModified: new Date(),
     },
     {
-      url: "https://money-bridge.vercel.app/reservation",
+      url: "https://www.moneybridge.co.kr/reservation",
       lastModified: new Date(),
     },
     {
-      url: "https://money-bridge.vercel.app/pblist",
+      url: "https://www.moneybridge.co.kr/pblist",
       lastModified: new Date(),
     },
     {
-      url: "https://money-bridge.vercel.app/bookmark",
+      url: "https://www.moneybridge.co.kr/bookmark",
       lastModified: new Date(),
     },
     {
-      url: "https://money-bridge.vercel.app/my",
+      url: "https://www.moneybridge.co.kr/my",
       lastModified: new Date(),
     },
     {
-      url: "https://money-bridge.vercel.app/myCounseling",
+      url: "https://www.moneybridge.co.kr/myCounseling",
       lastModified: new Date(),
     },
   ];

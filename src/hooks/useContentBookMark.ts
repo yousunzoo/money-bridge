@@ -5,26 +5,25 @@ import { deleteBookMarkContent, postBookMarkContent } from "@/app/apis/services/
 import { AxiosError } from "axios";
 import useErrorShow from "@/hooks/useErrorShow";
 
-const useContentBookMark = (isBookmarked: boolean, link: string, queryKey?: string | string[]) => {
+const useContentBookMark = (
+  isBookmarked: boolean,
+  link: string,
+  id: number | undefined,
+  queryKey?: string | string[],
+) => {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
-  const [isBookmark, setIsBookmark] = useState(isBookmarked);
+  const [isBookmark, setIsBookMark] = useState(isBookmarked);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const { mutate: postbookMarkContent } = useMutation(postBookMarkContent, {
-    onSuccess: () => {
-      queryClient.refetchQueries([queryKey]);
-    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },
   });
 
   const { mutate: deletebookMarkContent } = useMutation(deleteBookMarkContent, {
-    onSuccess: () => {
-      queryClient.refetchQueries([queryKey]);
-    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },
@@ -37,10 +36,11 @@ const useContentBookMark = (isBookmarked: boolean, link: string, queryKey?: stri
     } else {
       postbookMarkContent({ id: id });
     }
+    setIsBookMark(!isBookmark);
   };
 
   const bookMarkContents = {
-    content: isBookmarked ? "북마크에 추가되었습니다." : "북마크가 해제되었습니다.",
+    content: isBookmark ? "북마크에 추가되었습니다." : "북마크가 해제되었습니다.",
     confirmText: "확인",
     cancelText: "북마크 바로가기",
     confirmFn: () => {
@@ -53,7 +53,6 @@ const useContentBookMark = (isBookmarked: boolean, link: string, queryKey?: stri
   };
 
   return {
-    isBookmark,
     isBookmarkedOpen,
     setIsBookmarkedOpen,
     bookMarkHandler,
@@ -61,6 +60,7 @@ const useContentBookMark = (isBookmarked: boolean, link: string, queryKey?: stri
     isOpen,
     setIsOpen,
     error,
+    isBookmark,
   };
 };
 

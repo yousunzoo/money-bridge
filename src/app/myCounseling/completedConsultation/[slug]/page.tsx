@@ -1,7 +1,5 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import TopNav from "@/components/common/TopNav";
-import React from "react";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
@@ -15,7 +13,7 @@ import SingleButton from "@/components/common/SingleButton";
 function CompletedConsultationPage({ params: { slug } }: { params: { slug: number } }) {
   const router = useRouter();
   const { userInfo, userLoading, isLogined } = useGetUserInfo();
-  const { reservationInfo, reservationLoading, reservationError } = useUserReservationInfo(slug);
+  const { reservationInfo, reservationError } = useUserReservationInfo(slug);
 
   if (!isLogined && !userLoading) {
     redirect("/");
@@ -72,7 +70,6 @@ function CompletedConsultationPage({ params: { slug } }: { params: { slug: numbe
     );
   return (
     <div>
-      <TopNav title="완료된 상담" hasBack={true} path={"/myCounseling?process=COMPLETE"} />
       <div className="user_top_Phrase mx-[-16px] mt-4 box-content w-full">
         <span className="text-white ">상담이 완료되었습니다.</span>
       </div>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useRef, useState } from "react";
+import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useRef, useState } from "react";
 import search from "/public/assets/images/search.svg";
 import Image from "next/image";
 import { useGetCompnayLocation } from "@/hooks/useGetCompanyLocation";

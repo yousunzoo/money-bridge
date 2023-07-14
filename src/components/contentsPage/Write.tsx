@@ -1,26 +1,27 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BoardStatus } from "@/constants/enum";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ITemp, IContentsSave, IContentsEdit } from "@/types/contents";
 import "@/styles/content.css";
 import { validateFileSize } from "@/utils/validateFileSize";
 import { postTemp, postPBContents, updatePBContents } from "@/app/apis/services/pb";
 import { useMutation } from "@tanstack/react-query";
-import "@/app/globals.css";
 import { AxiosError } from "axios";
 import ButtonModal from "@/components/common/ButtonModal";
 import useErrorShow from "@/hooks/useErrorShow";
+import dynamic from "next/dynamic";
 import { ILoginedUserInfo } from "@/types/common";
+const ContentEditor = dynamic(() => import("./ContentEditor"));
 
 function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: ILoginedUserInfo }) {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const router = useRouter();
   const isStatus = data?.status === BoardStatus.ACTIVE || BoardStatus.TEMP;
-
+  const [content, setContent] = useState(data?.content || "");
   const { mutate: postPBcontents } = useMutation(postPBContents, {
-    onSuccess: () => {
-      router.push(`/detail/content/${id}`);
+    onSuccess: data => {
+      router.push(`/contents/${data.data}`);
     },
     onError: (err: AxiosError) => {
       errorHandler(err);
@@ -48,41 +49,67 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, isDirty, errors },
+    formState: { isSubmitting, isDirty, errors, isValid },
   } = useForm({ mode: "onChange" });
-
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [thumbnailText, setThumbnailText] = useState(data?.thumbnail || "");
+  const [title, setTitle] = useState(isStatus ? data?.title : "");
+  const [tag1, setTag1] = useState(isStatus ? data?.tag1 : "");
+  const [tag2, setTag2] = useState(isStatus ? data?.tag2 : "");
   const [inputValues, setInputValues] = useState({
     title: "",
-    content: "",
     tag1: "",
     tag2: "",
   });
 
-  const isFormValid = Object.values(inputValues).every(value => value.trim() !== "");
+  const isFormValid = isValid && content;
 
   const onThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setThumbnailFile(e.target.files[0]);
+      setThumbnailText(e.target.files[0].name);
     }
   };
 
   const postSubmit = (formData: IContentsSave) => {
-    postPBcontents({ formData: formData, thumbnailFile: thumbnailFile });
+    const SumFormData = { ...formData };
+    SumFormData.content = content;
+    if (!formData.tag1) {
+      SumFormData.tag1 = "";
+    }
+    if (!formData.tag2) {
+      SumFormData.tag2 = "";
+    }
+    postPBcontents({ formData: SumFormData, thumbnailFile: thumbnailFile });
   };
 
   const tempSubmit = (formData: IContentsSave) => {
-    posttemp({ formData: formData, thumbnailFile: thumbnailFile });
+    const SumFormData = { ...formData };
+    SumFormData.content = content;
+    posttemp({ formData: SumFormData, thumbnailFile: thumbnailFile });
   };
 
   const updateSubmit = (formData: IContentsEdit) => {
-    if (thumbnailFile === null) {
-      formData.deleteThumbnail = true;
-      updatePBcontents({ id: id, formData: formData, thumbnailFile: thumbnailFile });
-    } else {
-      formData.deleteThumbnail = false;
-      updatePBcontents({ id: id, formData: formData, thumbnailFile: thumbnailFile });
+    const SumFormData = { ...formData };
+    SumFormData.content = content;
+    if (!formData.tag1) {
+      SumFormData.tag1 = "";
     }
+    if (!formData.tag2) {
+      SumFormData.tag2 = "";
+    }
+    if (thumbnailFile === null) {
+      SumFormData.deleteThumbnail = true;
+      updatePBcontents({ id: id, formData: SumFormData, thumbnailFile: thumbnailFile });
+    } else {
+      SumFormData.deleteThumbnail = false;
+      updatePBcontents({ id: id, formData: SumFormData, thumbnailFile: thumbnailFile });
+    }
+  };
+
+  const deleteThumbnail = () => {
+    setThumbnailFile(null);
+    setThumbnailText("");
   };
 
   return (
@@ -91,39 +118,33 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
         className="flex flex-col"
         onSubmit={handleSubmit(isStatus !== BoardStatus.TEMP ? updateSubmit : postSubmit)}
       >
-        <label htmlFor="title" className="title">
+        <label htmlFor="title" className="label">
           제목
         </label>
         <input
           id="title"
           type="text"
-          placeholder="제목을 작성해주세요.(20자 이내)"
+          placeholder="제목을 작성해주세요.(40자 이내)"
           className="form_input mb-[24px] h-[56px]"
           aria-invalid={!isDirty ? undefined : errors.title ? "true" : "false"}
           {...register("title", {
             maxLength: {
-              value: 20,
-              message: "제목은 20자 이내로 작성해주세요.",
+              value: 40,
+              message: "제목은 40자 이내로 작성해주세요.",
             },
           })}
-          defaultValue={isStatus ? data?.title : ""}
-          onChange={e => setInputValues({ ...inputValues, title: e.target.value })}
+          value={title}
+          onChange={e => {
+            setTitle(e.target.value);
+            setInputValues({ ...inputValues, title: e.target.value });
+          }}
         />
 
-        <label htmlFor="content" className="title">
+        <label htmlFor="content" className="label">
           본문(글상세)
         </label>
-        <input
-          id="content"
-          type="text"
-          placeholder="본문을 작성해 주세요."
-          className="form_input mb-[24px] h-[131px] whitespace-normal"
-          {...register("content")}
-          defaultValue={isStatus ? data?.content : ""}
-          onChange={e => setInputValues({ ...inputValues, content: e.target.value })}
-        />
-
-        <label htmlFor="tag1" className="title">
+        <ContentEditor initialState={content} setContent={setContent} />
+        <label htmlFor="tag1" className="label">
           태그1
         </label>
         <input
@@ -138,11 +159,14 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
               message: "태그는 7자 이내로 작성해주세요.",
             },
           })}
-          defaultValue={isStatus ? data?.tag1 : ""}
-          onChange={e => setInputValues({ ...inputValues, tag1: e.target.value })}
+          value={tag1}
+          onChange={e => {
+            setTag1(e.target.value);
+            setInputValues({ ...inputValues, tag1: e.target.value });
+          }}
         />
 
-        <label htmlFor="tag2" className="title">
+        <label htmlFor="tag2" className="label">
           태그2
         </label>
         <input
@@ -157,27 +181,41 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
               message: "태그는 7자 이내로 작성해주세요.",
             },
           })}
-          defaultValue={isStatus ? data?.tag2 : ""}
-          onChange={e => setInputValues({ ...inputValues, tag2: e.target.value })}
+          value={tag2}
+          onChange={e => {
+            setTag2(e.target.value);
+            setInputValues({ ...inputValues, tag2: e.target.value });
+          }}
         />
 
-        <div className="flex items-center">
-          <div className="title flex-1">대표 이미지 업로드</div>
-          <label htmlFor="thumbnail" className="file_button flex items-center justify-center text-center">
-            이미지 찾기
-          </label>
-          <input
-            type="file"
-            {...(register("thumbnail"), { validate: validateFileSize })}
-            id="thumbnail"
-            className="hidden"
-            onChange={onThumbnailChange}
-            multiple={false}
-          />
+        <div className="flex items-center justify-between">
+          <div className="label flex-1">대표 이미지 업로드</div>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={deleteThumbnail}
+              className="file_button flex items-center justify-center bg-primary-light text-center text-white"
+            >
+              삭제
+            </button>
+            <label htmlFor="thumbnail" className="file_button flex items-center justify-center text-center">
+              이미지 찾기
+            </label>
+            <input
+              type="file"
+              {...register("thumbnail", {
+                validate: validateFileSize,
+              })}
+              id="thumbnail"
+              className="hidden"
+              onChange={onThumbnailChange}
+              multiple={false}
+            />
+          </div>
         </div>
-        <div className="form_input mb-[24px] h-[48px] text-placeholder">
-          {data?.thumbnail ? data?.thumbnail : thumbnailFile?.name}
-        </div>
+        <p className="form_input mb-[24px] min-h-[48px] break-all text-placeholder">
+          {thumbnailText || "이미지를 선택해주세요"}
+        </p>
 
         <div className="flex items-center justify-center">
           {isStatus !== BoardStatus.TEMP ? (
@@ -191,8 +229,10 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
               </button>
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="button min-w-[175px] max-w-[350px] bg-primary-normal"
+                disabled={!isFormValid || isSubmitting}
+                className={`button min-w-[175px] max-w-[350px] ${
+                  !isFormValid ? "cursor-not-allowed bg-button-inactive" : "bg-primary-normal"
+                }`}
               >
                 수정 완료
               </button>
@@ -209,9 +249,9 @@ function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: IL
               </button>
               <button
                 type="submit"
-                disabled={!isFormValid || isSubmitting}
+                disabled={!(isValid && content) || isSubmitting}
                 className={`button min-w-[175px] max-w-[350px] ${
-                  !isFormValid ? "cursor-not-allowed bg-button-inactive" : "bg-primary-normal"
+                  !(isValid && content) ? "cursor-not-allowed bg-button-inactive" : "bg-primary-normal"
                 }`}
               >
                 작성 완료

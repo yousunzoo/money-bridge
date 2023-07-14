@@ -1,30 +1,23 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { deleteBookMarkPB, postBookMarkPB } from "@/app/apis/services/user";
 import { AxiosError } from "axios";
 import useErrorShow from "@/hooks/useErrorShow";
 
-const usePbBookMark = (isBookmarked: boolean, link: string, queryKey?: string[] | string) => {
+const usePbBookMark = (bookmarkState: boolean, link: string, id: number | undefined, queryKey?: string[] | string) => {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
-  const [isBookmark, setIsBookmark] = useState(isBookmarked);
+  const [isBookmark, setIsBookMark] = useState(bookmarkState);
   const [isBookmarkedOpen, setIsBookmarkedOpen] = useState(false);
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const { mutate: postbookMarkPB } = useMutation(postBookMarkPB, {
-    onSuccess: () => {
-      queryClient.refetchQueries([queryKey]);
-    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },
   });
 
   const { mutate: deletebookMarkPB } = useMutation(deleteBookMarkPB, {
-    onSuccess: () => {
-      queryClient.refetchQueries([queryKey]);
-    },
     onError: (err: AxiosError) => {
       errorHandler(err);
     },
@@ -32,15 +25,18 @@ const usePbBookMark = (isBookmarked: boolean, link: string, queryKey?: string[] 
 
   const bookMarkHandler = (id: number) => {
     setIsBookmarkedOpen(true);
-    if (isBookmarked) {
+    if (isBookmark) {
       deletebookMarkPB({ id: id });
     } else {
       postbookMarkPB({ id: id });
     }
+    setIsBookMark(!isBookmark);
   };
 
   const bookMarkContents = {
-    content: isBookmarked ? "북마크에 추가되었습니다." : "북마크가 해제되었습니다.",
+    content: bookmarkState
+      ? `북마크${isBookmark === false ? "가 해제" : "가 추가"}되었습니다.`
+      : `북마크${isBookmark === true ? "가 추가" : "가 해제"}되었습니다.`,
     confirmText: "확인",
     cancelText: "북마크 바로가기",
     confirmFn: () => {
@@ -53,12 +49,12 @@ const usePbBookMark = (isBookmarked: boolean, link: string, queryKey?: string[] 
   };
 
   return {
-    isBookmark,
     isBookmarkedOpen,
     setIsBookmarkedOpen,
     bookMarkHandler,
     bookMarkContents,
     isOpen,
+    isBookmark,
     setIsOpen,
     error,
   };

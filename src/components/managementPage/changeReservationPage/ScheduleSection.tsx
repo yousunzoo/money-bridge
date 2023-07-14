@@ -1,5 +1,4 @@
 import { ScheduleSectionProps } from "@/types/management";
-import React from "react";
 
 function ScheduleSection({
   candidateTime1,
@@ -27,7 +26,7 @@ function ScheduleSection({
             선택
           </button>
         </div>
-        <div className="flex flex-col mt-2">
+        <div className="mt-2 flex flex-col">
           <div>
             <span className="ml-4 font-bold text-primary-normal">2순위</span>
             <span className="ml-7 text-primary-normal">{candidateTime2}</span>

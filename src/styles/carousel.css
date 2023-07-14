@@ -13,21 +13,21 @@
     @apply mr-5 mt-[87px] flex justify-end text-sm font-bold text-white underline decoration-1 hover:text-white hover:underline;
   }
 }
-.ant-carousel {
-  margin: 0 -16px;
+.ant-carousel .mainCarousel {
+  margin: 0 -16px !important;
 }
-.ant-carousel .slick-dots-top {
-  width: 70px;
-  margin-left: auto;
+.ant-carousel .mainCarousel .slick-dots-top {
+  width: 70px !important;
+  margin-left: auto !important;
 }
 
-.ant-carousel .slick-dots-top li,
-.ant-carousel .slick-dots-top .slick-active {
+.ant-carousel .mainCarousel .slick-dots-top li,
+.ant-carousel .mainCarousel .slick-dots-top .slick-active {
   width: 6px !important;
   height: 6px !important;
 }
 
-.ant-carousel .slick-dots-top li button {
+.ant-carousel .mainCarousel .slick-dots-top li button {
   width: 6px !important;
   height: 6px !important;
   border-radius: 50% !important;

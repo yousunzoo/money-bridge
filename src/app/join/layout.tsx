@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "회원가입",

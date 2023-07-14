@@ -2,7 +2,6 @@ import { stepProgressList } from "@/constants/stepProgressList";
 import { IStepProgressProps, TProgress } from "@/types/my";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 function StepProgress({ step }: IStepProgressProps) {
   return (

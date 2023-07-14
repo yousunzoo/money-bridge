@@ -3,23 +3,22 @@
 @tailwind utilities;
 
 @layer components {
-  .image{
+  .contentImage {
     @apply mr-[7px] h-[18px] w-[18px] rounded-full;
   }
-  .name {
+  .authorName {
     @apply mr-[7px] h-[14px] font-bold;
   }
-  .icon{
+  .icon {
     @apply h-[24px] w-[24px];
   }
-  .content{
+  .content {
     @apply mt-[7px] bg-background-secondary p-[14px];
   }
-  .title {
-    @apply text-xl font-bold mb-[18px];
+  .label {
+    @apply mb-[18px] text-xl font-bold;
   }
   .file_button {
     @apply mb-[18px] h-[38px] w-[87px] cursor-pointer rounded-md bg-white shadow-md;
   }
-
 }

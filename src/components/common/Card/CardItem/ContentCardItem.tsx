@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import React from "react";
 import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
@@ -16,10 +15,12 @@ function ContentCardItem({
   item,
   queryKey,
   bookmarks,
+  id,
 }: {
   item: IContentCard;
   queryKey?: string | string[];
   bookmarks: boolean;
+  id?: number;
 }) {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
     queryKey: ["getLoginedUserInfo"],
@@ -32,16 +33,8 @@ function ContentCardItem({
     router.push(`/contents/${item.id}`);
   };
 
-  const {
-    isBookmark,
-    isBookmarkedOpen,
-    setIsBookmarkedOpen,
-    bookMarkHandler,
-    bookMarkContents,
-    isOpen,
-    setIsOpen,
-    error,
-  } = useContentBookMark(item.isBookmarked, "/bookmark/content", queryKey);
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents, isOpen, setIsOpen, error } =
+    useContentBookMark(item.isBookmarked, "/bookmark/content", id, queryKey);
 
   return (
     <>
@@ -50,7 +43,7 @@ function ContentCardItem({
           <div className="flex justify-between">
             <div className="flex flex-col ">
               <div className="text-base ">
-                {item.tag1}&nbsp;&nbsp;•&nbsp;&nbsp;{item.tag2}
+                {item.tag1}&nbsp;&nbsp;{item.tag2 && "•"}&nbsp;&nbsp;{item.tag2}
               </div>
               <div className="break-keep text-2xl font-bold">{item.title}</div>
             </div>
@@ -70,24 +63,18 @@ function ContentCardItem({
               </button>
             )}
           </div>
-          <div className="flex">
-            <div className="flex flex-1 flex-col text-[10px]">
-              <div className="flex text-base">
-                <p className="font-bold">{item.pbName}PB</p> &nbsp;| {item.career}년차
-              </div>
-              <span className="text-base">{item.msg}</span>
+          <div className="flex items-center">
+            <div className="flex-1 text-base">
+              <p>
+                <b>{item.pbName}PB&nbsp;</b>| {item.career}년차
+              </p>
+              <p className="text-base">{item.msg}</p>
             </div>
-            <Image
-              src={item.companyLogo}
-              alt="증권사로고"
-              className="ml-[45px] max-h-[40px] object-contain"
-              width={40}
-              height={40}
-            />
+            <Image src={item.companyLogo} alt="증권사로고" width={80} height={80} />
           </div>
         </div>
       </li>
-      {isBookmark && (
+      {isBookmarkedOpen && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
       {error && <ButtonModal modalContents={error} isOpen={isOpen} setIsOpen={setIsOpen} />}

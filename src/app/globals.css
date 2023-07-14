@@ -5,7 +5,7 @@
 @layer utilities {
   body {
     background-color: #f8f8f8;
-    height: auto;
+    height: 100%;
     letter-spacing: -0.6px;
     color: #242424;
   }
@@ -15,11 +15,14 @@
     min-width: 375px;
     max-width: 768px;
     width: 100%;
+    height: 100%;
     min-height: 100vh;
     margin: auto;
     padding: 0 16px;
     padding-top: 70px;
-    padding-bottom: 100px;
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: column;
   }
 
   input[type="number"]::-webkit-inner-spin-button {
@@ -111,7 +114,7 @@
   }
 
   .button_fixed {
-    @apply fixed bottom-[70px] left-1/2 flex h-20 w-full min-w-[375px] max-w-[768px] -translate-x-1/2 items-center justify-center rounded-t-lg bg-primary-normal text-2xl font-bold text-white;
+    @apply fixed bottom-[70px] left-1/2 z-10 flex h-20 w-full min-w-[375px] max-w-[768px] -translate-x-1/2 items-center justify-center rounded-t-lg bg-primary-normal text-2xl font-bold text-white;
   }
 
   .modal_background {

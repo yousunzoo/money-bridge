@@ -1,6 +1,5 @@
 "use client";
 import { getMyPropensity } from "@/app/apis/services/user";
-import TopNav from "@/components/common/TopNav";
 import HydratePropensity from "@/components/myPage/propensityPage/HydratePropensity";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import { IPropensityData } from "@/types/my";
@@ -36,23 +35,27 @@ function PropensityPage() {
 
   return (
     <>
-      <TopNav title="나의 투자 성향 분석" hasBack={true} />
-      {isSuccess && <HydratePropensity propensityData={data} />}
-      <p className="mb-[130px] break-keep text-center text-xs  leading-[18px] text-gray-heavy">
-        제공되는 투자자성향 분석 결과는 투자자께서 제공하신 정보를 바탕으로 분석되었으며,
-        <br />
-        거래목적, 계약기간·기대이익·기대손실을 고려한 위험에 대한 태도, 금융상품에 대한 이해도,
-        <br />
-        재산상황, 투자성 상품의 취득·처분 경험, 연령 등에 비추어
-        <br />
-        적합하지 않은 상품은 투자권유가 불가합니다.
-      </p>
-      <Link href="/pblist/recommend" className="button mb-3 text-xl">
-        추천 PB 리스트 가기
-      </Link>
-      <Link href="/analysis" className="button_outlined text-xl">
-        성향 수정하기
-      </Link>
+      {isSuccess && (
+        <>
+          <HydratePropensity propensityData={data} />
+          <p className="mb-[130px] break-keep text-center text-xs  leading-[18px] text-gray-heavy">
+            제공되는 투자자성향 분석 결과는 투자자께서 제공하신 정보를 바탕으로 분석되었으며,
+            <br />
+            거래목적, 계약기간·기대이익·기대손실을 고려한 위험에 대한 태도, 금융상품에 대한 이해도,
+            <br />
+            재산상황, 투자성 상품의 취득·처분 경험, 연령 등에 비추어
+            <br />
+            적합하지 않은 상품은 투자권유가 불가합니다.
+          </p>
+          <Link href="/pblist/recommend" className="button mb-3 text-xl">
+            추천 PB 리스트 가기
+          </Link>
+          <Link href="/analysis" className="button_outlined text-xl">
+            성향 수정하기
+          </Link>
+        </>
+      )}
+
       {isOpen && (
         <ModalLayout handleCloseModal={handleCloseModal}>
           <h3>투자성향을 분석하시겠어요?</h3>

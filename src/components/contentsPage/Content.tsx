@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
 import share from "/public/assets/images/icon/share.svg";
@@ -9,7 +8,6 @@ import useShare from "@/hooks/useShare";
 import { usePathname, useRouter } from "next/navigation";
 import ButtonModal from "@/components/common/ButtonModal";
 import user_profile from "/public/assets/images/profile.svg";
-import "@/styles/content.css";
 import edit from "/public/assets/images/icon/edit.svg";
 import trash from "/public/assets/images/icon/delete.svg";
 import { getMyId } from "@/utils/pbMyId";
@@ -35,9 +33,9 @@ function Content({
     contentData;
   const pathname: string = usePathname();
   const router = useRouter();
-  const base: string = "https://money-bridge.vercel.app";
+  const base: string = "https://www.moneybridge.co.kr";
   const urlToCopy: string = base + pathname;
-  const myId: number | null = getMyId(userData?.role, userData?.id, pbId, userData?.role);
+  const myId: number | null = getMyId(userData?.role, userData?.id, pbId, "PB");
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onError: (err: AxiosError) => {
@@ -45,9 +43,10 @@ function Content({
     },
   });
 
-  const { isBookmark, isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents } = useContentBookMark(
+  const { isBookmarkedOpen, setIsBookmarkedOpen, bookMarkHandler, bookMarkContents, isBookmark } = useContentBookMark(
     isBookmarked,
     "/bookmark/content",
+    id,
     "getContentsId",
   );
 
@@ -83,7 +82,7 @@ function Content({
       </div>
       <div className="mt-[24px]">
         <div className="text-xs font-bold">
-          {tag1}・{tag2}
+          {tag1} {tag2 && "•"} {tag2}
         </div>
         <div className="mb-[11px] text-2xl font-bold">{title}</div>
         <div className="mb-[15px] flex">
@@ -113,7 +112,7 @@ function Content({
             )}
           </div>
         </div>
-        <div className="mb-[103px] p-4 text-sm">{content}</div>
+        <div className="mb-10" dangerouslySetInnerHTML={{ __html: content }} />
       </div>
       {isShareOpen && isShare && (
         <ButtonModal modalContents={shareContents} isOpen={isShareOpen} setIsOpen={setIsShareOpen} />
@@ -121,7 +120,7 @@ function Content({
       {isCopyOpen && isCopy && (
         <ButtonModal modalContents={copyContents} isOpen={isCopyOpen} setIsOpen={setIsCopyOpen} />
       )}
-      {isBookmark && (
+      {isBookmarkedOpen && (
         <ButtonModal modalContents={bookMarkContents} isOpen={isBookmarkedOpen} setIsOpen={setIsBookmarkedOpen} />
       )}
       {isDeleteOpen && <ButtonModal modalContents={deleteContents} isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />}

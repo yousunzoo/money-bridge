@@ -1,7 +1,6 @@
 "use client";
 import { editMyInfo } from "@/app/apis/services/auth";
 import ButtonModal from "@/components/common/ButtonModal";
-import TopNav from "@/components/common/TopNav";
 import EditInfoForm from "@/components/myPage/editInfoPage/EditInfoForm";
 import EditPasswordForm from "@/components/myPage/editInfoPage/EditPasswordForm";
 import { ButtonModalProps } from "@/types/common";
@@ -9,7 +8,7 @@ import { IUserEditableInfo } from "@/types/my";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function EditPage({ params }: { params: { slug: string } }) {
   const queryClient = useQueryClient();
@@ -62,7 +61,6 @@ function EditPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <TopNav title="개인 정보 설정" hasBack={true} />
       {category[nowPath]}
       {isOpen && <ButtonModal {...modalProps} />}
     </>

@@ -34,7 +34,7 @@ function MyPage() {
         <ul>
           <li>
             <Link href="/my/editInfo" className={LINK_STYLE}>
-              <span>개인 정보 설정</span>
+              <span>개인 정보 수정</span>
               <Image src={nextIcon} width={14} height={14} alt="개인 정보 설정 이동" />
             </Link>
           </li>
@@ -52,13 +52,13 @@ function MyPage() {
         <h3 className="mb-2 text-xl font-bold">고객센터</h3>
         <ul>
           <li>
-            <Link href="/my/faq" className={LINK_STYLE}>
+            <Link href="/faq" className={LINK_STYLE}>
               <span>자주 묻는 질문</span>
               <Image src={nextIcon} width={14} height={14} alt="자주 묻는 질문 이동" />
             </Link>
           </li>
           <li>
-            <Link href="/my/notice" className={LINK_STYLE}>
+            <Link href="/notice" className={LINK_STYLE}>
               <span>공지사항</span>
               <Image src={nextIcon} width={14} height={14} alt="공지사항 이동" />
             </Link>
@@ -66,7 +66,7 @@ function MyPage() {
         </ul>
       </section>
       <section className="flex flex-col items-start gap-6">
-        <Link href="/my/terms" className={BUTTON_STYLE}>
+        <Link href="/terms" className={BUTTON_STYLE}>
           서비스 약관
         </Link>
         <Link href="/withdraw" className={BUTTON_STYLE}>

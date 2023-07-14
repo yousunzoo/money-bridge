@@ -1,4 +1,3 @@
-import React from "react";
 interface ConsultationNoteSectionProps {
   role: string;
   goal: string;
@@ -23,7 +22,7 @@ function ConsultationNoteSection({ role, goal, question }: ConsultationNoteSecti
       </div>
       <div className="flex flex-col">
         <span className="mt-2 font-bold">요청사항</span>
-        <p className="p-4 mt-2 rounded-sm bg-background-secondary">{question}</p>
+        <p className="mt-2 rounded-sm bg-background-secondary p-4">{question}</p>
       </div>
     </section>
   );

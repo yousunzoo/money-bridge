@@ -20,7 +20,7 @@ function ReservationCompletePage() {
   }, []);
 
   const handleClick = () => {
-    router.back();
+    router.push("/myCounseling?process=APPLY");
   };
 
   return (
@@ -38,7 +38,7 @@ function ReservationCompletePage() {
         </p>
         <p>확정까지 평균 소요 시간 : 10분~30분</p>
       </div>
-      <button onClick={handleClick} className="mt-[50px] h-[56px] w-full rounded-lg border-primary-normal text-white">
+      <button onClick={handleClick} className="mt-[60px] h-[56px] w-full rounded-lg bg-primary-normal text-white">
         완료
       </button>
     </section>

@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import plus from "/public/assets/images/plus.svg";
 import bottomArrow from "/public/assets/images/bottomArrow.svg";
 import Image from "next/image";
 import SearchLocation from "./SearchLocation";
 import close from "/public/assets/images/close.svg";
 import { useLocationStore } from "@/store/location";
+import { PositionProps } from "@/types/location";
+import { getLocationName } from "@/app/apis/services/location";
 
 export interface SearchLocationProps {
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,9 +25,19 @@ function SelectLocationModal({ setIsOpenModal }: SearchLocationProps) {
   };
 
   const deleteLocation = () => {
-    setLocation("");
-    setCoordinate({ latitude: 37.4953666908089, longitude: 127.03306536185 });
+    setCoordinate({ latitude: 0, longitude: 0 });
+    setLocation("위치 선택");
   };
+
+  function currentLocation() {
+    const { geolocation } = navigator;
+    async function onGeoOkay(position: PositionProps) {
+      const { latitude, longitude } = position.coords;
+      const data = await getLocationName({ latitude, longitude });
+      setLocation(data);
+    }
+    geolocation.getCurrentPosition(onGeoOkay);
+  }
 
   return (
     <>
@@ -39,7 +51,7 @@ function SelectLocationModal({ setIsOpenModal }: SearchLocationProps) {
           </div>
           <p className="text-md">지역이 선택되지 않았다면 지역을 등록해주세요.</p>
         </div>
-        {locations.location ? (
+        {locations.location !== "위치 선택" ? (
           <button
             onClick={() => deleteLocation()}
             className="mb-3 mt-5 flex h-14 w-full items-center justify-center rounded-md bg-white text-xl font-bold text-primary-normal"
@@ -47,12 +59,20 @@ function SelectLocationModal({ setIsOpenModal }: SearchLocationProps) {
             {locations.location} &ensp; <Image src={close} alt="plus" width={24} height={24} />
           </button>
         ) : (
-          <button
-            onClick={() => onClickLocation()}
-            className="mb-3 mt-5 flex h-14 w-full items-center justify-center rounded-md bg-white text-base text-xl font-bold text-primary-normal"
-          >
-            지역 등록하기&ensp; <Image src={plus} alt="plus" width={24} height={24} />
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={() => currentLocation()}
+              className="mb-3 mt-5 flex h-14 w-full items-center justify-center rounded-md bg-primary-light text-xl font-bold text-white"
+            >
+              현재 위치 불러오기
+            </button>
+            <button
+              onClick={() => onClickLocation()}
+              className="mb-3 mt-5 flex h-14 w-full items-center justify-center rounded-md bg-white text-xl font-bold text-primary-normal"
+            >
+              지역 등록하기&ensp; <Image src={plus} alt="plus" width={24} height={24} />
+            </button>
+          </div>
         )}
 
         <p>{locations.location} 근처 PB를 만나보세요.</p>

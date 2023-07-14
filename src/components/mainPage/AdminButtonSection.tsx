@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import SingleButton from "@/components/common/SingleButton";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
@@ -7,7 +6,7 @@ function AdminButtonSection() {
   const { userInfo } = useGetUserInfo();
 
   const checkClickHandler = () => {
-    window.open("https://admin-money-bridge.vercel.app/");
+    window.open("https://admin.moneybridge.co.kr/");
   };
 
   if (!userInfo) return;

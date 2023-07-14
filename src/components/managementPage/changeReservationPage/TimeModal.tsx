@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import close from "/public/assets/images/close.svg";
 import TimeSelect from "@/components/reservationPage/TimeSelect";
 import dayjs from "dayjs";

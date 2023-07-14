@@ -1,4 +1,4 @@
-import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import CandidateTime from "../Modals/CandidateTime";
 import editIcon from "/public/assets/images/editIcon.svg";
 import Image from "next/image";

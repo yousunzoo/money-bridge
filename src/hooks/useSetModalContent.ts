@@ -1,4 +1,3 @@
-"use client";
 import { IModalContent } from "@/types/common";
 import { useState } from "react";
 

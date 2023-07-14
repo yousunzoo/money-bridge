@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import question from "/public/assets/images/question_mark.svg";
 
 const statusItems = [
@@ -11,7 +10,7 @@ const statusItems = [
 function InfoModal() {
   return (
     <div className="absolute right-7 top-14 z-10 flex h-[140px] w-[280px] flex-col rounded-md bg-white p-4 shadow-md ">
-      <div className="flex items-end justify-between w-full h-auto">
+      <div className="flex h-auto w-full items-end justify-between">
         <div className="text-sm">
           <Image src={question} alt="question" width={20} height={20} className="mb-2" />
           <p className="text-sm font-bold ">컬러로 상담 현황을</p>
@@ -26,7 +25,7 @@ function InfoModal() {
           </ul>
         </div>
       </div>
-      <ul className="flex gap-2 mt-3">
+      <ul className="mt-3 flex gap-2">
         {statusItems.map(item => (
           <li key={item.id} className={`w-[60px] rounded-sm  p-2 text-center text-[10px] text-white ${item.color}`}>
             {item.text}

@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Intro from "@/components/pbdetailPage/Intro";
-import TopNav from "@/components/common/TopNav";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { useQuery } from "@tanstack/react-query";
 import { getPbContent, getPbProfile } from "@/app/apis/services/pb";
@@ -28,11 +27,10 @@ function PbDetailContent() {
     refetchOnWindowFocus: false,
   });
 
-  const myId: number | null = getMyId(userData?.role, userData?.id, id, userData?.role);
+  const myId: number | null = getMyId(userData?.role, userData?.id, id, "PB");
 
   return (
     <div className="mb-32">
-      <TopNav title="PB 상세프로필" hasBack={true} />
       {userData?.role !== undefined && authProfile?.data && (
         <>
           <Intro introData={authProfile.data} userData={userData} />

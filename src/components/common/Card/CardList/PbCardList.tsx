@@ -1,5 +1,5 @@
 "use client";
-import React, { SetStateAction, useMemo, Dispatch, useEffect } from "react";
+import { SetStateAction, useMemo, Dispatch, useEffect } from "react";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";

@@ -46,7 +46,7 @@ function SelectLocationModal({ setIsOpenModal }: SearchLocationProps) {
           <div className="flex justify-between">
             <h3 className="text-xl font-bold">내 지역 선택</h3>
             <button onClick={closedHandler}>
-              <Image className="mr-2 p-1" src={bottomArrow} alt="plus" width={24} height={24} />
+              <Image className="p-1 mr-2" src={bottomArrow} alt="plus" width={24} height={24} />
             </button>
           </div>
           <p className="text-md">지역이 선택되지 않았다면 지역을 등록해주세요.</p>
@@ -54,7 +54,7 @@ function SelectLocationModal({ setIsOpenModal }: SearchLocationProps) {
         {locations.location !== "위치 선택" ? (
           <button
             onClick={() => deleteLocation()}
-            className="mb-3 mt-5 flex h-14 w-full items-center justify-center rounded-md bg-white text-xl font-bold text-primary-normal"
+            className="flex items-center justify-center w-full mt-5 mb-3 text-xl font-bold bg-white rounded-md h-14 text-primary-normal"
           >
             {locations.location} &ensp; <Image src={close} alt="plus" width={24} height={24} />
           </button>
@@ -62,13 +62,13 @@ function SelectLocationModal({ setIsOpenModal }: SearchLocationProps) {
           <div className="flex gap-3">
             <button
               onClick={() => currentLocation()}
-              className="mb-3 mt-5 flex h-14 w-full items-center justify-center rounded-md bg-primary-light text-xl font-bold text-white"
+              className="flex items-center justify-center w-full mt-5 mb-3 text-xl font-bold text-white rounded-md h-14 bg-primary-light"
             >
               현재 위치 불러오기
             </button>
             <button
               onClick={() => onClickLocation()}
-              className="mb-3 mt-5 flex h-14 w-full items-center justify-center rounded-md bg-white text-xl font-bold text-primary-normal"
+              className="flex items-center justify-center w-full mt-5 mb-3 text-xl font-bold bg-white rounded-md h-14 text-primary-normal"
             >
               지역 등록하기&ensp; <Image src={plus} alt="plus" width={24} height={24} />
             </button>

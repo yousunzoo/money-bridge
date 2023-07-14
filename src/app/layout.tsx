@@ -7,6 +7,7 @@ import Main from "@/components/common/Main";
 import { Metadata } from "next";
 import Footer from "@/components/common/Footer";
 import { TopNav } from "@/components/common/TopNav";
+import { Suspense } from "react";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -77,12 +78,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicons/favicon-96x96.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
         <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content="머니브릿지 - Money Bridge" />
-        <meta property="og:description" content="위치기반 투자자 PB 매칭 플랫폼" />
-        <meta property="og:url" content="https://www.moneybridge.co.kr" />
-        <meta property="og:site_name" content="머니브릿지 - Money Bridge" />
-        <meta property="og:image" content="https://moneybridge.s3.ap-northeast-2.amazonaws.com/default/post.png" />
-        <meta property="og:type" content="website" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/assets/favicons/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
@@ -92,14 +87,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={noto.className}>
-        <ReactQueryProvider>
-          <Main>
-            <TopNav />
-            <div className="mb-40 flex-1">{children}</div>
-            <Footer />
-            <Navbar />
-          </Main>
-        </ReactQueryProvider>
+        <Suspense fallback={<></>}>
+          <ReactQueryProvider>
+            <Main>
+              <TopNav />
+              <div className="mb-40 flex-1">{children}</div>
+              <Footer />
+              <Navbar />
+            </Main>
+          </ReactQueryProvider>
+        </Suspense>
       </body>
     </html>
   );

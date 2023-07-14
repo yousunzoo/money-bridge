@@ -31,7 +31,7 @@ const useContentBookMark = (
 
   const bookMarkHandler = (id: number) => {
     setIsBookmarkedOpen(true);
-    if (isBookmarked) {
+    if (isBookmark) {
       deletebookMarkContent({ id: id });
     } else {
       postbookMarkContent({ id: id });

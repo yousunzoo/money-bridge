@@ -63,20 +63,14 @@ function ContentCardItem({
               </button>
             )}
           </div>
-          <div className="flex">
-            <div className="flex flex-1 flex-col text-[10px]">
-              <div className="flex text-base">
-                <p className="font-bold">{item.pbName}PB</p> &nbsp;| {item.career}년차
-              </div>
-              <span className="text-base">{item.msg}</span>
+          <div className="flex items-center">
+            <div className="flex-1 text-base">
+              <p>
+                <b>{item.pbName}PB&nbsp;</b>| {item.career}년차
+              </p>
+              <p className="text-base">{item.msg}</p>
             </div>
-            <Image
-              src={item.companyLogo}
-              alt="증권사로고"
-              className="ml-[45px] max-h-[40px] object-contain"
-              width={40}
-              height={40}
-            />
+            <Image src={item.companyLogo} alt="증권사로고" width={80} height={80} />
           </div>
         </div>
       </li>

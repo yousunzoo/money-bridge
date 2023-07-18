@@ -104,6 +104,11 @@ money-bridge
 |<p align="center">PB가 등록한 콘텐츠를 라운지에서 </br> 간략하게 확인할 수 있습니다.</p>|<p align="center">PB검색 및 콘텐츠를 검색을 통해 찾아볼 수 있습니다.</p>|
 
 
+|**PB 상세프로필**|**콘텐츠 보기**|
+| --- | --- |
+|<p align="center"><img src="https://github.com/FINALALT1/money-bridge/assets/100064540/cb5566c8-76d3-465b-a071-fbf8c606ff99" width="380" height="500" style="object-fit: cover; object-position: center;"></p>|<p align="center"><img src="https://github.com/FINALALT1/money-bridge/assets/100064540/332676df-20eb-4701-96c3-2e6c82762060" width="380" height="500" style="object-fit: cover; object-position: center;"></p>
+|<p align="center">PB정보를 확인하고 공유, 북마크 할 수 있습니다.</p>|<p align="center">콘텐츠 정보를 확인하고 공유, 북마크 할 수 있습니다. </br> 댓글을 통해 소통할 수 있는 공간을 제공합니다. </p>|
+
 |**투자성향 분석(투자자)**|**상담 예약(투자자)**|
 | --- | --- |
 |<p align="center"><img src="https://github.com/lbw3973/money-bridge/assets/75530371/72a27f3b-1c0e-4096-9104-258c31f5b236" width="380" height="500" style="object-fit: cover; object-position: center;"></p>|<p align="center"><img src="https://github.com/lbw3973/money-bridge/assets/75530371/9b10b1de-20d4-4391-8722-7223cf60a1ea" width="380" height="500" style="object-fit: cover; object-position: center;"></p>
@@ -120,3 +125,4 @@ money-bridge
 | --- | --- |
 |<p align="center"><img src="https://github.com/kjungit/money-bridge/assets/100064540/b5e3c5b9-6ec6-4cb8-8d8d-fdfeab2ca7d4" width="380" height="500" style="object-fit: cover; object-position: center;"></p>|<p align="center"><img src="https://github.com/kjungit/money-bridge/assets/100064540/9310d161-a3f9-486f-aa8b-1b2986cc9a4f" width="380" height="500" style="object-fit: cover; object-position: center;"></p>
 |<p align="center">캘린더에서 각 항목이 있는 날짜를 확인하고 </br> 해당 날짜에 등록된 상담리스트를 확인할 수 있습니다.</br> PB의 업무시간 및 상담 불가한 시간을 </br> 메모하여 투자자에게 알릴 수 있습니다.</p>|<p align="center">상담현황을 확인할 수 있고,</br> 나의 후기, 일정관리 페이지로 이동할 수 있습니다.</br> 카테고리별 예약내역을 확인할 수 있습니다.</p>|
+

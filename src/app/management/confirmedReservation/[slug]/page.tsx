@@ -1,6 +1,6 @@
 "use client";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
-import React, { useState } from "react";
+import { useState } from "react";
 import ConsultationLocationSection from "@/components/common/ConsultationLocationSection";
 import ConsultationScheduleSection from "@/components/common/ConsultationScheduleSection";
 import ConsultationNoteSection from "@/components/common/ConsultationNoteSection";

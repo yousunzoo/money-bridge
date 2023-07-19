@@ -1,4 +1,3 @@
-"use client";
 import { IModalContents } from "@/types/common";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 import { getSearchContent } from "@/app/apis/services/common";
 
-function ContentResult({ value}: { value: string; }) {
+function ContentResult({ value }: { value: string }) {
   const [result, setResult] = useState(false);
   return (
     <>

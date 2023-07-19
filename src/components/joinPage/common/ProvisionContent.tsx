@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import React, { MouseEvent } from "react";
+import { MouseEvent } from "react";
 import { pbRequired, userRequired } from "./AgreeProvision";
 import checkProvision from "/public/assets/images/checkProvision.svg";
 import uncheckProvision from "/public/assets/images/uncheckProvision.svg";

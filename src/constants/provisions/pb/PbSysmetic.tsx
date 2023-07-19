@@ -1,5 +1,3 @@
-import React from "react";
-
 function PbSysmetic() {
   return (
     <div className="cont">

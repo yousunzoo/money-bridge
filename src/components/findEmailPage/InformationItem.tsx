@@ -1,5 +1,4 @@
 import { IFindEmailData } from "@/types/login";
-import React from "react";
 
 function InformationItem({ information }: { information: IFindEmailData }) {
   return (

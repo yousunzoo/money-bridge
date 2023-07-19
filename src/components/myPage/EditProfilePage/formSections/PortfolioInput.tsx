@@ -1,6 +1,5 @@
 import { IPortfolioInputProps } from "@/types/editProfile";
 import { validateFileSize } from "@/utils/validateFileSize";
-import React from "react";
 
 function PortfolioInput({ errors, register, removeFile, portfolio }: IPortfolioInputProps) {
   return (

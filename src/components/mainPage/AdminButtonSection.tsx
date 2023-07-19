@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import SingleButton from "@/components/common/SingleButton";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 

@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 function UserInfoList() {
   const { data: userInfo, isLoading } = useQuery<IUserEditableInfo, AxiosError>({

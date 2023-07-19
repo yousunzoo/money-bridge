@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { getLoungeHot as Hot } from "@/app/apis/services/common";
 import ContentCardList from "@/components/common/Card/CardList/ContentCardList";
 

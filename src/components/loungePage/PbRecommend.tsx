@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 
 function PbRecommend({ name }: { name: string }) {
@@ -11,13 +10,13 @@ function PbRecommend({ name }: { name: string }) {
           <br />
           PB 매칭 결과가 도착했어요!
         </p>
-        <div className="w-full justify-end flex">
-        <Link
-          href="/pblist/recommend"
-          className="mt-10 flex h-11 w-[168px] items-center justify-center rounded-sm bg-white text-xs text-primary-normal"
-        >
-          PB 매칭 결과 확인하기
-        </Link>
+        <div className="flex w-full justify-end">
+          <Link
+            href="/pblist/recommend"
+            className="mt-10 flex h-11 w-[168px] items-center justify-center rounded-sm bg-white text-xs text-primary-normal"
+          >
+            PB 매칭 결과 확인하기
+          </Link>
         </div>
       </div>
     </div>

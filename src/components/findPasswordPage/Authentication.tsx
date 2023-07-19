@@ -1,5 +1,5 @@
 import { usePathname, useRouter } from "next/navigation";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import help from "/public/assets/images/help.svg";
 import Image from "next/image";
 import { useAuthentication } from "@/hooks/useAuthentication";
@@ -146,6 +146,8 @@ function Authentication({ userEmail, onSubmit }: { userEmail?: string; onSubmit?
         </div>
         <div className="text-sm leading-6">
           *정확한 이메일 주소를 등록하셨는지 확인해주세요.
+          <br />
+          *대소문자를 구분하여 입력해주세요.
           <br />
           *인증메일 재발송을 원하시면 재발송 버튼을 눌러주세요.
         </div>

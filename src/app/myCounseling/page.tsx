@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ProcessList from "@/components/common/ProcessList";
 import UserReservationItem from "@/components/common/Card/CardItem/UserReservationItem";
 import UserConsultationStatus from "../../components/common/UserConsultationStatus";
@@ -13,12 +13,7 @@ import { getUserConsultationList, getUserReservationRecent } from "../apis/servi
 import { PROCESS_DATA } from "@/constants/reservation";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
 import ErrorModal from "@/components/common/ErrorModal";
-const PROCESS_NAME: Record<string, string> = {
-  APPLY: "신규예약",
-  CONFIRM: "예약확정",
-  COMPLETE: "상담완료",
-  WITHDRAW: "예약취소",
-};
+
 interface SelectedData {
   reservationId: number;
   isNewReservation: boolean;

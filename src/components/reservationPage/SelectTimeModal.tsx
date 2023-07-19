@@ -1,5 +1,5 @@
 import { ICandidateTimes, ISelectTimeModalProps } from "@/types/reservation";
-import React, { useState } from "react";
+import { useState } from "react";
 import SelectCalendar from "./SelectCalendar";
 import dayjs, { Dayjs } from "dayjs";
 import TimeSelect from "./TimeSelect";

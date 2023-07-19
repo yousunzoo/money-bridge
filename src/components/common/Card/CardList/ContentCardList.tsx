@@ -1,5 +1,5 @@
 "use client";
-import React, { SetStateAction, useMemo, Dispatch,useEffect } from "react";
+import { SetStateAction, useMemo, Dispatch, useEffect } from "react";
 import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
@@ -17,7 +17,7 @@ function ContentCardList({
   api: any;
   etc?: number | string;
   setResult?: Dispatch<SetStateAction<boolean>>;
-  bookmarks:boolean;
+  bookmarks: boolean;
 }) {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     [queryKey],
@@ -58,7 +58,8 @@ function ContentCardList({
           ? list.map((item: IContentCard) => (
               <ContentCardItem key={item.id} item={item} queryKey={queryKey} bookmarks={bookmarks} />
             ))
-          : pathname !== "/lounge/search" && pathname !== "/bookmark/content" && (
+          : pathname !== "/lounge/search" &&
+            pathname !== "/bookmark/content" && (
               <li className="mx-auto my-4 flex h-48 w-4/5 items-center justify-center rounded-xl shadow-md">
                 작성한 콘텐츠가 없습니다
               </li>

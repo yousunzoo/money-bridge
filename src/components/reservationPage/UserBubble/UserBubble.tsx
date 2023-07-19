@@ -1,4 +1,4 @@
-import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import CandidateTime from "../Modals/CandidateTime";
 import editIcon from "/public/assets/images/editIcon.svg";
 import Image from "next/image";
@@ -12,7 +12,7 @@ export interface IUserBubbleProps {
 }
 function UserBubble({ answerRef, step, answers, setIsChoosable }: IUserBubbleProps) {
   const didAnswer = step === 3 && answers[3]?.candidateTime1 ? true : answers[step] ? true : false;
-  const margin = answers[(step + 1) as 1 | 2 | 3 | 4 | 5] ? "" : "mt-20";
+  const margin = answers[(step + 1) as 1 | 2 | 3 | 4 | 5] || answers[5] ? "" : "mt-20";
   return (
     <>
       {!didAnswer && <div className="grow" />}

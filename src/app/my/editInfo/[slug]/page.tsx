@@ -8,7 +8,7 @@ import { IUserEditableInfo } from "@/types/my";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function EditPage({ params }: { params: { slug: string } }) {
   const queryClient = useQueryClient();

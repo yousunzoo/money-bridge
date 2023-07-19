@@ -1,6 +1,5 @@
 import { DayScheduleListProps } from "@/types/schedule";
 import dayjs from "dayjs";
-import React from "react";
 
 const statusItems = [
   { id: 1, color: "bg-[#EB5147]", text: "APPLY" },
@@ -23,7 +22,7 @@ function DayScheduleList({ clickDayList, isClickDay }: { clickDayList?: DaySched
 
   return (
     <div className="mt-6 h-[220px] w-full overflow-hidden rounded-xl bg-white px-6 py-4 shadow-2xl ">
-      <div className="flex justify-between pb-2 text-lg font-bold border-b-2">
+      <div className="text-lg border-b-2 flex justify-between pb-2 font-bold">
         <h3 className="text-lg font-bold">{formattedDate}</h3>
         <span>상담 {clickDayList ? clickDayList.length : 0}건</span>
       </div>
@@ -37,7 +36,7 @@ function DayScheduleList({ clickDayList, isClickDay }: { clickDayList?: DaySched
 
             const processColor = statusItems.find(item => item.text === process);
             return (
-              <li key={id} className="flex items-center justify-between w-full h-12 py-1 text-sm ">
+              <li key={id} className="flex h-12 w-full items-center justify-between py-1 text-sm ">
                 <span>{index + 1}</span>
                 <span>{userName}</span>
                 <span>{displayTime}</span>

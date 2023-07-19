@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 import dropDown from "/public/assets/images/dropDown.svg";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import ModalCompanyList from "./ModalCompanyList";
@@ -87,7 +87,7 @@ function SelectCompany() {
         </button>
       </div>
       <button
-        className={`mt-9 h-16 w-full rounded-[8px] text-xl font-bold leading-7  ${
+        className={`mb-5 mt-9 h-16 w-full rounded-[8px] text-xl font-bold leading-7  ${
           company.name === "" || location.name === ""
             ? "bg-background-secondary text-gray-heavy"
             : "bg-primary-normal text-white"
@@ -97,6 +97,7 @@ function SelectCompany() {
       >
         다음
       </button>
+      <p className="text-sm leading-6">*찾으시는 지점이 없으신 경우 help@sysmetic.co.kr 로 문의 바랍니다</p>
       {isOpen && (
         <ModalLayout handleCloseModal={handleCloseModal}>
           {isLocation ? (

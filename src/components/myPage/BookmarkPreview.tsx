@@ -1,5 +1,4 @@
 import { IBookmarkPreviewProps } from "@/types/my";
-import Image from "next/image";
 import BookmarkPreviewCard from "./BookmarkPreviewCard";
 
 function BookmarkPreview({ boardBookmark, pbBookmark }: IBookmarkPreviewProps) {

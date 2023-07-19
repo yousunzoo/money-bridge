@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 interface LocationCopyButtonProps {
   location: string;
 }
@@ -31,8 +31,8 @@ function LocationCopyButton({ location }: LocationCopyButtonProps) {
 
   return (
     <>
-      <button className="self-end mt-1" onClick={handleCopyClick}>
-        <p className="text-xs underline text-gray-heavy underline-offset-1">주소 복사</p>
+      <button className="mt-1 self-end" onClick={handleCopyClick}>
+        <p className="text-xs text-gray-heavy underline underline-offset-1">주소 복사</p>
       </button>
       {showModal && (
         <div className="fade b-[50px] fixed bottom-0 left-1/2 right-0 top-[80%] z-10 h-14 w-[300px]  -translate-x-1/2 rounded-md bg-background-secondary py-4 text-center text-sm text-gray-heavy ">

@@ -1,4 +1,3 @@
-import React from "react";
 import LocationCopyButton from "./LocationCopyButton";
 
 interface ConsultingHistoryProps {
@@ -29,8 +28,8 @@ function ConsultingHistoryCard({
   completionPhrase2,
 }: ConsultingHistoryProps) {
   return (
-    <section className="w-full p-4 pb-6 mt-6 text-xs bg-white rounded-md">
-      <div className="flex justify-between pb-4 mb-4 border-b-1">
+    <section className="mt-6 w-full rounded-md bg-white p-4 pb-6 text-xs">
+      <div className="mb-4 flex justify-between border-b-1 pb-4">
         {time ? (
           <>
             <h3 className="font-bold">상담 일정</h3>
@@ -77,14 +76,14 @@ function ConsultingHistoryCard({
           </>
         )}
       </div>
-      <div className="flex flex-col pb-4 mb-4 border-b-1">
+      <div className="mb-4 flex flex-col border-b-1 pb-4">
         <div className="flex justify-between">
           <span className="font-bold">상담 방식</span>
           <span className={role === "USER" ? `text-secondary-heavy` : `text-primary-normal`}>
             {type === "VISIT" ? "방문상담" : "유선상담"}
           </span>
         </div>
-        <div className="flex justify-between mt-2">
+        <div className="mt-2 flex justify-between">
           <span className="font-bold">미팅 장소</span>
           <span className={role === "USER" ? `text-secondary-heavy` : `text-primary-normal`}>{location}</span>
         </div>
@@ -97,7 +96,7 @@ function ConsultingHistoryCard({
         </div>
         <div className="flex flex-col">
           <span className="mt-2 font-bold">요청사항</span>
-          <p className="p-4 mt-2 rounded-sm bg-background-secondary">{question}</p>
+          <p className="mt-2 rounded-sm bg-background-secondary p-4">{question}</p>
         </div>
         <div className="flex flex-col items-center py-6 text-xs">
           <p className={role === "USER" ? `font-bold text-secondary-heavy` : `font-bold text-primary-normal`}>

@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import React from "react";
 import { useRouter } from "next/navigation";
 import bookmark from "/public/assets/images/icon/pbcontent_bookmark.svg";
 import bookmark_filled from "/public/assets/images/icon/pbcontent_bookmark_filled.svg";
@@ -48,7 +47,7 @@ function PbCardItem({
     isOpen,
     setIsOpen,
     error,
-  } = usePbBookMark(item.isBookmarked, "/bookmark/pb", id, queryKey);
+  } = usePbBookMark(item.isBookmarked, "/bookmark/pb", false, queryKey);
 
   return (
     <>

@@ -1,5 +1,5 @@
 import { ITimeSelectQuestionProps } from "@/types/reservation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import UserBubble from "../UserBubble/UserBubble";
 import { useSetQuestions } from "@/hooks/useSetQuestions";
 import highlight from "/public/assets/images/highlight.svg";

@@ -1,5 +1,4 @@
 import { ReviewCardItemProps } from "@/types/common";
-import React from "react";
 import ReviewCardItem from "../CardItem/ReviewCardItem";
 type ReviewList = ReviewCardItemProps[];
 function ReviewCardList(props: { reviewList: ReviewList }) {

@@ -1,4 +1,3 @@
-"use client";
 import { getLocationName } from "@/app/apis/services/location";
 import { useLocationStore } from "@/store/location";
 import { CoordinateProps, PositionProps } from "@/types/location";

@@ -35,9 +35,9 @@ function TimeSelect({ setIsDisabled, selectOptions, selectedDate, handleTimeSele
     <>
       <p className="font-bold">방문 날짜</p>
       <p className="fond-bold">{userDate}</p>
-      <div className="mt-10">
+      <div className="mt-8">
         <p className="mb-4 text-sm">오전</p>
-        <div className="mb-10 grid w-full grid-cols-4 gap-x-2">
+        <div className="mb-8 grid w-full grid-cols-4 gap-x-2">
           {am.map(time => (
             <button
               className={`${BUTTON_STYLE} ${isToday && disabledOptions.am.includes(time) && "inactive"} ${
@@ -54,7 +54,7 @@ function TimeSelect({ setIsDisabled, selectOptions, selectedDate, handleTimeSele
           ))}
         </div>
         <p className="mb-4 text-sm">오후</p>
-        <div className="grid w-full grid-cols-4 gap-x-2 gap-y-4">
+        <div className="grid w-full grid-cols-4 gap-2">
           {pm.map(time => (
             <button
               className={`${BUTTON_STYLE} ${isToday && disabledOptions.pm.includes(time) && "inactive"} ${

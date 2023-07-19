@@ -4,7 +4,7 @@ export const timeSelectOptions = ({ consultStart, consultEnd }: { consultStart: 
   const startHour = dayjs(consultStart, "hh").get("hour");
   const endHour = dayjs(consultEnd, "hh").get("hour") === 0 ? 24 : dayjs(consultEnd, "hh").get("hour");
   const isLastUntilDawn = endHour < startHour;
-  const endTime = endHour > startHour ? endHour : 24;
+  const endTime = endHour > startHour ? startHour : 24;
   const options = makeOptions(startHour, endHour);
   if (isLastUntilDawn) {
     const dawnOptions = makeOptions(0, endTime);

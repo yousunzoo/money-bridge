@@ -1,8 +1,8 @@
 import Image from "next/image";
 import close from "/public/assets/images/close.svg";
 import TimeSelect from "@/components/reservationPage/TimeSelect";
-import dayjs from "dayjs";
 import { TimeModalProps } from "@/types/management";
+import { timeSelectOptions } from "@/utils/timeSelectOptions";
 
 function TimeModal({
   timeOpenHandler,
@@ -13,33 +13,7 @@ function TimeModal({
   isDisabled,
   setIsDisabled,
 }: TimeModalProps) {
-  const selectOptions = (() => {
-    const { consultStart, consultEnd } = consultTime;
-    const startHour = dayjs(consultStart, "HH").get("hour");
-    const endHour = dayjs(consultEnd, "HH").get("hour");
-
-    const am = [];
-    const pm = [];
-
-    if (startHour <= endHour) {
-      for (let i = startHour; i <= endHour; i++) {
-        if (i < 12) {
-          am.push(i < 10 ? `0${i}:00` : `${i}:00`);
-        } else {
-          pm.push(`${i}:00`);
-        }
-      }
-    } else {
-      for (let i = startHour; i <= 23; i++) {
-        pm.push(`${i}:00`);
-      }
-      for (let i = 0; i <= endHour; i++) {
-        am.push(i < 10 ? `0${i}:00` : `${i}:00`);
-      }
-    }
-
-    return { am, pm };
-  })();
+  const { consultStart, consultEnd } = consultTime;
 
   return (
     <section className="fixed top-0 left-0 z-30 w-full h-full">
@@ -55,7 +29,7 @@ function TimeModal({
         </div>
         <TimeSelect
           setIsDisabled={setIsDisabled}
-          selectOptions={selectOptions}
+          selectOptions={timeSelectOptions({ consultStart, consultEnd })}
           selectedDate={selectedDate}
           handleTimeSelect={handleTimeSelect}
         />

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import close from "/public/assets/images/close.svg";
 import TimeSelect from "@/components/reservationPage/TimeSelect";
-import dayjs from "dayjs";
 import { TimeModalProps } from "@/types/management";
+import { timeSelectOptions } from "@/utils/timeSelectOptions";
 
 function TimeModal({
   timeOpenHandler,
@@ -13,27 +13,13 @@ function TimeModal({
   isDisabled,
   setIsDisabled,
 }: TimeModalProps) {
-  const selectOptions = (() => {
-    const { consultStart, consultEnd } = consultTime;
-    const startHour = dayjs(consultStart, "hh").get("hour");
-    const endHour = dayjs(consultEnd, "hh").get("hour");
-    const am = [];
-    const pm = [];
-    for (let i = startHour; i <= endHour; i++) {
-      if (i < 12) {
-        am.push(i < 10 ? `0${i}:00` : `${i}:00`);
-      } else {
-        pm.push(`${i}:00`);
-      }
-    }
-    return { am, pm };
-  })();
+  const { consultStart, consultEnd } = consultTime;
 
   return (
-    <section className="fixed left-0 top-0 z-30 h-full w-full">
+    <section className="fixed top-0 left-0 z-30 w-full h-full">
       <div className="modal_background" />
       <div className="fixed bottom-0 left-1/2 z-10 flex min-w-[380px] max-w-[320px] -translate-x-1/2 flex-col  rounded-t-md bg-white px-6 py-6 shadow-lg">
-        <div className="mb-4 flex w-full items-center justify-between">
+        <div className="flex items-center justify-between w-full mb-4">
           <h3 className="text-lg font-bold ">
             날짜를 선택해주세요. <span className="text-xs">(날짜 선택 후 시간 선택)</span>
           </h3>
@@ -43,7 +29,7 @@ function TimeModal({
         </div>
         <TimeSelect
           setIsDisabled={setIsDisabled}
-          selectOptions={selectOptions}
+          selectOptions={timeSelectOptions({ consultStart, consultEnd })}
           selectedDate={selectedDate}
           handleTimeSelect={handleTimeSelect}
         />

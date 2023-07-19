@@ -35,9 +35,9 @@ function TimeSelect({ setIsDisabled, selectOptions, selectedDate, handleTimeSele
     <>
       <p className="font-bold">방문 날짜</p>
       <p className="fond-bold">{userDate}</p>
-      <div className="mt-8">
+      <div className="mt-8 max-h-[300px] overflow-scroll">
         <p className="mb-4 text-sm">오전</p>
-        <div className="mb-8 grid w-full grid-cols-4 gap-x-2">
+        <div className="mb-8 grid w-full grid-cols-4 gap-2">
           {am.map(time => (
             <button
               className={`${BUTTON_STYLE} ${isToday && disabledOptions.am.includes(time) && "inactive"} ${

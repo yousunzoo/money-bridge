@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 
 export const timeSelectOptions = ({ consultStart, consultEnd }: { consultStart: string; consultEnd: string }) => {
-  const startHour = dayjs(consultStart, "hh").get("hour") || 9;
-  const endHour = (dayjs(consultEnd, "hh").get("hour") === 0 ? 24 : dayjs(consultEnd, "hh").get("hour")) || 18;
+  const startHour = dayjs(consultStart, "hh").get("hour");
+  const endHour = dayjs(consultEnd, "hh").get("hour") === 0 ? 24 : dayjs(consultEnd, "hh").get("hour");
   const isLastUntilDawn = endHour < startHour;
   const endTime = endHour > startHour ? endHour : 24;
   const options = makeOptions(startHour, endHour);

@@ -2,7 +2,7 @@
 import { SetStateAction, useMemo, Dispatch, useEffect } from "react";
 import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { IContentCard } from "@/types/card";
 import { usePathname } from "next/navigation";
 

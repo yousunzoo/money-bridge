@@ -11,7 +11,7 @@ import { ConsultationStatusProps } from "@/types/management";
 import { AxiosError } from "axios";
 import { getUserConsultationList, getUserReservationRecent } from "../apis/services/user";
 import { PROCESS_DATA } from "@/constants/reservation";
-import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import ErrorModal from "@/components/common/ErrorModal";
 
 interface SelectedData {

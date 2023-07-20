@@ -5,7 +5,7 @@ import AccordianItem from "./AccordianItem";
 import { IAccordianListProps } from "@/types/my";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getFAQs, getNotices } from "@/app/apis/services/etc";
-import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Skeleton } from "antd";
 
 function AccordianList({ type }: IAccordianListProps) {

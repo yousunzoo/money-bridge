@@ -8,7 +8,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { ConsultationStatusProps, SelectedData } from "@/types/management";
 import { redirect, useSearchParams } from "next/navigation";
-import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import ErrorModal from "@/components/common/ErrorModal";
 import { PROCESS_DATA } from "@/constants/reservation";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";

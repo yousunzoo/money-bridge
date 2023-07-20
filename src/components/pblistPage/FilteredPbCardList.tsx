@@ -1,4 +1,4 @@
-import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useMemo } from "react";
 import PbCardItem from "../common/Card/CardItem/PbCardItem";
 import { useGetFilteredPBlist } from "@/hooks/useGetFilteredPBList";

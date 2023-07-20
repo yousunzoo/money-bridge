@@ -1,6 +1,11 @@
-import { IFigureInputProps } from "@/types/editProfile";
+import { useFormContext } from "react-hook-form";
 
-function FigureInput({ errors, register, getValues }: IFigureInputProps) {
+function FigureInput() {
+  const {
+    formState: { errors },
+    register,
+    getValues,
+  } = useFormContext();
   const isError =
     errors["cumulativeReturn"] || errors["maxDrawdown"] || errors["profitFactor"] || errors["averageProfit"];
   return (

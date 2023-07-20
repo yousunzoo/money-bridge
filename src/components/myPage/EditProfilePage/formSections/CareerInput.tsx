@@ -1,6 +1,12 @@
-import { ICareerInputProps } from "@/types/editProfile";
+import { useFormContext } from "react-hook-form";
 
-function CareerInput({ errors, register, defaultValue }: ICareerInputProps) {
+function CareerInput() {
+  const {
+    register,
+    formState: { errors },
+    getValues,
+  } = useFormContext();
+  const defaultValue = getValues("career");
   return (
     <section className="mb-10">
       <p className="mb-4 text-xl font-bold">총 경력을 입력해주세요.</p>

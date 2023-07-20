@@ -1,8 +1,14 @@
 import { ICareerFormProps } from "@/types/editProfile";
 import minusIcon from "/public/assets/images/minusCircle.svg";
-
 import Image from "next/image";
-function CareerForm({ errors, getValues, careerData, removeItems, register }: ICareerFormProps) {
+import { useFormContext } from "react-hook-form";
+
+function CareerForm({ careerData, removeItems }: ICareerFormProps) {
+  const {
+    getValues,
+    formState: { errors },
+    register,
+  } = useFormContext();
   const { career, start, end, id } = careerData;
   const handleClick = () => {
     if (!id) return;

@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { IEditProfileFormProps } from "@/types/my";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import ProfileInput from "./formSections/ProfileInput";
 import CompanyInput from "./formSections/CompanyInput";
 import CareerInput from "./formSections/CareerInput";
@@ -40,17 +40,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   const [speciality, setSpeciality] = useState(
     [existingProfile.speciality1, existingProfile.speciality2].filter(item => item !== null),
   );
-
-  const {
-    watch,
-    getValues,
-    handleSubmit,
-    setValue,
-    reset,
-    register,
-    unregister,
-    formState: { errors, isValid },
-  } = useForm<any>({
+  const methods = useForm<any>({
     mode: "onChange",
     defaultValues: {
       intro: existingProfile.intro,
@@ -67,6 +57,14 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
       career: existingProfile.career,
     },
   });
+  const {
+    watch,
+    setValue,
+    unregister,
+    reset,
+    handleSubmit,
+    formState: { isValid },
+  } = methods;
 
   const profileVal = watch("profile");
   const portfolioVal = watch("portfolio");
@@ -140,36 +138,18 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
   }, [profileVal, portfolioVal]);
 
   return (
-    <>
+    <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="pb-20">
-        <ProfileInput errors={errors} register={register} removeFile={removeFile} profile={filePreviews.profile} />
-        <CompanyInput getValues={getValues} setValue={setValue} branchName={watch("branchName")} />
-        <CareerInput errors={errors} register={register} defaultValue={getValues("career")} />
-        <CareersInput
-          errors={errors}
-          getValues={getValues}
-          register={register}
-          removeItems={removeItems}
-          careers={careers}
-          addCareers={addCareers}
-        />
-        <AwardsInput
-          errors={errors}
-          register={register}
-          removeItems={removeItems}
-          awards={awards}
-          addAwards={addAwards}
-        />
+        <ProfileInput removeFile={removeFile} profile={filePreviews.profile} />
+        <CompanyInput />
+        <CareerInput />
+        <CareersInput removeItems={removeItems} careers={careers} addCareers={addCareers} />
+        <AwardsInput removeItems={removeItems} awards={awards} addAwards={addAwards} />
         <SpecialityInput speciality={speciality} handleToggleButtons={handleToggleButtons} />
-        <FigureInput errors={errors} register={register} getValues={getValues} />
-        <PortfolioInput
-          errors={errors}
-          register={register}
-          removeFile={removeFile}
-          portfolio={filePreviews.portfolio}
-        />
-        <IntroInput errors={errors} register={register} intro={watch("intro")} />
-        <MsgInput errors={errors} register={register} msg={watch("msg")} />
+        <FigureInput />
+        <PortfolioInput removeFile={removeFile} portfolio={filePreviews.portfolio} />
+        <IntroInput />
+        <MsgInput />
         <button
           disabled={!isValid || isLoading}
           className={`button_fixed ${(!isValid || isLoading) && "bg-button-inactive"}`}
@@ -177,7 +157,7 @@ function EditProfileForm({ existingProfile }: IEditProfileFormProps) {
           등록 완료
         </button>
       </form>
-    </>
+    </FormProvider>
   );
 }
 

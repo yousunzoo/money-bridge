@@ -1,7 +1,12 @@
 import { IPortfolioInputProps } from "@/types/editProfile";
 import { validateFileSize } from "@/utils/validateFileSize";
+import { useFormContext } from "react-hook-form";
 
-function PortfolioInput({ errors, register, removeFile, portfolio }: IPortfolioInputProps) {
+function PortfolioInput({ removeFile, portfolio }: IPortfolioInputProps) {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <section className="mb-10">
       <div className="mb-4 flex items-center justify-between">

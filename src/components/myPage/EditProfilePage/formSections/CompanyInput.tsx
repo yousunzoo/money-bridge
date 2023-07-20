@@ -5,14 +5,16 @@ import { useGetCompanyList } from "@/hooks/useGetCompanyList";
 import { ICompanyInputProps } from "@/types/editProfile";
 import { ICompanyInput } from "@/types/join";
 import { MouseEvent, useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
-function CompanyInput({ getValues, setValue, branchName }: ICompanyInputProps) {
+function CompanyInput() {
+  const { getValues, setValue, watch } = useFormContext();
   const [company, setCompany] = useState({ id: getValues("companyId"), name: getValues("company") });
   const [location, setLocation] = useState<{ id: number; name: string }>({ id: 0, name: getValues("branchName") });
-
   const [isOpen, setIsOpen] = useState(false);
   const [modalType, setModalType] = useState<"location" | "company" | null>(null);
   const companyList = useGetCompanyList();
+  const branchName = watch("branchName");
 
   const handleOpenCompanyModal = () => {
     setIsOpen(true);

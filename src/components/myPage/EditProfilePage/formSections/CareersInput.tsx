@@ -2,8 +2,9 @@ import Image from "next/image";
 import AddIcon from "/public/assets/images/addCircle.svg";
 import CareerForm from "../CareerForm";
 import { ICareersInputProps } from "@/types/editProfile";
+import { useFormContext } from "react-hook-form";
 
-function CareersInput({ errors, getValues, register, removeItems, careers, addCareers }: ICareersInputProps) {
+function CareersInput({ removeItems, careers, addCareers }: ICareersInputProps) {
   return (
     <section className="mb-10">
       <div className="mb-3 flex items-center justify-between">
@@ -15,14 +16,7 @@ function CareersInput({ errors, getValues, register, removeItems, careers, addCa
       <p className="mb-4 text-xs">재직 중일 시 퇴사에 현재 연도를 입력해주세요.</p>
       <ul className="px-4">
         {careers.map(item => (
-          <CareerForm
-            key={item.id}
-            getValues={getValues}
-            errors={errors}
-            register={register}
-            removeItems={removeItems}
-            careerData={item}
-          />
+          <CareerForm key={item.id} removeItems={removeItems} careerData={item} />
         ))}
       </ul>
     </section>

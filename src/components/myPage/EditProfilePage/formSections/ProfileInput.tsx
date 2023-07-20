@@ -1,6 +1,11 @@
 import { IProfileInputProps } from "@/types/editProfile";
 import { validateFileSize } from "@/utils/validateFileSize";
-function ProfileInput({ errors, register, removeFile, profile }: IProfileInputProps) {
+import { useFormContext } from "react-hook-form";
+function ProfileInput({ removeFile, profile }: IProfileInputProps) {
+  const {
+    formState: { errors },
+    register,
+  } = useFormContext();
   return (
     <section className="mb-10">
       <div className="mb-4 flex items-center justify-between">

@@ -1,6 +1,12 @@
-import { IMsgInputProps } from "@/types/editProfile";
+import { useFormContext } from "react-hook-form";
 
-function MsgInput({ register, errors, msg }: IMsgInputProps) {
+function MsgInput() {
+  const {
+    formState: { errors },
+    register,
+    watch,
+  } = useFormContext();
+  const msg = watch("msg");
   return (
     <section className="mb-10">
       <p className="mb-4 text-xl font-bold">프로필 제목을 작성해 주세요.</p>

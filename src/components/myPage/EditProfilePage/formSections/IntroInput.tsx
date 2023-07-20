@@ -1,6 +1,12 @@
-import { IIntroInputProps } from "@/types/editProfile";
+import { useFormContext } from "react-hook-form";
 
-function IntroInput({ register, errors, intro }: IIntroInputProps) {
+function IntroInput() {
+  const {
+    watch,
+    formState: { errors },
+    register,
+  } = useFormContext();
+  const intro = watch("intro");
   return (
     <section className="mb-10">
       <p className="mb-4 text-xl font-bold">한 줄 소개를 작성해 주세요.</p>

@@ -1,8 +1,13 @@
 import Image from "next/image";
 import minusIcon from "/public/assets/images/minusCircle.svg";
 import { IAwardFormProps } from "@/types/editProfile";
+import { useFormContext } from "react-hook-form";
 
-function AwardForm({ errors, award, removeItems, register }: IAwardFormProps) {
+function AwardForm({ award, removeItems }: IAwardFormProps) {
+  const {
+    formState: { errors },
+    register,
+  } = useFormContext();
   const { record, year, id } = award;
 
   const handleClick = () => {

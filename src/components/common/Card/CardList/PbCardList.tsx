@@ -2,7 +2,7 @@
 import { SetStateAction, useMemo, Dispatch, useEffect } from "react";
 import PbCardItem from "@/components/common/Card/CardItem/PbCardItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { IPbCard } from "@/types/card";
 import PBCardSkeletonItem from "../CardItem/PBCardSkeletonItem";
 

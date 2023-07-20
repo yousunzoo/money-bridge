@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import PbReviewItem from "@/components/pbdetailPage/pbreviewPage/PbReviewItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useIntersectionObserver } from "@/utils/useIntersectionObserver";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { getPbReview } from "@/app/apis/services/pb";
 import { IPbReview } from "@/types/pb";
 

@@ -91,6 +91,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&autoload=false`}
         />
+        <Script src="//wcs.naver.net/wcslog.js" strategy="afterInteractive" />
+        <Script
+          id="naver-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+            if (!wcs_add) var wcs_add = {};
+            wcs_add["wa"] = "1c72383b4c03d20";
+            if (window.wcs) {
+              wcs_do();
+            }
+          `,
+          }}
+        />
       </head>
       <body className={noto.className}>
         <ReactQueryProvider>

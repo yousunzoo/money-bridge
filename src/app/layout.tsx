@@ -10,6 +10,7 @@ import { TopNav } from "@/components/common/TopNav";
 import { Suspense } from "react";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });
+const GA_Measurement_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.moneybridge.co.kr"),
@@ -103,6 +104,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               wcs_do();
             }
           `,
+          }}
+        />
+        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_Measurement_ID}`} />
+        <Script
+          id="google-analytics"
+          dangerouslySetInnerHTML={{
+            __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_Measurement_ID}', {
+            page_path: window.location.pathname,
+          });
+        `,
           }}
         />
       </head>

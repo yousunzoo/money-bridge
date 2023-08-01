@@ -1,4 +1,3 @@
-"use client";
 import ContentCardItem from "../common/Card/CardItem/ContentCardItem";
 import { getContents } from "@/app/apis/services/common";
 import { useQuery } from "@tanstack/react-query";
@@ -24,9 +23,12 @@ function CustomListSection() {
     data: boardList,
     error,
     isLoading,
-  } = useQuery<BoardListProps[], AxiosError>(["boardList"], userInfo?.role === "USER" ? getUserContents : getContents);
+  } = useQuery<BoardListProps[], AxiosError>(["boardList"], userInfo?.role === "USER" ? getUserContents : getContents, {
+    staleTime: 60000,
+  });
   if (!userInfo || !boardList) return;
 
+  console.log(boardList);
   return (
     <section className="relative mt-3 w-full ">
       <h3 className="text-xl font-bold">

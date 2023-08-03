@@ -11,7 +11,6 @@ import { Suspense } from "react";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });
 const GA_Measurement_ID = process.env.NEXT_PUBLIC_GA_ID;
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.moneybridge.co.kr"),
@@ -93,20 +92,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&autoload=false`}
         />
-        <Script src="//wcs.naver.net/wcslog.js" strategy="afterInteractive" />
-        <Script
-          id="naver-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-            if (!wcs_add) var wcs_add = {};
-            wcs_add["wa"] = "1c72383b4c03d20";
-            if (window.wcs) {
-              wcs_do();
-            }
-          `,
-          }}
-        />
         <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_Measurement_ID}`} />
         <Script
           id="google-analytics"
@@ -124,14 +109,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={noto.className}>
         <ReactQueryProvider>
-          <Suspense>
-            <Main>
-              <TopNav />
-              <div className="mb-40 flex-1">{children}</div>
-              <Footer />
-              <Navbar />
-            </Main>
-          </Suspense>
+          <Main>
+            <TopNav />
+            <div className="mb-40 flex-1">{children}</div>
+            <Footer />
+            <Navbar />
+          </Main>
         </ReactQueryProvider>
       </body>
     </html>

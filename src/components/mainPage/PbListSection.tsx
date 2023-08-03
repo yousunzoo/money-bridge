@@ -31,7 +31,7 @@ function PbListSection() {
         latitude: latitude,
         longitude: longitude,
       }),
-    { refetchOnWindowFocus: false },
+    { refetchOnWindowFocus: false, staleTime: 60000 },
   );
 
   useEffect(() => {

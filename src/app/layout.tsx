@@ -7,9 +7,11 @@ import Main from "@/components/common/Main";
 import { Metadata } from "next";
 import Footer from "@/components/common/Footer";
 import { TopNav } from "@/components/common/TopNav";
+import { Suspense } from "react";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });
 const GA_Measurement_ID = process.env.NEXT_PUBLIC_GA_ID;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.moneybridge.co.kr"),
@@ -122,12 +124,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={noto.className}>
         <ReactQueryProvider>
-          <Main>
-            <TopNav />
-            <div className="mb-40 flex-1">{children}</div>
-            <Footer />
-            <Navbar />
-          </Main>
+          <Suspense>
+            <Main>
+              <TopNav />
+              <div className="mb-40 flex-1">{children}</div>
+              <Footer />
+              <Navbar />
+            </Main>
+          </Suspense>
         </ReactQueryProvider>
       </body>
     </html>

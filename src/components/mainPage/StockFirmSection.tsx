@@ -16,7 +16,7 @@ function StockFirmSection() {
   const { handleIDClick } = usePBListQueries();
 
   const { data: companyList, isLoading } = useQuery<any, AxiosError>(["companyList"], getCompanyListwithLogo, {
-    staleTime: Infinity,
+    staleTime: 60000,
     cacheTime: Infinity,
   });
   if (!companyList || isLoading) return null;

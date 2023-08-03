@@ -4,7 +4,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import arrayBack from "/public/assets/images/arrayBack.svg";
 import logo from "/public/assets/images/logo.png";
-import { useGeoLocation } from "@/hooks/useGeoLacation";
 import arrowDown from "/public/assets/images/arrowDown.svg";
 import SelectLocationModal from "../mainPage/SelectLocationModal";
 import { useLocationStore } from "@/store/location";
@@ -18,7 +17,6 @@ const LOGO_PAGES = ["/", "/lounge"];
 export function TopNav() {
   const router = useRouter();
   const currentPath = usePathname();
-  const locationCurrent = useGeoLocation();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mounted, setMounted] = useState<boolean>(false);
   const { locations } = useLocationStore();

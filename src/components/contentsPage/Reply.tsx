@@ -11,17 +11,13 @@ import profile from "/public/assets/images/profile.svg";
 import ButtonModal from "@/components/common/ButtonModal";
 import useErrorShow from "@/hooks/useErrorShow";
 
-function Reply({
-  reply,
-  userData,
-  id,
-  replyHandler,
-}: {
+type Props = {
   reply: any;
-  userData: ILoginedUserInfo;
+  userData?: ILoginedUserInfo;
   id: number;
   replyHandler: (id: number, mutate: any) => void;
-}) {
+};
+function Reply({ reply, userData, id, replyHandler }: Props) {
   const [isReEdit, setIsReEdit] = useState(false);
   const [newReComment, setNewReComment] = useState<string>("");
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();

@@ -20,15 +20,13 @@ import { IContentData } from "@/types/contents";
 import { timeShow } from "@/utils/timeShow";
 import useErrorShow from "@/hooks/useErrorShow";
 
-function Content({
-  contentData,
-  userData,
-  bookmarks,
-}: {
+type Props = {
   contentData: IContentData;
-  userData: ILoginedUserInfo;
+  userData?: ILoginedUserInfo;
   bookmarks: boolean;
-}) {
+};
+
+function Content({ contentData, userData, bookmarks }: Props) {
   const { id, thumbnail, title, content, createdAt, updatedAt, tag1, tag2, pbId, name, isBookmarked, profile } =
     contentData;
   const pathname: string = usePathname();

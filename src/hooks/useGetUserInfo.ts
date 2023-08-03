@@ -1,3 +1,4 @@
+"use client";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { ILoginedUserInfo } from "@/types/common";
 import { getCookie } from "@/utils/cookies";

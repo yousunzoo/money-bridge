@@ -1,9 +1,7 @@
 "use client";
-import React from "react";
 import Poster from "@/components/contentsPage/Poster";
 import Content from "@/components/contentsPage/Content";
 import Comments from "@/components/contentsPage/Comments";
-import BlurModal from "@/components/common/Modal/BlurModal";
 import { getContentsId, getNotLoginContents } from "@/app/apis/services/common";
 import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";

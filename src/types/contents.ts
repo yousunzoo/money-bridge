@@ -15,6 +15,7 @@ export interface IContentsInfo {
   tag2: string;
   thumbnail: string;
   title: string;
+  viewCount: number;
 }
 export interface INotLoginContentsInfo {
   thumbnail: string;
@@ -52,7 +53,7 @@ export interface IContentsEdit {
   content?: string;
   tag1?: string;
   tag2?: string;
-  deleteThumbnail?:boolean;
+  deleteThumbnail?: boolean;
 }
 export interface ITempList {
   id: number;
@@ -92,4 +93,5 @@ export interface IContentData {
   name: string;
   isBookmarked: boolean;
   profile: string;
+  viewCount: number;
 }

@@ -11,6 +11,7 @@ import { Suspense } from "react";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });
 const GA_Measurement_ID = process.env.NEXT_PUBLIC_GA_ID;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.moneybridge.co.kr"),
@@ -126,7 +127,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense>
             <Main>
               <TopNav />
-              <div className="flex-1 mb-40">{children}</div>
+              <div className="mb-40 flex-1">{children}</div>
               <Footer />
               <Navbar />
             </Main>

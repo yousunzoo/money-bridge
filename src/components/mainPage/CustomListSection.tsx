@@ -1,3 +1,4 @@
+"use client";
 import ContentCardItem from "../common/Card/CardItem/ContentCardItem";
 import { getContents } from "@/app/apis/services/common";
 import { useQuery } from "@tanstack/react-query";

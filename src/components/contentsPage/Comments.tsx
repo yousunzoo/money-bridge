@@ -15,7 +15,8 @@ import { AxiosError } from "axios";
 import useErrorShow from "@/hooks/useErrorShow";
 import useReplyDelete from "@/hooks/useReplyDelete";
 
-function Comments({ commentData, userData }: { commentData: IContentsInfo; userData: ILoginedUserInfo }) {
+type Props = { commentData: IContentsInfo; userData?: ILoginedUserInfo };
+function Comments({ commentData, userData }: Props) {
   const [isEdit, setIsEdit] = useState(false);
   const [isReply, setIsReply] = useState(false);
   const [reID, setReID] = useState(0);
@@ -129,21 +130,25 @@ function Comments({ commentData, userData }: { commentData: IContentsInfo; userD
     <>
       <div className="flex">
         <div className="mb-[16px] flex-1 text-base font-bold">댓글 {commentData?.reply.length}개</div>
-        <button
-          onClick={() => addComment()}
-          className="flex h-[30px] w-[72px] items-center justify-center rounded-md border-[2px] bg-white text-secondary-heavy"
-        >
-          등록
-        </button>
+        {userData && (
+          <button
+            onClick={() => addComment()}
+            className="flex h-[30px] w-[72px] items-center justify-center rounded-md border-[2px] bg-white text-secondary-heavy"
+          >
+            등록
+          </button>
+        )}
       </div>
-      <input
-        className="mb-[12px] h-[80px] w-full border-[2px] bg-white p-2"
-        placeholder="댓글을 남겨보세요"
-        type="text"
-        value={newComment}
-        onChange={e => setNewComment(e.target.value)}
-        onKeyDown={addCommentKeyDown}
-      />
+      {userData && (
+        <input
+          className="mb-[12px] h-[80px] w-full border-[2px] bg-white p-2"
+          placeholder="댓글을 남겨보세요"
+          type="text"
+          value={newComment}
+          onChange={e => setNewComment(e.target.value)}
+          onKeyDown={addCommentKeyDown}
+        />
+      )}
       {commentData?.reply.map((item: IReply) => (
         <div className="mt-[33px]" key={item.id}>
           <div className="flex text-xs">

@@ -138,7 +138,7 @@ export const postReReply = async ({ id, rereply }: { id: number; rereply: string
     const res = await instance.post(`/auth/board/${id}/rereply`, { content: rereply });
     return res.data.data;
   } catch (error: any) {
-    throw new AxiosError(error.response);
+    throw new AxiosError(error);
   }
 };
 

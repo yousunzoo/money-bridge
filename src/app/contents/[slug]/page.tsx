@@ -10,6 +10,7 @@ import { AxiosError } from "axios";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { IContentsInfo } from "@/types/contents";
 import { getCookie } from "@/utils/cookies";
+import "@/styles/content.css";
 
 function ContentsDetail() {
   const token = getCookie("Authorization");

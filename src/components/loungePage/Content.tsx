@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import MainCarousel from "@/components/common/Carousel/MainCarousel";
-import "@/styles/lounge.css";
 import { getLoungeBoard, getLoungeNew } from "@/app/apis/services/common";
 import { useQuery } from "@tanstack/react-query";
 import ContentCardItem from "@/components/common/Card/CardItem/ContentCardItem";
@@ -31,13 +30,16 @@ function Content() {
   return (
     <>
       <div>
-        <div className="header">
-          <div className="section">
+        <div className="my-7 flex h-14 font-bold">
+          <div className="flex-1 text-xl">
             따끈따끈한 최신 콘텐츠 부터
             <br />
             읽어보세요
           </div>
-          <Link href="/lounge/new" className="more flex-3">
+          <Link
+            href="/lounge/new"
+            className="flex-3 flex items-end justify-end text-base text-gray-normal underline decoration-1"
+          >
             더보기
           </Link>
         </div>
@@ -48,13 +50,16 @@ function Content() {
         </ul>
       </div>
       <div>
-        <div className="header">
-          <div className="section">
+        <div className="my-7 flex h-14 font-bold">
+          <div className="flex-1 text-xl">
             지금 가장 핫한
             <br />
             인기 콘텐츠
           </div>
-          <Link href="/lounge/hot" className="more flex-3">
+          <Link
+            href="/lounge/hot"
+            className="flex-3 flex items-end justify-end text-base text-gray-normal underline decoration-1"
+          >
             더보기
           </Link>
         </div>
@@ -97,14 +102,17 @@ function Content() {
         </div>
       </MainCarousel>
       <div>
-        <div className="header">
-          <div className="section">
+        <div className="my-7 flex h-14 font-bold">
+          <div className="flex-1 text-xl">
             머니 브릿지의 모든 콘텐츠를
             <br />
             한눈에 보세요
           </div>
           {!isClick && (
-            <button onClick={() => setIsClick(true)} className="more flex-3">
+            <button
+              onClick={() => setIsClick(true)}
+              className="flex-3 flex items-end justify-end text-base text-gray-normal underline decoration-1"
+            >
               더보기
             </button>
           )}

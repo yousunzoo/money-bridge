@@ -5,10 +5,16 @@ import draftjsToHtml from "draftjs-to-html";
 import dynamic from "next/dynamic";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { EditorProps } from "react-draft-wysiwyg";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import axios from "axios";
 
 const Editor = dynamic<EditorProps>(() => import("react-draft-wysiwyg").then(mod => mod.Editor), {
   ssr: false,
 });
+
+const API_URL = "http://localhost:8080";
+const UPLOAD_ENDPOINT = "upload_files";
 
 function ContentEditor({
   initialState,
@@ -17,42 +23,50 @@ function ContentEditor({
   initialState: string;
   setContent: Dispatch<SetStateAction<string>>;
 }) {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const updateTextDescription = (state: EditorState) => {
-    setEditorState(state);
-    const html = draftjsToHtml(convertToRaw(state.getCurrentContent()));
-    setContent(html);
-  };
-
-  useEffect(() => {
-    const blocksFromHtml = htmlToDraft(initialState);
-    if (blocksFromHtml) {
-      const { contentBlocks, entityMap } = blocksFromHtml;
-      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-      const newEditorState = EditorState.createWithContent(contentState);
-      setEditorState(newEditorState);
-    }
-  }, []);
-
   return (
-    <Editor
-      toolbar={{
-        options: ["inline", "fontSize", "fontFamily", "list", "textAlign"],
+    <CKEditor
+      editor={ClassicEditor}
+      config={{
+        extraPlugins: [uploadPlugin],
       }}
-      placeholder="게시글을 작성해주세요"
-      editorState={editorState}
-      onEditorStateChange={updateTextDescription}
-      localization={{ locale: "ko" }}
-      editorStyle={{
-        height: "400px",
-        width: "100%",
-        border: "1px solid lightgray",
-        borderRadius: "4px",
-        padding: "10px 20px",
-        marginBottom: "20px",
+      onChange={(event, editor) => {
+        const data = editor.getData();
+        setContent(data);
       }}
     />
   );
 }
 
 export default ContentEditor;
+
+function uploadAdapter(loader) {
+  return {
+    upload: () => {
+      return new Promise((resolve, reject) => {
+        const body = new FormData();
+        loader.file.then(file => {
+          body.append("files", file);
+          axiosInsta(`${API_URL}/${UPLOAD_ENDPOINT}`, {
+            method: "post",
+            body: body,
+          })
+            .then(res => res.json())
+            .then(res => {
+              resolve({
+                default: `${API_URL}/${res.filename}`,
+              });
+            })
+            .catch(err => {
+              reject(err);
+            });
+        });
+      });
+    },
+  };
+}
+
+function uploadPlugin(editor) {
+  editor.plugins.get("FileRepository").createUploadAdapter = loader => {
+    return uploadAdapter(loader);
+  };
+}

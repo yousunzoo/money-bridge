@@ -1,5 +1,7 @@
 import { IModalLayoutProps } from "@/types/reservation";
 import { useEffect } from "react";
+import close from "/public/assets/images/close.svg";
+import Image from "next/image";
 
 function ModalLayout({ children, handleCloseModal }: IModalLayoutProps) {
   useEffect(() => {
@@ -11,11 +13,11 @@ function ModalLayout({ children, handleCloseModal }: IModalLayoutProps) {
   }, []);
 
   return (
-    <div className="fixed left-0 top-0 z-30 h-full w-full">
+    <div className="fixed top-0 left-0 z-30 w-full h-full">
       <div className="modal_background" onClick={handleCloseModal} />
-      <section className="modal flex flex-col">
+      <section className="flex flex-col modal">
         <button className="absolute right-6" onClick={handleCloseModal}>
-          닫기
+          <Image src={close} alt="question" width={40} height={40} className="p-2 ml-2" />
         </button>
         {children}
       </section>

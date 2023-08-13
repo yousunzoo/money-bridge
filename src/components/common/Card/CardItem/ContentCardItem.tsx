@@ -63,22 +63,21 @@ function ContentCardItem({
                 }}
                 className="flex-3 flex w-12 items-center justify-end"
               >
-                {isBookmark ? (
-                  <Image src={bookmark_filled} alt="북마크 해제" />
-                ) : (
-                  <Image src={bookmark} alt="북마크" />
-                )}
+                {isBookmark ? <Image src={bookmark_filled} alt="북마크 해제" /> : <Image src={bookmark} alt="북마크" />}
               </button>
             )}
           </div>
-          <div className="flex items-center">
-            <div className="flex-1 text-base">
+          <div className="flex items-end justify-between">
+            <div className="text-base ">
               <p>
                 <b>{item.pbName}PB&nbsp;</b>| {item.career}년차
               </p>
               <p className="text-base">{item.msg}</p>
             </div>
-            <Image src={item.companyLogo} alt="증권사로고" width={80} height={80} />
+            <div className="flex flex-col items-center">
+              <Image src={item.companyLogo} alt="증권사로고" width={60} height={60} />
+              <p className="mt-[-10px] text-sm font-bold">{item.companyName}</p>
+            </div>
           </div>
         </div>
       </li>

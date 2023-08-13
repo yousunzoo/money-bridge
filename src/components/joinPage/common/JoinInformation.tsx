@@ -17,6 +17,7 @@ function JoinInformation({ type }: { type: JoinFormType }) {
   const router = useRouter();
   const pathName = usePathname();
   const joinType = pathName.split("/")[2];
+
   const { isOpen, modalContent, modalSubContent, setIsOpen, setModalContent, setModalSubContent } =
     useSetModalContent();
 
@@ -62,6 +63,7 @@ function JoinInformation({ type }: { type: JoinFormType }) {
       <form onSubmit={onSubmit}>
         <div className="relative flex items-center">
           <input
+            autoFocus
             type={`${type === JoinFormType.PHONENUMBER ? "number" : "text"}`}
             className={`form_input ${errors.text ? "warnning" : dirtyFields.text ? "entering" : ""} `}
             {...register("text")}

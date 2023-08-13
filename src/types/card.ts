@@ -3,6 +3,7 @@ export interface IContentCard {
   title: string;
   pbName: string;
   companyLogo: string;
+  companyName: string;
   career: number;
   tag1: string;
   tag2: string;

@@ -19,6 +19,7 @@ function StockFirmSection() {
     staleTime: 60000,
     cacheTime: Infinity,
   });
+
   if (!companyList || isLoading) return null;
   const chunkedCompanyList = chunkArray([{ id: "ALL", logo: null, name: "전체보기" }, ...companyList], 8);
 

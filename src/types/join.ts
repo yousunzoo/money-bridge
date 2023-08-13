@@ -57,6 +57,8 @@ interface ICompanyLocationListData {
 export interface ICompanyInput {
   name: string;
   id: number;
+  address?: string;
+  specificAddress?: string;
 }
 
 export interface ISpeciality {

@@ -9,6 +9,7 @@ import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 interface BoardListProps {
   career: number;
   companyLogo: string;
+  companyName: string;
   id: number;
   isBookmarked: boolean;
   msg: string;
@@ -28,13 +29,12 @@ function CustomListSection() {
   } = useQuery<BoardListProps[], AxiosError>(["boardList"], userInfo?.role === "USER" ? getUserContents : getContents, {
     staleTime: 60000,
   });
-  if (!userInfo || !boardList) return;
+  if (!boardList) return;
 
-  console.log(boardList);
   return (
     <section className="relative mt-3 w-full ">
       <h3 className="text-xl font-bold">
-        {userInfo.name} 님의 성향을 딱! 맞춘
+        {userInfo && `${userInfo.name} 님의 성향을 딱! 맞춘`}
         <br /> 실제 PB의 투자 정보
       </h3>
       <ul className="flex flex-wrap items-center justify-between py-4">

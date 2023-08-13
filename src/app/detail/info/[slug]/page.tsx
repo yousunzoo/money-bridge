@@ -4,30 +4,26 @@ import Content from "@/components/pbdetailPage/Content";
 import Intro from "@/components/pbdetailPage/Intro";
 import About from "@/components/pbdetailPage/About";
 import { getPbNotLogin, getPbProfile } from "@/app/apis/services/pb";
-import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { ILoginedUserInfo } from "@/types/common";
 import { AxiosError } from "axios";
-import { IloginProfile, IProfile } from "@/types/pb";
+import { IloginProfile } from "@/types/pb";
 import { IDataResponse } from "@/types/common";
 import Profile from "@/components/pbdetailPage/Profile";
 import { getCookie } from "@/utils/cookies";
 import "@/styles/pb.css";
+import BlurModal from "@/components/common/Modal/BlurModal";
 
-function PbDetailInfo() {
+type Props = {
+  params: { slug: number };
+};
+
+function PbDetailInfo({ params: { slug } }: Props) {
   const token = getCookie("Authorization");
-  const pathname: string = usePathname();
-  const id: number = Number(pathname.split("/").pop());
-  const { data: profile } = useQuery<IDataResponse<IProfile>, AxiosError>({
-    queryKey: ["getPbNotLogin", id],
-    queryFn: () => getPbNotLogin(id),
-    refetchOnWindowFocus: false,
-  });
-  const { data: authProfile } = useQuery<IDataResponse<IloginProfile>, AxiosError>({
-    queryKey: ["getPbProfile", id],
-    queryFn: () => getPbProfile(id),
-    enabled: !!token,
+  const { data: profile } = useQuery<IDataResponse<IloginProfile>, AxiosError>({
+    queryKey: ["getPbProfile", slug],
+    queryFn: token ? () => getPbProfile(slug) : () => getPbNotLogin(slug),
     refetchOnWindowFocus: false,
   });
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({
@@ -40,14 +36,17 @@ function PbDetailInfo() {
 
   return (
     <div className="mb-24 flex w-full flex-col">
-      {userData?.role !== undefined && authProfile?.data ? (
+      {userData?.role !== undefined && profile?.data ? (
         <>
-          <Intro introData={authProfile.data} userData={userData} />
-          <Content contentData={authProfile.data} />
-          <About aboutData={authProfile.data} role={userData.role} Id={userData.id} />
+          <Intro introData={profile.data} userData={userData} />
+          <Content contentData={profile.data} />
+          <About aboutData={profile.data} role={userData.role} Id={userData.id} />
         </>
       ) : (
-        <Profile notLoginData={profile?.data} />
+        <>
+          <Profile notLoginData={profile?.data} />
+          <BlurModal />
+        </>
       )}
     </div>
   );

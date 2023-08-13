@@ -20,17 +20,28 @@ import { IContentData } from "@/types/contents";
 import { timeShow } from "@/utils/timeShow";
 import useErrorShow from "@/hooks/useErrorShow";
 
-function Content({
-  contentData,
-  userData,
-  bookmarks,
-}: {
+type Props = {
   contentData: IContentData;
-  userData: ILoginedUserInfo;
+  userData?: ILoginedUserInfo;
   bookmarks: boolean;
-}) {
-  const { id, thumbnail, title, content, createdAt, updatedAt, tag1, tag2, pbId, name, isBookmarked, profile } =
-    contentData;
+};
+
+function Content({ contentData, userData, bookmarks }: Props) {
+  const {
+    id,
+    thumbnail,
+    title,
+    content,
+    createdAt,
+    updatedAt,
+    tag1,
+    tag2,
+    pbId,
+    name,
+    isBookmarked,
+    profile,
+    viewCount,
+  } = contentData;
   const pathname: string = usePathname();
   const router = useRouter();
   const base: string = "https://www.moneybridge.co.kr";
@@ -65,13 +76,9 @@ function Content({
   return (
     <div>
       <div className="card mt-[33px] flex h-[52px] flex-row items-center rounded-md bg-white font-bold">
-        <Image
-          src={profile ? profile : user_profile}
-          alt="프로필"
-          width={36}
-          height={36}
-          className="mr-[12px] h-[36px] w-[36px] rounded-full"
-        />
+        <div className="relative ml-2 h-9 w-9 overflow-hidden rounded-full">
+          <Image src={profile ? profile : user_profile} alt="프로필" fill className="object-fit" />
+        </div>
         <div className="flex-1 text-[17px]">{name} PB</div>
         <Link
           href={`/detail/info/${pbId}`}
@@ -82,9 +89,14 @@ function Content({
       </div>
       <div className="mt-[24px]">
         <div className="text-xs font-bold">
-          {tag1} {tag2 && "•"} {tag2}
+          <span>
+            {tag1} {tag2 && "•"} {tag2}
+          </span>
         </div>
-        <div className="mb-[11px] text-2xl font-bold">{title}</div>
+        <div className="flex justify-between align-bottom">
+          <h3 className="mb-[11px] text-2xl font-bold">{title}</h3>
+          <p>조회수 : {viewCount}</p>
+        </div>
         <div className="mb-[15px] flex">
           <div className="font-xs flex-1">{timeShow(createdAt, updatedAt)}</div>
           <div className="flex">

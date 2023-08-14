@@ -35,6 +35,12 @@ const createInstance = (ContentType: string) => {
         config,
         response: { status, data },
       } = error;
+      if (status === 500 && data.data === "토큰을 재발급할 수 없습니다. 다시 로그인 해주세요") {
+        const accessToken = getCookie("Authorization");
+        if (accessToken) {
+          removeCookie("Authorization");
+        }
+      }
       if (status === 401 && data.msg === "unAuthorized") {
         const accessToken = getCookie("Authorization");
         if (accessToken) {

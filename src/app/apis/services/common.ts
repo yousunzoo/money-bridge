@@ -97,3 +97,17 @@ export const getSearchPb = async (name: string, page: string) => {
     throw new AxiosError(error.response.data);
   }
 };
+
+interface phoneNumCheckProps {
+  phoneNumber: string;
+  type: string;
+}
+
+export const phoneNumCheck = async ({ phoneNumber, type }: phoneNumCheckProps) => {
+  try {
+    const res = await instance.post(`/phonenumber?type=${type}`, { phoneNumber });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};

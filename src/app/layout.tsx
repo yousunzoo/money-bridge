@@ -1,13 +1,12 @@
 import Navbar from "@/components/common/Navbar";
 import Script from "next/script";
-import ReactQueryProvider from "./ReactQueryProvider";
+import ReactQueryProvider from "../components/common/ReactQueryProvider";
 import "./globals.css";
 import { Noto_Sans_KR } from "next/font/google";
 import Main from "@/components/common/Main";
 import { Metadata } from "next";
 import Footer from "@/components/common/Footer";
 import { TopNav } from "@/components/common/TopNav";
-import { Suspense } from "react";
 import ProtectedRouter from "@/components/common/ProtectedRouter";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });

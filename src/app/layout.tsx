@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import Footer from "@/components/common/Footer";
 import { TopNav } from "@/components/common/TopNav";
 import { Suspense } from "react";
+import ProtectedRouter from "@/components/common/ProtectedRouter";
 
 const noto = Noto_Sans_KR({ weight: ["400", "700"], subsets: ["latin"] });
 const GA_Measurement_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -88,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/assets/favicons/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
-        <Script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></Script>
+        <Script defer src="https://developers.kakao.com/sdk/js/kakao.min.js" />
         <Script
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&autoload=false`}
         />
@@ -109,12 +110,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={noto.className}>
         <ReactQueryProvider>
-          <Main>
-            <TopNav />
-            <div className="mb-40 flex-1">{children}</div>
-            <Footer />
-            <Navbar />
-          </Main>
+          <ProtectedRouter>
+            <Main>
+              <TopNav />
+              <div className="mb-40 flex-1">{children}</div>
+              <Footer />
+              <Navbar />
+            </Main>
+          </ProtectedRouter>
         </ReactQueryProvider>
       </body>
     </html>

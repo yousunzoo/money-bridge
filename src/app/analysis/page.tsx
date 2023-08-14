@@ -13,26 +13,21 @@ import highlight from "/public/assets/images/highlight.svg";
 import Image from "next/image";
 import { ILoginedUserInfo } from "@/types/common";
 import LoadingBg from "@/components/common/LoadingBg";
-import { getCookie } from "@/utils/cookies";
-import { redirect } from "next/navigation";
 
 function AnalysisPage() {
-  const authorization = getCookie("Authorization");
   const questions: IAnalysisQuestions = analysisQuestions;
   const [step, setStep] = useState(0);
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>(["loginedUserInfo"], getLoginedUserInfo);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const { answers, setAnswers, resetAnswers } = useAnalysisStore();
   const { registerPropensity, isSubmitting } = useCheckPropensity();
+
   const moveToNextStep = (nowStep: number, answer: string) => {
     setStep(nowStep + 1);
     setAnswers(nowStep, answer);
   };
 
   useEffect(() => {
-    if (!authorization) {
-      redirect("/login");
-    }
     resetAnswers();
   }, []);
 

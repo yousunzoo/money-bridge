@@ -20,5 +20,5 @@ export const useGetUserInfo = () => {
     staleTime: Infinity,
   });
 
-  return { userInfo, userLoading, isLogined, isLoginError };
+  return { userInfo, userLoading, isLogined, isLoginError, token };
 };

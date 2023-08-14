@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import PbResult from "@/components/searchPage/PbResult";
 import ContentResult from "@/components/searchPage/ContentResult";
 import debounce from "lodash/debounce";
@@ -13,19 +13,13 @@ function LoungeSearch() {
   const [pbValue, setPbValue] = useState("");
   const [contentValue, setContentValue] = useState("");
 
-  const debouncedSearchPb = useCallback(
-    debounce((search: string) => {
-      setPbValue(search);
-    }, 300),
-    [],
-  );
+  const debouncedSearchPb = debounce((search: string) => {
+    setPbValue(search);
+  }, 300);
 
-  const debouncedSearchContent = useCallback(
-    debounce((search: string) => {
-      setContentValue(search);
-    }, 300),
-    [],
-  );
+  const debouncedSearchContent = debounce((search: string) => {
+    setContentValue(search);
+  }, 300);
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isPB) {

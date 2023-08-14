@@ -47,8 +47,8 @@ function Intro({ introData, userData }: { introData: IIntroData; userData: ILogi
         <div className="relative h-[42px] w-[42px]">
           <Image src={companyLogo} alt="증권사 로고" fill className="object-contain" onClick={goToCompany} priority />
         </div>
-        <div className="absolute h-full w-full bg-gradient-to-t from-[rgba(0,0,0,0.6)] from-0% to-60%"></div>
-        <p className="absolute bottom-[60px] left-[24px] h-[70px] w-[285px] whitespace-normal text-[26px] text-white">
+        <div className="absolute left-0 top-0 z-10 h-full w-full bg-gradient-to-t from-[rgba(0,0,0,0.8)] from-0% to-60%"></div>
+        <p className="absolute bottom-[40px] left-[24px] z-10 h-[70px] w-[285px] whitespace-normal text-[26px] text-white">
           {msg}
         </p>
         <Image src={profile} alt="프로필 이미지" fill className="object-contain" priority />

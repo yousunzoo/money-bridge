@@ -8,6 +8,7 @@ import { EditorProps } from "react-draft-wysiwyg";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
+import { formInstance } from "@/app/apis/axios";
 
 const Editor = dynamic<EditorProps>(() => import("react-draft-wysiwyg").then(mod => mod.Editor), {
   ssr: false,
@@ -26,9 +27,11 @@ function ContentEditor({
   return (
     <CKEditor
       editor={ClassicEditor}
-      config={{
-        extraPlugins: [uploadPlugin],
-      }}
+      config={
+        {
+          // extraPlugins: [uploadPlugin],
+        }
+      }
       onChange={(event, editor) => {
         const data = editor.getData();
         setContent(data);
@@ -39,34 +42,22 @@ function ContentEditor({
 
 export default ContentEditor;
 
-function uploadAdapter(loader) {
-  return {
-    upload: () => {
-      return new Promise((resolve, reject) => {
-        const body = new FormData();
-        loader.file.then(file => {
-          body.append("files", file);
-          axiosInsta(`${API_URL}/${UPLOAD_ENDPOINT}`, {
-            method: "post",
-            body: body,
-          })
-            .then(res => res.json())
-            .then(res => {
-              resolve({
-                default: `${API_URL}/${res.filename}`,
-              });
-            })
-            .catch(err => {
-              reject(err);
-            });
-        });
-      });
-    },
-  };
-}
+// function uploadAdapter(loader) {
+//   return {
+//     upload: () => {
+//       return new Promise((resolve, reject) => {
+//         const body = new FormData();
+//         loader.file.then(file => {
+//           body.append("files", file);
+//           formInstance.post(`${API_URL}/${UPLOAD_ENDPOINT}`, body);
+//         });
+//       });
+//     },
+//   };
+// }
 
-function uploadPlugin(editor) {
-  editor.plugins.get("FileRepository").createUploadAdapter = loader => {
-    return uploadAdapter(loader);
-  };
-}
+// function uploadPlugin(editor) {
+//   editor.plugins.get("FileRepository").createUploadAdapter = loader => {
+//     return uploadAdapter(loader);
+//   };
+// }

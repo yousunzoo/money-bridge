@@ -1,21 +1,7 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import htmlToDraft from "html-to-draftjs";
-import draftjsToHtml from "draftjs-to-html";
-import dynamic from "next/dynamic";
-import { EditorState, convertToRaw, ContentState } from "draft-js";
-import { EditorProps } from "react-draft-wysiwyg";
+import { Dispatch, SetStateAction } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import axios from "axios";
-import { formInstance } from "@/app/apis/axios";
-
-const Editor = dynamic<EditorProps>(() => import("react-draft-wysiwyg").then(mod => mod.Editor), {
-  ssr: false,
-});
-
-const API_URL = "http://localhost:8080";
-const UPLOAD_ENDPOINT = "upload_files";
+import { addPhoto } from "@/app/apis/services/etc";
 
 function ContentEditor({
   initialState,
@@ -24,40 +10,74 @@ function ContentEditor({
   initialState: string;
   setContent: Dispatch<SetStateAction<string>>;
 }) {
+  type CustomUploadAdapter = {
+    upload: () => Promise<{ default: string }>;
+  };
+
+  const customUploadAdapter = (loader: any): CustomUploadAdapter => {
+    return {
+      upload() {
+        return new Promise((resolve, reject) => {
+          const formData = new FormData();
+          loader.file.then((file: any) => {
+            formData.append("photo", file);
+
+            addPhoto(formData)
+              .then((res: any) => {
+                resolve({
+                  default: res.path,
+                });
+              })
+              .catch((err: any) => reject(err));
+          });
+        });
+      },
+    };
+  };
+
+  type UploadPlugin = (editor: any) => void;
+
+  const uploadPlugin: UploadPlugin = editor => {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader: any) => {
+      return customUploadAdapter(loader);
+    };
+  };
+
   return (
-    <CKEditor
-      editor={ClassicEditor}
-      config={
-        {
-          // extraPlugins: [uploadPlugin],
-        }
-      }
-      onChange={(event, editor) => {
-        const data = editor.getData();
-        setContent(data);
-      }}
-    />
+    <div className="mb-10">
+      <CKEditor
+        editor={ClassicEditor}
+        config={{
+          initialData: initialState,
+          language: "ko",
+          extraPlugins: [uploadPlugin],
+          toolbar: {
+            items: [
+              "undo",
+              "redo",
+              "|",
+              "fontSize",
+              "bold",
+              "italic",
+              "|",
+              "link",
+              "uploadImage",
+              "blockQuote",
+              "codeBlock",
+              "|",
+              "bulletedList",
+              "numberedList",
+            ],
+            shouldNotGroupWhenFull: false,
+          },
+        }}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          setContent(data);
+        }}
+      />
+    </div>
   );
 }
 
 export default ContentEditor;
-
-// function uploadAdapter(loader) {
-//   return {
-//     upload: () => {
-//       return new Promise((resolve, reject) => {
-//         const body = new FormData();
-//         loader.file.then(file => {
-//           body.append("files", file);
-//           formInstance.post(`${API_URL}/${UPLOAD_ENDPOINT}`, body);
-//         });
-//       });
-//     },
-//   };
-// }
-
-// function uploadPlugin(editor) {
-//   editor.plugins.get("FileRepository").createUploadAdapter = loader => {
-//     return uploadAdapter(loader);
-//   };
-// }

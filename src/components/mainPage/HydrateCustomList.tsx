@@ -1,8 +1,8 @@
-import getQueryClient from "@/app/getQueryClient";
 import { Hydrate, dehydrate } from "@tanstack/react-query";
 import React from "react";
 import { getUserContents } from "@/app/apis/services/user";
 import CustomListSection from "./CustomListSection";
+import getQueryClient from "@/utils/getQueryClient";
 
 async function HydrateCustomList() {
   const queryClient = getQueryClient();

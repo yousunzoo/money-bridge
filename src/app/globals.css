@@ -190,3 +190,21 @@
     z-index: 10;
   }
 }
+
+.ck-editor__editable {
+  height: 400px;
+  padding: 20px !important;
+}
+.ck-editor__editable ol,
+.ck-editor__editable ul {
+  list-style-position: inside;
+}
+
+.contentArea ul {
+  list-style: inside;
+}
+
+.contentArea ol {
+  list-style: number;
+  list-style-position: inside;
+}

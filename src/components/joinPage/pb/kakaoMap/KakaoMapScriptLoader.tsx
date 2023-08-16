@@ -1,3 +1,4 @@
+import BeatSpinner from "@/components/common/BearSpinner";
 import React, { ReactNode, useEffect, useState } from "react";
 
 const KAKAO_MAP_ID = "kakao-map-script";
@@ -29,7 +30,7 @@ function KakaoMapScriptLoader({ children }: { children: ReactNode }) {
         children
       ) : (
         <div>
-          <h1>지도를 불러오는 중입니다.</h1>
+          <BeatSpinner />
         </div>
       )}
     </>

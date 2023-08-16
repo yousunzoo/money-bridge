@@ -34,7 +34,7 @@ export const getLocationName = async ({ latitude, longitude, isLocation = true }
 
 export const searchLocation = async (searchWord: string) => {
   const encodedQuery = encodeURIComponent(searchWord);
-  const url = `${process.env.NEXT_PUBLIC_KAKAO_API_SEARCH_URL}?query=${encodedQuery}`;
+  const url = `${process.env.NEXT_PUBLIC_KAKAO_API_SEARCH_URL}.json?query=${encodedQuery}`;
   try {
     const res = await axios.get(url, options);
     const data = res.data;
@@ -42,4 +42,12 @@ export const searchLocation = async (searchWord: string) => {
   } catch (error) {
     throw new Error("서비스 영역이 아닙니다.");
   }
+};
+
+export const searchLoadLocation = async (search: string) => {
+  const url = `${process.env.NEXT_PUBLIC_KAKAO_API_SEARCH_URL}?query=${search}`;
+  try {
+    const res = await axios.get(url, options);
+    return res.data.documents;
+  } catch (error) {}
 };

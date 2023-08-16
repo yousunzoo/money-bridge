@@ -111,3 +111,18 @@ export const phoneNumCheck = async ({ phoneNumber, type }: phoneNumCheckProps) =
     throw new AxiosError(error.response.data);
   }
 };
+export interface ISelectBranchProps {
+  companyId: number;
+  name: string;
+  address: string;
+  specificAddress: string;
+}
+
+export const registerBranch = async ({ companyId, name, address, specificAddress }: ISelectBranchProps) => {
+  try {
+    const res = await instance.post("/branch", { companyId, name, address, specificAddress });
+    return res.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};

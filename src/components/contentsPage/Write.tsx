@@ -12,8 +12,9 @@ import ButtonModal from "@/components/common/ButtonModal";
 import useErrorShow from "@/hooks/useErrorShow";
 import dynamic from "next/dynamic";
 import { ILoginedUserInfo } from "@/types/common";
-const ContentEditor = dynamic(() => import("./ContentEditor"));
-
+const ContentEditor = dynamic(() => import("./ContentEditor"), {
+  ssr: false,
+});
 function Write({ data, id, userData }: { data?: ITemp; id: number; userData?: ILoginedUserInfo }) {
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const router = useRouter();

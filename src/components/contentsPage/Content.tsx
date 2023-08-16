@@ -124,7 +124,7 @@ function Content({ contentData, userData, bookmarks }: Props) {
             )}
           </div>
         </div>
-        <div className="mb-10" dangerouslySetInnerHTML={{ __html: content }} />
+        <div className="contentArea mb-10" dangerouslySetInnerHTML={{ __html: content }} />
       </div>
       {isShareOpen && isShare && (
         <ButtonModal modalContents={shareContents} isOpen={isShareOpen} setIsOpen={setIsShareOpen} />

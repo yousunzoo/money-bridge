@@ -1,4 +1,4 @@
-import { instance } from "../axios";
+import { formInstance, instance } from "../axios";
 import { AxiosError } from "axios";
 import { IPBListParams, IPBListRequest } from "@/types/pblist";
 
@@ -53,6 +53,15 @@ export const getPBList = async (data: IPBListRequest, page: number, isLogined: b
     }
     const url = isLogined ? `/auth/list/pb/${data.sort}` : `/list/pb/${data.sort}`;
     const res = await instance.get(url, { params });
+    return res.data.data;
+  } catch (error: any) {
+    throw new AxiosError(error.response.data);
+  }
+};
+
+export const addPhoto = async (formData: FormData) => {
+  try {
+    const res = await formInstance.post("/photo", formData);
     return res.data.data;
   } catch (error: any) {
     throw new AxiosError(error.response.data);

@@ -1,9 +1,8 @@
 import { getSuggestionPB } from "@/app/apis/services/common";
-import getQueryClient from "@/app/getQueryClient";
 import { Hydrate, dehydrate } from "@tanstack/react-query";
 import React from "react";
 import PbListSection from "./PbListSection";
-export const dynamic = "force-dynamic";
+import getQueryClient from "@/utils/getQueryClient";
 
 async function HydratePbList() {
   const queryClient = getQueryClient();

@@ -6,9 +6,8 @@ import getQueryClient from "@/utils/getQueryClient";
 
 async function HydrateStockFirm() {
   const queryClient = getQueryClient();
-  await queryClient.prefetchQuery(["companyList"], getCompanyListwithLogo);
+  await queryClient.prefetchQuery(["companyListser"], getCompanyListwithLogo);
   const dehydratedState = dehydrate(queryClient);
-
   return (
     <Hydrate state={dehydratedState}>
       <StockFirmSection />

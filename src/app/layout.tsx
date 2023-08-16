@@ -107,7 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={noto.className}>
+      <body className={noto.className} id="root">
         <ReactQueryProvider>
           <ProtectedRouter>
             <Main>

@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dropDown from "/public/assets/images/dropDown.svg";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import ModalCompanyList from "./ModalCompanyList";
@@ -8,10 +9,18 @@ import { ICompanyInput } from "@/types/join";
 import { useJoinStore } from "@/store/joinStore";
 import { useRouter } from "next/navigation";
 import { useGetCompanyList } from "@/hooks/useGetCompanyList";
+import question from "/public/assets/images/question_mark.svg";
+import KakaoMapScriptLoader from "./kakaoMap/KakaoMapScriptLoader";
+import { PlaceType } from "@/types/mapTypes";
+import MapMarkerController from "./kakaoMap/MapMarkerController";
+import { useBranchRestrationStore } from "@/store/branchRestrationStore";
+import BranchCreation from "./BranchCreation";
+import SearchLocation from "./SearchLocation";
 
 function SelectCompany() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLocation, setIsLocation] = useState(false);
+
   const [company, setCompany] = useState<ICompanyInput>({
     name: "",
     id: 0,
@@ -20,15 +29,40 @@ function SelectCompany() {
     name: "",
     id: 0,
   });
+  const [places, setPlaces] = useState<PlaceType[]>([]);
+  const [selectBank, setSelectBank] = useState("");
+
   const { setInformations } = useJoinStore();
+
+  const {
+    isButtonOpen,
+    isRegOpen,
+    isRegSelect,
+    selectCompany,
+    setIsButtonOpen,
+    setIsRegSelect,
+    setIsRegOpen,
+    setSelectCompany,
+  } = useBranchRestrationStore();
+
   const companyList = useGetCompanyList();
   const router = useRouter();
+  useEffect(() => {
+    // 도로명 주소 변환 함수
+  }, [selectCompany]);
 
   const handleChangeCompany = (item: ICompanyInput) => {
     if (item.name !== company.name) {
+      setSelectBank(item.name);
       setCompany(item);
       setLocation({ name: "", id: 0 });
     }
+
+    setSelectCompany({
+      ...selectCompany,
+      companyId: item.id,
+      name: item.name,
+    });
   };
 
   const handleOpenCompany = () => {
@@ -50,11 +84,28 @@ function SelectCompany() {
     router.push("/join/pb/career");
   };
 
+  const handleRegModal = () => {
+    setIsRegOpen(true);
+  };
+  const handleRegCloseModal = () => {
+    setIsRegOpen(false);
+  };
+
+  const handleSelectCloseModal = () => {
+    setIsRegSelect(false);
+  };
+
+  const modalContents = {
+    content: "예약 확정을 하시겠습니까?",
+    confirmText: "확인",
+    confirmFn: () => setIsButtonOpen(false),
+  };
+
   return (
     <>
       <p className="mb-6 mt-14 text-xl font-bold leading-7">
         소속되어있는 증권사를
-        <br /> 선택해주세요
+        <br /> 선택해주세요.
       </p>
       <div
         className={`relative flex h-14 w-full cursor-pointer items-center rounded-sm border-1 ${
@@ -67,7 +118,13 @@ function SelectCompany() {
         </span>
         <Image src={dropDown} alt="dropDown" width={24} height={24} className="absolute right-3" />
       </div>
-      <p className="mb-6 mt-[58px] text-xl font-bold leading-7">지점을 입력해주세요</p>
+      <div className="mb-6 mt-[58px] flex items-center justify-between ">
+        <p className="text-xl font-bold ">지점을 등록해주세요.</p>
+        <button className="text-md flex cursor-pointer items-center text-gray-heavy" onClick={handleRegModal}>
+          <span className="cursor-pointer font-bold">없는 지점 직접 등록하기</span>
+          <Image src={question} alt="question" width={20} height={20} className="ml-2" />
+        </button>
+      </div>
       <div className="flex gap-2">
         <div
           className={`flex h-14 w-full items-center rounded-sm border-1  pl-3 ${
@@ -110,6 +167,39 @@ function SelectCompany() {
             />
           )}
         </ModalLayout>
+      )}
+      {isRegOpen && (
+        <ModalLayout handleCloseModal={handleRegCloseModal}>
+          <KakaoMapScriptLoader>
+            <MapMarkerController places={places} />
+            <SearchLocation
+              searchDefalutValue={selectBank}
+              onUpdatePlaces={places => {
+                setPlaces(places);
+              }}
+            />
+          </KakaoMapScriptLoader>
+        </ModalLayout>
+      )}
+      {isRegSelect && (
+        <ModalLayout handleCloseModal={handleSelectCloseModal}>
+          <BranchCreation />
+        </ModalLayout>
+      )}
+      {isButtonOpen && (
+        <div className="fixed left-0 top-0 z-30 h-full w-full">
+          <div className="modal_background" onClick={() => setIsOpen(false)} />
+          <div className="popup flex flex-col justify-between">
+            <div className="text-center">
+              <h3 className={`text-lg mb-2 break-keep pt-20 text-center`}>지점등록이 완료되었습니다.</h3>
+            </div>
+            <div className="flex w-full gap-4">
+              <button onClick={() => setIsButtonOpen(false)} className="popup-button w-full font-bold">
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

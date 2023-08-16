@@ -2,7 +2,6 @@ import ModalCompanyList from "@/components/joinPage/pb/ModalCompanyList";
 import ModalCompanyLocation from "@/components/joinPage/pb/ModalCompanyLocation";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import { useGetCompanyList } from "@/hooks/useGetCompanyList";
-import { ICompanyInputProps } from "@/types/editProfile";
 import { ICompanyInput } from "@/types/join";
 import { MouseEvent, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -52,7 +51,7 @@ function CompanyInput() {
         </label>
       </section>
       <section className="mb-10">
-        <p className="mb-4 text-xl font-bold">지점을 입력해주세요.</p>
+        <p>찾고 계신 지점이 없으신가요?</p>
         <div className="flex justify-between">
           <label htmlFor="branchName" className={`edit_input flex-1 ${!getValues("branchName") && "text-placeholder"}`}>
             {branchName || "지점명"}

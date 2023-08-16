@@ -9,14 +9,20 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import alert from "/public/assets/images/alert.svg";
 import correct from "/public/assets/images/correct.svg";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import ButtonModal from "@/components/common/ButtonModal";
 import { useSetModalContent } from "@/hooks/useSetModalContent";
+import { useMutation } from "@tanstack/react-query";
+import { phoneNumCheck } from "@/app/apis/services/common";
 
 function JoinInformation({ type }: { type: JoinFormType }) {
   const router = useRouter();
   const pathName = usePathname();
   const joinType = pathName.split("/")[2];
+  const [isCheck, setIsCheck] = useState(false);
+  const [isButtonOpen, setIsButtonOpen] = useState(false);
+  const [isReButtonOpen, setIsReButtonOpen] = useState(false);
+
   const { isOpen, modalContent, modalSubContent, setIsOpen, setModalContent, setModalSubContent } =
     useSetModalContent();
 
@@ -34,9 +40,9 @@ function JoinInformation({ type }: { type: JoinFormType }) {
     reset,
   } = useForm({ mode: "onChange", resolver: yupResolver(schema), defaultValues: { text: "" } });
 
+  const currentPath = pathName.split("/")[3];
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const currentPath = pathName.split("/")[3];
 
     setInformations(currentPath, getValues("text"));
     switch (type) {
@@ -52,6 +58,29 @@ function JoinInformation({ type }: { type: JoinFormType }) {
     }
   };
 
+  const modalContents = {
+    content: "사용 가능한 휴대폰번호 입니다.",
+    confirmText: "확인",
+  };
+  const modalReContents = {
+    content: "사용중인 휴대폰번호 입니다.",
+    confirmText: "확인",
+  };
+
+  const { mutate } = useMutation(phoneNumCheck, {
+    onSuccess: data => {
+      setIsCheck(!data.duplicated);
+      setIsButtonOpen(!data.duplicated);
+      setIsReButtonOpen(data.duplicated);
+    },
+  });
+  const handleCheck = (e: FormEvent) => {
+    e.preventDefault();
+    const phoneNumber = getValues("text");
+    const type = pathName.split("/")[2];
+    mutate({ phoneNumber, type });
+  };
+
   errors.text?.type === "required" ? (errors.text = undefined) : "";
   errors.text?.type === "matches" ? (errors.text.ref?.value === "" ? (errors.text = undefined) : "") : "";
 
@@ -62,6 +91,7 @@ function JoinInformation({ type }: { type: JoinFormType }) {
       <form onSubmit={onSubmit}>
         <div className="relative flex items-center">
           <input
+            autoFocus
             type={`${type === JoinFormType.PHONENUMBER ? "number" : "text"}`}
             className={`form_input ${errors.text ? "warnning" : dirtyFields.text ? "entering" : ""} `}
             {...register("text")}
@@ -83,19 +113,50 @@ function JoinInformation({ type }: { type: JoinFormType }) {
             {dirtyFields.text ? joinStepRenderer[type].validation : ""}
           </span>
         </div>
-        <button
-          className={`mt-[150px] h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"}`}
-          disabled={!isValid}
-        >
-          <span className={`text-xl font-bold leading-7 ${isValid ? "text-white" : "text-gray-heavy"}`}>
-            {type === JoinFormType.EMAIL ? "인증코드 받기" : "다음"}
-          </span>
-        </button>
+        {currentPath === "phoneNumber" && (
+          <button
+            onClick={handleCheck}
+            className={`mt-4 h-14 w-full rounded-[8px] ${isValid ? "bg-primary-normal" : "bg-background-disabled"}`}
+            disabled={!isValid}
+          >
+            <span className={`text-xl font-bold leading-7 ${isValid ? "text-white" : "text-gray-heavy"}`}>
+              휴대폰번호 중복확인
+            </span>
+          </button>
+        )}
+        {currentPath === "phoneNumber" ? (
+          <button
+            className={`mt-[150px] h-14 w-full rounded-[8px] ${
+              isValid && isCheck ? "bg-primary-normal" : "bg-background-disabled"
+            }`}
+            disabled={!isValid && isCheck}
+          >
+            <span className={`text-xl font-bold leading-7 ${isCheck ? "text-white" : "text-gray-heavy"}`}>
+              {type === JoinFormType.EMAIL ? "인증코드 받기" : "다음"}
+            </span>
+          </button>
+        ) : (
+          <button
+            className={`mt-[150px] h-14 w-full rounded-[8px] ${
+              isValid ? "bg-primary-normal" : "bg-background-disabled"
+            }`}
+            disabled={!isValid}
+          >
+            <span className={`text-xl font-bold leading-7 ${isValid ? "text-white" : "text-gray-heavy"}`}>
+              {type === JoinFormType.EMAIL ? "인증코드 받기" : "다음"}
+            </span>
+          </button>
+        )}
       </form>
       {isOpen && (
         <ButtonModal modalContents={modalContent} isOpen={isOpen} setIsOpen={setIsOpen}>
           <p>{modalSubContent}</p>
         </ButtonModal>
+      )}
+
+      {isButtonOpen && <ButtonModal modalContents={modalContents} isOpen={isButtonOpen} setIsOpen={setIsButtonOpen} />}
+      {isReButtonOpen && (
+        <ButtonModal modalContents={modalReContents} isOpen={isReButtonOpen} setIsOpen={setIsReButtonOpen} />
       )}
     </>
   );

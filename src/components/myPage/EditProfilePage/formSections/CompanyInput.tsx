@@ -2,7 +2,6 @@ import ModalCompanyList from "@/components/joinPage/pb/ModalCompanyList";
 import ModalCompanyLocation from "@/components/joinPage/pb/ModalCompanyLocation";
 import ModalLayout from "@/components/reservationPage/ModalLayout";
 import { useGetCompanyList } from "@/hooks/useGetCompanyList";
-import { ICompanyInputProps } from "@/types/editProfile";
 import { ICompanyInput } from "@/types/join";
 import { MouseEvent, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";

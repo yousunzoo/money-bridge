@@ -10,7 +10,6 @@ interface MapMarkerControllerProps {
 
 function MapMarkerController(props: MapMarkerControllerProps) {
   const { kakaoMap } = useMapStore();
-
   useEffect(() => {
     if (props.places.length < 1) {
       return;

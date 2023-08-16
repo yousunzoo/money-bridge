@@ -21,13 +21,14 @@ function SearchLocation({ onUpdatePlaces, searchDefalutValue }: SearchLoacationP
   }, []);
   const searchPlaces = (keyword: string) => {
     if (!keyword.replace(/^\s+|\s+$/g, "")) {
+      setIsRegOpen(false);
       alert("지점명을 입력해주세요!");
       return;
     }
 
     if (!placeService.current) return;
 
-    placeService.current.keywordSearch(keyword, (data, status, pagination) => {
+    placeService.current.keywordSearch(keyword, (data, status) => {
       if (status === kakao.maps.services.Status.OK) {
         const placeInfos = data.map(placeSearchResultItem => {
           return {
@@ -37,7 +38,6 @@ function SearchLocation({ onUpdatePlaces, searchDefalutValue }: SearchLoacationP
             address: placeSearchResultItem.address_name,
           };
         });
-
         onUpdatePlaces(placeInfos);
         setPlaceList(placeInfos);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
@@ -57,18 +57,24 @@ function SearchLocation({ onUpdatePlaces, searchDefalutValue }: SearchLoacationP
 
   const handleItemClick = (place: PlaceType) => {
     kakaoMap?.setCenter(place.position);
-    kakaoMap?.setLevel(4);
+    kakaoMap?.setLevel(3);
+    kakaoMap?.setCenter(place.position);
+    kakaoMap?.setLevel(3);
   };
 
-  const handleSelect = ({ title, address }: { title: string; address: string }) => {
+  const handleSelect = ({ title, address, position }: { title: string; address: string; position: any }) => {
     setIsRegSelect(true);
     setIsRegOpen(false);
+
     setSelectCompany({
       ...selectCompany,
       name: title,
       address,
+      latitude: position.Ma,
+      longitude: position.La,
     });
   };
+
   return (
     <section className="h-[470px]">
       <form action="" className="flex w-[320px] rounded-md px-2 py-2 shadow-md" onSubmit={handleSubmit}>
@@ -93,8 +99,8 @@ function SearchLocation({ onUpdatePlaces, searchDefalutValue }: SearchLoacationP
               </div>
             </div>
             <button
-              onClick={() => handleSelect({ address: item.address, title: item.title })}
-              className="z-10 px-4 py-2 rounded-md shadow-md hover:bg-gray-heavy hover:text-white"
+              onClick={() => handleSelect({ address: item.address, title: item.title, position: item.position })}
+              className="z-10 rounded-md px-4 py-2 shadow-md hover:bg-gray-heavy hover:text-white"
             >
               선택
             </button>
@@ -102,7 +108,7 @@ function SearchLocation({ onUpdatePlaces, searchDefalutValue }: SearchLoacationP
         ))}
       </ul>
       <DynamicMap>
-        <article className="w-full mt-5"></article>
+        <article className="mt-5 w-full"></article>
       </DynamicMap>
     </section>
   );

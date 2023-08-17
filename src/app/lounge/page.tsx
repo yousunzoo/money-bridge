@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getLoginedUserInfo } from "@/app/apis/services/auth";
 import { ILoginedUserInfo } from "@/types/common";
 import { AxiosError } from "axios";
+export const revalidate = false;
 
 function Lounge() {
   const { data: userData } = useQuery<ILoginedUserInfo, AxiosError>({

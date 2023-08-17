@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import MainCarousel from "@/components/common/Carousel/MainCarousel";
@@ -30,7 +31,7 @@ function Content() {
   return (
     <>
       <div>
-        <div className="my-7 flex h-14 font-bold">
+        <div className="flex font-bold my-7 h-14">
           <div className="flex-1 text-xl">
             따끈따끈한 최신 콘텐츠 부터
             <br />
@@ -38,7 +39,7 @@ function Content() {
           </div>
           <Link
             href="/lounge/new"
-            className="flex-3 flex items-end justify-end text-base text-gray-normal underline decoration-1"
+            className="flex items-end justify-end text-base underline flex-3 text-gray-normal decoration-1"
           >
             더보기
           </Link>
@@ -50,7 +51,7 @@ function Content() {
         </ul>
       </div>
       <div>
-        <div className="my-7 flex h-14 font-bold">
+        <div className="flex font-bold my-7 h-14">
           <div className="flex-1 text-xl">
             지금 가장 핫한
             <br />
@@ -58,7 +59,7 @@ function Content() {
           </div>
           <Link
             href="/lounge/hot"
-            className="flex-3 flex items-end justify-end text-base text-gray-normal underline decoration-1"
+            className="flex items-end justify-end text-base underline flex-3 text-gray-normal decoration-1"
           >
             더보기
           </Link>
@@ -102,7 +103,7 @@ function Content() {
         </div>
       </MainCarousel>
       <div>
-        <div className="my-7 flex h-14 font-bold">
+        <div className="flex font-bold my-7 h-14">
           <div className="flex-1 text-xl">
             머니 브릿지의 모든 콘텐츠를
             <br />
@@ -111,7 +112,7 @@ function Content() {
           {!isClick && (
             <button
               onClick={() => setIsClick(true)}
-              className="flex-3 flex items-end justify-end text-base text-gray-normal underline decoration-1"
+              className="flex items-end justify-end text-base underline flex-3 text-gray-normal decoration-1"
             >
               더보기
             </button>

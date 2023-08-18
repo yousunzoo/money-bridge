@@ -4,6 +4,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "FAQ",
 };
+
+export const dynamic = "force-dynamic";
+
 function FAQPage() {
   return (
     <>

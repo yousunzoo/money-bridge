@@ -15,7 +15,9 @@ export const useLogin = (
 
   const { mutate } = useMutation(userLogin, {
     onSuccess: data => {
-      setCookie("Authorization", data.headers.authorization);
+      const maxAge = 1209600000;
+      setCookie("Authorization", data.headers.authorization, { maxAge });
+
       queryClient.refetchQueries(["loginedUserInfo"]);
       router.push("/");
     },

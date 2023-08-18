@@ -27,6 +27,7 @@
     "dayjs": "^1.11.8",
     "eslint-config-next": "^13.4.4",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "next": "13.4.4",
     "postcss": "^8.4.24",
     "react": "18.2.0",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.4",
+    "@types/moment": "^2.13.0",
     "@types/react-chartjs-2": "^2.5.7",
     "@types/react-query": "^1.2.9",
     "@types/react-time-picker": "^6.0.0",

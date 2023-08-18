@@ -46,7 +46,8 @@ const createInstance = (ContentType: string) => {
         if (accessToken) {
           const originalRequest = config;
           const { data } = await reissueToken();
-          setCookie("Authorization", data.headers.authorization);
+          const maxAge = 1209600000;
+          setCookie("Authorization", data.headers.authorization, { maxAge });
           return axios(originalRequest);
         } else {
           removeCookie("refreshToken");

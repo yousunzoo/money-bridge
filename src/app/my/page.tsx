@@ -14,6 +14,8 @@ const LINK_STYLE = "flex items-center text-sm justify-between py-2 mb-2 pr-1";
 const BUTTON_STYLE = "gray-heavy text-xs underline decoration-gray-heavy decoration-1";
 const nextIcon = "/assets/images/nextIcon.svg";
 
+export const revalidate = 0;
+
 function MyPage() {
   const { userInfo, userLoading, isLoginError } = useGetUserInfo();
   const logout = useLogout();

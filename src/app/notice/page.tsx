@@ -5,6 +5,8 @@ export const metadata: Metadata = {
   title: "공지사항",
 };
 
+export const dynamic = "force-dynamic";
+
 function NoticePage() {
   return (
     <>

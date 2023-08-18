@@ -16,6 +16,8 @@ import ErrorModal from "@/components/common/ErrorModal";
 import { redirect } from "next/navigation";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
+export const revalidate = 0;
+
 function SchedulePage() {
   const [isOpen, setIsOpen] = useState(false);
   const [clickDay, setClickDay] = useState("");
@@ -58,7 +60,7 @@ function SchedulePage() {
   return (
     <div className="relative flex flex-col items-center">
       <Image
-        className="absolute right-7 top-6 z-10 cursor-pointer "
+        className="absolute z-10 cursor-pointer right-7 top-6 "
         src={question}
         alt={question}
         width={20}

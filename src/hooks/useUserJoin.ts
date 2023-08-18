@@ -20,7 +20,8 @@ export const useUserJoin = (
 
   const { mutate } = useMutation(userJoin, {
     onSuccess: data => {
-      setCookie("Authorization", data.headers.authorization);
+      const maxAge = 1209600000;
+      setCookie("Authorization", data.headers.authorization, { maxAge });
       resetInformations();
       resetCode();
       router.push(`/join/${joinType}/complete`);

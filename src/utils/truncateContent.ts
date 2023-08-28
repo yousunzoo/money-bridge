@@ -1,6 +1,7 @@
 export const truncateContent = (content: string, maxLength: number) => {
-  if (content?.length <= maxLength) {
-    return content;
+  const text = content.replace(/<[^>]+>/g, "");
+  if (text.length <= maxLength) {
+    return text;
   }
-  return content?.slice(0, maxLength) + "...";
+  return text.slice(0, maxLength) + "...";
 };

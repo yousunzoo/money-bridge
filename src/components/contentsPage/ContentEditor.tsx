@@ -37,11 +37,11 @@ function ContentEditor({
 
   type UploadPlugin = (editor: any) => void;
 
-  const uploadPlugin: UploadPlugin = editor => {
-    editor.plugins.get("FileRepository").createUploadAdapter = (loader: any) => {
+  function uploadPlugin(editor: any) {
+    editor.plugins.get("FileRepository").createUploadAdapter = function (loader: any) {
       return customUploadAdapter(loader);
     };
-  };
+  }
 
   return (
     <div className="mb-10">

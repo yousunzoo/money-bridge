@@ -8,7 +8,7 @@ const useShare = (url: string, title: string, description: string, imageUrl: str
   const [isCopy, setIsCopy] = useState(false);
   const [isCopyOpen, setIsCopyOpen] = useState(false);
   const [isKaKaoOpen, setIsKaKaoOpen] = useState(false);
-  const truncatedDescription = truncateContent(description, 20);
+  const truncatedDescription = truncateContent(description, 40);
 
   const shareHandler = () => {
     setIsShareOpen(true);

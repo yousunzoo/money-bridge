@@ -4,7 +4,7 @@ import { yup_name, yup_phone } from "@/constants/yupSchema";
 import { IEditInfoFormProps } from "@/types/my";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import alert from "/public/assets/images/alert.svg";
@@ -19,7 +19,6 @@ function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
   const [isButtonOpen, setIsButtonOpen] = useState(false);
   const [isReButtonOpen, setIsReButtonOpen] = useState(false);
   const { userInfo } = useGetUserInfo();
-  console.log(userInfo);
   const schema = yup.object().shape({
     inputValue: type === "name" ? yup_name : yup_phone,
   });
@@ -60,6 +59,10 @@ function EditInfoForm({ type, onSubmit }: IEditInfoFormProps) {
     const role = userInfo.role === "PB" ? "pb" : "user";
     mutate({ phoneNumber, type: role });
   };
+
+  useEffect(() => {
+    setIsCheck(isValid);
+  }, [isValid]);
 
   return (
     <>

@@ -46,7 +46,7 @@ function Content({ contentData, userData, bookmarks }: Props) {
   const router = useRouter();
   const base: string = "https://www.moneybridge.co.kr";
   const urlToCopy: string = base + pathname;
-  const myId: number | null = getMyId(userData?.role, userData?.id, pbId, "PB");
+  const myId: number | null = getMyId(userData?.id, pbId);
   const { isOpen, setIsOpen, error, errorHandler } = useErrorShow();
   const { mutate: deletecontent } = useMutation(deleteContent, {
     onError: (err: AxiosError) => {

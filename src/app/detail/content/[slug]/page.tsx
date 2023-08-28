@@ -28,7 +28,7 @@ function PbDetailContent({ params: { slug } }: Props) {
     refetchOnWindowFocus: false,
   });
 
-  const myId: number | null = getMyId(userData?.role, userData?.id, slug, "PB");
+  const myId: number | null = getMyId(userData?.id, slug);
 
   return (
     <div className="mb-32">

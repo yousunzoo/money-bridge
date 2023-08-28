@@ -45,7 +45,7 @@ function About({ aboutData, role, Id }: { aboutData: IAboutData; role: string; I
 
   const router = useRouter();
   const pathname: string = usePathname();
-  const myId: number | null = getMyId(role, Id, id, role);
+  const myId: number | null = getMyId(Id, id);
 
   const goToPage = () => {
     if (role === CommonROLE.USER) {

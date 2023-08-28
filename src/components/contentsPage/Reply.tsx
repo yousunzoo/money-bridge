@@ -60,9 +60,9 @@ function Reply({ reply, userData, id, replyHandler }: Props) {
           <div className="relative mr-2 h-[18px] w-[18px] overflow-hidden rounded-full">
             <Image className="object-cover" src={reply.profile ? reply.profile : profile} alt="프로필" fill />
           </div>
-          <div className="name mr-2 font-bold">{showName(reply.name)} 님</div>
+          <div className="mr-2 font-bold name">{showName(reply.name)} 님</div>
           <div className="flex-1">{dayjs(reply.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
-          {getMyId(userData?.role, userData?.id, reply.authorId, reply.role) && (
+          {getMyId(userData?.id, reply.authorId) && (
             <>
               {isReEdit ? (
                 <button className="mr-[8px]" onClick={() => replyEditEndHandler(reply.id)}>

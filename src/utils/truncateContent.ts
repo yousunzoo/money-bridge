@@ -1,5 +1,5 @@
 export const truncateContent = (content: string, maxLength: number) => {
-  const text = content.replace(/<[^>]+>/g, "");
+  const text = content.replace(/<[^>]+>/g, "").replace("&nbsp", " ");
   if (text.length <= maxLength) {
     return text;
   }

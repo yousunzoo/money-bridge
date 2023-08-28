@@ -16,7 +16,6 @@ function PbCardItem({
   item,
   queryKey,
   bookmarks,
-  id,
 }: {
   item: IPbCard;
   queryKey?: string[] | string;
@@ -37,7 +36,6 @@ function PbCardItem({
   const isSpeciality = (specialitys: string) => {
     return speciality.filter(data => data.id === specialitys).map(item => item.name);
   };
-
   const {
     isBookmarkedOpen,
     setIsBookmarkedOpen,

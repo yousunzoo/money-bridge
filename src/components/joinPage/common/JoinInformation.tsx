@@ -69,7 +69,9 @@ function JoinInformation({ type }: { type: JoinFormType }) {
 
   const { mutate } = useMutation(phoneNumCheck, {
     onSuccess: data => {
-      setIsCheck(!data.duplicated);
+      if (!data.duplicated) {
+        setIsCheck(!data.duplicated);
+      }
       setIsButtonOpen(!data.duplicated);
       setIsReButtonOpen(data.duplicated);
     },
@@ -80,13 +82,11 @@ function JoinInformation({ type }: { type: JoinFormType }) {
     const type = pathName.split("/")[2];
     mutate({ phoneNumber, type });
   };
-
   errors.text?.type === "required" ? (errors.text = undefined) : "";
   errors.text?.type === "matches" ? (errors.text.ref?.value === "" ? (errors.text = undefined) : "") : "";
-
   return (
     <>
-      <p className="my-14 text-xl font-bold leading-7">{joinStepRenderer[type].title}</p>
+      <p className="text-xl font-bold leading-7 my-14">{joinStepRenderer[type].title}</p>
       <p className="mb-2 text-xs leading-[18px]">{joinStepRenderer[type].sub}</p>
       <form onSubmit={onSubmit}>
         <div className="relative flex items-center">
@@ -129,7 +129,7 @@ function JoinInformation({ type }: { type: JoinFormType }) {
             className={`mt-[150px] h-14 w-full rounded-[8px] ${
               isValid && isCheck ? "bg-primary-normal" : "bg-background-disabled"
             }`}
-            disabled={!isValid && isCheck}
+            disabled={!isCheck}
           >
             <span className={`text-xl font-bold leading-7 ${isCheck ? "text-white" : "text-gray-heavy"}`}>
               {type === JoinFormType.EMAIL ? "인증코드 받기" : "다음"}

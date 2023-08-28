@@ -1,12 +1,6 @@
-export const getMyId = (
-  role: string | undefined,
-  userId: number | undefined,
-  myId: number,
-  myRole: string | undefined,
-) => {
-  const isRole = role === myRole;
+export const getMyId = (userId: number | undefined, myId: number) => {
   const isId = userId === myId;
-  if (isRole && isId) {
+  if (isId) {
     return userId;
   }
   return null;
